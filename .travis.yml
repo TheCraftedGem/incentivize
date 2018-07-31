@@ -1,0 +1,24 @@
+sudo: false
+language: elixir
+elixir:
+  - 1.7.0
+otp_release:
+  - 21.0
+cache:
+  directories:
+  - _build
+  - deps
+addons:
+  postgresql: '9.6'
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database incentivize_test;' -U postgres
+install:
+  - mix local.hex --force
+  - mix local.rebar --force
+  - mix deps.get
+script:
+  - mix test
+notifications:
+  slack: revelrylabs:sp3I8Ap5i7tsgHLxe4Y2MFE0

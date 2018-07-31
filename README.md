@@ -1,6 +1,6 @@
-|  | Build Status |
-| ------ | ---- |
-| Staging | [![Build Status](https://travis-ci.com/revelrylabs/uniti.svg?token=JiDUwgto8S7TTehG43yL&branch=develop)](https://travis-ci.com/revelrylabs/uniti) |
+|            | Build Status                                                                                                                                      |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Staging    | [![Build Status](https://travis-ci.com/revelrylabs/uniti.svg?token=JiDUwgto8S7TTehG43yL&branch=develop)](https://travis-ci.com/revelrylabs/uniti) |
 | Production | [![Build Status](https://travis-ci.com/revelrylabs/uniti.svg?token=JiDUwgto8S7TTehG43yL&branch=develop)](https://travis-ci.com/revelrylabs/uniti) |
 
 **Note:** _The CI badge links in markdown format are located in each TravisCI project by just clicking on the Badge next to the project name_
@@ -26,12 +26,12 @@ This is currently for Web Only and we will support our standard compatibility ta
 
 ### Web App Browser Compatibility Targets
 
-OS | Browsers
---- | ---
-Windows | IE 11+, Chrome (latest), Firefox (latest), Edge (latest)
-Mac | Chrome (latest), Firefox (latest), Safari (latest)
-iOS | Safari (latest)
-Android | Chrome (latest)
+| OS      | Browsers                                                 |
+| ------- | -------------------------------------------------------- |
+| Windows | IE 11+, Chrome (latest), Firefox (latest), Edge (latest) |
+| Mac     | Chrome (latest), Firefox (latest), Safari (latest)       |
+| iOS     | Safari (latest)                                          |
+| Android | Chrome (latest)                                          |
 
 ## The Project Brief
 
@@ -74,7 +74,17 @@ Account Manager | TBD |
 
 ## Project Setup
 
-### Tech Stack
+Project can be set up by running `sh ./bin/setup`. It does the steps defined below.
+Note that Elixir 1.5 or greater is required in order to start it.
+
+Once run, follow directions and start app by running `sh ./bin/server`
+
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+
+# Tech Stack
+- Elixir
+- Phoenix Web Framework
+
 #### Explanation
 The Phoenix app will manage all things, including GitHub web hooks. Node will be used to process stellar transactions via StellarSDK js client. 
 
@@ -83,4 +93,3 @@ Elixir (Language)
 Phoenix (Web framework)
 node.js (Used to process stellar transactions)
 StellarSDK (JavaScript Stellar Client)
-
