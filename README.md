@@ -105,6 +105,5 @@ _rationale on tech stack and architecture decision(s)_
 
 ### Requirements
 
-### Web
-
-### Mobile
+- Elixir
+- node.js
