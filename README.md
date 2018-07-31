@@ -5,32 +5,24 @@
 
 **Note:** _The CI badge links in markdown format are located in each TravisCI project by just clicking on the Badge next to the project name_
 
-# Project name
-
-Product Owner:
-
-- **Project Start Date:**
-- **Product Launch Date:**
-- **Current End of Contract Date:**
+# Incentivize
+Product Owner: Gerard Ramos
+* **Project Start Date:** 7-30-18
+* **Product Launch Date:** 8-15-18
 
 ## Links to relevant docs, repos, etc.
-
-| Thing                  | Location |
-| ---------------------- | -------- |
-| Waffle Board           | [link]() |
-| Google Drive           | [link]() |
-| Sprint Reports         | [link]() |
-| Core Loop Models       | [link]() |
-| Continuous Integration | [link]() |
-| Style Guide            | [link]() |
-| Staging                | [link]() |
-| Production             | [link]() |
-| iOS App Store          | [link]() |
-| Google Play Store      | [link]() |
+Thing | Location
+--- | ---
+Waffle Board | [waffle.io](https://waffle.io/revelrylabs/incentivize)
+Google Drive | [Project Folder](https://drive.google.com/drive/u/0/folders/1lY2hz6KTeVWQ82HzeTiPBVui6xm3RISs)
+Sprint Reports | [Sprint Report Folder](https://drive.google.com/drive/u/0/folders/1vb3BtxN6XlaU38Z-bfh6xluqRG5LRoc2)
+Continuous Integration | [TBD]()
+Style Guide | [TBD]()
+Staging | [TBD]()
+Production | [incentivize.io](https://incentivize.io)
 
 ## Compatibility Targets
-
-_brief overview_
+This is currently for Web Only and we will support our standard compatibility targets. 
 
 ### Web App Browser Compatibility Targets
 
@@ -41,29 +33,24 @@ _brief overview_
 | iOS     | Safari (latest)                                          |
 | Android | Chrome (latest)                                          |
 
-### Native App OS Compatibility Targets
-
-| Platform | OS Version             | Install Base                                              |
-| -------- | ---------------------- | --------------------------------------------------------- |
-| iOS      | 10 and above           | https://developer.apple.com/support/app-store/            |
-| Android  | 4.4 (KitKat) and above | https://developer.android.com/about/dashboards/index.html |
-
-### Native App Device Compatibility Targets
-
-| Platform | Devices                         |
-| -------- | ------------------------------- |
-| iOS      | iPhone 6 and newer              |
-| Android  | Samsung S6, S7, and S8 families |
-
 ## The Project Brief
 
 ### The Idea
+Incentivize is a platform that allows companies, repository owners, or interested parties to compensate people for their contributions to open source projects, thus incentivising more contributors to work on those projects.
 
 ### Who are we building for?
+1) The first are users who want to invest in getting more people contributing to open source projects they have interest in by depositing cryptocurrency([Lumens](https://www.stellar.org/lumens/) for MVP) to be distributed amongst contributors to those projects. 
+2) The second are the contributors themselves who would like to receive payment for their contributions to open source projects.
 
 ### What is the main problem we are trying to solve?
+It can be difficult to maintain and grow Open Source projects. Developers don't get paid for open source work so there is a lack of incentives to make meaningful contributions.
 
 ### What is the core loop?
+**Repo Admins:** A user with repository admin privleges logs in via GitHub and authorizes the incentivize webhook so that it is available to be incentivized inside of the application.
+
+**Incentivizers:** A user logs in and is able to add cryptocurrency to be distributed to any projects bank that will then be allocated to users who contribute to that project. 
+
+**Contributors:** A user logs in and finds interesting projects to contribute to. They are then rewarded cryptocurrency based on their contributions.
 
 ## Nouns & Verbs
 
@@ -73,17 +60,17 @@ _brief overview_
 
 ## Team
 
-| Role             | Person | Email |
-| ---------------- | ------ | ----- |
-| Client           |        |
-| Product Owner    |        |
-| PM               |        |
-| Tech Lead        |        |
-| Engineer         |        |
-| Designer         |        |
-| QA               |        |
-| Business Analyst |        |
-| Account Manager  |        |
+Role | Person | Email
+---- | --- | ---
+Client | Revelry | gerard@revelry.co
+Product Owner | Gerard Ramos | gerard@revelry.co
+PM | Colin Scott | colin@revelry.co
+Tech Lead | Bryan Joseph | bryan@revelry.co
+Engineer | Joel Wietelmann | joel@revelry.co
+Designer | Brittany Gay | brittany@revelry.co
+QA | TBD |
+Business Analyst | TBD |
+Account Manager | TBD |
 
 ## Project Setup
 
@@ -95,15 +82,14 @@ Once run, follow directions and start app by running `sh ./bin/server`
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 # Tech Stack
-
 - Elixir
 - Phoenix Web Framework
 
 #### Explanation
-
-_rationale on tech stack and architecture decision(s)_
+The Phoenix app will manage all things, including GitHub web hooks. Node will be used to process stellar transactions via StellarSDK js client. 
 
 ### Requirements
-
-- Elixir
-- node.js
+Elixir (Language)
+Phoenix (Web framework)
+node.js (Used to process stellar transactions)
+StellarSDK (JavaScript Stellar Client)
