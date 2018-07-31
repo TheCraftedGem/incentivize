@@ -1,3 +1,3 @@
-defmodule incentivizeWeb.SessionView do
-  use incentivizeWeb, :view
+defmodule IncentivizeWeb.SessionView do
+  use IncentivizeWeb, :view
 end

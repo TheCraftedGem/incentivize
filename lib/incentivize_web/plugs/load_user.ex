@@ -1,11 +1,11 @@
-defmodule incentivizeWeb.LoadUser do
+defmodule IncentivizeWeb.LoadUser do
   @moduledoc """
   Loads user into connection if
   user has session
   """
 
   import Plug.Conn
-  alias incentivize.Users
+  alias Incentivize.Users
 
   def init(opts) do
     opts
@@ -21,8 +21,10 @@ defmodule incentivizeWeb.LoadUser do
     cond do
       user = conn.assigns[:current_user] ->
         build_conn(conn, user)
+
       user = user_id && Users.get_user(user_id) ->
         build_conn(conn, user)
+
       true ->
         build_conn(conn, nil)
     end

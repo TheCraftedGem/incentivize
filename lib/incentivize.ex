@@ -1,6 +1,6 @@
-defmodule incentivize do
+defmodule Incentivize do
   @moduledoc """
-  incentivize keeps the contexts that define your domain
+  Incentivize keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

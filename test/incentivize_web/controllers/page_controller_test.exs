@@ -1,8 +1,8 @@
-defmodule incentivizeWeb.PageControllerTest do
-  use incentivizeWeb.ConnCase
+defmodule IncentivizeWeb.PageControllerTest do
+  use IncentivizeWeb.ConnCase
 
   test "GET /", %{conn: conn} do
-    conn = get conn, "/"
+    conn = get(conn, "/")
     assert html_response(conn, 200) =~ "Welcome"
   end
 end

@@ -1,10 +1,10 @@
-defmodule incentivize.Factory do
-  alias incentivize.{User, Repo}
+defmodule Incentivize.Factory do
+  alias Incentivize.{User, Repo}
 
   def build(:user) do
     %User{
       email: "test#{System.unique_integer([:positive])}@example.com",
-      password: Comeonin.Bcrypt.hashpwsalt("supersecretpassword"),
+      password: Comeonin.Bcrypt.hashpwsalt("supersecretpassword")
     }
   end
 

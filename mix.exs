@@ -1,11 +1,11 @@
-defmodule incentivize.Mixfile do
+defmodule Incentivize.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :Incentivize,
+      app: :incentivize,
       version: "0.0.1",
-      elixir: "~> 1.5",
+      elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -26,7 +26,7 @@ defmodule incentivize.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {incentivize.Application, []},
+      mod: {Incentivize.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

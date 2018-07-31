@@ -1,16 +1,17 @@
-defmodule incentivize.Auth do
+defmodule Incentivize.Auth do
   @moduledoc """
   Handles logging users in and out
   """
 
   import Plug.Conn
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
-  alias incentivize.Users
+  alias Incentivize.Users
 
   def login(conn, email, given_pass) do
     case verify_credentials(email, given_pass) do
       {:ok, user} ->
         {:ok, new_session(conn, user), user}
+
       {:error, reason} ->
         {:error, reason, conn}
     end

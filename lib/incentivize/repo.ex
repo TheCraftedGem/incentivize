@@ -1,5 +1,5 @@
-defmodule incentivize.Repo do
-  use Ecto.Repo, otp_app: :Incentivize
+defmodule Incentivize.Repo do
+  use Ecto.Repo, otp_app: :incentivize
 
   @doc """
   Dynamically loads the repository url from the

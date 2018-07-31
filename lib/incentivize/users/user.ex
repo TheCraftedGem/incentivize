@@ -1,14 +1,14 @@
-defmodule incentivize.User do
+defmodule Incentivize.User do
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
   alias Comeonin.Bcrypt
 
   @type t :: %__MODULE__{}
   schema "users" do
-    field :email, :string
-    field :password, :string
-    field :new_password, :string, virtual: true
-    field :new_password_confirmation, :string, virtual: true
+    field(:email, :string)
+    field(:password, :string)
+    field(:new_password, :string, virtual: true)
+    field(:new_password_confirmation, :string, virtual: true)
     timestamps()
   end
 

@@ -1,4 +1,4 @@
-defmodule incentivizeWeb.ErrorHelpers do
+defmodule IncentivizeWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -9,8 +9,8 @@ defmodule incentivizeWeb.ErrorHelpers do
   Generates tag for inlined form input errors.
   """
   def error_tag(form, field) do
-    Enum.map(Keyword.get_values(form.errors, field), fn (error) ->
-      content_tag :span, translate_error(error), class: "help-block"
+    Enum.map(Keyword.get_values(form.errors, field), fn error ->
+      content_tag(:span, translate_error(error), class: "help-block")
     end)
   end
 
@@ -32,9 +32,9 @@ defmodule incentivizeWeb.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(incentivizeWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(IncentivizeWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(incentivizeWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(IncentivizeWeb.Gettext, "errors", msg, opts)
     end
   end
 end

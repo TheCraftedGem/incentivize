@@ -1,3 +1,3 @@
-defmodule incentivizeWeb.LayoutViewTest do
-  use incentivizeWeb.ConnCase, async: true
+defmodule IncentivizeWeb.LayoutViewTest do
+  use IncentivizeWeb.ConnCase, async: true
 end

@@ -1,4 +1,4 @@
-defmodule incentivizeWeb.ConnCase do
+defmodule IncentivizeWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -19,21 +19,21 @@ defmodule incentivizeWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      import incentivizeWeb.Router.Helpers
-      import incentivize.Factory
+      import IncentivizeWeb.Router.Helpers
+      import Incentivize.Factory
 
       # The default endpoint for testing
-      @endpoint incentivizeWeb.Endpoint
+      @endpoint IncentivizeWeb.Endpoint
     end
   end
-
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(incentivize.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Incentivize.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(incentivize.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Incentivize.Repo, {:shared, self()})
     end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
-
 end

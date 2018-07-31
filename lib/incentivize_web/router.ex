@@ -1,40 +1,41 @@
-defmodule incentivizeWeb.Router do
-  use incentivizeWeb, :router
-  alias incentivizeWeb.{RequireAuth, LoadUser}
+defmodule IncentivizeWeb.Router do
+  use IncentivizeWeb, :router
+  alias IncentivizeWeb.{RequireAuth, LoadUser}
 
   pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_flash
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
-    plug LoadUser
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_flash)
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
+    plug(LoadUser)
   end
 
   pipeline :require_auth do
-    plug RequireAuth
+    plug(RequireAuth)
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
   end
 
-  scope "/", incentivizeWeb do
-    pipe_through :browser # Use the default browser stack
+  scope "/", IncentivizeWeb do
+    # Use the default browser stack
+    pipe_through(:browser)
 
-    get "/", PageController, :index
-    get "/sessions/new", SessionController, :new
-    post "/sessions/new", SessionController, :create
+    get("/", PageController, :index)
+    get("/sessions/new", SessionController, :new)
+    post("/sessions/new", SessionController, :create)
   end
 
-  scope "/", incentivizeWeb do
-    pipe_through [:browser, :require_auth]
+  scope "/", IncentivizeWeb do
+    pipe_through([:browser, :require_auth])
 
-    get "/sessions/delete", SessionController, :delete
+    get("/sessions/delete", SessionController, :delete)
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", incentivizeWeb do
+  # scope "/api", IncentivizeWeb do
   #   pipe_through :api
   # end
 end

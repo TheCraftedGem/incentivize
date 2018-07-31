@@ -1,4 +1,4 @@
-defmodule incentivizeWeb.ChannelCase do
+defmodule IncentivizeWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,17 +21,17 @@ defmodule incentivizeWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint incentivizeWeb.Endpoint
+      @endpoint IncentivizeWeb.Endpoint
     end
   end
-
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(incentivize.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Incentivize.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(incentivize.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Incentivize.Repo, {:shared, self()})
     end
+
     :ok
   end
-
 end

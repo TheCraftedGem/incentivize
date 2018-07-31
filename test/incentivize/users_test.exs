@@ -1,13 +1,14 @@
-defmodule incentivize.Users.Test do
-  use incentivize.DataCase
-  alias incentivize.Users
+defmodule Incentivize.Users.Test do
+  use Incentivize.DataCase
+  alias Incentivize.Users
 
   test "create" do
-    {:ok, user} = Users.create_user(%{
-      "email" => "joe@example.com",
-      "new_password" => "hi",
-      "new_password_confirmation" => "hi"
-    })
+    {:ok, user} =
+      Users.create_user(%{
+        "email" => "joe@example.com",
+        "new_password" => "hi",
+        "new_password_confirmation" => "hi"
+      })
 
     assert user.email == "joe@example.com"
   end

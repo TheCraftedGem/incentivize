@@ -1,3 +1,3 @@
-defmodule incentivizeWeb.PageView do
-  use incentivizeWeb, :view
+defmodule IncentivizeWeb.PageView do
+  use IncentivizeWeb, :view
 end

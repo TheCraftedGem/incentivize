@@ -1,4 +1,4 @@
-defmodule incentivizeWeb.RequireAuth do
+defmodule IncentivizeWeb.RequireAuth do
   @moduledoc """
   Ensures user is logged in
   """
@@ -15,6 +15,7 @@ defmodule incentivizeWeb.RequireAuth do
         conn
         |> send_resp(403, "Unauthorized")
         |> halt()
+
       _user ->
         conn
     end

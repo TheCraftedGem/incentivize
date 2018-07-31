@@ -1,3 +1,3 @@
-defmodule incentivizeWeb.LayoutView do
-  use incentivizeWeb, :view
+defmodule IncentivizeWeb.LayoutView do
+  use IncentivizeWeb, :view
 end

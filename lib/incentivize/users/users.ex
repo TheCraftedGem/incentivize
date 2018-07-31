@@ -1,10 +1,10 @@
-defmodule incentivize.Users do
+defmodule Incentivize.Users do
   @moduledoc """
   Module for interacting with Users
   """
 
   import Ecto.{Query}, warn: false
-  alias incentivize.{Repo, User}
+  alias Incentivize.{Repo, User}
 
   def create_user(params) do
     %User{}
@@ -14,7 +14,7 @@ defmodule incentivize.Users do
 
   def get_user_by_email(email) do
     User
-    |> Repo.get_by([email: String.downcase(email)])
+    |> Repo.get_by(email: String.downcase(email))
   end
 
   def get_user(id) do
