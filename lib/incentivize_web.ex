@@ -29,7 +29,7 @@ defmodule IncentivizeWeb do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/Incentivize_web/templates",
+        root: "lib/incentivize_web/templates",
         namespace: IncentivizeWeb
 
       # Import convenience functions from controllers

@@ -14,7 +14,7 @@ config :incentivize, Incentivize.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "Incentivize_test",
+  database: "incentivize_test",
   hostname: "localhost",
   port: String.to_integer(System.get_env("PGPORT") || "5432"),
   pool: Ecto.Adapters.SQL.Sandbox

@@ -29,8 +29,8 @@ config :incentivize, IncentivizeWeb.Endpoint,
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{lib/Incentivize_web/views/.*(ex)$},
-      ~r{lib/Incentivize_web/templates/.*(eex)$}
+      ~r{lib/incentivize_web/views/.*(ex)$},
+      ~r{lib/incentivize_web/templates/.*(eex)$}
     ]
   ]
 
@@ -46,7 +46,7 @@ config :incentivize, Incentivize.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "Incentivize_dev",
+  database: "incentivize_dev",
   hostname: "localhost",
   port: String.to_integer(System.get_env("PGPORT") || "5432"),
   pool_size: 10
