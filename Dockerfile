@@ -1,14 +1,14 @@
 # Set the Docker image you want to base your image off.
-FROM elixir:1.6.6
+FROM elixir:1.7
 
 ENV MIX_ENV prod
-ENV PORT 4000
+ENV PORT 5000
 
 # Exposes this port from the docker container to the host machine
-EXPOSE 4000
+EXPOSE 5000
 
 # Add nodejs
-RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - && apt-get install -y nodejs
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get install -y nodejs
 
 # Install other stable dependencies that don't change often
 RUN apt-get update

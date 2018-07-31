@@ -1,7 +1,7 @@
 sudo: false
 language: elixir
 elixir:
-  - 1.7.0
+  - 1.7
 otp_release:
   - 21.0
 cache:
@@ -20,5 +20,16 @@ install:
   - mix deps.get
 script:
   - mix test
+deploy:
+- provider: deis
+  controller: deis.stage.revelry.net
+  app: incentivize
+  cli_version: v2.7.0
+  username: "$DEIS_USERNAME"
+  password: "$DEIS_PASSWORD"
+  on:
+    branch: master
+after_deploy:
+- ./deis run "npm run db:migrate" -a incentivize
 notifications:
   slack: revelrylabs:sp3I8Ap5i7tsgHLxe4Y2MFE0
