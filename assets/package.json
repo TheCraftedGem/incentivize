@@ -3,7 +3,8 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode development",
-    "deploy": "BABEL_ENV=production NODE_ENV=production webpack --mode production"
+    "deploy": "BABEL_ENV=production NODE_ENV=production webpack --mode production",
+    "test": "mocha --require babel-core/register ./test/**/*_test.js"
   },
   "dependencies": {
     "harmonium": "^4.1.2",
@@ -24,6 +25,7 @@
     "babel-preset-minify": "^0.4.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
+    "chai": "^4.1.2",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.4",
     "csswring": "^6.0.2",
@@ -33,6 +35,7 @@
     "image-webpack-loader": "^4.2.0",
     "imports-loader": "^0.8.0",
     "mini-css-extract-plugin": "^0.4.0",
+    "mocha": "^5.2.0",
     "node-sass": "^4.5.3",
     "postcss-flexbugs-fixes": "^3.0.0",
     "postcss-loader": "^2.0.6",

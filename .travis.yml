@@ -8,6 +8,7 @@ cache:
   directories:
   - _build
   - deps
+  - assets/node_modules
 addons:
   postgresql: '9.6'
 services:
@@ -18,8 +19,14 @@ install:
   - mix local.hex --force
   - mix local.rebar --force
   - mix deps.get
+  - cd assets
+  - npm install
+  - cd ..
 script:
   - mix test
+  - cd assets
+  - npm test
+  - cd ..
 deploy:
 - provider: deis
   controller: deis.stage.revelry.net
