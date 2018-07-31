@@ -8,8 +8,8 @@ ENV PORT 5000
 EXPOSE 5000
 
 # Add nodejs
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-RUN nvm use 10
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get install -y nodejs
 
 # Install other stable dependencies that don't change often
 RUN apt-get update
