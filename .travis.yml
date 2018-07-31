@@ -20,3 +20,5 @@ install:
   - mix deps.get
 script:
   - mix test
+notifications:
+  slack: revelrylabs:sp3I8Ap5i7tsgHLxe4Y2MFE0
