@@ -1,7 +1,7 @@
-|            | Build Status                                                                                                                                                  |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Staging    | [![Build Status](https://travis-ci.com/revelrylabs/incentivize.svg?token=eDnMwv6sT4GHB9E2RzXt&branch=develop)](https://travis-ci.com/revelrylabs/incentivize) |
-| Production | [![Build Status](https://travis-ci.com/revelrylabs/incentivize.svg?token=eDnMwv6sT4GHB9E2RzXt&branch=develop)](https://travis-ci.com/revelrylabs/incentivize) |
+|            | Build Status                                                                                                                                                 |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Staging    | [![Build Status](https://travis-ci.com/revelrylabs/incentivize.svg?token=eDnMwv6sT4GHB9E2RzXt&branch=master)](https://travis-ci.com/revelrylabs/incentivize) |
+| Production | [![Build Status](https://travis-ci.com/revelrylabs/incentivize.svg?token=eDnMwv6sT4GHB9E2RzXt&branch=master)](https://travis-ci.com/revelrylabs/incentivize) |
 
 **Note:** _The CI badge links in markdown format are located in each TravisCI project by just clicking on the Badge next to the project name_
 
