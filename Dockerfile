@@ -46,4 +46,4 @@ RUN mix compile
 RUN mix phx.digest
 
 # The command to run when this image starts up
-CMD mix do deps.loadpaths --no-deps-check, phx.server
+CMD ["mix", "phx.server", "--no-deps-check", "--no-compile", "--no-halt"]
