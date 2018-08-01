@@ -50,8 +50,10 @@ defmodule Incentivize.Mixfile do
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.10", only: :dev},
       {:excoveralls, "~> 0.7", only: :test},
-      {:comeonin, "~> 4.0"},
-      {:bcrypt_elixir, "~> 1.0"}
+      {:joken, "~> 1.5"},
+      {:httpoison, "~> 1.2"},
+      {:oauth2, "~> 0.9.2"},
+      {:confex, "~> 3.3"}
     ]
   end
 
