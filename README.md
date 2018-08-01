@@ -3,8 +3,6 @@
 | Staging    | [![Build Status](https://travis-ci.com/revelrylabs/incentivize.svg?token=eDnMwv6sT4GHB9E2RzXt&branch=master)](https://travis-ci.com/revelrylabs/incentivize) |
 | Production | [![Build Status](https://travis-ci.com/revelrylabs/incentivize.svg?token=eDnMwv6sT4GHB9E2RzXt&branch=master)](https://travis-ci.com/revelrylabs/incentivize) |
 
-**Note:** _The CI badge links in markdown format are located in each TravisCI project by just clicking on the Badge next to the project name_
-
 # Incentivize
 
 Product Owner: Gerard Ramos
@@ -41,30 +39,55 @@ This is currently for Web Only and we will support our standard compatibility ta
 
 ### The Idea
 
-Incentivize is a platform that allows companies, repository owners, or interested parties to compensate people for their contributions to open source projects, thus incentivising more contributors to work on those projects.
+Incentivize is a platform that allows companies, repository owners, or interested parties to reward people for their contributions to open source projects, thus incentivising more contributors to work on those projects.
 
 ### Who are we building for?
 
-1.  The first are users who want to invest in getting more people contributing to open source projects they have interest in by depositing cryptocurrency([Lumens](https://www.stellar.org/lumens/) for MVP) to be distributed amongst contributors to those projects.
-2.  The second are the contributors themselves who would like to receive payment for their contributions to open source projects.
+1.  The first are supporters who want to invest in getting more people contributing to open source projects they have interest in by depositing cryptocurrency([Lumens](https://www.stellar.org/lumens/) for MVP) for different actions completed in GitHub.
+2.  The second are the contributors themselves who will receive the Lumens as reward for their contributions to open source projects.
 
 ### What is the main problem we are trying to solve?
 
-It can be difficult to maintain and grow Open Source projects. Developers don't get paid for open source work so there is a lack of incentives to make meaningful contributions.
+It can be difficult to maintain and grow Open Source projects. Developers often don't get rewarded for open source work so there is a lack of incentives to make meaningful contributions.
 
 ### What is the core loop?
 
 **Repo Admins:** A user with repository admin privleges logs in via GitHub and authorizes the incentivize webhook so that it is available to be incentivized inside of the application.
 
-**Incentivizers:** A user logs in and is able to add cryptocurrency to be distributed to any projects bank that will then be allocated to users who contribute to that project.
+**Supporters:** A user logs in and is able to add cryptocurrency to be distributed to any projects bank that will then be allocated to users who contribute to that project.
 
 **Contributors:** A user logs in and finds interesting projects to contribute to. They are then rewarded cryptocurrency based on their contributions.
 
 ## Nouns & Verbs
 
 ### Nouns
+**Contributors:** the people who work on open source projects and are in turn rewarded with Lumens from the Project Fund.
+
+**Supporters:** the people who choose projects to support by adding lumens to the project fund.
+
+**Lumens:** Stellar's cryptocurrency (XLM) that will be used to incentvize projects and reward contributors.
+
+**Stellar:** Stellar is a platform that connects reward systems and people using secure transactions. 
+
+**Projects:** Open Source GitHub repositories that allow for incentivize connection through a GitHub Webhook
+
+**Webhook:** A simple event-notification via HTTP POST. What will allow incentivize to read data from repositories so that contributors can be rewarded with Lumens.
+
+**Stellar Accounts:** required accounts to send and receive Lumens. Upon creation a public and secret key are created. 
+
+**Public Key:** How stellars are transferred between people. Think Venmo username or PayPal email. 
+
+**Secret Key:** How one accesses their Stellar Account. Only generated and displayed once. A user must place their Secret Key somewhere safe and must have it to access their stellar account. 
+
+**Project Fund:** Where a supporter's Lumens are held and rewarded to contributors based on GitHub actions. There can be many Project Funds per project. A Project Fund has one supporter and many contributors. A supporter can have many Project Funds.
 
 ### Verbs
+**Connect GitHub:** Connect GitHub accounts to log into incentivize
+
+**Support:** add Lumen's to a project fund on a project. 
+
+**Contribute:** take GitHub actions on an incentivized project to earn rewards
+
 
 ## Team
 
