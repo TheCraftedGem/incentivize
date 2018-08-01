@@ -104,3 +104,11 @@ Elixir (Language)
 Phoenix (Web framework)
 node.js (Used to process stellar transactions)
 StellarSDK (JavaScript Stellar Client)
+
+### Required Secrets
+
+```elixir
+config :incentivize, Incentivize.Github.OAuth,
+  client_id: <github_client_id>,
+  client_secret: <github_client_secret>
+```
