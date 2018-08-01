@@ -20,9 +20,15 @@
               <li class="rev-Menu-item">
                 <a href="<%= page_path(@conn, :index) %>">Home</a>
               </li>
-              <li class="rev-Menu-item">
-                <a href="<%= session_path(@conn, :new) %>">Log In</a>
-              </li>
+              <%= if logged_in?(@conn) do %>
+                <li class="rev-Menu-item">
+                  <a href="<%= github_auth_path(@conn, :delete) %>">Log out</a>
+                </li>
+              <% else %>
+                <li class="rev-Menu-item">
+                  <a href="<%= github_auth_path(@conn, :index) %>">Log In</a>
+                </li>
+              <% end %>
             </ul>
           </div>
         </nav>

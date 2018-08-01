@@ -4,7 +4,8 @@ defmodule Incentivize.Factory do
   def build(:user) do
     %User{
       email: "test#{System.unique_integer([:positive])}@example.com",
-      password: Comeonin.Bcrypt.hashpwsalt("supersecretpassword")
+      github_login: "octocat",
+      github_access_token: "12345"
     }
   end
 

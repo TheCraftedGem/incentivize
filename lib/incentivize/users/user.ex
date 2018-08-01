@@ -1,35 +1,30 @@
 defmodule Incentivize.User do
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
-  alias Comeonin.Bcrypt
 
   @type t :: %__MODULE__{}
   schema "users" do
     field(:email, :string)
-    field(:password, :string)
-    field(:new_password, :string, virtual: true)
-    field(:new_password_confirmation, :string, virtual: true)
+    field(:github_login, :string)
+    field(:github_access_token, :string)
+    field(:github_avatar_url, :string)
+    field(:logged_in_at, :utc_datetime)
     timestamps()
   end
 
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, [:email, :new_password, :new_password_confirmation])
-    |> validate_required([:email, :new_password, :new_password_confirmation])
+    |> cast(params, [
+      :email,
+      :github_login,
+      :github_access_token,
+      :github_avatar_url,
+      :logged_in_at
+    ])
+    |> validate_required([:github_login, :github_access_token])
     |> update_change(:email, &String.downcase/1)
     |> update_change(:email, &String.trim/1)
     |> validate_format(:email, email_format(), message: "not a valid email address")
-    |> validate_confirmation(:new_password)
-    |> hash_password
-  end
-
-  defp hash_password(changeset) do
-    if password = get_change(changeset, :new_password) do
-      changeset
-      |> put_change(:password, Bcrypt.hashpwsalt(password))
-    else
-      changeset
-    end
   end
 
   defp email_format do
