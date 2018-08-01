@@ -48,7 +48,7 @@ Incentivize is a platform that allows companies, repository owners, or intereste
 
 ### What is the main problem we are trying to solve?
 
-It can be difficult to maintain and grow Open Source projects. Developers often don't get rewarded for open source work so there is a lack of incentives to make meaningful contributions.
+It can be difficult to maintain and grow Open Source projects. Contributors often don't get rewarded for open source work so there is a lack of incentives to make meaningful contributions.
 
 ### What is the core loop?
 
@@ -61,9 +61,9 @@ It can be difficult to maintain and grow Open Source projects. Developers often 
 ## Nouns & Verbs
 
 ### Nouns
-**Contributors:** the people who work on open source projects and are in turn rewarded with Lumens from the Project Fund.
+**Contributors:** the people who work on open source projects and are in turn rewarded with Lumens from the Project Fund. Contributor's can be anyone who contributes to a GitHub project. From opening issues, making comments, opening  or reviewing pull requests. Any person who complete's an action on the open source GitHub Project is contributing. 
 
-**Supporters:** the people who choose projects to support by adding lumens to the project fund.
+**Supporters:** the people who choose projects to support by adding lumens to the project fund. Supporters are anyone who is motivated to support a project by backing it with Lumens. It could be the owner of the repository, a business, or just a single person who uses this open source tool and wants to motivate others to improve it.  
 
 **Lumens:** Stellar's cryptocurrency (XLM) that will be used to incentvize projects and reward contributors.
 
