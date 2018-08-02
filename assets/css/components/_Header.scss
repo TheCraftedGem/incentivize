@@ -1,0 +1,56 @@
+.HeaderWrapper {
+  background-color: $primary;
+  background-image: linear-gradient($primary, $tertiary);
+  height: 84rem;
+  overflow: hidden;
+  padding-top: $topbar-height;
+  position: relative;
+  @include breakpoint($medium) {
+    @include flex(start, row, center);
+    height: 85vh;
+  }
+  @include breakpoint($large) {
+    align-items: center;
+    padding-top: 0;
+  }
+  h1 {
+    text-transform: uppercase;
+  }
+  h3 {
+    color: $white;
+    line-height: $global-lineheight;
+    margin-top: 0;
+  }
+  h4 {
+    font-family: $global-header-font;
+    font-weight: $global-weight-bold;
+  }
+  p {
+    color: $white;
+    font-family: $global-sans-serif-font;
+  }
+  &.small {
+    height: auto;
+    padding: $global-padding-large + $global-padding;
+    @include breakpoint($small $medium) {
+      padding: $global-padding-large;
+    }
+  }
+}
+.HeaderImage {
+  bottom: 0;
+  padding-top: $global-padding-large;
+  position: absolute;
+  right: 0;
+  width: 100%;
+  @include breakpoint($medium) {
+    padding-top: 0;
+    width: 48%;
+  }
+  img {
+    height: 100%;
+    max-width: 1000%;
+    object-fit: cover;
+    width: 100%;
+  }
+}

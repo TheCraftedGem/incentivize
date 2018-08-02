@@ -2,7 +2,7 @@
   <div class="HeaderWrapper">
     <div class="rev-Row">
       <div class="HeaderImage">
-        <img src="/img/home-hero.png" />
+        <img src="/images/home-hero.png" />
       </div>
       <div class="rev-Col rev-Col--medium7 rev-Col--large6">
         <h1>Know Where to Start</h1>

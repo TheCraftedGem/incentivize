@@ -1,3 +1,14 @@
+.LandingPageWrapper {
+  p {
+    font-family: $global-sans-serif-font;
+  }
+  h3 {
+    &.HeaderReset {
+      color: $header-color;
+    }
+  }
+}
+
 .LogoWrapper {
   @include flex(center, row, center);
   flex-wrap: wrap;
@@ -8,16 +19,6 @@
     @include breakpoint($small $large) {
       padding: $global-padding;
       width: 50%;
-    }
-  }
-}
-.LandingPageWrapper {
-  p {
-    font-family: $global-sans-serif-font;
-  }
-  h3 {
-    &.HeaderReset {
-      color: $header-color;
     }
   }
 }
