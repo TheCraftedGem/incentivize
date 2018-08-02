@@ -19,6 +19,10 @@ defmodule IncentivizeWeb.Router do
     plug(:accepts, ["json"])
   end
 
+  pipeline :github do
+    plug(IncentivizeWeb.GhWebhookPlug)
+  end
+
   scope "/", IncentivizeWeb do
     # Use the default browser stack
     pipe_through(:browser)
@@ -37,6 +41,12 @@ defmodule IncentivizeWeb.Router do
     pipe_through([:browser, :require_auth])
 
     get("/delete", GithubAuthController, :delete)
+  end
+
+  scope "/github/webhooks", IncentivizeWeb do
+    pipe_through([:api, :github])
+
+    post("/", GithubWebhookController, :handle_webhook)
   end
 
   # Other scopes may use custom stacks.

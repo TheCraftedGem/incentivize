@@ -30,7 +30,7 @@ defmodule Incentivize.Users do
     Repo.get(User, id)
   end
 
-  def get_or_update_user_by_github_login(github_login, params) do
+  def create_or_update_user_by_github_login(github_login, params) do
     case get_user_by_github_login(github_login) do
       nil ->
         create_user(params)

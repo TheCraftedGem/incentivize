@@ -26,7 +26,7 @@ defmodule IncentivizeWeb.Endpoint do
   plug(Plug.Logger)
 
   plug(Plug.Parsers,
-    parsers: [:urlencoded, :multipart, :json],
+    parsers: [:urlencoded, :multipart, IncentivizeWeb.Parsers.JSON],
     pass: ["*/*"],
     json_decoder: Poison
   )
