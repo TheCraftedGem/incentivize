@@ -37,6 +37,6 @@ deploy:
   on:
     branch: master
 after_deploy:
-- ./deis run "npm run db:migrate" -a incentivize
+- ./deis run "mix do deps.loadpaths --no-deps-check, ecto.migrate" -a incentivize
 notifications:
   slack: revelrylabs:sp3I8Ap5i7tsgHLxe4Y2MFE0
