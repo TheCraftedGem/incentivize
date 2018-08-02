@@ -91,14 +91,14 @@ It can be difficult to maintain and grow Open Source projects. Contributors ofte
 
 ## Team
 
-| Role             | Person          | Email               |
-| ---------------- | --------------- | ------------------- |
-| Client           | Revelry         | gerard@revelry.co   |
-| Product Owner    | Gerard Ramos    | gerard@revelry.co   |
-| PM               | Colin Scott     | colin@revelry.co    |
-| Tech Lead        | Bryan Joseph    | bryan@revelry.co    |
-| Engineer         | Joel Wietelmann | joel@revelry.co     |
-| Designer         | Brittany Gay    | brittany@revelry.co |
+| Role             | Person          | 
+| ---------------- | --------------- | 
+| Client           | Revelry         |   
+| Product Owner    | Gerard Ramos    | 
+| PM               | Colin Scott     |
+| Tech Lead        | Bryan Joseph    |
+| Engineer         | Joel Wietelmann |
+| Designer         | Brittany Gay    |
 | QA               | TBD             |
 | Business Analyst | TBD             |
 | Account Manager  | TBD             |
