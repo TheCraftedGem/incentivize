@@ -24,20 +24,22 @@
 
   <div class="LandingPageWrapper">
 
-    <div class="rev-Row">
-      <div class="rev-Col rev-Col--centered rev-Col--smallCentered">
-        <div class="LogoWrapper">
-          <img src="/images/logo-placeholder.png" />
-          <img src="/images/logo-placeholder.png" />
-          <img src="/images/logo-placeholder.png" />
-          <img src="/images/logo-placeholder.png" />
+    <div>
+      <div class="rev-Row">
+        <div class="rev-Col rev-Col--centered rev-Col--smallCentered">
+          <div class="LogoWrapper">
+            <img src="/images/logo-placeholder.png" />
+            <img src="/images/logo-placeholder.png" />
+            <img src="/images/logo-placeholder.png" />
+            <img src="/images/logo-placeholder.png" />
+          </div>
         </div>
       </div>
     </div>
 
     <div class="Section">
       <div class="rev-Row">
-        <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered rev-Col--small6">
+        <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered rev-Col--small6 Text-center">
           <h2 class="u-marginTop--small">About Product Section</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
         </div>
@@ -99,7 +101,7 @@
 
     <div class="HeaderWrapper small">
       <div class="rev-Row">
-        <div class="rev-Col rev-Col--medium6 rev-Col--mediumCentered u-center">
+        <div class="rev-Col rev-Col--medium6 rev-Col--mediumCentered Text-center">
           <h1 class="u-marginTop--small">Call to Action Section</h1>
           <p>Tagline or intro sentence about product.</p>
           <div class='rev-Button rev-Button--white'>
