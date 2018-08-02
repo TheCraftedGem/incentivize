@@ -75,7 +75,7 @@
       </div>
     </div>
 
-    <div class="Section u-border-bottom">
+    <div class="Section">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium4">
           <h2>Highlight Section</h2>
@@ -86,6 +86,7 @@
         </div>
       </div>
     </div>
+    <hr />
 
     <div class="Section">
       <div class="rev-Row">
@@ -101,7 +102,7 @@
 
     <div class="HeaderWrapper small">
       <div class="rev-Row">
-        <div class="rev-Col rev-Col--medium6 rev-Col--mediumCentered Text-center">
+        <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
           <h1 class="u-marginTop--small">Call to Action Section</h1>
           <p>Tagline or intro sentence about product.</p>
           <div class='rev-Button rev-Button--white'>
