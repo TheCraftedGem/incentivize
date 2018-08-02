@@ -20,7 +20,7 @@ defmodule IncentivizeWeb.Router do
   end
 
   pipeline :github do
-    plug(IncentivizeWeb.GhWebhookPlug)
+    plug(IncentivizeWeb.GithubWebhookPlug)
   end
 
   scope "/", IncentivizeWeb do

@@ -1,4 +1,8 @@
-defmodule IncentivizeWeb.GhWebhookPlug do
+defmodule IncentivizeWeb.GithubWebhookPlug do
+  @moduledoc """
+  Github Webhook plug for verifying signatures
+  """
+
   import Plug.Conn
   require Logger
   alias Incentivize.Repositories
