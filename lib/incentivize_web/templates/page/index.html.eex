@@ -33,10 +33,10 @@
       <div class="rev-Row">
         <div class="rev-Col">
           <div class="LogoWrapper">
-            <img src="/img/logo-placeholder.png" />
-            <img src="/img/logo-placeholder.png" />
-            <img src="/img/logo-placeholder.png" />
-            <img src="/img/logo-placeholder.png" />
+            <img src="/images/logo-placeholder.png" />
+            <img src="/images/logo-placeholder.png" />
+            <img src="/images/logo-placeholder.png" />
+            <img src="/images/logo-placeholder.png" />
           </div>
         </div>
       </div>
@@ -87,7 +87,7 @@
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
         </div>
         <div class="rev-Col rev-Col--medium8">
-          <img src="/img/highlight-img.png" />
+          <img src="/images/highlight-img.png" />
         </div>
       </div>
     </div>
@@ -95,7 +95,7 @@
     <div class="Section">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium6">
-          <img src="/img/highlight-img-2.png" />
+          <img src="/images/highlight-img-2.png" />
         </div>
         <div class="rev-Col rev-Col--medium6">
           <h2>Highlight Section</h2>
@@ -121,7 +121,7 @@
         <div class="rev-Col">
           <p>Created by
             <a href="https://revelry.co/" target="_blank">
-              <img class="Footer-logo" src="/img/revelry-logo.png" />
+              <img class="Footer-logo" src="/images/revelry-logo.png" />
             </a>
           </p>
         </div>
