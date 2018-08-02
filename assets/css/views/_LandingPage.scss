@@ -1,0 +1,23 @@
+.LogoWrapper {
+  @include flex(center, row, center);
+  flex-wrap: wrap;
+  padding: $global-padding 0;
+  img {
+    padding: 0 $global-padding;
+    width: 20rem;
+    @include breakpoint($small $large) {
+      padding: $global-padding;
+      width: 50%;
+    }
+  }
+}
+.LandingPageWrapper {
+  p {
+    font-family: $global-sans-serif-font;
+  }
+  h3 {
+    &.HeaderReset {
+      color: $header-color;
+    }
+  }
+}

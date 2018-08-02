@@ -1,1 +1,131 @@
-<h1>Welcome<h1>
+<div>
+  <div class="HeaderWrapper">
+    <div class="rev-Row">
+      <div class="HeaderImage">
+        <img src="/img/home-hero.png" />
+      </div>
+      <div class="rev-Col rev-Col--medium7 rev-Col--large6">
+        <h1>Know Where to Start</h1>
+        <h3>
+          Decision making is difficult.<br />
+          Forcing decisions is critical.<br />
+          Action kills uncertainty.
+        </h3>
+        <p class="lead">
+          <strong>Priority</strong> gives you <strong>concrete criteria,
+          reduces your options,</strong> and <strong>adds
+          visibility</strong> to your decisions - all on your open GitHub
+          Issues.
+        </p>
+        <a
+          href="/register"
+          class="rev-Button--white button rev-Button expanded rev-Button--expanded"
+        >
+          Get Started
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="LandingPageWrapper">
+
+    <div class="Section light">
+      <div class="rev-Row">
+        <div class="rev-Col">
+          <div class="LogoWrapper">
+            <img src="/img/logo-placeholder.png" />
+            <img src="/img/logo-placeholder.png" />
+            <img src="/img/logo-placeholder.png" />
+            <img src="/img/logo-placeholder.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="Section">
+      <div class="rev-Row">
+        <div class="rev-Col rev-Col--medium8 rev-Col--mediumCentered u-center">
+          <h2 class="u-marginTop--small">About Product Section</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="Section light">
+      <div class="rev-Row">
+        <div class="rev-Col rev-Col--medium4">
+          <h3 class="HeaderReset">Feature One</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+        </div>
+        <div class="rev-Col rev-Col--medium4">
+          <h3 class="HeaderReset">Feature Two</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+        </div>
+        <div class="rev-Col rev-Col--medium4">
+          <h3 class="HeaderReset">Feature Three</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+        </div>
+        <div class="rev-Col rev-Col--medium4">
+          <h3 class="HeaderReset">Feature Four</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+        </div>
+        <div class="rev-Col rev-Col--medium4">
+          <h3 class="HeaderReset">Feature Five</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+        </div>
+        <div class="rev-Col rev-Col--medium4">
+          <h3 class="HeaderReset">Feature Six</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="Section u-border-bottom">
+      <div class="rev-Row">
+        <div class="rev-Col rev-Col--medium4">
+          <h2>Highlight Section</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+        </div>
+        <div class="rev-Col rev-Col--medium8">
+          <img src="/img/highlight-img.png" />
+        </div>
+      </div>
+    </div>
+
+    <div class="Section">
+      <div class="rev-Row">
+        <div class="rev-Col rev-Col--medium6">
+          <img src="/img/highlight-img-2.png" />
+        </div>
+        <div class="rev-Col rev-Col--medium6">
+          <h2>Highlight Section</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="HeaderWrapper small">
+      <div class="rev-Row">
+        <div class="rev-Col rev-Col--medium6 rev-Col--mediumCentered u-center">
+          <h1 class="u-marginTop--small">Call to Action Section</h1>
+          <p>Tagline or intro sentence about product.</p>
+          <div class='rev-Button rev-Button--white'>
+            Main CTA
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="FooterWrapper img">
+      <div class="rev-Row Footer">
+        <div class="rev-Col">
+          <p>Created by
+            <a href="https://revelry.co/" target="_blank">
+              <img class="Footer-logo" src="/img/revelry-logo.png" />
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
