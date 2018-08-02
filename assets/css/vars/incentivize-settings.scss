@@ -30,7 +30,8 @@ $breakpoints: (
 // Global Fonts
 $global-monospace-font: 'Montserrat', sans-serif;
 $global-serif-font: 'Georgia', serif;
-$global-sans-serif-font: 'proxima-nova', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+$global-header-font: 'proxima-nova', Helvetica, Arial, sans-serif;
+$global-sans-serif-font: 'Roboto', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
 
 // we use the global-font-sizes for typographic utilities
 // AND to determine vertical spacing
@@ -103,18 +104,18 @@ $global-box-shadow-hover: 0 2px 6px 0 $black-50;
 $global-box-shadow-active: 0 1px 2px 0 $black-30;
 
 // Body Vars
-$body-bkgd: $white;
+$body-bkgd: $brand-light;
 $body-font-color: $darker-gray;
 $body-font-family: $global-sans-serif-font;
 
 // Header Vars
-$header-color: $body-font-color;
-$header-font-family: $global-sans-serif-font;
+$header-color: $white;
+$header-font-family: $global-header-font;
 $header-font-style: normal;
 $header-font-weight: $global-weight-normal;
 
 $subheader-color: $header-color;
-$header-font-family: $global-sans-serif-font;
+$header-font-family: $global-header-font;
 $subheader-font-weight: $global-weight-normal;
 
 // Paragraph Vars

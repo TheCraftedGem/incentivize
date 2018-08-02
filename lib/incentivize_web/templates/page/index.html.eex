@@ -6,45 +6,38 @@
       </div>
       <div class="rev-Col rev-Col--medium7 rev-Col--large6">
         <h1>Know Where to Start</h1>
-        <h3>
-          Decision making is difficult.<br />
-          Forcing decisions is critical.<br />
-          Action kills uncertainty.
-        </h3>
         <p class="lead">
           <strong>Priority</strong> gives you <strong>concrete criteria,
           reduces your options,</strong> and <strong>adds
           visibility</strong> to your decisions - all on your open GitHub
           Issues.
         </p>
-        <a
+        <button
           href="/register"
-          class="rev-Button--white button rev-Button expanded rev-Button--expanded"
+          class="rev-Button rev-Button--expanded"
         >
           Get Started
-        </a>
+        </button>
       </div>
     </div>
   </div>
 
   <div class="LandingPageWrapper">
 
-    <div class="Section light">
-      <div class="rev-Row">
-        <div class="rev-Col">
-          <div class="LogoWrapper">
-            <img src="/images/logo-placeholder.png" />
-            <img src="/images/logo-placeholder.png" />
-            <img src="/images/logo-placeholder.png" />
-            <img src="/images/logo-placeholder.png" />
-          </div>
+    <div class="rev-Row">
+      <div class="rev-Col rev-Col--centered rev-Col--smallCentered">
+        <div class="LogoWrapper">
+          <img src="/images/logo-placeholder.png" />
+          <img src="/images/logo-placeholder.png" />
+          <img src="/images/logo-placeholder.png" />
+          <img src="/images/logo-placeholder.png" />
         </div>
       </div>
     </div>
 
     <div class="Section">
       <div class="rev-Row">
-        <div class="rev-Col rev-Col--medium8 rev-Col--mediumCentered u-center">
+        <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered rev-Col--small6">
           <h2 class="u-marginTop--small">About Product Section</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
         </div>

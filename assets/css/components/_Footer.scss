@@ -1,0 +1,33 @@
+.FooterWrapper {
+  background: $black-40;
+  &.img {
+    background-image: url('/images/footer-bkgd.jpg');
+    background-color: $brand-dark;
+    background-blend-mode: overlay;
+    background-repeat: no-repeat;
+    background-size: cover;
+    clear: both;
+  }
+  p {
+    color: $white;
+    font-family: $global-sans-serif-font;
+    margin-bottom: 0;
+    max-width: 100%;
+    text-align: center;
+  }
+  &.small {
+    height: auto;
+    padding: $global-padding-large + $global-padding;
+  }
+}
+.Footer {
+  padding: $global-padding;
+  @include breakpoint(medium) {
+    @include flex(center, row, center);
+  }
+  &-logo {
+    display: inline-block;
+    margin-left: $global-padding-small;
+    max-width: 10rem
+  }
+}
