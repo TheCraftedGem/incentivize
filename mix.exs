@@ -51,7 +51,8 @@ defmodule Incentivize.Mixfile do
       {:credo, "~> 0.10", only: :dev},
       {:excoveralls, "~> 0.7", only: :test},
       {:comeonin, "~> 4.0"},
-      {:bcrypt_elixir, "~> 1.0"}
+      {:bcrypt_elixir, "~> 1.0"},
+      {:nodejs, "~> 0.1"}
     ]
   end
 
