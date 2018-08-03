@@ -32,19 +32,20 @@
   }
   &.small {
     height: auto;
-    padding: $global-padding-large + $global-padding;
-    @include breakpoint(small medium) {
-      padding: $global-padding-large;
+    padding: $global-padding-small;
+    @include breakpoint(medium) {
+      padding: $global-padding-large + $global-padding;
     }
   }
 }
 .HeaderImage {
-  bottom: 0;
+  bottom: -90%;
   padding-top: $global-padding-large;
   position: absolute;
   right: 0;
   width: 100%;
   @include breakpoint(medium) {
+    bottom: 0;
     padding-top: 0;
     width: 48%;
   }

@@ -28,9 +28,9 @@
 
 .Section {
   background: $white;
-  padding: $global-padding-large + $global-padding;
-  @include breakpoint(small medium) {
-    padding: $global-padding;
+  padding: $global-padding-small;
+  @include breakpoint(medium) {
+    padding: $global-padding-large + $global-padding;
   }
   &.light {
     background: $body-bkgd;
