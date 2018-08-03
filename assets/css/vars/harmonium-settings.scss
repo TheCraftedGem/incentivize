@@ -26,6 +26,7 @@ $breakpoints: (
 );
 
 // IMPORT FONTS HERE
+@import url('https://use.typekit.net/qqm8vsn.css');
 
 // Global Fonts
 $global-monospace-font: 'Montserrat', sans-serif;
@@ -112,7 +113,7 @@ $body-font-family: $global-sans-serif-font;
 $header-color: $white;
 $header-font-family: $global-header-font;
 $header-font-style: normal;
-$header-font-weight: $global-weight-normal;
+$header-font-weight: $global-weight-bold;
 
 $subheader-color: $header-color;
 $header-font-family: $global-header-font;
