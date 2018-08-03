@@ -1,9 +1,9 @@
 .FooterWrapper {
   background: $black-40;
   &.img {
-    background-image: url('/images/footer-bkgd.jpg');
-    background-color: $brand-dark;
     background-blend-mode: overlay;
+    background-color: $brand-dark;
+    background-image: url('/images/footer-bkgd.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     clear: both;
@@ -30,7 +30,7 @@
   img {
     display: inline-block;
     margin-left: $global-padding-small;
-    max-width: 10rem !important;
+    max-width: 10rem;
     vertical-align: middle;
   }
 }

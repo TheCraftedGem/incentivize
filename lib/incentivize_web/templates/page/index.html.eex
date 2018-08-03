@@ -26,10 +26,10 @@
       <div class="rev-Row">
         <div class="rev-Col rev-Col--centered rev-Col--smallCentered">
           <div class="LogoWrapper">
-            <img src="/images/logo-placeholder.png" />
-            <img src="/images/logo-placeholder.png" />
-            <img src="/images/logo-placeholder.png" />
-            <img src="/images/logo-placeholder.png" />
+            <img class="Image" src="/images/logo-placeholder.png" />
+            <img class="Image" src="/images/logo-placeholder.png" />
+            <img class="Image" src="/images/logo-placeholder.png" />
+            <img class="Image" src="/images/logo-placeholder.png" />
           </div>
         </div>
       </div>
@@ -71,7 +71,7 @@
           </a>
         </div>
         <div class="rev-Col rev-Col--medium8">
-          <img src="/images/highlight-img.png" />
+          <img class="Image" src="/images/highlight-img.png" />
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@
     <div class="Section">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium6">
-          <img src="/images/highlight-img-2.png" />
+          <img class="Image" src="/images/highlight-img-2.png" />
         </div>
         <div class="rev-Col rev-Col--medium6">
           <h2>Highlight Section</h2>
