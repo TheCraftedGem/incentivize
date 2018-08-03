@@ -22,6 +22,9 @@
               </li>
               <%= if logged_in?(@conn) do %>
                 <li class="rev-Menu-item">
+                  <a href="<%= account_path(@conn, :edit) %>">Account</a>
+                </li>
+                <li class="rev-Menu-item">
                   <a href="<%= github_auth_path(@conn, :delete) %>">Log out</a>
                 </li>
               <% else %>
