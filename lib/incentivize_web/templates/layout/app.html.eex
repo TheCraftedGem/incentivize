@@ -26,7 +26,7 @@
                 </li>
               <% else %>
                 <li class="rev-Menu-item">
-                  <a href="<%= github_auth_path(@conn, :index) %>">Log In</a>
+                  <a href="<%= github_auth_path(@conn, :index) %>">Connect To Github</a>
                 </li>
               <% end %>
             </ul>
