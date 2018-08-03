@@ -5,18 +5,16 @@
         <img src="/images/home-hero.png" />
       </div>
       <div class="rev-Col rev-Col--medium7 rev-Col--large6">
-        <h1>Know Where to Start</h1>
+        <h1>Incentivize</h1>
+        <h3>An Incentive Platform for Software Development</h3>
         <p class="lead">
-          <strong>Priority</strong> gives you <strong>concrete criteria,
-          reduces your options,</strong> and <strong>adds
-          visibility</strong> to your decisions - all on your open GitHub
-          Issues.
+          <strong>Incentivize.io</strong> is an <strong>incentive platform</strong> that enables organizations or individuals to distribute XLM to project contributors.
         </p>
         <button
-          href="/register"
+          href="http://join.incentivize.io"
           class="rev-Button rev-Button--expanded"
         >
-          Get Started
+          Join Waitlist
         </button>
       </div>
     </div>
@@ -40,8 +38,8 @@
     <div class="Section">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered rev-Col--small6 Text-center">
-          <h2 class="u-marginTop--small">About Product Section</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+          <h2>About Incentivize</h2>
+          <p>The software industry is lacking an <strong>incentive platform</strong> for building developer communities around projects outside of bounty offerings, employers paying developers hourly/salaries, or maintainers receiving donations. Contributors to open and closed source projects should be incentivized for the value they bring to a project beyond just their time.</p>
         </div>
       </div>
     </div>
@@ -49,28 +47,16 @@
     <div class="Section light">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium4">
-          <h3 class="HeaderReset">Feature One</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+          <h3 class="HeaderReset">Who Are We Building For?</h3>
+          <p>Supporters - Deposit XLM into project accounts for distribution to contributors. Contributors - Receive XLM when they contribute to projects.</p>
         </div>
         <div class="rev-Col rev-Col--medium4">
-          <h3 class="HeaderReset">Feature Two</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+          <h3 class="HeaderReset">Why Are We Building This?</h3>
+          <p>We have been tracking contributions internally at Revelry for over a year and this project will start bringing some of our concepts public.</p>
         </div>
         <div class="rev-Col rev-Col--medium4">
-          <h3 class="HeaderReset">Feature Three</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
-        </div>
-        <div class="rev-Col rev-Col--medium4">
-          <h3 class="HeaderReset">Feature Four</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
-        </div>
-        <div class="rev-Col rev-Col--medium4">
-          <h3 class="HeaderReset">Feature Five</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
-        </div>
-        <div class="rev-Col rev-Col--medium4">
-          <h3 class="HeaderReset">Feature Six</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+          <h3 class="HeaderReset">Our Tech Stack</h3>
+          <p>Elixir / Phoenix / Node / React / Harmonium / StellarSDK js client / Stellar Horizon Server / AWS</p>
         </div>
       </div>
     </div>
@@ -102,11 +88,11 @@
     <div class="HeaderWrapper small">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
-          <h1 class="u-marginTop--small">Call to Action Section</h1>
-          <p>Tagline or intro sentence about product.</p>
-          <div class='rev-Button rev-Button--white'>
-            Main CTA
-          </div>
+          <h1 class="u-marginTop--small">Join the Waitlist</h1>
+          <p>Sign up for the waitlist below and we will send you more details.</p>
+          <a href="http://join.incentivize.io" target="_blank" class='rev-Button rev-Button--white'>
+            Join Now
+          </a>
         </div>
       </div>
     </div>
