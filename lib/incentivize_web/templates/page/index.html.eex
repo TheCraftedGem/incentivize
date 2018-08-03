@@ -56,7 +56,7 @@
         </div>
         <div class="rev-Col rev-Col--medium4">
           <h3 class="HeaderReset">Our Tech Stack</h3>
-          <p>Elixir / Phoenix / Node / React / Harmonium / StellarSDK js client / Stellar Horizon Server / AWS</p>
+          <p>Our tech stack includes Elixir, Phoenix, Node, React, Harmonium, StellarSDK js client, Stellar Horizon Server, and AWS.</p>
         </div>
       </div>
     </div>
@@ -64,8 +64,11 @@
     <div class="Section u-border-bottom">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium4">
-          <h2>Highlight Section</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+          <h2>Contribute to Projects, Earn Lumens</h2>
+          <p>When a Contributor finds a project they want to work on, they can select contribute and see all of the project pieces that are funded and the rewards associated with them.</p>
+          <a href="#" target="_blank" class='rev-Button rev-Button--white'>
+            Start Contributing
+          </a>
         </div>
         <div class="rev-Col rev-Col--medium8">
           <img src="/images/highlight-img.png" />
