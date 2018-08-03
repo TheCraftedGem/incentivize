@@ -1,0 +1,34 @@
+.LandingPageWrapper {
+  .Image {
+    max-width: 100%;
+    padding: $global-padding-large 0;
+    @include breakpoint(medium) {
+      padding: 0;
+    }
+  }
+}
+
+.LogoWrapper {
+  @include flex(center, row, center);
+  flex-wrap: wrap;
+  padding: $global-padding 0;
+  img {
+    padding: 0 $global-padding;
+    width: 20rem;
+    @include breakpoint(small large) {
+      padding: $global-padding;
+      width: 50%;
+    }
+  }
+}
+
+.Section {
+  background: $white;
+  padding: $global-padding-small;
+  @include breakpoint(medium) {
+    padding: $global-padding-large + $global-padding;
+  }
+  &.light {
+    background: $body-bkgd;
+  }
+}
