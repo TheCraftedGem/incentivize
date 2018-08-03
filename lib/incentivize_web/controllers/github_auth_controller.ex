@@ -39,7 +39,7 @@ defmodule IncentivizeWeb.GithubAuthController do
       logged_in_at: DateTime.utc_now()
     }
 
-    case Users.get_or_update_user_by_github_login(user["login"], params) do
+    case Users.create_or_update_user_by_github_login(user["login"], params) do
       {:ok, user} ->
         conn
         |> assign(:current_user, user)
