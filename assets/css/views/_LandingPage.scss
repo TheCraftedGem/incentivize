@@ -1,6 +1,10 @@
 .LandingPageWrapper {
   .Image {
     max-width: 100%;
+    padding: $global-padding-large 0;
+    @include breakpoint(medium) {
+      padding: 0;
+    }
   }
 }
 
