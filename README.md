@@ -124,12 +124,12 @@ The Phoenix app will manage all things, including GitHub web hooks. Node will be
 
 ### Requirements
 
-Elixir (Language)
-Phoenix (Web framework)
-node.js (Used to process stellar transactions)
-StellarSDK (JavaScript Stellar Client)
+- Elixir (Language)
+- Phoenix (Web framework)
+- node.js (Used to process stellar transactions)
+- StellarSDK (JavaScript Stellar Client)
 
-Github OAuth App (Required to sign in)
+- Github OAuth App (Required to sign in)
 
 Here we are using the localhost url, `http://localhost:4000`, In production use your prod URL
 
