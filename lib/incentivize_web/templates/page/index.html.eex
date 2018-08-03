@@ -75,7 +75,7 @@
       </div>
     </div>
 
-    <div class="Section">
+    <div class="Section u-border-bottom">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium4">
           <h2>Highlight Section</h2>
@@ -86,7 +86,6 @@
         </div>
       </div>
     </div>
-    <hr />
 
     <div class="Section">
       <div class="rev-Row">

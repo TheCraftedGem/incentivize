@@ -22,12 +22,15 @@
 }
 .Footer {
   padding: $global-padding;
+  padding-bottom: 0;
   @include breakpoint(medium) {
     @include flex(center, row, center);
   }
-  &-logo {
+  &-logo,
+  img {
     display: inline-block;
     margin-left: $global-padding-small;
-    max-width: 10rem;
+    max-width: 10rem !important;
+    vertical-align: middle;
   }
 }
