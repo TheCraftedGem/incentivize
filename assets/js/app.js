@@ -1,7 +1,7 @@
 import 'babel-polyfill'
 import 'phoenix_html'
 import '../css/app.scss'
-import StellarSDK from 'stellar-sdk'
+import Account from './account/account'
 
 function setupAccountPage() {
   const secretArea = document.querySelector('[data-private-key-area]')
@@ -11,7 +11,8 @@ function setupAccountPage() {
 
   if (secretArea && generateStellarButton) {
     generateStellarButton.addEventListener('click', () => {
-      const keyPair = StellarSDK.Keypair.random()
+      const keyPair = Account.generateStellarAccount()
+
       const stellarPublicKeyArea = document.getElementById(
         'user_stellar_public_key'
       )
