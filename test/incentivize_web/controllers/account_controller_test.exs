@@ -2,25 +2,23 @@ defmodule IncentivizeWeb.AccountControllerTest do
   use IncentivizeWeb.ConnCase
   alias Incentivize.Users
 
-  test "GET /account/edit", %{conn: conn} do
+  setup %{conn: conn} do
     user = insert!(:user)
 
     conn =
       conn
       |> assign(:current_user, user)
 
+    [user: user, conn: conn]
+  end
+
+  test "GET /account/edit", %{conn: conn} do
     conn = get(conn, account_path(conn, :edit))
     assert html_response(conn, 200) =~ "Account"
     assert html_response(conn, 200) =~ "Stellar Public Key"
   end
 
-  test "PUT /account/edit", %{conn: conn} do
-    user = insert!(:user)
-
-    conn =
-      conn
-      |> assign(:current_user, user)
-
+  test "PUT /account/edit", %{conn: conn, user: user} do
     conn = put(conn, account_path(conn, :edit), user: [stellar_public_key: "12345"])
     assert redirected_to(conn) =~ account_path(conn, :edit)
 
@@ -28,12 +26,6 @@ defmodule IncentivizeWeb.AccountControllerTest do
   end
 
   test "PUT /account/edit with bad data", %{conn: conn} do
-    user = insert!(:user)
-
-    conn =
-      conn
-      |> assign(:current_user, user)
-
     conn =
       put(conn, account_path(conn, :edit),
         user: [stellar_public_key: "12345", email: "notanemail"]
