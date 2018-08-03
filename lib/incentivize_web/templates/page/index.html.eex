@@ -6,10 +6,9 @@
       </div>
       <div class="rev-Col rev-Col--medium7 rev-Col--large6">
         <h1>Incentivize</h1>
-        <h3>An Incentive Platform for Software Development</h3>
-        <p class="lead">
-          <strong>Incentivize.io</strong> is an <strong>incentive platform</strong> that enables organizations or individuals to distribute XLM to project contributors.
-        </p>
+        <h3>
+          <strong>Incentivize.io</strong> is an <strong>incentive platform for software development</strong> that enables organizations or individuals to distribute XLM to project contributors.
+        </h3>
         <button
           href="http://join.incentivize.io"
           class="rev-Button rev-Button--expanded"
@@ -22,7 +21,7 @@
 
   <div class="LandingPageWrapper">
 
-    <div>
+    <!-- <div>
       <div class="rev-Row">
         <div class="rev-Col rev-Col--centered rev-Col--smallCentered">
           <div class="LogoWrapper">
@@ -33,13 +32,13 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="Section">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
           <h2>About Incentivize</h2>
-          <p>The software industry is lacking an <strong>incentive platform</strong> for building developer communities around projects outside of bounty offerings, employers paying developers hourly/salaries, or maintainers receiving donations. Contributors to open and closed source projects should be incentivized for the value they bring to a project beyond just their time.</p>
+          <p>The software industry is lacking an <strong>incentive platform</strong> for <strong>building developer communities</strong> around projects outside of bounty offerings, employers paying developers hourly/salaries, or maintainers receiving donations. Contributors to open and closed source projects should be <strong>incentivized for the value they bring to a project</strong> beyond just their time.</p>
         </div>
       </div>
     </div>
@@ -47,15 +46,15 @@
     <div class="Section light">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium4">
-          <h3 class="HeaderReset">Who Are We Building For?</h3>
+          <h3>Who Are We Building For?</h3>
           <p>Supporters - Deposit XLM into project accounts for distribution to contributors. Contributors - Receive XLM when they contribute to projects.</p>
         </div>
         <div class="rev-Col rev-Col--medium4">
-          <h3 class="HeaderReset">Why Are We Building This?</h3>
-          <p>We have been tracking contributions internally at Revelry for over a year and this project will start bringing some of our concepts public.</p>
+          <h3>Why Are We Building This?</h3>
+          <p>It can be difficult to maintain and grow Open Source projects. Contributors often don't get rewarded for open source work so there is a lack of incentives to make meaningful contributions.</p>
         </div>
         <div class="rev-Col rev-Col--medium4">
-          <h3 class="HeaderReset">Our Tech Stack</h3>
+          <h3>Our Tech Stack</h3>
           <p>Our tech stack includes Elixir, Phoenix, Node, React, Harmonium, StellarSDK js client, Stellar Horizon Server, and AWS.</p>
         </div>
       </div>
@@ -63,14 +62,14 @@
 
     <div class="Section u-border-bottom">
       <div class="rev-Row">
-        <div class="rev-Col rev-Col--medium4">
-          <h2>Contribute to Projects, Earn Lumens</h2>
+        <div class="rev-Col rev-Col--medium5">
+          <h2>Contribute to Projects</h2>
           <p>When a Contributor finds a project they want to work on, they can select contribute and see all of the project pieces that are funded and the rewards associated with them.</p>
           <a href="#" target="_blank" class='rev-Button rev-Button--white'>
             Start Contributing
           </a>
         </div>
-        <div class="rev-Col rev-Col--medium8">
+        <div class="rev-Col rev-Col--medium7">
           <img class="Image" src="/images/highlight-img.png" />
         </div>
       </div>
@@ -82,8 +81,11 @@
           <img class="Image" src="/images/highlight-img-2.png" />
         </div>
         <div class="rev-Col rev-Col--medium6">
-          <h2>Highlight Section</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit volutpat felis, vel rhoncus nisl fringilla et. Phasellus sit amet sapien nulla.</p>
+          <h2>Support a Project</h2>
+          <p>the people who choose projects to support by adding lumens to the project fund. Supporters are anyone who is motivated to support a project by backing it with Lumens. It could be the owner of the repository, a business, or just a single person who uses this open source tool and wants to motivate others to improve it.</p>
+          <a href="#" target="_blank" class='rev-Button rev-Button--white'>
+            Start Supporting
+          </a>
         </div>
       </div>
     </div>
@@ -91,8 +93,8 @@
     <div class="HeaderWrapper small">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
-          <h1 class="u-marginTop--small">Join the Waitlist</h1>
-          <p>Sign up for the waitlist below and we will send you more details.</p>
+          <h2>Join the Waitlist</h2>
+          <p class="lead">Sign up for the waitlist below and we will send you more details.</p>
           <a href="http://join.incentivize.io" target="_blank" class='rev-Button rev-Button--white'>
             Join Now
           </a>

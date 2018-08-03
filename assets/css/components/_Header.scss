@@ -17,18 +17,17 @@
     color: $header-color;
     text-transform: uppercase;
   }
+  h2 {
+    color: $header-color;
+  }
   h3 {
     color: $white;
+    font-weight: $global-weight-normal;
     line-height: $global-lineheight;
     margin-top: 0;
   }
-  h4 {
-    font-family: $global-header-font;
-    font-weight: $global-weight-bold;
-  }
-  p {
+  .lead {
     color: $white;
-    font-family: $global-sans-serif-font;
   }
   &.small {
     height: auto;
@@ -36,6 +35,9 @@
     @include breakpoint(medium) {
       padding: $global-padding-large + $global-padding;
     }
+  }
+  .rev-Button {
+    margin-top: $global-margin;
   }
 }
 .HeaderImage {
