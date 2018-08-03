@@ -145,6 +145,8 @@ Here we are using the localhost url, `http://localhost:4000`, In production use 
 
 ### Required Secrets
 
+In development, values can go into `config/dev.secret.exs`
+
 ```elixir
 config :incentivize, Incentivize.Github.OAuth,
   client_id: <github_client_id>,
