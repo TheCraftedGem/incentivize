@@ -43,6 +43,13 @@ defmodule IncentivizeWeb.Router do
     get("/delete", GithubAuthController, :delete)
   end
 
+  scope "/account", IncentivizeWeb do
+    pipe_through([:browser, :require_auth])
+
+    get("/edit", AccountController, :edit)
+    put("/edit", AccountController, :update)
+  end
+
   scope "/github/webhooks", IncentivizeWeb do
     pipe_through([:api, :github])
 
