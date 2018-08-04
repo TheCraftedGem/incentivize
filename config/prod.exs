@@ -15,3 +15,11 @@ config :incentivize, Incentivize.Repo,
 
 # Do not print debug messages in production
 config :logger, level: :info
+
+config :rollbax,
+  client_token: System.get_env("ROLLBAR_CLIENT_TOKEN"),
+  access_token: System.get_env("ROLLBAR_SERVER_TOKEN"),
+  environment: System.get_env("ROLLBAR_ENVIRONMENT"),
+  enabled: true
+
+config :rollbax, enable_crash_reports: true
