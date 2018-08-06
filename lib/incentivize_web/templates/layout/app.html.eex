@@ -15,19 +15,37 @@
     <div class="container">
       <div class="rev-TopBar">
         <nav role="navigation">
-          <div class="rev-TopBar-item">
+          <div class="rev-TopBar-title">
             <ul class="rev-Menu rev-Menu--horizontalLeft">
+              <a href="#">
+                <img src="/images/incentivize-logo-dark.png" alt="Incentivize" />
+              </a>
+            </ul>
+          </div>
+          <div class="rev-TopBar-item">
+            <ul class="rev-Menu rev-Menu--horizontalRight">
               <li class="rev-Menu-item">
-                <a href="<%= page_path(@conn, :index) %>">Home</a>
+                <a href="<%= page_path(@conn, :index) %>">About</a>
+              </li>
+              <li class="rev-Menu-item">
+                <a href="<%= page_path(@conn, :index) %>">Discover</a>
+              </li>
+              <li class="rev-Menu-item">
+                <a href="<%= page_path(@conn, :index) %>">Contact Us</a>
               </li>
               <%= if logged_in?(@conn) do %>
                 <li class="rev-Menu-item">
-                  <a href="<%= github_auth_path(@conn, :delete) %>">Log out</a>
+                  <a href="<%= github_auth_path(@conn, :delete) %>">Account</a>
                 </li>
+              <% end %>
+              <%= if logged_in?(@conn) do %>
+                <div class="rev-Form">
+                  <a class="rev-Button" href="<%= github_auth_path(@conn, :delete) %>">Log Out</a>
+                </div>
               <% else %>
-                <li class="rev-Menu-item">
-                  <a href="<%= github_auth_path(@conn, :index) %>">Connect To Github</a>
-                </li>
+                <div class="rev-Form">
+                  <a class="rev-Button" href="<%= github_auth_path(@conn, :index) %>">Log In</a>
+                </div>
               <% end %>
             </ul>
           </div>
