@@ -53,7 +53,8 @@ defmodule Incentivize.Mixfile do
       {:joken, "~> 1.5"},
       {:httpoison, "~> 1.2"},
       {:oauth2, "~> 0.9.2"},
-      {:confex, "~> 3.3"}
+      {:confex, "~> 3.3"},
+      {:rollbax, "~> 0.9.2"}
     ]
   end
 
