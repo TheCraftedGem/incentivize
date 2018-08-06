@@ -1,6 +1,8 @@
+$topbar-title-width: 22rem;
+
 .rev-TopBar-title {
   img {
-    max-width: 22rem;
+    max-width: $topbar-title-width;
   }
 }
 .rev-TopBar {
