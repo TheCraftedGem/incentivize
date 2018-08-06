@@ -7,14 +7,17 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <title>Hello Incentivize!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
     <div class="container">
-      <div class="rev-TopBar">
+      <div class="rev-TopBar rev-TopBar--fixed">
         <nav role="navigation">
+
           <div class="rev-TopBar-title">
             <ul class="rev-Menu rev-Menu--horizontalLeft">
               <a href="#">
@@ -22,20 +25,66 @@
               </a>
             </ul>
           </div>
-          <div class="rev-TopBar-item">
+
+          <!-- <button class="NavToggle Hide--largeUp" type="button" data-toggle="responsive-menu">
+            <i class="material-icons">menu</i>
+          </button> -->
+
+          <div className="rev-Drawer rev-Drawer--right">
+            <!-- <a class="rev-Drawer-closer">+</a> -->
+            <!-- <div class="rev-Drawer-contents"> -->
+              <ul class="rev-Menu rev-Menu--horizontalRight">
+                <li class="Hide--mediumUp">
+                  <a class="rev-Drawer-menu"><i class="material-icons">menu</i></a>
+                </li>
+              </ul>
+            <!-- </div> -->
+          </div>
+
+          <div class="rev-Drawer rev-Drawer--nav rev-Drawer--right Hide--mediumUp">
+            <div class="rev-TopBar-item">
+              <ul class="rev-Menu rev-Menu--horizontalRight">
+                <li class="rev-Menu-item">
+                  <a href="#About">About</a>
+                </li>
+                <li class="rev-Menu-item">
+                  <a href="#">Discover</a>
+                </li>
+                <li class="rev-Menu-item">
+                  <a href="#Contact">Contact Us</a>
+                </li>
+                <%= if logged_in?(@conn) do %>
+                  <li class="rev-Menu-item">
+                    <a href="#">Account</a>
+                  </li>
+                <% end %>
+                <%= if logged_in?(@conn) do %>
+                  <div class="rev-Form">
+                    <a class="rev-Button" href="<%= github_auth_path(@conn, :delete) %>">Log Out</a>
+                  </div>
+                <% else %>
+                  <div class="rev-Form">
+                    <a class="rev-Button" href="<%= github_auth_path(@conn, :index) %>">Log In</a>
+                  </div>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+
+          <div class="rev-TopBar-item Hide--mediumDown">
             <ul class="rev-Menu rev-Menu--horizontalRight">
               <li class="rev-Menu-item">
-                <a href="<%= page_path(@conn, :index) %>">About</a>
+                <a href="#About">About</a>
               </li>
               <li class="rev-Menu-item">
-                <a href="<%= page_path(@conn, :index) %>">Discover</a>
+                <a href="#">Discover</a>
               </li>
               <li class="rev-Menu-item">
-                <a href="<%= page_path(@conn, :index) %>">Contact Us</a>
+                <a href="#Contact">Contact Us</a>
               </li>
               <%= if logged_in?(@conn) do %>
                 <li class="rev-Menu-item">
-                  <a href="<%= github_auth_path(@conn, :delete) %>">Account</a>
+                  <a href="#">Account</a>
                 </li>
               <% end %>
               <%= if logged_in?(@conn) do %>
@@ -49,6 +98,7 @@
               <% end %>
             </ul>
           </div>
+
         </nav>
       </div>
 

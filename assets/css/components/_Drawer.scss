@@ -1,0 +1,27 @@
+.NavToggle {
+  @include flex(center, row, center, nowrap);
+  background: transparent;
+  border: 0;
+  color: $primary;
+  height: $topbar-height;
+  outline: none;
+  // position: absolute;
+  right: 0;
+  top: 0;
+  width: $topbar-height;
+  &:hover,
+  &:active {
+    color: $primary;
+  }
+}
+// .rev-Drawer {
+//   &.rev-Drawer--nav {
+//   @include breakpoint(nav) {
+//     @include drawer-nostyle;
+//   }
+//   @include breakpoint(nav-down) {
+//     @include drawer-sidebar;
+//     background: $mobile-nav-bkgd;
+//   }
+// }
+// }
