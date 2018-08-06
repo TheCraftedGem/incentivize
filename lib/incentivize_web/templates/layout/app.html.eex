@@ -62,7 +62,7 @@
                   </li>
                   <%= if logged_in?(@conn) do %>
                     <li class="rev-Menu-item">
-                      <a href="#">Account</a>
+                      <a href="<%= account_path(@conn, :edit) %>">Account</a>
                     </li>
                   <% end %>
                   <%= if logged_in?(@conn) do %>
