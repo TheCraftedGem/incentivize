@@ -9,6 +9,7 @@ defmodule Incentivize.User do
     field(:github_access_token, :string)
     field(:github_avatar_url, :string)
     field(:logged_in_at, :utc_datetime)
+    field(:stellar_public_key, :string)
     timestamps()
   end
 
@@ -19,7 +20,8 @@ defmodule Incentivize.User do
       :github_login,
       :github_access_token,
       :github_avatar_url,
-      :logged_in_at
+      :logged_in_at,
+      :stellar_public_key
     ])
     |> validate_required([:github_login, :github_access_token])
     |> update_change(:email, &String.downcase/1)

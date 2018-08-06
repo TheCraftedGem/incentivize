@@ -61,40 +61,41 @@ It can be difficult to maintain and grow Open Source projects. Contributors ofte
 ## Nouns & Verbs
 
 ### Nouns
-**Contributors:** the people who work on open source projects and are in turn rewarded with Lumens from the Project Fund. Contributor's can be anyone who contributes to a GitHub project. From opening issues, making comments, opening  or reviewing pull requests. Any person who complete's an action on the open source GitHub Project is contributing. 
 
-**Supporters:** the people who choose projects to support by adding lumens to the project fund. Supporters are anyone who is motivated to support a project by backing it with Lumens. It could be the owner of the repository, a business, or just a single person who uses this open source tool and wants to motivate others to improve it.  
+**Contributors:** the people who work on open source projects and are in turn rewarded with Lumens from the Project Fund. Contributor's can be anyone who contributes to a GitHub project. From opening issues, making comments, opening or reviewing pull requests. Any person who complete's an action on the open source GitHub Project is contributing.
+
+**Supporters:** the people who choose projects to support by adding lumens to the project fund. Supporters are anyone who is motivated to support a project by backing it with Lumens. It could be the owner of the repository, a business, or just a single person who uses this open source tool and wants to motivate others to improve it.
 
 **Lumens:** Stellar's cryptocurrency (XLM) that will be used to incentvize projects and reward contributors.
 
-**Stellar:** Stellar is a platform that connects reward systems and people using secure transactions. 
+**Stellar:** Stellar is a platform that connects reward systems and people using secure transactions.
 
 **Projects:** Open Source GitHub repositories that allow for incentivize connection through a GitHub Webhook
 
 **Webhook:** A simple event-notification via HTTP POST. What will allow incentivize to read data from repositories so that contributors can be rewarded with Lumens.
 
-**Stellar Accounts:** required accounts to send and receive Lumens. Upon creation a public and secret key are created. 
+**Stellar Accounts:** required accounts to send and receive Lumens. Upon creation a public and secret key are created.
 
-**Public Key:** How stellars are transferred between people. Think Venmo username or PayPal email. 
+**Public Key:** How stellars are transferred between people. Think Venmo username or PayPal email.
 
-**Secret Key:** How one accesses their Stellar Account. Only generated and displayed once. A user must place their Secret Key somewhere safe and must have it to access their stellar account. 
+**Secret Key:** How one accesses their Stellar Account. Only generated and displayed once. A user must place their Secret Key somewhere safe and must have it to access their stellar account.
 
 **Project Fund:** Where a supporter's Lumens are held and rewarded to contributors based on GitHub actions. There can be many Project Funds per project. A Project Fund has one supporter and many contributors. A supporter can have many Project Funds.
 
 ### Verbs
+
 **Connect GitHub:** Connect GitHub accounts to log into incentivize
 
-**Support:** add Lumen's to a project fund on a project. 
+**Support:** add Lumen's to a project fund on a project.
 
 **Contribute:** take GitHub actions on an incentivized project to earn rewards
 
-
 ## Team
 
-| Role             | Person          | 
-| ---------------- | --------------- | 
-| Client           | Revelry         |   
-| Product Owner    | Gerard Ramos    | 
+| Role             | Person          |
+| ---------------- | --------------- |
+| Client           | Revelry         |
+| Product Owner    | Gerard Ramos    |
 | PM               | Colin Scott     |
 | Tech Lead        | Bryan Joseph    |
 | Engineer         | Joel Wietelmann |
@@ -123,12 +124,28 @@ The Phoenix app will manage all things, including GitHub web hooks. Node will be
 
 ### Requirements
 
-Elixir (Language)
-Phoenix (Web framework)
-node.js (Used to process stellar transactions)
-StellarSDK (JavaScript Stellar Client)
+- Elixir (Language)
+- Phoenix (Web framework)
+- node.js (Used to process stellar transactions)
+- StellarSDK (JavaScript Stellar Client)
+
+- Github OAuth App (Required to sign in)
+
+Here we are using the localhost url, `http://localhost:4000`, In production use your prod URL
+
+- https://github.com/settings/developers
+- Click `New OAuth App`
+- Put in the following:
+  - Application Name: <Your App Name>
+  - Homepage URL: http://localhost:4000
+  - Authorization callback URL: http://localhost:4000/auth/github/callback
+- Click `Update application`
+- On the page that shows up, put value from `Client ID` and `Client Secret` into the
+  config below for `Incentivize.Github.OAuth`
 
 ### Required Secrets
+
+In development, values can go into `config/dev.secret.exs`
 
 ```elixir
 config :incentivize, Incentivize.Github.OAuth,
