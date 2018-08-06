@@ -54,7 +54,8 @@ defmodule Incentivize.Mixfile do
       {:httpoison, "~> 1.2"},
       {:oauth2, "~> 0.9.2"},
       {:confex, "~> 3.3"},
-      {:nodejs, "~> 0.1"}
+      {:nodejs, "~> 0.1"},
+      {:rollbax, "~> 0.9.2"}
     ]
   end
 
