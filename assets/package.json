@@ -4,7 +4,7 @@
   "scripts": {
     "build": "webpack --mode development",
     "deploy": "BABEL_ENV=production NODE_ENV=production webpack --mode production",
-    "test": "mocha --require babel-core/register ./test/**/*_test.js"
+    "test": "mocha --require babel-core/register --require jsdom-global/register ./test/**/*_test.js"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
@@ -35,6 +35,8 @@
     "exports-loader": "^0.7.0",
     "image-webpack-loader": "^4.2.0",
     "imports-loader": "^0.8.0",
+    "jsdom": "11.12.0",
+    "jsdom-global": "3.0.2",
     "mini-css-extract-plugin": "^0.4.0",
     "mocha": "^5.2.0",
     "node-sass": "^4.5.3",
