@@ -1,9 +1,9 @@
 sudo: false
 language: elixir
 elixir:
-  - 1.7
+- 1.7
 otp_release:
-  - 21.0
+- 21.0
 cache:
   directories:
   - _build
@@ -12,21 +12,21 @@ cache:
 addons:
   postgresql: '9.6'
 services:
-  - postgresql
+- postgresql
 before_script:
-  - psql -c 'create database incentivize_test;' -U postgres
+- psql -c 'create database incentivize_test;' -U postgres
 install:
-  - mix local.hex --force
-  - mix local.rebar --force
-  - mix deps.get
-  - cd assets
-  - npm install
-  - cd ..
+- mix local.hex --force
+- mix local.rebar --force
+- mix deps.get
+- cd assets
+- npm install
+- cd ..
 script:
-  - mix test
-  - cd assets
-  - npm test
-  - cd ..
+- mix test
+- cd assets
+- npm test
+- cd ..
 deploy:
 - provider: deis
   controller: deis.stage.revelry.net
@@ -39,4 +39,5 @@ deploy:
 after_deploy:
 - ./deis run "mix do deps.loadpaths --no-deps-check, ecto.migrate" -a incentivize
 notifications:
-  slack: revelrylabs:sp3I8Ap5i7tsgHLxe4Y2MFE0
+  slack:
+    secure: EGccCgZfsqhoC1KFLbqS7ybuG6QxWXhFMFaqWoCy1FFiUd289ZfEap5pGjvUuxndIcrE0Z7peV6D1aGys3AXDPpQ/sGZ7UEIFbyikUGtdmaqa6VEmq0mRt4Np9l/+ocyIRcMKtQtbbJtMznKSEfZwDGh/7sl9iN3d5rEhOY+eFll8zs7lIXmIXPh/jXeo4XDS7undguPwp/40mvHqjduBBp16hQAG38L35rPJybNnvnbEHRwaawtcUcwXKjyYqnIBX3qaKc1XQbafbakONxiZoXBjn8c68do1SWNRuAyf9YKKIXF47jJTufURrqvceGNakv6DPm5fmKWGrfXbAWPBPxfCOLFDT4Nesx/SrrBEAPUClDPsB2alSnc63YjW77hN9wUsWBs39cB4eRL5Fjew76He2Eoh2HHFnzKHpBmH8ocXfDy+LSlazNtMR1WVIoq5E6SjqEZ8dt7U90c+HOJ00w/x8LfXxRpF97yCx79P4GZUzIBimCk8REw2lctni90dchnEy8KLJO8bRGbDg4RiZxiJzesPqqMVZ6Il585TZdJrEXH6cWGf4btE9RZQLusrDYafZvYJyyY9RS53EsWHDFUK7OTg8g4QvpunxnbB+FTSETDBYsLQNJkZgYXe6aHF95PN+V+UgMTToVrvg4SyISU1Gx7g2tbLcJgvwpZxbE=
