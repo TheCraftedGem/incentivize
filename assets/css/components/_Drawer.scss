@@ -1,27 +1,46 @@
-.NavToggle {
-  @include flex(center, row, center, nowrap);
+.rev-Drawer-expander {
   background: transparent;
-  border: 0;
   color: $primary;
-  height: $topbar-height;
-  outline: none;
-  // position: absolute;
-  right: 0;
-  top: 0;
-  width: $topbar-height;
-  &:hover,
-  &:active {
-    color: $primary;
+  display: block;
+  opacity: 1;
+  a {
+    padding: 0;
+  }
+  .material-icons {
+    line-height: 2;
   }
 }
-// .rev-Drawer {
-//   &.rev-Drawer--nav {
-//   @include breakpoint(nav) {
-//     @include drawer-nostyle;
-//   }
-//   @include breakpoint(nav-down) {
-//     @include drawer-sidebar;
-//     background: $mobile-nav-bkgd;
-//   }
-// }
-// }
+.rev-Drawer {
+  &.rev-Drawer--right {
+    left: auto;
+    right: 0;
+    &.rev-Drawer--open {
+      .rev-Drawer-closer {
+        @include breakpoint(small-only) {
+          color: $white;
+          right: 0;
+          top: 1%;
+        }
+      }
+    }
+  }
+  .rev-TopBar-item {
+    a {
+      color: $white;
+      &:hover,
+      &:active {
+        color: $white;
+      }
+    }
+    .rev-Menu {
+      background: $brand-dark;
+      height: 100vh;
+      justify-content: flex-start;
+      padding-top: $global-padding-large;
+      .rev-Menu-item {
+        border-bottom: 1px solid $brand-medium;
+        padding: $global-padding-tiny 0;
+      }
+    }
+  }
+}

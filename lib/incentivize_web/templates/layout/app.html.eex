@@ -31,43 +31,44 @@
           </button> -->
 
           <div className="rev-Drawer rev-Drawer--right">
-            <!-- <a class="rev-Drawer-closer">+</a> -->
-            <!-- <div class="rev-Drawer-contents"> -->
               <ul class="rev-Menu rev-Menu--horizontalRight">
                 <li class="Hide--mediumUp">
-                  <a class="rev-Drawer-menu"><i class="material-icons">menu</i></a>
+                  <a class="rev-Drawer-expander"><i class="material-icons">menu</i></a>
                 </li>
               </ul>
-            <!-- </div> -->
           </div>
 
-          <div class="rev-Drawer rev-Drawer--nav rev-Drawer--right Hide--mediumUp">
-            <div class="rev-TopBar-item">
-              <ul class="rev-Menu rev-Menu--horizontalRight">
-                <li class="rev-Menu-item">
-                  <a href="#About">About</a>
-                </li>
-                <li class="rev-Menu-item">
-                  <a href="#">Discover</a>
-                </li>
-                <li class="rev-Menu-item">
-                  <a href="#Contact">Contact Us</a>
-                </li>
-                <%= if logged_in?(@conn) do %>
+          <div class="rev-Drawer rev-Drawer--right rev-Drawer--fixed Hide--mediumUp">
+            <!-- .rev-Drawer--open class needs to be added to .rev-Drawer when the menu is triggered -->
+            <a class="rev-Drawer-closer"><i class="material-icons">close</i></a>
+            <div class="rev-Drawer-contents">
+              <div class="rev-TopBar-item">
+                <ul class="rev-Menu">
                   <li class="rev-Menu-item">
-                    <a href="#">Account</a>
+                    <a href="#About">About</a>
                   </li>
-                <% end %>
-                <%= if logged_in?(@conn) do %>
-                  <div class="rev-Form">
-                    <a class="rev-Button" href="<%= github_auth_path(@conn, :delete) %>">Log Out</a>
-                  </div>
-                <% else %>
-                  <div class="rev-Form">
-                    <a class="rev-Button" href="<%= github_auth_path(@conn, :index) %>">Log In</a>
-                  </div>
-                <% end %>
-              </ul>
+                  <li class="rev-Menu-item">
+                    <a href="#">Discover</a>
+                  </li>
+                  <li class="rev-Menu-item">
+                    <a href="#Contact">Contact Us</a>
+                  </li>
+                  <%= if logged_in?(@conn) do %>
+                    <li class="rev-Menu-item">
+                      <a href="#">Account</a>
+                    </li>
+                  <% end %>
+                  <%= if logged_in?(@conn) do %>
+                    <div class="rev-Form">
+                      <a class="rev-Button rev-Button--expanded" href="<%= github_auth_path(@conn, :delete) %>">Log Out</a>
+                    </div>
+                  <% else %>
+                    <div class="rev-Form">
+                      <a class="rev-Button rev-Button--expanded" href="<%= github_auth_path(@conn, :index) %>">Log In</a>
+                    </div>
+                  <% end %>
+                </ul>
+              </div>
             </div>
           </div>
 

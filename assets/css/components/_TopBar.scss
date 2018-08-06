@@ -3,3 +3,13 @@
     max-width: 22rem;
   }
 }
+.rev-TopBar {
+  .rev-Form {
+    .rev-Button {
+      @include breakpoint(small-only) {
+        margin-top: $global-margin;
+        text-align: center;
+      }
+    }
+  }
+}
