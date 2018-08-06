@@ -9,6 +9,17 @@
 
     <title>Incentivize</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <%= if Confex.get_env(:incentivize, :google_analytics_id) do %>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=<%= Confex.get_env(:incentivize, :google_analytics_id) %>"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '<%= Confex.get_env(:incentivize, :google_analytics_id) %>');
+      </script>
+    <% end %>
   </head>
 
   <body>
