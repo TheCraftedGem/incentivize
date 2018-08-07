@@ -6,6 +6,12 @@ defmodule Incentivize.Repositories do
   import Ecto.{Query}, warn: false
   alias Incentivize.{Repo, Repository}
 
+  def list_repositories() do
+    Repository
+    |> order_by([r], asc: r.owner, asc: r.name)
+    |> Repo.all()
+  end
+
   def create_repository(params) do
     %Repository{}
     |> Repository.create_changeset(params)

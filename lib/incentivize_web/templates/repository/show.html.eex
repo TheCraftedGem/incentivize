@@ -1,0 +1,17 @@
+<div>
+  <div>
+
+    <div class="rev-Row">
+      <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
+        <h1><%= @repository.owner %>/<%= @repository.name %></h1>
+
+        <p></p>
+
+        <p>
+          Go to <a href="https://github.com/<%= @repository.owner %>/<%= @repository.name %>">GitHub Repo</a>.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>

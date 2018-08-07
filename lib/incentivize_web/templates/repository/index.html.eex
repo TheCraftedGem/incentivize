@@ -2,8 +2,42 @@
   <div>
 
     <div class="rev-Row">
-      <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
+      <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered">
         <h1>Discover</h1>
+        <div class="rev-Row">
+
+        <%= for repo <- @repositories do %>
+        <div class="rev-Col rev-Col--medium6">
+          <div class="rev-Card undefined rev-CardLayout">
+            <div class="rev-Card-header undefined rev-CardLayout-bar">
+              <div class="rev-Row">
+                <div class="rev-Col">
+                  <h3>
+                    <a href="<%= repository_path(@conn, :show, repo.owner, repo.name) %>">
+                      <%= repo.owner %>/<%= repo.name %>
+                    </a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="rev-Card-body undefined rev-CardLayout-bar">
+            </div>
+            <div class="rev-Card-footer undefined rev-CardLayout-bar">
+              <div class="rev-Row">
+                <div class="rev-Col">
+                  <div class="rev-Form">
+                    <a class="rev-Button" href="https://github.com/<%= repo.owner %>/<%= repo.name %>">
+                      Contribute
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        <% end %>
+
+          </div>
       </div>
     </div>
 
