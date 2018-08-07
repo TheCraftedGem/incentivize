@@ -31,7 +31,7 @@
 
           <div class="rev-TopBar-title">
             <ul class="rev-Menu rev-Menu--horizontalLeft">
-              <a href="#">
+              <a href="/">
                 <img src="/images/incentivize-logo-dark.png" alt="Incentivize" />
               </a>
             </ul>
@@ -58,7 +58,7 @@
                     <a href="#">Discover</a>
                   </li>
                   <li class="rev-Menu-item">
-                    <a href="#Contact">Contact Us</a>
+                    <a href="#Contact">Contact</a>
                   </li>
                   <%= if logged_in?(@conn) do %>
                     <li class="rev-Menu-item">
@@ -91,7 +91,7 @@
                 <a href="#">Discover</a>
               </li>
               <li class="rev-Menu-item">
-                <a href="#Contact">Contact Us</a>
+                <a href="#Contact">Contact</a>
               </li>
               <%= if logged_in?(@conn) do %>
                 <li class="rev-Menu-item">
@@ -99,9 +99,6 @@
                 </li>
                 <li class="rev-Menu-item">
                   <a href="<%= repository_path(@conn, :new) %>">Connect a Repository</a>
-                </li>
-                <li class="rev-Menu-item">
-                  <a href="<%= github_auth_path(@conn, :delete) %>">Log out</a>
                 </li>
               <% end %>
               <%= if logged_in?(@conn) do %>
@@ -122,7 +119,7 @@
       <!-- <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p> -->
 
-      <main role="main">
+      <main role="main" class="rev-ContentWrapper">
         <%= render @view_module, @view_template, assigns %>
       </main>
 
