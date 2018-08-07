@@ -46,4 +46,11 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
     conn = get(conn, repository_path(conn, :webhook, "me", "me"))
     assert html_response(conn, 200)
   end
+
+  test "POST /repos/create when repo already connected", %{conn: conn} do
+    insert!(:repository, owner: "me", name: "me")
+
+    conn = post(conn, repository_path(conn, :create), repository: [owner: "me", name: "me"])
+    assert html_response(conn, 400) =~ "already connected"
+  end
 end
