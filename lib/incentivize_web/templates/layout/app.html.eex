@@ -7,6 +7,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <title>Incentivize</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <%= if Confex.get_env(:incentivize, :google_analytics_id) do %>
@@ -24,12 +26,69 @@
 
   <body>
     <div class="container">
-      <div class="rev-TopBar">
+      <div class="rev-TopBar rev-TopBar--fixed">
         <nav role="navigation">
-          <div class="rev-TopBar-item">
+
+          <div class="rev-TopBar-title">
             <ul class="rev-Menu rev-Menu--horizontalLeft">
+              <a href="#">
+                <img src="/images/incentivize-logo-dark.png" alt="Incentivize" />
+              </a>
+            </ul>
+          </div>
+
+          <div className="rev-Drawer rev-Drawer--right">
+              <ul class="rev-Menu rev-Menu--horizontalRight">
+                <li class="Hide--mediumUp">
+                  <a class="rev-Drawer-expander"><i class="material-icons">menu</i></a>
+                </li>
+              </ul>
+          </div>
+
+          <div class="rev-Drawer rev-Drawer--right rev-Drawer--fixed Hide--mediumUp">
+            <!-- .rev-Drawer--open class needs to be added to .rev-Drawer when the menu is triggered -->
+            <a class="rev-Drawer-closer"><i class="material-icons">close</i></a>
+            <div class="rev-Drawer-contents">
+              <div class="rev-TopBar-item">
+                <ul class="rev-Menu">
+                  <li class="rev-Menu-item">
+                    <a href="#About">About</a>
+                  </li>
+                  <li class="rev-Menu-item">
+                    <a href="#">Discover</a>
+                  </li>
+                  <li class="rev-Menu-item">
+                    <a href="#Contact">Contact Us</a>
+                  </li>
+                  <%= if logged_in?(@conn) do %>
+                    <li class="rev-Menu-item">
+                      <a href="<%= account_path(@conn, :edit) %>">Account</a>
+                    </li>
+                  <% end %>
+                  <%= if logged_in?(@conn) do %>
+                    <div class="rev-Form">
+                      <a class="rev-Button rev-Button--expanded" href="<%= github_auth_path(@conn, :delete) %>">Log Out</a>
+                    </div>
+                  <% else %>
+                    <div class="rev-Form">
+                      <a class="rev-Button rev-Button--expanded" href="<%= github_auth_path(@conn, :index) %>">Log In</a>
+                    </div>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-TopBar-item Hide--mediumDown">
+            <ul class="rev-Menu rev-Menu--horizontalRight">
               <li class="rev-Menu-item">
-                <a href="<%= page_path(@conn, :index) %>">Home</a>
+                <a href="#About">About</a>
+              </li>
+              <li class="rev-Menu-item">
+                <a href="#">Discover</a>
+              </li>
+              <li class="rev-Menu-item">
+                <a href="#Contact">Contact Us</a>
               </li>
               <%= if logged_in?(@conn) do %>
                 <li class="rev-Menu-item">
@@ -38,13 +97,19 @@
                 <li class="rev-Menu-item">
                   <a href="<%= github_auth_path(@conn, :delete) %>">Log out</a>
                 </li>
+              <% end %>
+              <%= if logged_in?(@conn) do %>
+                <div class="rev-Form">
+                  <a class="rev-Button" href="<%= github_auth_path(@conn, :delete) %>">Log Out</a>
+                </div>
               <% else %>
-                <li class="rev-Menu-item">
-                  <a href="<%= github_auth_path(@conn, :index) %>">Connect To Github</a>
-                </li>
+                <div class="rev-Form">
+                  <a class="rev-Button" href="<%= github_auth_path(@conn, :index) %>">Log In</a>
+                </div>
               <% end %>
             </ul>
           </div>
+
         </nav>
       </div>
 
