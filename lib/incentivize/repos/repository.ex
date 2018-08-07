@@ -25,6 +25,10 @@ defmodule Incentivize.Repository do
       :admin_id
     ])
     |> validate_required([:name, :owner, :admin_id])
+    |> unique_constraint(:owner,
+      name: "repositories_owner_name_index",
+      message: "Repository already connected."
+    )
     |> put_change(:webhook_secret, random_string(32))
   end
 
