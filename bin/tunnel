@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -R "incentivize-$(hostname -s)-$(whoami):80:localhost:4000" serveo.net

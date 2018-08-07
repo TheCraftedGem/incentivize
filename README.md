@@ -113,6 +113,18 @@ Once run, follow directions and start app by running `sh ./bin/server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
+### Local Webhooks
+
+Run `sh ./bin/tunnel` and you'll see something like this:
+
+```
+Forwarding HTTP traffic from https://incentivize-joels-mbp-joel.serveo.net
+Press g to start a GUI session and ctrl-c to quit.
+Starting GUI...Finished
+```
+
+This tunnels public traffic from `https://incentivize-<your hostname>-<your user>.serveo.net` to `http://localhost:4000` so that GitHub can trigger your webhooks.
+
 # Tech Stack
 
 - Elixir
