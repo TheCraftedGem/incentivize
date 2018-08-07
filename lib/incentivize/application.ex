@@ -11,9 +11,10 @@ defmodule Incentivize.Application do
       # Start the Ecto repository
       supervisor(Incentivize.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(IncentivizeWeb.Endpoint, [])
+      supervisor(IncentivizeWeb.Endpoint, []),
       # Start your own worker by calling: Incentivize.Worker.start_link(arg1, arg2, arg3)
       # worker(Incentivize.Worker, [arg1, arg2, arg3]),
+      supervisor(NodeJS.Supervisor, [[path: Path.join(File.cwd!, "nodejs"), pool_size: 4]]),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

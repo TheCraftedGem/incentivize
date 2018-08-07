@@ -1,0 +1,44 @@
+<div>
+  <div>
+
+    <div class="rev-Row">
+      <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
+        <h1>Account Info</h1>
+        <%= form_for @changeset, account_path(@conn, :update), fn f -> %>
+          <label class="rev-InputStack rev-InputLabel">
+            <span>Email</span>
+            <%= email_input(f, :email, required: true, class: "rev-Input") %>
+          </label>
+
+          <label class="rev-InputStack rev-InputLabel">
+            <span>Stellar Public Key</span>
+            <%= text_input(f, :stellar_public_key, required: true, class: "rev-Input") %>
+          </label>
+
+          <label class="rev-InputLabel">
+            <a data-stellar-generate href="#">
+              Don't have a Stellar account? Click here to create one
+            </a>
+            <div data-private-key-area class="Hide">
+              <p class="rev-InputHelpText">A Stellar Account comes with 2 keys.
+                A public key that serves as a way for you to receive Lumens
+                (Think Venmo username or email for PayPal) and
+                Secret Key that gives you access to your account.
+                This is the one and only time we will show you the secret key,
+                please save it somewhere safe as anyone who has access to it
+                has complete access to your account.
+              </p>
+              <div data-show-stellar-generated-secret></div>
+            </div>
+          </label>
+
+          <section class="u-noBorder-bottom">
+            <button class="rev-Button" type="submit">Submit</button>
+          </section>
+
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -36,7 +36,7 @@
 
     <div class="Section">
       <div class="rev-Row">
-        <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
+        <div id="About" class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
           <h2>About Incentivize</h2>
           <p>The software industry is lacking an <strong>incentive platform</strong> for <strong>building communities</strong> around projects outside of bounty offerings, employers paying hourly/salaries, or maintainers receiving donations. Contributors to open and closed source projects should be <strong>incentivized for the value they bring to a project</strong> beyond just their time.</p>
         </div>

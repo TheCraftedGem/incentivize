@@ -1,0 +1,17 @@
+$topbar-title-width: 22rem;
+
+.rev-TopBar-title {
+  img {
+    max-width: $topbar-title-width;
+  }
+}
+.rev-TopBar {
+  .rev-Form {
+    .rev-Button {
+      @include breakpoint(small-only) {
+        margin-top: $global-margin;
+        text-align: center;
+      }
+    }
+  }
+}
