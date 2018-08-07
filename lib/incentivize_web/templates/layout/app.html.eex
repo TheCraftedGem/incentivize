@@ -64,6 +64,9 @@
                     <li class="rev-Menu-item">
                       <a href="<%= account_path(@conn, :edit) %>">Account</a>
                     </li>
+                    <li class="rev-Menu-item">
+                      <a href="<%= repository_path(@conn, :new) %>">Connect a Repository</a>
+                    </li>
                   <% end %>
                   <%= if logged_in?(@conn) do %>
                     <div class="rev-Form">
@@ -93,6 +96,9 @@
               <%= if logged_in?(@conn) do %>
                 <li class="rev-Menu-item">
                   <a href="<%= account_path(@conn, :edit) %>">Account</a>
+                </li>
+                <li class="rev-Menu-item">
+                  <a href="<%= repository_path(@conn, :new) %>">Connect a Repository</a>
                 </li>
                 <li class="rev-Menu-item">
                   <a href="<%= github_auth_path(@conn, :delete) %>">Log out</a>

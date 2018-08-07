@@ -25,4 +25,8 @@ defmodule Incentivize.Repositories do
   def get_repository(id) do
     Repo.get(Repository, id)
   end
+
+  def user_owns_repository?(repository, user) do
+    user.id == repository.admin_id
+  end
 end

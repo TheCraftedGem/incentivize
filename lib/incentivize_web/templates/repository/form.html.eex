@@ -1,0 +1,17 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <label class="rev-InputStack rev-InputLabel">
+    <span>Owner</span>
+    <%= text_input(f, :owner, required: true, class: "rev-Input") %>
+    <%= error_tag f, :owner %>
+  </label>
+
+  <label class="rev-InputStack rev-InputLabel">
+    <span>Repository Name</span>
+    <%= text_input(f, :name, required: true, class: "rev-Input") %>
+    <%= error_tag f, :name %>
+  </label>
+
+  <section class="u-noBorder-bottom">
+    <button class="rev-Button" type="submit">Connect</button>
+  </section>
+<% end %>
