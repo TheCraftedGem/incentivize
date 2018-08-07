@@ -75,6 +75,7 @@ defmodule IncentivizeWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :index)
+    get("/repos", RepositoryController, :index)
   end
 
   scope "/auth", IncentivizeWeb do
