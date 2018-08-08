@@ -2,42 +2,67 @@
   <div>
 
     <div class="rev-Row">
-      <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered">
-        <h1>Discover</h1>
-        <div class="rev-Row">
+      <div class="rev-Col">
 
+        <div class="rev-Row">
+          <div class="rev-Col">
+            <h2>Discover</h2>
+          </div>
+        </div>
+
+        <div class="rev-Row">
         <%= for repo <- @repositories do %>
-        <div class="rev-Col rev-Col--medium6">
-          <div class="rev-Card undefined rev-CardLayout">
-            <div class="rev-Card-header undefined rev-CardLayout-bar">
-              <div class="rev-Row">
-                <div class="rev-Col">
-                  <h3>
-                    <a href="<%= repository_path(@conn, :show, repo.owner, repo.name) %>">
-                      <%= repo.owner %>/<%= repo.name %>
-                    </a>
-                  </h3>
-                </div>
-              </div>
-            </div>
-            <div class="rev-Card-body undefined rev-CardLayout-bar">
-            </div>
-            <div class="rev-Card-footer undefined rev-CardLayout-bar">
-              <div class="rev-Row">
-                <div class="rev-Col">
-                  <div class="rev-Form">
-                    <a class="rev-Button" href="https://github.com/<%= repo.owner %>/<%= repo.name %>">
-                      Contribute
-                    </a>
+          <div class="rev-Col rev-Col--medium6">
+            <div class="rev-Card undefined rev-CardLayout">
+
+              <div class="rev-Card-header undefined rev-CardLayout-bar">
+                <div class="rev-Row">
+                  <div class="rev-Col">
+                    <h3 class="rev-ButtonLink">
+                      <img alt="Repo Favicon" src="/favicon.ico" />
+                      <div class="rev-ButtonLink--header">
+                        <a href="<%= repository_path(@conn, :show, repo.owner, repo.name) %>">
+                          <%= repo.owner %>/<%= repo.name %>
+                        </a>
+                      </div>
+                    </h3>
+                    <p>An incentive platform for software development.</p>
                   </div>
                 </div>
               </div>
+
+              <div class="rev-Card-footer undefined rev-CardLayout-bar">
+                <div class="rev-Row rev-Row--flex">
+                  <div class="rev-Col">
+                    <div class="rev-ButtonLink">
+                      <i class="material-icons">share</i>
+                      <p class="rev-ButtonLink--text">2,000 Lumens</p>
+                    </div>
+                  </div>
+                  <div class="rev-Col rev-Col--shrink">
+                    <div class="rev-ButtonLink">
+                      <i class="material-icons">screen_share</i>
+                      <p class="rev-ButtonLink--text">350 Distributed</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
+                  <div class="rev-Col rev-Col--medium10">
+                    <div class="rev-ButtonGroup rev-ButtonGroup--flexAlignEnd ">
+                      <a class="rev-Button rev-Button--secondary" href="">Support Project</a>
+                      <a class="rev-Button" href="https://github.com/<%= repo.owner %>/<%= repo.name %>">
+                        Contribute
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
-          </div>
         <% end %>
+        </div>
 
-          </div>
       </div>
     </div>
 
