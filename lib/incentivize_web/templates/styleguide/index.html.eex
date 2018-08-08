@@ -5,64 +5,51 @@
 
       <h1>Incentivize Styleguide</h1>
 
-      <div class="rev-Card">
-        <div class="rev-Card-body">
-          <div class="rev-Row">
-            <div class="rev-Col">
-              <label class="rev-InputStack rev-InputLabel">
-                <h5>Payload URL</h5>
-              </label>
-
-              <label class="rev-InputStack rev-InputLabel">
-                <h5>Content type</h5>
-                <div>application/json</div>
-              </label>
-
-              <label class="rev-InputStack rev-InputLabel">
-                <h5>Secret</h5>
-              </label>
-
-              <label class="rev-InputStack rev-InputLabel">
-                <h5>Which events would you like to trigger this webhook?</h5>
-                <div>Send me everything.</div>
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div class="rev-Col rev-Col--medium6">
         <div class="rev-Card undefined rev-CardLayout">
+
           <div class="rev-Card-header undefined rev-CardLayout-bar">
             <div class="rev-Row">
               <div class="rev-Col">
-                <h3>
-                  <img class="Repo Favicon" src="/favicon.ico" />
-                  <a href="">
-                    Repo Owner / Repo Name
-                  </a>
+                <h3 class="rev-ButtonLink">
+                  <img alt="Repo Favicon" src="/favicon.ico" />
+                  <div class="rev-ButtonLink--header">
+                    <a href="">
+                      Repo Owner / Repo Name
+                    </a>
+                  </div>
                 </h3>
                 <p>An incentive platform for software development.</p>
-                <a class="rev-Button" href="">
-                  Support Project
-                </a>
               </div>
             </div>
           </div>
-          <div class="rev-Card-body undefined rev-CardLayout-bar">
-          </div>
+
           <div class="rev-Card-footer undefined rev-CardLayout-bar">
-            <div class="rev-Row">
+
+            <div class="rev-Row rev-Row--flex">
               <div class="rev-Col">
-                <p><i class="material-icons">share</i> 2,000</p>
-                <i class="material-icons">add_circle_outline</i>
-                <div class="rev-Form">
-                  <a class="rev-Button" href="">
-                    Contribute
-                  </a>
+                <div class="rev-ButtonLink">
+                  <i class="material-icons">share</i>
+                  <p class="rev-ButtonLink--text">2,000 Supported</p>
+                </div>
+              </div>
+              <div class="rev-Col rev-Col--shrink">
+                <div class="rev-ButtonLink">
+                  <i class="material-icons">add_circle_outline</i>
+                  <p class="rev-ButtonLink--text">350 Contributed</p>
                 </div>
               </div>
             </div>
+
+            <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
+              <div class="rev-Col rev-Col--medium4">
+                <a class="rev-Button rev-Button--secondary" href="">Contribute</a>
+              </div>
+              <div class="rev-Col rev-Col--medium5">
+                <a class="rev-Button" href="">Support Project</a>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
