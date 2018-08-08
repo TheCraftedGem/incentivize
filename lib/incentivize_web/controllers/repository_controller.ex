@@ -2,6 +2,12 @@ defmodule IncentivizeWeb.RepositoryController do
   use IncentivizeWeb, :controller
   alias Incentivize.{Repositories, Repository}
 
+  def index(conn, _params) do
+    repositories = Repositories.list_repositories()
+
+    render(conn, "index.html", repositories: repositories)
+  end
+
   def new(conn, _params) do
     changeset = Repository.create_changeset(%Repository{})
 
@@ -23,6 +29,12 @@ defmodule IncentivizeWeb.RepositoryController do
         |> put_flash(:error, "Failed to create.")
         |> render("new.html", changeset: changeset)
     end
+  end
+
+  def show(conn, %{"owner" => owner, "name" => name}) do
+    repository = Repositories.get_repository_by_owner_and_name(owner, name)
+
+    render(conn, "show.html", repository: repository)
   end
 
   def webhook(conn, %{"owner" => owner, "name" => name}) do
