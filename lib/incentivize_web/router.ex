@@ -97,13 +97,20 @@ defmodule IncentivizeWeb.Router do
     put("/edit", AccountController, :update)
   end
 
-  scope "/", IncentivizeWeb do
+  scope "/repos", IncentivizeWeb do
+    pipe_through(:browser)
+
+    get("/", RepositoryController, :index)
+    get("/:owner/:name", RepositoryController, :show)
+  end
+
+  scope "/repos", IncentivizeWeb do
     pipe_through([:browser, :require_auth])
 
-    get("/repos/new", RepositoryController, :new)
-    post("/repos/create", RepositoryController, :create)
+    get("/new", RepositoryController, :new)
+    post("/create", RepositoryController, :create)
 
-    get("/repos/:owner/:name/webhook", RepositoryController, :webhook)
+    get("/:owner/:name/webhook", RepositoryController, :webhook)
   end
 
   scope "/github/webhooks", IncentivizeWeb do

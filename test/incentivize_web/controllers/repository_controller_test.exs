@@ -53,4 +53,18 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
     conn = post(conn, repository_path(conn, :create), repository: [owner: "me", name: "me"])
     assert html_response(conn, 400) =~ "already connected"
   end
+
+  test "GET /repos", %{conn: conn} do
+    insert!(:repository, owner: "me", name: "me")
+
+    conn = get(conn, repository_path(conn, :index))
+    assert html_response(conn, 200) =~ "Discover"
+  end
+
+  test "GET /repos/:owner/:name", %{conn: conn} do
+    insert!(:repository, owner: "me", name: "me")
+
+    conn = get(conn, repository_path(conn, :show, "me", "me"))
+    assert html_response(conn, 200) =~ "me/me"
+  end
 end
