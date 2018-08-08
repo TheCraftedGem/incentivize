@@ -18,5 +18,8 @@ mix local.hex --force
 mix local.rebar --force
 mix deps.get
 
-echo "Installing node dependencies"
+echo "Installing node dependencies for assets"
 (cd assets && npm install && cd ..)
+
+echo "Installing node dependencies for nodejs"
+(cd nodejs && npm install && cd ..)
