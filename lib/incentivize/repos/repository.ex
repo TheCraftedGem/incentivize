@@ -6,6 +6,7 @@ defmodule Incentivize.Repository do
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
   alias Incentivize.User
+  alias Incentivize.Repository
 
   @type t :: %__MODULE__{}
   schema "repositories" do
@@ -16,7 +17,7 @@ defmodule Incentivize.Repository do
     timestamps()
   end
 
-  def create_changeset(model, params \\ %{}) do
+  def create_changeset(%Repository{} = model, params \\ %{}) do
     model
     |> cast(params, [
       :name,
@@ -24,10 +25,14 @@ defmodule Incentivize.Repository do
       :admin_id
     ])
     |> validate_required([:name, :owner, :admin_id])
+    |> unique_constraint(:owner,
+      name: "repositories_owner_name_index",
+      message: "Repository already connected."
+    )
     |> put_change(:webhook_secret, random_string(32))
   end
 
-  def update_changeset(model, params \\ %{}) do
+  def update_changeset(%Repository{} = model, params \\ %{}) do
     model
     |> cast(params, [
       :name,

@@ -1,0 +1,52 @@
+<div>
+  <div>
+
+    <div class="rev-Row">
+      <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
+        <h1>Webhook Information</h1>
+
+        <h2 class="u-noPadding-top"><%= @repository.owner %>/<%= @repository.name %></h2>
+        <p>
+          Go to <a href="https://github.com/<%= @repository.owner %>/<%= @repository.name %>/settings/hooks">https://github.com/<%= @repository.owner %>/<%= @repository.name %>/settings/hooks</a>.
+        </p>
+        <p>Click the "<strong>Add webhook</strong>" button.</p>
+        <p>Enter the information below:</p>
+
+        <div class="rev-Card">
+          <div class="rev-Card-body">
+
+            <div class="rev-Row">
+              <div class="rev-Col">
+                <label class="rev-InputStack rev-InputLabel">
+                  <h5>Payload URL</h5>
+                  <div><%= github_webhook_url(@conn, :handle_webhook) %></div>
+                </label>
+
+                <label class="rev-InputStack rev-InputLabel">
+                  <h5>Content type</h5>
+                  <div>application/json</div>
+                </label>
+
+                <label class="rev-InputStack rev-InputLabel">
+                  <h5>Secret</h5>
+                  <div><%= @repository.webhook_secret %></div>
+                </label>
+
+                <label class="rev-InputStack rev-InputLabel">
+                  <h5>Which events would you like to trigger this webhook?</h5>
+                  <div>Send me everything.</div>
+                </label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <p>Finally, click the "<strong>Add webhook</strong>" button.</p>
+        <p><em>All set!</em></p>
+
+      </div>
+    </div>
+
+  </div>
+</div>

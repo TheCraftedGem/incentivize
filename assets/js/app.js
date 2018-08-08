@@ -1,7 +1,6 @@
 import 'babel-polyfill'
 import 'phoenix_html'
 import '../css/app.scss'
-import Account from './account/account'
 
 function setupMenu() {
   const expander = document.querySelector('.rev-Drawer-expander')
@@ -21,7 +20,6 @@ function setupMenu() {
 
 function init() {
   setupMenu()
-  Account.setupAccountPage()
 }
 
 document.addEventListener('DOMContentLoaded', init)
