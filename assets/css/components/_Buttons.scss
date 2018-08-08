@@ -14,7 +14,13 @@
     margin-left: $global-margin-tiny;
   }
 }
-.rev-Button--flexAlignEnd {
+.rev-ButtonGroup {
+  .rev-Button {
+    &:first-child {
+      margin-right: $global-margin-small;
+    }
+  }
+}
+.rev-ButtonGroup--flexAlignEnd {
   @include flex(flex-end, row, flex-end);
-  @include flexAlignEnd;
 }
