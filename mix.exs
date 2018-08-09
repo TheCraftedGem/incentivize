@@ -55,7 +55,8 @@ defmodule Incentivize.Mixfile do
       {:oauth2, "~> 0.9.2"},
       {:confex, "~> 3.3"},
       {:nodejs, "~> 0.1"},
-      {:rollbax, "~> 0.9.2"}
+      {:rollbax, "~> 0.9.2"},
+      {:harmonium, "~> 0.2.0"}
     ]
   end
 
