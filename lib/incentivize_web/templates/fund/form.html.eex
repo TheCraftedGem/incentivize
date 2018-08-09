@@ -1,0 +1,16 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <label class="rev-InputStack rev-InputLabel">
+    <span>Pledge Amount</span>
+    <%= number_input(f, :pledge_amount, required: true, class: "rev-Input") %>
+    <%= error_tag f, :pledge_amount %>
+  </label>
+
+  <label class="rev-InputStack rev-InputLabel">
+    <span>Actions</span>
+    <%= error_tag f, :actions %>
+  </label>
+
+  <section class="u-noBorder-bottom">
+    <button class="rev-Button" type="submit">Incentivize</button>
+  </section>
+<% end %>

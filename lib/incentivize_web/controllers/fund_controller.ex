@@ -7,7 +7,7 @@ defmodule IncentivizeWeb.FundController do
 
     changeset = Fund.create_changeset(%Fund{})
 
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", repository: repository, changeset: changeset)
   end
 
   def create(conn, %{"owner" => owner, "name" => name, "fund" => params}) do
@@ -28,7 +28,7 @@ defmodule IncentivizeWeb.FundController do
         conn
         |> put_status(400)
         |> put_flash(:error, "Failed to create.")
-        |> render("new.html", changeset: changeset)
+        |> render("new.html", repository: repository, changeset: changeset)
     end
   end
 
@@ -37,6 +37,6 @@ defmodule IncentivizeWeb.FundController do
 
     fund = Funds.get_fund_for_repository(repository, id)
 
-    render(conn, "show.html", fund: fund)
+    render(conn, "show.html", repository: repository, fund: fund)
   end
 end
