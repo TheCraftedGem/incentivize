@@ -1,4 +1,5 @@
 defmodule Incentivize.Mixfile do
+  @moduledoc false
   use Mix.Project
 
   def project do
