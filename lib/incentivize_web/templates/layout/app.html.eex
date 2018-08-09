@@ -116,10 +116,25 @@
         </nav>
       </div>
 
-      <!-- <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p> -->
-
       <main role="main" class="rev-ContentWrapper">
+        <%= if get_flash(@conn, :info) do %>
+          <div class="rev-Callout success rev-Callout--success" role="alert">
+            <div class="rev-Row">
+              <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
+                <p><%= get_flash(@conn, :info) %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <%= if get_flash(@conn, :error) do %>
+          <div class="rev-Callout alert rev-Callout--alert" role="alert">
+            <div class="rev-Row">
+              <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
+                <p><%= get_flash(@conn, :error) %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
         <%= render @view_module, @view_template, assigns %>
       </main>
 
