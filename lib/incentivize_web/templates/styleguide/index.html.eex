@@ -16,9 +16,9 @@
             <div class="rev-Card-header rev-CardLayout-bar">
               <div class="rev-Row">
                 <div class="rev-Col">
-                  <h3 class="rev-ButtonLink">
+                  <h3 class="ButtonLink">
                     <img alt="Repo Favicon" src="/favicon.ico" />
-                    <div class="rev-ButtonLink--header">
+                    <div class="ButtonLink--header">
                       <a href="">
                         Repo Owner / Repo Name
                       </a>
@@ -32,21 +32,21 @@
             <div class="rev-Card-footer rev-CardLayout-bar">
               <div class="rev-Row rev-Row--flex">
                 <div class="rev-Col">
-                  <div class="rev-ButtonLink">
+                  <div class="ButtonLink">
                     <i class="material-icons">share</i>
-                    <p class="rev-ButtonLink--text">2,000 Lumens</p>
+                    <p class="ButtonLink--text">2,000 Lumens</p>
                   </div>
                 </div>
                 <div class="rev-Col rev-Col--shrink">
-                  <div class="rev-ButtonLink">
+                  <div class="ButtonLink">
                     <i class="material-icons">screen_share</i>
-                    <p class="rev-ButtonLink--text">350 Distributed</p>
+                    <p class="ButtonLink--text">350 Distributed</p>
                   </div>
                 </div>
               </div>
               <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
                 <div class="rev-Col rev-Col--medium10">
-                  <div class="rev-ButtonGroup rev-ButtonGroup--flexAlignEnd ">
+                  <div class="rev-ButtonGroup ButtonGroup--flexAlignEnd ">
                     <a class="rev-Button rev-Button--secondary" href="">Support Project</a>
                     <a class="rev-Button" href="">Contribute</a>
                   </div>
@@ -63,9 +63,9 @@
             <div class="rev-Card-header rev-CardLayout-bar">
               <div class="rev-Row">
                 <div class="rev-Col">
-                  <h3 class="rev-ButtonLink">
+                  <h3 class="ButtonLink">
                     <img alt="Repo Favicon" src="/favicon.ico" />
-                    <div class="rev-ButtonLink--header">
+                    <div class="ButtonLink--header">
                       <a href="">
                         Repo Owner / Repo Name
                       </a>
@@ -79,21 +79,21 @@
             <div class="rev-Card-footer rev-CardLayout-bar">
               <div class="rev-Row rev-Row--flex">
                 <div class="rev-Col">
-                  <div class="rev-ButtonLink">
+                  <div class="ButtonLink">
                     <i class="material-icons">share</i>
-                    <p class="rev-ButtonLink--text">2,000 Lumens</p>
+                    <p class="ButtonLink--text">2,000 Lumens</p>
                   </div>
                 </div>
                 <div class="rev-Col rev-Col--shrink">
-                  <div class="rev-ButtonLink">
+                  <div class="ButtonLink">
                     <i class="material-icons">screen_share</i>
-                    <p class="rev-ButtonLink--text">350 Distributed</p>
+                    <p class="ButtonLink--text">350 Distributed</p>
                   </div>
                 </div>
               </div>
               <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
                 <div class="rev-Col rev-Col--medium10">
-                  <div class="rev-ButtonGroup rev-ButtonGroup--flexAlignEnd ">
+                  <div class="rev-ButtonGroup ButtonGroup--flexAlignEnd ">
                     <a class="rev-Button rev-Button--secondary" href="">Support Project</a>
                     <a class="rev-Button" href="">Contribute</a>
                   </div>
