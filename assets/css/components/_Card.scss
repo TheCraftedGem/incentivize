@@ -1,0 +1,13 @@
+.rev-Card,
+.rev-CardLayout {
+  .rev-Col {
+    img {
+      margin: 0;
+    }
+  }
+}
+.rev-Card-footer {
+  .rev-Button {
+    margin: $global-vertical-space / 2 0;
+  }
+}
