@@ -11,6 +11,8 @@ defmodule Incentivize.Fund do
   schema "funds" do
     field(:pledge_amount, :decimal)
     field(:stellar_public_key, :string)
+
+    # intending actions to be like 'issues.opened'. Exactly how probot does things https://probot.github.io/docs/webhooks/
     field(:actions, {:array, :string}, default: [])
     belongs_to(:supporter, User)
     belongs_to(:repository, Repository)
