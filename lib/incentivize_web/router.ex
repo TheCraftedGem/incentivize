@@ -77,6 +77,12 @@ defmodule IncentivizeWeb.Router do
     get("/", PageController, :index)
   end
 
+  scope "/styleguide", IncentivizeWeb do
+    pipe_through(:browser)
+
+    get("/", StyleguideController, :index)
+  end
+
   scope "/auth", IncentivizeWeb do
     pipe_through(:browser)
 

@@ -3,7 +3,7 @@
 
     <div class="rev-Row">
       <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
-        <h1>Webhook Information</h1>
+        <h2>Webhook Information</h2>
 
         <h2 class="u-noPadding-top"><%= @repository.owner %>/<%= @repository.name %></h2>
         <p>
