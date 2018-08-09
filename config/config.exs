@@ -25,6 +25,11 @@ config :incentivize, Incentivize.Github.OAuth,
   client_id: {:system, "GITHUB_CLIENT_ID"},
   client_secret: {:system, "GITHUB_CLIENT_SECRET"}
 
+config :incentivize, Incentivize.Stellar,
+  network_url: {:system, "STELLAR_NETWORK_URL"},
+  public_key: {:system, "STELLAR_PUBLIC_KEY"},
+  secret: {:system, "STELLAR_SECRET"}
+
 config :rollbax,
   enabled: false,
   environment: "dev"
