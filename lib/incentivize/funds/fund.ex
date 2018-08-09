@@ -38,20 +38,4 @@ defmodule Incentivize.Fund do
   defp create_stellar_fund(changeset) do
     changeset
   end
-
-  def update_changeset(%Fund{} = model, params \\ %{}) do
-    model
-    |> cast(params, [
-      :pledge_amount,
-      :actions,
-      :supporter_id,
-      :repository_id
-    ])
-    |> validate_required([
-      :pledge_amount,
-      :actions,
-      :supporter_id,
-      :repository_id
-    ])
-  end
 end

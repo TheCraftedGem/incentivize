@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.FundController do
   use IncentivizeWeb, :controller
-  alias Incentivize.{Funds, Fund}
+  alias Incentivize.{Fund, Funds, Repositories}
 
   def new(conn, %{"owner" => owner, "name" => name}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
@@ -15,10 +15,10 @@ defmodule IncentivizeWeb.FundController do
 
     params =
       params
-      |> Map.put("user_id", conn.assigns.current_user.id)
-      |> Map.put("repo_id", repository.id)
+      |> Map.put("supporter_id", conn.assigns.current_user.id)
+      |> Map.put("repository_id", repository.id)
 
-    case Funds.create_fund(repo_params) do
+    case Funds.create_fund(params) do
       {:ok, fund} ->
         conn
         |> put_flash(:info, "Created successfully.")
@@ -35,7 +35,7 @@ defmodule IncentivizeWeb.FundController do
   def show(conn, %{"owner" => owner, "name" => name, "fund_id" => id}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
-    fund = Repositories.get_fund_for_repository(repository, id)
+    fund = Funds.get_fund_for_repository(repository, id)
 
     render(conn, "show.html", fund: fund)
   end
