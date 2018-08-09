@@ -7,6 +7,7 @@
 
   <label class="rev-InputStack rev-InputLabel">
     <span>Actions</span>
+    <%= multiple_select(f, :actions, action_choices()) %>
     <%= error_tag f, :actions %>
   </label>
 

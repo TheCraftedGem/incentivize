@@ -1,4 +1,5 @@
 defmodule IncentivizeWeb.GithubAuthController.Test do
+    @moduledoc false
   use IncentivizeWeb.ConnCase
 
   test "GET /auth/github", %{conn: conn} do

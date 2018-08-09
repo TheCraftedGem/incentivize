@@ -49,7 +49,7 @@
                 <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
                   <div class="rev-Col rev-Col--medium10">
                     <div class="rev-ButtonGroup ButtonGroup--flexAlignEnd ">
-                      <a class="rev-Button rev-Button--secondary" href="">Support Project</a>
+                      <a class="rev-Button rev-Button--secondary" href="<%= fund_path(@conn, :new, repo.owner, repo.name) %>">Support Project</a>
                       <a class="rev-Button" href="https://github.com/<%= repo.owner %>/<%= repo.name %>">
                         Contribute
                       </a>

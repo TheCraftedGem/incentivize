@@ -1,5 +1,5 @@
 defmodule Incentivize.Factory do
-  alias Incentivize.{User, Repo, Repository}
+  alias Incentivize.{Fund, Repo, Repository, User}
 
   def build(:user) do
     %User{
@@ -15,6 +15,15 @@ defmodule Incentivize.Factory do
       owner: "test#{System.unique_integer([:positive])}",
       webhook_secret: "12345",
       admin: build(:user)
+    }
+  end
+
+  def build(:fund) do
+    %Fund{
+      pledge_amount: Decimal.new("1.0"),
+      repository: build(:repository),
+      actions: ["issues.opened"],
+      supporter: build(:user)
     }
   end
 

@@ -11,13 +11,24 @@
             <div class="rev-Row">
               <div class="rev-Col">
                 <label class="rev-InputStack rev-InputLabel">
+                  <h5>Fund Address</h5>
+                  <div><%= @fund.stellar_public_key %></div>
+                </label>
+
+                <label class="rev-InputStack rev-InputLabel">
                   <h5>Pledge Amount</h5>
-                  <div></div>
+                  <div><%= @fund.pledge_amount %> Lumen(s)</div>
                 </label>
 
                 <label class="rev-InputStack rev-InputLabel">
                   <h5>Actions</h5>
-                  <div></div>
+                  <div>
+                    <ul>
+                      <%= for action <- @fund.actions do %>
+                        <li><%= action_display(action) %></li>
+                      <% end %>
+                    </ul>
+                  </div>
                 </label>
               </div>
             </div>

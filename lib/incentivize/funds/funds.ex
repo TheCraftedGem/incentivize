@@ -15,4 +15,21 @@ defmodule Incentivize.Funds do
   def get_fund_for_repository(repository, id) do
     Repo.get_by(Fund, repository_id: repository.id, id: id)
   end
+
+  def list_funds_for_repository(repository) do
+    Fund
+    |> where([f], f.repository_id == ^repository.id)
+    |> order_by([f], f.inserted_at)
+    |> Repo.all()
+  end
+
+  def github_actions do
+    [
+      "pull_request.opened": "Pull Request Opened",
+      "pull_request.closed": "Pull Request Closed",
+      "issue_comment.created": "Issue Commented",
+      "issues.opened": "Issue Opened",
+      "issues.closed": "Issue Closed"
+    ]
+  end
 end

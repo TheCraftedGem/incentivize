@@ -32,7 +32,7 @@ defmodule IncentivizeWeb.FundController do
     end
   end
 
-  def show(conn, %{"owner" => owner, "name" => name, "fund_id" => id}) do
+  def show(conn, %{"owner" => owner, "name" => name, "id" => id}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
     fund = Funds.get_fund_for_repository(repository, id)
