@@ -6,6 +6,7 @@ defmodule Incentivize.Fund do
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
   alias Incentivize.{Fund, Repository, Stellar, User, Users}
+  require Logger
 
   @type t :: %__MODULE__{}
   schema "funds" do
@@ -39,12 +40,19 @@ defmodule Incentivize.Fund do
 
   defp create_stellar_fund(changeset) do
     if get_field(changeset, :supporter_id) do
-      # TODO: make this work
-      # user = Users.get_user(get_field(changeset, :supporter_id))
-      # escrow_public_key = Stellar.create_fund_account(user.stellar_public_key)
-      # changeset = put_change(changeset, :stellar_public_key, escrow_public_key)
+      user = Users.get_user(get_field(changeset, :supporter_id))
 
-      changeset
+      case Stellar.create_fund_account(user.stellar_public_key) do
+        {:ok, escrow_public_key} ->
+          put_change(changeset, :stellar_public_key, escrow_public_key)
+
+        {:error, error} ->
+          Logger.error(fn ->
+            "Error: Stellar.create_fund_account, Message #{inspect(error)}"
+          end)
+
+          changeset
+      end
     else
       changeset
     end

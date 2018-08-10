@@ -12,6 +12,19 @@ function createServer(network) {
   return server
 }
 
+/**
+ * Generates a random keypair to be
+ * used to create new Stellar Account
+ */
+function generateRandomKeyPair() {
+  keypair = StellarSdk.Keypair.random()
+
+  return {
+    publicKey: keypair.publicKey(),
+    secret: keypair.secret(),
+  }
+}
+
 async function generateEscrowAccount(server, ownerKeyPair) {
   const ownerAccount = await server.loadAccount(ownerKeyPair.publicKey())
 
@@ -72,6 +85,13 @@ async function setWeights(
   return response
 }
 
+/**
+ * Creates Repository Fund
+ *
+ * @param network - The Stellar Network to use
+ * @param incentivizeSecret - Incentivize's account secret
+ * @param supporterPublicKey - The public key of the Supporter who will fund the account
+ */
 async function create(network, incentivizeSecret, supporterPublicKey) {
   const server = createServer(network)
 
@@ -90,6 +110,17 @@ async function create(network, incentivizeSecret, supporterPublicKey) {
   return escrowKeyPair.publicKey()
 }
 
+/**
+ * Reward a contribution
+ *
+ * @param network - The Stellar Network to use
+ * @param incentivizeSecret - Incentivize's account secret
+ * @param escrowPublicKey - The public key of the escrow account
+ * @param contributerPublicKey - The public key of the contributer to incentivize
+ * @param amount - The amount of lumens to give
+ * @param memoText - A memo about the contribution
+ *
+ */
 async function rewardContribution(
   network,
   incentivizeSecret,
@@ -122,4 +153,5 @@ async function rewardContribution(
 module.exports = {
   create,
   rewardContribution,
+  generateRandomKeyPair,
 }

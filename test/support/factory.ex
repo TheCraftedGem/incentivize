@@ -1,11 +1,15 @@
 defmodule Incentivize.Factory do
-  alias Incentivize.{Fund, Repo, Repository, User}
+  @moduledoc false
+  alias Incentivize.{Fund, Repo, Repository, Stellar, User}
 
   def build(:user) do
+    {:ok, %{"publicKey" => public_key}} = Stellar.generate_random_keypair()
+
     %User{
       email: "test#{System.unique_integer([:positive])}@example.com",
       github_login: "octocat#{System.unique_integer([:positive])}",
-      github_access_token: "12345#{System.unique_integer([:positive])}"
+      github_access_token: "12345#{System.unique_integer([:positive])}",
+      stellar_public_key: public_key
     }
   end
 

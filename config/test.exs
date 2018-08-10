@@ -18,3 +18,7 @@ config :incentivize, Incentivize.Repo,
   hostname: "localhost",
   port: String.to_integer(System.get_env("PGPORT") || "5432"),
   pool: Ecto.Adapters.SQL.Sandbox
+
+if File.exists?(Path.join([__DIR__, "dev.secret.exs"])) do
+  import_config "dev.secret.exs"
+end
