@@ -1,4 +1,5 @@
 defmodule IncentivizeWeb.AccountControllerTest do
+    @moduledoc false
   use IncentivizeWeb.ConnCase
   alias Incentivize.Users
 

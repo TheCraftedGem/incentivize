@@ -1,0 +1,37 @@
+<div>
+  <div>
+
+    <div class="rev-Row">
+      <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
+        <h1>Fund for <%= @repository.owner %>/<%= @repository.name %></h1>
+
+        <div class="rev-Card">
+          <div class="rev-Card-body">
+
+            <div class="rev-Row">
+              <div class="rev-Col">
+                <label class="rev-InputStack rev-InputLabel">
+                  <h5>Fund Address</h5>
+                  <div><%= @fund.stellar_public_key %></div>
+                </label>
+
+                <label class="rev-InputStack rev-InputLabel">
+                  <h5>Pledges</h5>
+                  <div>
+                    <ul>
+                      <%= for pledge <- @fund.pledges do %>
+                        <li><%= pledge.amount %> Lumen(s) when <%= action_display(pledge.action) %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

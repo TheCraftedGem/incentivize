@@ -119,6 +119,15 @@ defmodule IncentivizeWeb.Router do
     get("/:owner/:name/webhook", RepositoryController, :webhook)
   end
 
+  scope "/repos/:owner/:name/funds", IncentivizeWeb do
+    pipe_through([:browser, :require_auth])
+
+    get("/new", FundController, :new)
+    post("/create", FundController, :create)
+
+    get("/:id", FundController, :show)
+  end
+
   scope "/github/webhooks", IncentivizeWeb do
     pipe_through([:api, :github])
 

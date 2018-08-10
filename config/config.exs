@@ -26,7 +26,8 @@ config :incentivize, Incentivize.Github.OAuth,
   client_secret: {:system, "GITHUB_CLIENT_SECRET"}
 
 config :incentivize, Incentivize.Stellar,
-  network_url: {:system, "STELLAR_NETWORK_URL"},
+  # Defaults to test network
+  network_url: {:system, "STELLAR_NETWORK_URL", "https://horizon-testnet.stellar.org"},
   public_key: {:system, "STELLAR_PUBLIC_KEY"},
   secret: {:system, "STELLAR_SECRET"}
 

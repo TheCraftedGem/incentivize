@@ -1,0 +1,29 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <div data-pledges>
+    <%= inputs_for f, :pledges, [append: blank_pledge_row(@changeset)], fn fs -> %>
+    <div class="rev-Row">
+      <div class="rev-Col rev-Col--medium6">
+        <label class="rev-InputStack rev-InputLabel">
+          <span>Pledge Amount</span>
+          <%= number_input(fs, :amount, required: true, class: "rev-Input") %>
+          <%= error_tag fs, :amount %>
+        </label>
+      </div>
+      <div class="rev-Col rev-Col--medium6">
+        <label class="rev-InputStack rev-InputLabel">
+          <span>Action</span>
+          <%= select(fs, :action, action_choices(), class: "rev-Select", prompt: "Select an Action") %>
+          <%= error_tag fs, :action %>
+        </label>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
+    <div class="rev-Col rev-Col--medium6 u-flexAlignEnd">
+      <button class="rev-Button" type="submit">Incentivize</button>
+    </div>
+  </div>
+
+<% end %>

@@ -1,4 +1,5 @@
 defmodule IncentivizeWeb.GithubWebhookController.Test do
+    @moduledoc false
   use IncentivizeWeb.ConnCase
 
   test "POST /github/webhook", %{conn: conn} do

@@ -1,4 +1,5 @@
 defmodule Incentivize.Mixfile do
+  @moduledoc false
   use Mix.Project
 
   def project do
@@ -54,7 +55,7 @@ defmodule Incentivize.Mixfile do
       {:httpoison, "~> 1.2"},
       {:oauth2, "~> 0.9.2"},
       {:confex, "~> 3.3"},
-      {:nodejs, "~> 0.1"},
+      {:nodejs, "~> 0.2"},
       {:rollbax, "~> 0.9.2"},
       {:harmonium, "~> 0.2.0"}
     ]

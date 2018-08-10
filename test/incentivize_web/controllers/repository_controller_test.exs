@@ -1,4 +1,5 @@
 defmodule IncentivizeWeb.RepositoryControllerTest do
+  @moduledoc false
   use IncentivizeWeb.ConnCase
   alias Incentivize.Repositories
 
