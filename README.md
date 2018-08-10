@@ -163,4 +163,9 @@ In development, values can go into `config/dev.secret.exs`
 config :incentivize, Incentivize.Github.OAuth,
   client_id: <github_client_id>,
   client_secret: <github_client_secret>
+
+config :incentivize, Incentivize.Stellar,
+  network_url: <stellar_network_url>,
+  public_key: <stellar_public_key>,
+  secret: <stellar_secret>
 ```
