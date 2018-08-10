@@ -3,7 +3,7 @@
 
     <div class="rev-Row">
       <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
-        <h1>Fund <%= @repository.owner %>/<%= @repository.name %></h1>
+        <h1>Pledges for <%= @repository.owner %>/<%= @repository.name %></h1>
         <%= render "form.html", changeset: @changeset, action: fund_path(@conn, :create, @repository.owner, @repository.name), create: true %>
       </div>
     </div>

@@ -16,16 +16,11 @@
                 </label>
 
                 <label class="rev-InputStack rev-InputLabel">
-                  <h5>Pledge Amount</h5>
-                  <div><%= @fund.pledge_amount %> Lumen(s)</div>
-                </label>
-
-                <label class="rev-InputStack rev-InputLabel">
-                  <h5>Actions</h5>
+                  <h5>Pledges</h5>
                   <div>
                     <ul>
-                      <%= for action <- @fund.actions do %>
-                        <li><%= action_display(action) %></li>
+                      <%= for pledge <- @fund.pledges do %>
+                        <li><%= pledge.amount %> Lumen(s) when <%= action_display(pledge.action) %></li>
                       <% end %>
                     </ul>
                   </div>

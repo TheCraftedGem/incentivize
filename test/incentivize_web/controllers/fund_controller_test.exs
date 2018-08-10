@@ -17,7 +17,7 @@ defmodule IncentivizeWeb.FundControllerTest do
     insert!(:repository, owner: "me", name: "me")
 
     conn = get(conn, fund_path(conn, :new, "me", "me"))
-    assert html_response(conn, 200) =~ "Fund"
+    assert html_response(conn, 200) =~ "Pledges"
     assert html_response(conn, 200) =~ "me/me"
   end
 
@@ -26,7 +26,9 @@ defmodule IncentivizeWeb.FundControllerTest do
 
     conn =
       post(conn, fund_path(conn, :create, "me", "me"),
-        fund: [pledge_amount: "1.0000", actions: ["pull_request.opened", "pull_request.closed"]]
+        fund: [
+          pledges: %{"0" => %{"action" => "pull_request.opened", "amount" => "1"}}
+        ]
       )
 
     assert redirected_to(conn) =~ "/repos/me/me/funds/"
@@ -38,7 +40,11 @@ defmodule IncentivizeWeb.FundControllerTest do
     repository = insert!(:repository, owner: "me", name: "me")
 
     conn =
-      post(conn, fund_path(conn, :create, "me", "me"), fund: [pledge_amount: "", actions: []])
+      post(conn, fund_path(conn, :create, "me", "me"),
+        fund: [
+          pledges: %{}
+        ]
+      )
 
     assert html_response(conn, 400) =~ "Fund"
 

@@ -1,6 +1,6 @@
 defmodule Incentivize.Factory do
   @moduledoc false
-  alias Incentivize.{Fund, Repo, Repository, Stellar, User}
+  alias Incentivize.{Fund, Pledge, Repo, Repository, Stellar, User}
 
   def build(:user) do
     {:ok, %{"publicKey" => public_key}} = Stellar.generate_random_keypair()
@@ -24,10 +24,16 @@ defmodule Incentivize.Factory do
 
   def build(:fund) do
     %Fund{
-      pledge_amount: Decimal.new("1.0"),
       repository: build(:repository),
-      actions: ["issues.opened"],
+      pledges: [build(:pledge)],
       supporter: build(:user)
+    }
+  end
+
+  def build(:pledge) do
+    %Pledge{
+      amount: Decimal.new("1.0"),
+      action: "issues.opened"
     }
   end
 

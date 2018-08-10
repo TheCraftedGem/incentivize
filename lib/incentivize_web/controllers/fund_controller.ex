@@ -5,7 +5,7 @@ defmodule IncentivizeWeb.FundController do
   def new(conn, %{"owner" => owner, "name" => name}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
-    changeset = Fund.create_changeset(%Fund{})
+    changeset = Fund.create_changeset(%Fund{pledges: []})
 
     render(conn, "new.html", repository: repository, changeset: changeset)
   end

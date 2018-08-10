@@ -13,7 +13,9 @@ defmodule Incentivize.Funds do
   end
 
   def get_fund_for_repository(repository, id) do
-    Repo.get_by(Fund, repository_id: repository.id, id: id)
+    Fund
+    |> preload([:pledges])
+    |> Repo.get_by(repository_id: repository.id, id: id)
   end
 
   def list_funds_for_repository(repository) do

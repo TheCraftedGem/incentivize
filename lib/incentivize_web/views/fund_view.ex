@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.FundView do
   use IncentivizeWeb, :view
-  alias Incentivize.Funds
+  alias Incentivize.{Funds, Pledge}
 
   def action_choices do
     actions = Funds.github_actions()
@@ -12,5 +12,15 @@ defmodule IncentivizeWeb.FundView do
 
   def action_display(action) do
     Funds.github_actions()[String.to_atom(action)]
+  end
+
+  def blank_pledge_row(changeset) do
+    case length(changeset.data.pledges) do
+      0 ->
+        [%Pledge{}]
+
+      _ ->
+        []
+    end
   end
 end

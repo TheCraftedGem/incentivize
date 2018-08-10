@@ -16,7 +16,7 @@ defmodule Incentivize.Repo.Migrations.Funds do
       timestamps()
     end
 
-    create(index(:pledges, [:pledge_amount]))
+    create(index(:pledges, [:amount]))
     create(index(:pledges, [:fund_id]))
     create(unique_index(:pledges, [:fund_id, :action]))
 
