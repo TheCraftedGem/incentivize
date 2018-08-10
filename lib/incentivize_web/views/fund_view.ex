@@ -15,12 +15,15 @@ defmodule IncentivizeWeb.FundView do
   end
 
   def blank_pledge_row(changeset) do
-    case length(changeset.data.pledges) do
-      0 ->
-        [%Pledge{}]
-
-      _ ->
+    cond do
+      Ecto.assoc_loaded?(changeset.data.pledges) == false ->
         []
+
+      length(changeset.data.pledges) > 0 ->
+        []
+
+      true ->
+        [%Pledge{}]
     end
   end
 end

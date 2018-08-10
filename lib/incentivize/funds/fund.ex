@@ -27,7 +27,7 @@ defmodule Incentivize.Fund do
       :supporter_id,
       :repository_id
     ])
-    |> cast_assoc(:pledges)
+    |> cast_assoc(:pledges, required: true)
     |> create_stellar_fund()
   end
 

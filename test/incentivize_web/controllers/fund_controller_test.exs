@@ -46,7 +46,7 @@ defmodule IncentivizeWeb.FundControllerTest do
         ]
       )
 
-    assert html_response(conn, 400) =~ "Fund"
+    assert html_response(conn, 400) =~ "Pledges"
 
     assert Enum.empty?(Funds.list_funds_for_repository(repository)) == true
   end
