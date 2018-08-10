@@ -29,6 +29,7 @@ defmodule Incentivize.Fund do
     ])
     |> cast_assoc(:pledges, required: true)
     |> create_stellar_fund()
+    |> validate_required([:stellar_public_key])
   end
 
   defp create_stellar_fund(changeset) do
@@ -40,11 +41,8 @@ defmodule Incentivize.Fund do
           put_change(changeset, :stellar_public_key, escrow_public_key)
 
         {:error, error} ->
-          Logger.error(fn ->
-            "Error: Stellar.create_fund_account, Message #{inspect(error)}"
-          end)
-
-          changeset
+          Logger.error(error)
+          add_error(changeset, :stellar_public_key, "failed to create Stellar account")
       end
     else
       changeset
