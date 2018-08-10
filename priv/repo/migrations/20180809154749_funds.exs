@@ -3,20 +3,25 @@ defmodule Incentivize.Repo.Migrations.Funds do
 
   def change do
     create table(:funds) do
-      add(:pledge_amount, :decimal)
       add(:stellar_public_key, :string)
-      add(:actions, {:array, :string}, null: false, default: [])
       add(:supporter_id, references(:users, on_delete: :nothing))
       add(:repository_id, references(:repositories, on_delete: :nothing))
       timestamps()
     end
 
-    create(index(:funds, [:pledge_amount]))
+    create table(:pledges) do
+      add(:amount, :decimal)
+      add(:action, :string)
+      add(:fund_id, references(:funds, on_delete: :nothing))
+      timestamps()
+    end
+
+    create(index(:pledges, [:pledge_amount]))
+    create(index(:pledges, [:fund_id]))
+    create(unique_index(:pledges, [:fund_id, :action]))
+
     create(index(:funds, [:stellar_public_key]))
-    create(index(:funds, [:actions]))
     create(index(:funds, [:supporter_id]))
     create(index(:funds, [:repository_id]))
-    create(index(:funds, [:repository_id, :actions]))
-    create(index(:funds, [:supporter_id, :actions]))
   end
 end
