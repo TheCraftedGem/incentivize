@@ -5,7 +5,10 @@ defmodule Incentivize.Stellar do
 
   def public_key, do: config()[:public_key]
 
-  def secret, do: config()[:secret]
+  # Keep this private to the module.
+  defp secret, do: config()[:secret]
+
+  def has_secret?, do: !is_nil(secret())
 
   def network_url, do: config()[:network_url]
 
