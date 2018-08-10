@@ -12,7 +12,7 @@
       <div class="rev-Col rev-Col--medium6">
         <label class="rev-InputStack rev-InputLabel">
           <span>Action</span>
-          <%= select(fs, :action, action_choices(), class: "rev-Input", prompt: "Select an Action") %>
+          <%= select(fs, :action, action_choices(), class: "rev-Select", prompt: "Select an Action") %>
           <%= error_tag fs, :action %>
         </label>
       </div>
@@ -20,7 +20,10 @@
     <% end %>
   </div>
 
-  <section class="u-noBorder-bottom">
-    <button class="rev-Button" type="submit">Incentivize</button>
-  </section>
+  <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
+    <div class="rev-Col rev-Col--medium6 u-flexAlignEnd">
+      <button class="rev-Button" type="submit">Incentivize</button>
+    </div>
+  </div>
+
 <% end %>

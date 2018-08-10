@@ -1,0 +1,19 @@
+// Copyright © Revelry Labs, LLC 2017 - All Rights Reserved.
+.u-flexBaseline {
+  @include flex(baseline);
+}
+.u-flexEqualWidthCols {
+  @include breakpoint(medium) {
+    @include flexEqualWidthCols;
+    align-items: center;
+  }
+}
+.u-flexAlignCenter {
+  @include flex(center, row, center);
+}
+.u-flexAlignStart {
+  @include flex(flex-start, row, flex-start);
+}
+.u-flexAlignEnd {
+  @include flex(flex-end, row, flex-end);
+}

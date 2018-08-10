@@ -2,9 +2,15 @@
   <div>
 
     <div class="rev-Row">
-      <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
-        <h1>Pledges for <%= @repository.owner %>/<%= @repository.name %></h1>
+      <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered">
+
+        <div class="rev-Row">
+          <div class="rev-Col">
+            <h2>Pledges for <%= @repository.owner %>/<%= @repository.name %></h2>
+          </div>
+        </div>
         <%= render "form.html", changeset: @changeset, action: fund_path(@conn, :create, @repository.owner, @repository.name), create: true %>
+        
       </div>
     </div>
 
