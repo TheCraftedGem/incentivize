@@ -51,8 +51,8 @@ Incentivize is a platform that allows companies, repository owners, or intereste
 It can be difficult to maintain and grow Open Source projects. Contributors often don't get rewarded for open source work so there is a lack of incentives to make meaningful contributions.
 
 ### What is the core loop?
-[Business Process Model files](https://drive.google.com/drive/u/0/folders/1rvOIewNT--5AdBFv4aQESouD-WH4Pm4N)
 
+[Business Process Model files](https://drive.google.com/drive/u/0/folders/1rvOIewNT--5AdBFv4aQESouD-WH4Pm4N)
 
 **Repo Admins:** A user with repository admin privleges logs in via GitHub and authorizes the incentivize webhook so that it is available to be incentivized inside of the application.
 
