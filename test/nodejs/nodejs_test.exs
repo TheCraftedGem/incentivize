@@ -1,4 +1,5 @@
 defmodule Incentivize.NodeJS.Test do
+  @moduledoc false
   use Incentivize.DataCase
 
   test "echo" do

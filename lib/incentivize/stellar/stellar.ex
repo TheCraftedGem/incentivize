@@ -12,4 +12,8 @@ defmodule Incentivize.Stellar do
   defp config do
     Confex.get_env(:incentivize, __MODULE__)
   end
+
+  def create_fund_account(supporter_public_key) do
+    NodeJS.call({:repositoryFund, :create}, [network_url(), secret(), supporter_public_key])
+  end
 end
