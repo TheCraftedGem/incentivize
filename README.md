@@ -52,6 +52,8 @@ It can be difficult to maintain and grow Open Source projects. Contributors ofte
 
 ### What is the core loop?
 
+[Business Process Model files](https://drive.google.com/drive/u/0/folders/1rvOIewNT--5AdBFv4aQESouD-WH4Pm4N)
+
 **Repo Admins:** A user with repository admin privleges logs in via GitHub and authorizes the incentivize webhook so that it is available to be incentivized inside of the application.
 
 **Supporters:** A user logs in and is able to add cryptocurrency to be distributed to any projects bank that will then be allocated to users who contribute to that project.
