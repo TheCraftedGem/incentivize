@@ -23,6 +23,9 @@ install:
   - cd assets
   - npm install
   - cd ..
+  - cd nodejs
+  - npm install
+  - cd ..
 script:
   - mix test
   - cd assets
