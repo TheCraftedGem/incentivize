@@ -2,6 +2,16 @@ import 'babel-polyfill'
 import 'phoenix_html'
 import '../css/app.scss'
 
+function setupFundForm() {
+  const form = document.getElementById('fund_form')
+
+  if (form) {
+    form.addEventListener('submit', () => {
+      document.querySelector('#fund_form button[type=submit]').disabled = true
+    })
+  }
+}
+
 function setupMenu() {
   const expander = document.querySelector('.rev-Drawer-expander')
   const drawer = document.querySelector('.rev-Drawer--fixed')
@@ -20,6 +30,7 @@ function setupMenu() {
 
 function init() {
   setupMenu()
+  setupFundForm()
 }
 
 document.addEventListener('DOMContentLoaded', init)

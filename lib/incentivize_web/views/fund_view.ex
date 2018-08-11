@@ -10,6 +10,10 @@ defmodule IncentivizeWeb.FundView do
     Enum.zip(values, keys)
   end
 
+  def action_display(action) when is_atom(action) do
+    Funds.github_actions()[action]
+  end
+
   def action_display(action) do
     Funds.github_actions()[String.to_atom(action)]
   end
