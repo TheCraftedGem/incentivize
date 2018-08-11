@@ -1,6 +1,6 @@
 defmodule Incentivize.Pledge do
   @moduledoc """
-  Fund Schema
+  Pledge Schema
   """
 
   use Ecto.Schema

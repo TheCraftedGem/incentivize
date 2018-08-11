@@ -1,21 +1,17 @@
 defmodule IncentivizeWeb.FundView do
   use IncentivizeWeb, :view
-  alias Incentivize.{Funds, Pledge}
+  alias Incentivize.{Funds, Pledge, Actions}
 
   def action_choices do
-    actions = Funds.github_actions()
-    keys = Keyword.keys(actions)
-    values = Keyword.values(actions)
+    actions = Actions.github_actions()
+    keys = Map.keys(actions)
+    values = Map.values(actions)
 
     Enum.zip(values, keys)
   end
 
-  def action_display(action) when is_atom(action) do
-    Funds.github_actions()[action]
-  end
-
   def action_display(action) do
-    Funds.github_actions()[String.to_atom(action)]
+    Actions.github_actions()[action]
   end
 
   def blank_pledge_row(changeset) do

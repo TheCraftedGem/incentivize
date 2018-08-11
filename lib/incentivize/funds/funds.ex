@@ -4,7 +4,7 @@ defmodule Incentivize.Funds do
   """
 
   import Ecto.{Query}, warn: false
-  alias Incentivize.{Fund, Repo}
+  alias Incentivize.{Fund, Pledge, Repo, Repository, Actions}
 
   def create_fund(params) do
     %Fund{}
@@ -25,14 +25,23 @@ defmodule Incentivize.Funds do
     |> Repo.all()
   end
 
-  def github_actions do
-    [
-      "pull_request.opened": "Pull Request Opened",
-      # NOTE: 'pull_request.closed' covers both closed and merged PRs. Be sure to check the payload of PR webhook to see if it was merged or just closed
-      "pull_request.closed": "Pull Request Closed",
-      "issue_comment.created": "Issue Commented",
-      "issues.opened": "Issue Opened",
-      "issues.closed": "Issue Closed"
-    ]
+  @spec list_funds_for_repository_and_action(Repository.t(), binary()) :: [Fund.t()]
+  def list_funds_for_repository_and_action(repository, action) do
+    # possibly return a list of pledges preloaded with funds instead?
+
+    query =
+      from(fund in Fund,
+        join: pledge in Pledge,
+        on: pledge.fund_id == fund.id,
+        join: repo in Repository,
+        on: fund.repo_id == repo.id,
+        where: fund.repo_id == ^repository.id,
+        where: pledge.action == ^action,
+        where: pledge.amount > 0,
+        preload: [:pledges],
+        select: fund
+      )
+
+    Repo.all(query)
   end
 end

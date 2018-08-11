@@ -145,9 +145,9 @@ async function rewardContribution(
     .build()
 
   transaction.sign(ownerKeyPair)
-  response = await server.submitTransaction(transaction)
+  transactionResult = await server.submitTransaction(transaction)
 
-  return response
+  return transactionResult._links.transaction.href
 }
 
 module.exports = {

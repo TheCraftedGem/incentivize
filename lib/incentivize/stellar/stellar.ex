@@ -35,4 +35,20 @@ defmodule Incentivize.Stellar do
   def create_fund_account(supporter_public_key) do
     NodeJS.call({:repositoryFund, :create}, [network_url(), secret(), supporter_public_key])
   end
+
+  @doc """
+  Gives contributor the amount specified from the given fund
+  """
+  @spec reward_contribution(binary(), binary(), Decimal.t(), binary()) ::
+          {:ok, binary()} | {:error, binary()}
+  def reward_contribution(fund_public_key, contributor_public_key, amount, memo_text) do
+    NodeJS.call({:repositoryFund, :rewardContribution}, [
+      network_url(),
+      secret(),
+      fund_public_key,
+      contributor_public_key,
+      Decimal.to_string(amount),
+      memo_text
+    ])
+  end
 end
