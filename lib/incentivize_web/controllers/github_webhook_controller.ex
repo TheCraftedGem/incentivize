@@ -6,7 +6,7 @@ defmodule IncentivizeWeb.GithubWebhookController do
     [event] = get_req_header(conn, "x-github-event")
     action = params["action"]
 
-    action = "#{event}.action"
+    action = "#{event}.#{action}"
 
     WebhookHandler.handle(action, params)
     text(conn, "ok")

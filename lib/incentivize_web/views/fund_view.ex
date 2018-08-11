@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.FundView do
   use IncentivizeWeb, :view
-  alias Incentivize.{Funds, Pledge, Actions}
+  alias Incentivize.{Pledge, Actions}
 
   def action_choices do
     actions = Actions.github_actions()

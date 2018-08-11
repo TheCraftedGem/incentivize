@@ -4,7 +4,7 @@ defmodule Incentivize.Contributions do
   """
 
   import Ecto.{Query}, warn: false
-  alias Incentivize.{Contribution}
+  alias Incentivize.{Contribution, Repo}
 
   def create_contribution(params) do
     %Contribution{}
