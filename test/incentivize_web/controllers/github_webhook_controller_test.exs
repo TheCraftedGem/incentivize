@@ -1,5 +1,5 @@
 defmodule IncentivizeWeb.GithubWebhookController.Test do
-    @moduledoc false
+  @moduledoc false
   use IncentivizeWeb.ConnCase
 
   test "POST /github/webhook", %{conn: conn} do
@@ -11,6 +11,7 @@ defmodule IncentivizeWeb.GithubWebhookController.Test do
       conn
       |> put_req_header("content-type", "application/json")
       |> put_req_header("x-hub-signature", "sha1=5c1c013df6e414af83d6d378d286b437592834ba")
+      |> put_req_header("x-github-event", "ping")
       |> post(github_webhook_path(conn, :handle_webhook), json)
 
     assert response(conn, 200)

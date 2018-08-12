@@ -27,7 +27,7 @@ defmodule Incentivize.Github.WebhookHandler do
     event_payload = payload[@event_to_payload_map[event]]
     user = event_payload["user"]
 
-    [repo_owner, repo_name] = repository["full_name"]
+    [repo_owner, repo_name] = String.split(repository["full_name"], "/")
 
     repository = Repositories.get_repository_by_owner_and_name(repo_owner, repo_name)
     user = Users.get_user_by_github_login(user["login"])
@@ -52,8 +52,8 @@ defmodule Incentivize.Github.WebhookHandler do
     {:error, :invalid_action}
   end
 
-  defp can_reward_contribution?(repository, user, funds) do
-    repository != nil && user != nil && Enum.empty?(funds) == false
+  defp can_reward_contribution?(repository, user, pledges) do
+    repository != nil && user != nil && Enum.empty?(pledges) == false
   end
 
   defp add_contribution(pledge, repository, user, action, event_payload) do

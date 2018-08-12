@@ -4,7 +4,7 @@ defmodule Incentivize.Funds do
   """
 
   import Ecto.{Query}, warn: false
-  alias Incentivize.{Fund, Pledge, Repo, Repository, Actions}
+  alias Incentivize.{Fund, Pledge, Repo, Repository}
 
   def create_fund(params) do
     %Fund{}
@@ -32,8 +32,8 @@ defmodule Incentivize.Funds do
         join: fund in Fund,
         on: pledge.fund_id == fund.id,
         join: repo in Repository,
-        on: fund.repo_id == repo.id,
-        where: fund.repo_id == ^repository.id,
+        on: fund.repository_id == repo.id,
+        where: fund.repository_id == ^repository.id,
         where: pledge.action == ^action,
         where: pledge.amount > 0,
         preload: [:fund],
