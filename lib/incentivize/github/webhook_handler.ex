@@ -10,6 +10,15 @@ defmodule Incentivize.Github.WebhookHandler do
     "pull_request" => "pull_request"
   }
 
+  @doc """
+  Takes in GitHub event payload and process contributions
+
+  Checks to see if action is incentivized and user exists.
+  If so, then they are given the amount of lumens specified
+  by the pledge for that action and repo. This checks for
+  all pledges for the repo so may give more than one contribution
+  if multiple pledges exist.
+  """
   @spec handle(binary(), map()) :: {:ok, [Contribution.t()]} | {:error, atom()}
   def handle(event_and_action, payload) when event_and_action in @actions do
     [event, _action] = String.split(event_and_action, ".")
@@ -22,11 +31,16 @@ defmodule Incentivize.Github.WebhookHandler do
 
     repository = Repositories.get_repository_by_owner_and_name(repo_owner, repo_name)
     user = Users.get_user_by_github_login(user["login"])
-    funds = Funds.list_funds_for_repository_and_action(repository, event_and_action)
+    pledges = Funds.list_pledges_for_repository_and_action(repository, event_and_action)
 
-    if can_reward_contribution?(repository, user, funds) do
+    if can_reward_contribution?(repository, user, pledges) do
+      # This should probably return a list of contributions that succeeded and
+      # ones that failed
       contributions =
-        Enum.map(funds, &add_contribution(&1, repository, user, event_and_action, event_payload))
+        Enum.map(
+          pledges,
+          &add_contribution(&1, repository, user, event_and_action, event_payload)
+        )
 
       {:ok, contributions}
     else
@@ -42,28 +56,28 @@ defmodule Incentivize.Github.WebhookHandler do
     repository != nil && user != nil && Enum.empty?(funds) == false
   end
 
-  defp add_contribution(fund, repository, user, action, event_payload) do
-    pledge = Enum.find(fund.pledges, fn pledge -> pledge.action == action end)
-
-    {:ok, transaction_url} =
-      Stellar.reward_contribution(
-        fund.stellar_public_key,
-        user.stellar_public_key,
-        pledge.amount,
-        "incentivize"
-      )
-
-    {:ok, contribution} =
-      Contributions.create_contribution(%{
-        amount: pledge.amount,
-        action: action,
-        github_url: event_payload["html_url"],
-        stellar_transaction_url: transaction_url,
-        pledge_id: pledge.id,
-        user_id: user.id,
-        repository_id: repository.id
-      })
-
-    contribution
+  defp add_contribution(pledge, repository, user, action, event_payload) do
+    with {:ok, transaction_url} <-
+           Stellar.reward_contribution(
+             pledge.fund.stellar_public_key,
+             user.stellar_public_key,
+             pledge.amount,
+             "incentivize"
+           ),
+         {:ok, contribution} <-
+           Contributions.create_contribution(%{
+             amount: pledge.amount,
+             action: action,
+             github_url: event_payload["html_url"],
+             stellar_transaction_url: transaction_url,
+             pledge_id: pledge.id,
+             user_id: user.id,
+             repository_id: repository.id
+           }) do
+      contribution
+    else
+      {:error, _error} ->
+        nil
+    end
   end
 end

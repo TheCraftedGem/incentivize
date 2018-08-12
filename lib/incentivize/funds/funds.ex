@@ -25,21 +25,19 @@ defmodule Incentivize.Funds do
     |> Repo.all()
   end
 
-  @spec list_funds_for_repository_and_action(Repository.t(), binary()) :: [Fund.t()]
-  def list_funds_for_repository_and_action(repository, action) do
-    # possibly return a list of pledges preloaded with funds instead?
-
+  @spec list_pledges_for_repository_and_action(Repository.t(), binary()) :: [Pledge.t()]
+  def list_pledges_for_repository_and_action(repository, action) do
     query =
-      from(fund in Fund,
-        join: pledge in Pledge,
+      from(pledge in Pledge,
+        join: fund in Fund,
         on: pledge.fund_id == fund.id,
         join: repo in Repository,
         on: fund.repo_id == repo.id,
         where: fund.repo_id == ^repository.id,
         where: pledge.action == ^action,
         where: pledge.amount > 0,
-        preload: [:pledges],
-        select: fund
+        preload: [:fund],
+        select: pledge
       )
 
     Repo.all(query)
