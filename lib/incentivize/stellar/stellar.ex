@@ -75,6 +75,8 @@ defmodule Incentivize.Stellar do
     )
   end
 
+  # Indirect to nodejs process in order to capture
+  # any process-level errors
   defp make_node_call(func, args) do
     try do
       NodeJS.call(func, args, node_js_opts())
