@@ -35,8 +35,6 @@ defmodule Incentivize.Github.WebhookHandler do
     pledges = Funds.list_pledges_for_repository_and_action(repository, event_and_action)
 
     if can_reward_contribution?(repository, user, pledges) do
-      # This should probably return a list of contributions that succeeded and
-      # ones that failed
       results =
         Enum.reduce(
           pledges,
