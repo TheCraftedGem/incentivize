@@ -25,7 +25,7 @@ defmodule Incentivize.Stellar do
   """
   @spec generate_random_keypair() :: {:ok, map()}
   def generate_random_keypair do
-    NodeJS.call({:repositoryFund, :generateRandomKeyPair}, [])
+    make_node_call({:repositoryFund, :generateRandomKeyPair}, [])
   end
 
   @doc """
@@ -37,10 +37,9 @@ defmodule Incentivize.Stellar do
   """
   @spec create_fund_account(binary()) :: {:ok, binary()} | {:error, binary()}
   def create_fund_account(supporter_public_key) do
-    NodeJS.call(
+    make_node_call(
       {:repositoryFund, :create},
-      [network_url(), secret(), supporter_public_key],
-      node_js_opts()
+      [network_url(), secret(), supporter_public_key]
     )
   end
 
@@ -50,7 +49,7 @@ defmodule Incentivize.Stellar do
   @spec reward_contribution(binary(), binary(), Decimal.t(), binary()) ::
           {:ok, binary()} | {:error, binary()}
   def reward_contribution(fund_public_key, contributor_public_key, amount, memo_text) do
-    NodeJS.call(
+    make_node_call(
       {:repositoryFund, :rewardContribution},
       [
         network_url(),
@@ -59,13 +58,12 @@ defmodule Incentivize.Stellar do
         contributor_public_key,
         Decimal.to_string(amount),
         memo_text
-      ],
-      node_js_opts()
+      ]
     )
   end
 
   def add_funds_to_account(fund_public_key, amount, memo_text) do
-    NodeJS.call(
+    make_node_call(
       {:repositoryFund, :addFunds},
       [
         network_url(),
@@ -73,8 +71,16 @@ defmodule Incentivize.Stellar do
         fund_public_key,
         Decimal.to_string(amount),
         memo_text
-      ],
-      node_js_opts()
+      ]
     )
+  end
+
+  defp make_node_call(func, args) do
+    try do
+      NodeJS.call(func, args, node_js_opts())
+    catch
+      :exit, _value ->
+        {:error, :node_process_exited}
+    end
   end
 end
