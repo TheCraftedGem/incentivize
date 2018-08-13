@@ -2,7 +2,11 @@ $topbar-title-width: 22rem;
 
 .rev-TopBar-title {
   img {
+    margin-right: $global-margin-tiny;
     max-width: $topbar-title-width;
+  }
+  .rev-Menu {
+    overflow-x: visible;
   }
 }
 .rev-TopBar {
@@ -14,4 +18,10 @@ $topbar-title-width: 22rem;
       }
     }
   }
+}
+
+.TopBar-test {
+  color: $gray;
+  font-size: $global-font-size-smaller;
+  font-style: italic;
 }

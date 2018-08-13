@@ -38,7 +38,7 @@
               </li>
               <%= if Incentivize.Stellar.test_network?() do %>
                 <li>
-                  <span title="Stellar Test Network">(Test)</span>
+                  <span title="Stellar Test Network" class="TopBar-test">(Test)</span>
                 </li>
               <% end %>
             </ul>
