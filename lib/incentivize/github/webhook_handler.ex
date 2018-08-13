@@ -20,7 +20,7 @@ defmodule Incentivize.Github.WebhookHandler do
   all pledges for the repo so may give more than one contribution
   if multiple pledges exist.
   """
-  @spec handle(binary(), map()) :: {:ok, [Contribution.t()]} | {:error, atom()}
+  @spec handle(binary(), map()) :: {:ok, map()} | {:error, atom()}
   def handle(event_and_action, payload) when event_and_action in @actions do
     [event, _action] = String.split(event_and_action, ".")
 
