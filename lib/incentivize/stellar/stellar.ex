@@ -80,7 +80,7 @@ defmodule Incentivize.Stellar do
       NodeJS.call(func, args, node_js_opts())
     catch
       :exit, _value ->
-        {:error, :node_process_exited}
+        {:error, "node_process_exited"}
     end
   end
 end
