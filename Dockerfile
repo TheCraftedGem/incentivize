@@ -41,6 +41,12 @@ RUN npm run deploy
 
 WORKDIR ..
 
+WORKDIR nodejs
+# Cache Node deps
+RUN npm i
+
+WORKDIR ..
+
 # Compile app
 RUN mix compile
 RUN mix phx.digest

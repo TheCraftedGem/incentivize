@@ -31,9 +31,16 @@
 
           <div class="rev-TopBar-title">
             <ul class="rev-Menu rev-Menu--horizontalLeft">
-              <a href="/">
-                <img src="/images/incentivize-logo-dark.png" alt="Incentivize" />
-              </a>
+              <li>
+                <a href="/">
+                  <img src="/images/incentivize-logo-dark.png" alt="Incentivize" />
+                </a>
+              </li>
+              <%= if Incentivize.Stellar.test_network?() do %>
+                <li>
+                  <span title="Stellar Test Network" class="TopBar-test">(Test)</span>
+                </li>
+              <% end %>
             </ul>
           </div>
 

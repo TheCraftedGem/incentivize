@@ -1,5 +1,8 @@
 .u-border-bottom {
   border-bottom: 1px solid $divider-color;
+  &:last-child {
+    border-bottom: 0;
+  }
 }
 .u-noBorder-bottom {
   border-bottom: 0;
