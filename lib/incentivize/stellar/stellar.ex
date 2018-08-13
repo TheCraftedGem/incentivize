@@ -12,6 +12,8 @@ defmodule Incentivize.Stellar do
 
   def network_url, do: config()[:network_url]
 
+  def test_network?, do: String.contains?(network_url(), "test")
+
   defp config do
     Confex.get_env(:incentivize, __MODULE__)
   end
