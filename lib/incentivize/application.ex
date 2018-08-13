@@ -14,7 +14,9 @@ defmodule Incentivize.Application do
       supervisor(IncentivizeWeb.Endpoint, []),
       # Start your own worker by calling: Incentivize.Worker.start_link(arg1, arg2, arg3)
       # worker(Incentivize.Worker, [arg1, arg2, arg3]),
-      supervisor(NodeJS.Supervisor, [[path: Path.join(File.cwd!, "nodejs"), pool_size: 4]]),
+      supervisor(NodeJS.Supervisor, [
+        [path: Path.join(File.cwd!(), "nodejs"), pool_size: 4, timeout: 60_000]
+      ])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

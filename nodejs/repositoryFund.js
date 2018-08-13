@@ -150,8 +150,33 @@ async function rewardContribution(
   return transactionResult._links.transaction.href
 }
 
+async function addFunds(network, secret, escrowPublicKey, amount, memoText) {
+  const server = createServer(network)
+  const ownerKeyPair = StellarSdk.Keypair.fromSecret(secret)
+  const ownerAccount = await server.loadAccount(ownerKeyPair.publicKey())
+
+  memo = StellarSdk.Memo.text(memoText)
+  transaction = new StellarSdk.TransactionBuilder(ownerAccount, {
+    memo,
+  })
+    .addOperation(
+      StellarSdk.Operation.payment({
+        destination: escrowPublicKey,
+        asset: StellarSdk.Asset.native(),
+        amount: amount,
+      })
+    )
+    .build()
+
+  transaction.sign(ownerKeyPair)
+  transactionResult = await server.submitTransaction(transaction)
+
+  return transactionResult._links.transaction.href
+}
+
 module.exports = {
   create,
   rewardContribution,
   generateRandomKeyPair,
+  addFunds,
 }

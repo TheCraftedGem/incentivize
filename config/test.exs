@@ -9,6 +9,8 @@ config :incentivize, IncentivizeWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+timeout = 60_000
+
 # Configure your database
 config :incentivize, Incentivize.Repo,
   adapter: Ecto.Adapters.Postgres,
@@ -17,7 +19,10 @@ config :incentivize, Incentivize.Repo,
   database: "incentivize_test",
   hostname: "localhost",
   port: String.to_integer(System.get_env("PGPORT") || "5432"),
-  pool: Ecto.Adapters.SQL.Sandbox
+  pool: Ecto.Adapters.SQL.Sandbox,
+  pool_timeout: timeout,
+  timeout: timeout,
+  ownership_timeout: timeout
 
 if File.exists?(Path.join([__DIR__, "dev.secret.exs"])) do
   import_config "dev.secret.exs"

@@ -51,4 +51,14 @@ defmodule Incentivize.Stellar do
       memo_text
     ])
   end
+
+  def add_funds_to_account(fund_public_key, amount, memo_text) do
+    NodeJS.call({:repositoryFund, :addFunds}, [
+      network_url(),
+      secret(),
+      fund_public_key,
+      Decimal.to_string(amount),
+      memo_text
+    ])
+  end
 end

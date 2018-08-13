@@ -84,9 +84,9 @@ defmodule Incentivize.Github.WebhookHandler do
         error = %{
           error: error,
           action: action,
-          user: user,
-          repository: repository,
-          pledge: pledge,
+          user_id: user.id,
+          repository_id: repository.id,
+          pledge_id: pledge.id,
           github_url: event_payload["html_url"]
         }
 
