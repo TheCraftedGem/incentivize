@@ -36,13 +36,17 @@ defmodule Incentivize.Github.WebhookHandler do
     if can_reward_contribution?(repository, user, pledges) do
       # This should probably return a list of contributions that succeeded and
       # ones that failed
-      contributions =
-        Enum.map(
+      results =
+        Enum.reduce(
           pledges,
-          &add_contribution(&1, repository, user, event_and_action, event_payload)
+          %{
+            errors: [],
+            contributions: []
+          },
+          &add_contribution(&1, repository, user, event_and_action, event_payload, &2)
         )
 
-      {:ok, contributions}
+      {:ok, results}
     else
       {:error, :unsupported_user_or_repository}
     end
@@ -56,7 +60,7 @@ defmodule Incentivize.Github.WebhookHandler do
     repository != nil && user != nil && Enum.empty?(pledges) == false
   end
 
-  defp add_contribution(pledge, repository, user, action, event_payload) do
+  defp add_contribution(pledge, repository, user, action, event_payload, operations) do
     with {:ok, transaction_url} <-
            Stellar.reward_contribution(
              pledge.fund.stellar_public_key,
@@ -74,10 +78,19 @@ defmodule Incentivize.Github.WebhookHandler do
              user_id: user.id,
              repository_id: repository.id
            }) do
-      contribution
+      Map.put(operations, :contributions, operations.contributions ++ [contribution])
     else
-      {:error, _error} ->
-        nil
+      {:error, error} ->
+        error = %{
+          error: error,
+          action: action,
+          user: user,
+          repository: repository,
+          pledge: pledge,
+          github_url: event_payload["html_url"]
+        }
+
+        Map.put(operations, :errors, operations.errors ++ [error])
     end
   end
 end
