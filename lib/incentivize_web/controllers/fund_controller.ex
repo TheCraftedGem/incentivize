@@ -1,11 +1,16 @@
 defmodule IncentivizeWeb.FundController do
   use IncentivizeWeb, :controller
-  alias Incentivize.{Fund, Funds, Repositories}
+  alias Incentivize.{Fund, Funds, Pledge, Repositories}
 
   def new(conn, %{"owner" => owner, "name" => name}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
-    changeset = Fund.create_changeset(%Fund{pledges: []})
+    pledges =
+      for {action, _display} <- Funds.github_actions() do
+        %Pledge{action: action, amount: Decimal.new("0")}
+      end
+
+    changeset = Fund.create_changeset(%Fund{pledges: pledges})
 
     render(conn, "new.html", repository: repository, changeset: changeset)
   end

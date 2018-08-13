@@ -10,7 +10,7 @@ defmodule Incentivize.Pledge do
 
   @type t :: %__MODULE__{}
   schema "pledges" do
-    field(:amount, :decimal)
+    field(:amount, :decimal, default: Decimal.new(0))
 
     # intending action to be like 'issues.opened'. Exactly how probot does things https://probot.github.io/docs/webhooks/
     field(:action, :string)
@@ -29,6 +29,6 @@ defmodule Incentivize.Pledge do
       :amount,
       :action
     ])
-    |> validate_number(:amount, greater_than: 0)
+    |> validate_number(:amount, greater_than_or_equal_to: 0)
   end
 end

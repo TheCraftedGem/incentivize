@@ -33,7 +33,7 @@ defmodule Incentivize.Fund do
   end
 
   defp create_stellar_fund(changeset) do
-    if get_field(changeset, :supporter_id) do
+    if changeset.valid? and get_field(changeset, :supporter_id) != nil do
       user = Users.get_user(get_field(changeset, :supporter_id))
 
       case Stellar.create_fund_account(user.stellar_public_key) do

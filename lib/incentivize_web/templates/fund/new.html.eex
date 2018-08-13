@@ -2,7 +2,7 @@
   <div>
 
     <div class="rev-Row">
-      <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered">
+      <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
 
         <div class="rev-Row">
           <div class="rev-Col">
@@ -10,7 +10,7 @@
           </div>
         </div>
         <%= render "form.html", changeset: @changeset, action: fund_path(@conn, :create, @repository.owner, @repository.name), create: true %>
-        
+
       </div>
     </div>
 
