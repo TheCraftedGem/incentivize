@@ -1,15 +1,43 @@
-<div>
-  <div>
+<div class="rev-Row">
+  <div class="rev-Col">
 
     <div class="rev-Row">
-      <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
-        <h1><%= @repository.owner %>/<%= @repository.name %></h1>
+      <div class="rev-Col rev-Col--medium9 rev-Col--smallCentered">
+        <h2>Project Details</h2>
 
-        <p></p>
+        <div class="rev-Card rev-CardLayout">
 
-        <p>
-          Go to <a href="https://github.com/<%= @repository.owner %>/<%= @repository.name %>">GitHub Repo</a>.
-        </p>
+          <div class="rev-Card-header rev-CardLayout-bar">
+            <div class="rev-Row">
+              <div class="rev-Col">
+
+                <h3 class="ButtonLink">
+                  <img alt="Repo Favicon" src="/favicon.ico" />
+                  <div class="ButtonLink--header">
+                    <%= @repository.owner %>/<%= @repository.name %>
+                  </div>
+                </h3>
+
+                <p></p>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-Card-footer">
+            <div class="rev-Row">
+              <div class="rev-Col">
+                <div class="u-flexAlignEnd">
+                  <a class="ButtonLink" href="https://github.com/<%= @repository.owner %>/<%= @repository.name %>" target="_blank">
+                    <p class="ButtonLink--textRight">GitHub Repo</p><i class="material-icons">arrow_forward</i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </div>
 
