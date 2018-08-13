@@ -1,7 +1,8 @@
 defmodule Incentivize.Github.WebhookHandler.Test do
   use Incentivize.DataCase
   alias Incentivize.Github.WebhookHandler
-  alias Incentivize.{Funds, Stellar}
+  alias Incentivize.{Funds}
+  @stellar_module Application.get_env(:incentivize, :stellar_module)
 
   test "invalid action" do
     assert {:error, :invalid_action} = WebhookHandler.handle("whatever", %{})
@@ -44,7 +45,7 @@ defmodule Incentivize.Github.WebhookHandler.Test do
     supporter =
       insert!(:user,
         github_login: "Codertocat",
-        stellar_public_key: "GBZY6AL6QU6TYSGUZ22LXNUR7BZNTCABEP7VOOVEHDANJDY4YULNBLW5"
+        stellar_public_key: "GBDIIX7BVWB6WLYMHH22VBTC4DNVU4FURM75O374RAC4FYNN7H46VRSS"
       )
 
     {:ok, _fund} =
@@ -85,7 +86,11 @@ defmodule Incentivize.Github.WebhookHandler.Test do
       })
 
     {:ok, _transaction_url} =
-      Stellar.add_funds_to_account(fund.stellar_public_key, Decimal.new(20), "Fund escrow")
+      @stellar_module.add_funds_to_account(
+        fund.stellar_public_key,
+        Decimal.new(20),
+        "Fund escrow"
+      )
 
     json =
       "./test/fixtures/issues_opened.json"

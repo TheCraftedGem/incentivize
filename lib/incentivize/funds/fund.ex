@@ -5,8 +5,9 @@ defmodule Incentivize.Fund do
 
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
-  alias Incentivize.{Fund, Pledge, Repository, Stellar, User, Users}
+  alias Incentivize.{Fund, Pledge, Repository, User, Users}
   require Logger
+  @stellar_module Application.get_env(:incentivize, :stellar_module)
 
   @type t :: %__MODULE__{}
   schema "funds" do
@@ -36,7 +37,7 @@ defmodule Incentivize.Fund do
     if changeset.valid? and get_field(changeset, :supporter_id) != nil do
       user = Users.get_user(get_field(changeset, :supporter_id))
 
-      case Stellar.create_fund_account(user.stellar_public_key) do
+      case @stellar_module.create_fund_account(user.stellar_public_key) do
         {:ok, escrow_public_key} ->
           put_change(changeset, :stellar_public_key, escrow_public_key)
 

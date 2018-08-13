@@ -2,7 +2,8 @@ defmodule Incentivize.Github.WebhookHandler do
   @moduledoc """
   Handles processing of GitHub webhooks
   """
-  alias Incentivize.{Actions, Contributions, Funds, Repositories, Stellar, Users}
+  alias Incentivize.{Actions, Contributions, Funds, Repositories, Users}
+  @stellar_module Application.get_env(:incentivize, :stellar_module)
   @actions Map.keys(Actions.github_actions())
   @event_to_payload_map %{
     "issues" => "issue",
@@ -62,7 +63,7 @@ defmodule Incentivize.Github.WebhookHandler do
 
   defp add_contribution(pledge, repository, user, action, event_payload, operations) do
     with {:ok, transaction_url} <-
-           Stellar.reward_contribution(
+           @stellar_module.reward_contribution(
              pledge.fund.stellar_public_key,
              user.stellar_public_key,
              pledge.amount,

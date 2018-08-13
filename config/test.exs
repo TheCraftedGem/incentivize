@@ -24,6 +24,8 @@ config :incentivize, Incentivize.Repo,
   timeout: timeout,
   ownership_timeout: timeout
 
+config :incentivize, :stellar_module, Incentivize.Stellar.Mock
+
 if File.exists?(Path.join([__DIR__, "dev.secret.exs"])) do
   import_config "dev.secret.exs"
 end
