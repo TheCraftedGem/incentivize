@@ -13,7 +13,15 @@
 
           <label class="rev-InputStack rev-InputLabel">
             <span>Stellar Public Key</span>
-            <%= text_input(f, :stellar_public_key, required: true, class: "rev-Input") %>
+            <%= text_input(f,
+              :stellar_public_key,
+              required: true,
+              class: "rev-Input",
+              maxlength: 56,
+              minlength: 56,
+              pattern: "G[A-Z0-9]{55}",
+              placeholder: "example: GCEXAMPLE5HWNK4AYSTEQ4UWDKHTCKADVS2AHF3UI2ZMO3DPUSM6Q4UG"
+            ) %>
             <%= error_tag f, :stellar_public_key %>
           </label>
 
