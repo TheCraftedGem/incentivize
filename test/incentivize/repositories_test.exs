@@ -1,5 +1,5 @@
 defmodule Incentivize.Repositories.Test do
-  use Incentivize.DataCase
+  use Incentivize.DataCase, async: true
   alias Incentivize.Repositories
 
   test "create" do

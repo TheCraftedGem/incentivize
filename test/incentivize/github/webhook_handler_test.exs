@@ -1,5 +1,5 @@
 defmodule Incentivize.Github.WebhookHandler.Test do
-  use Incentivize.DataCase
+  use Incentivize.DataCase, async: true
   alias Incentivize.Github.WebhookHandler
   alias Incentivize.{Funds}
   @stellar_module Application.get_env(:incentivize, :stellar_module)

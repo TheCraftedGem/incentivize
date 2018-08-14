@@ -1,6 +1,8 @@
 defmodule Incentivize.Stellar.Test do
-  use Incentivize.DataCase, async: true
+  use Incentivize.DataCase
   alias Incentivize.Stellar
+
+  @moduletag timeout: 120_000
 
   test "network_url is set" do
     refute nil == Stellar.network_url()

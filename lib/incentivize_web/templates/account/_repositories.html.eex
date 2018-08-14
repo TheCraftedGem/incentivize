@@ -1,0 +1,38 @@
+<div class="rev-Row">
+        <div class="rev-Col rev-Col--smallCentered">
+          <h2>Connected Repositories</h2>
+        </div>
+      </div>
+<div class="rev-Row">
+        <%= for repo <- @repositories do %>
+          <div class="rev-Col rev-Col--medium6">
+            <div class="rev-Card rev-CardLayout">
+
+              <div class="rev-Card-header rev-CardLayout-bar">
+                <div class="rev-Row">
+                  <div class="rev-Col">
+                    <h3 class="ButtonLink">
+                      <div class="ButtonLink--header">
+                        <a href="<%= repository_path(@conn, :show, repo.owner, repo.name) %>">
+                          <%= repo.owner %>/<%= repo.name %>
+                        </a>
+                      </div>
+                    </h3>
+                    <p>
+                      <a href="<%= repository_path(@conn, :webhook, repo.owner, repo.name) %>">
+                        Webhook
+                      </a>
+                    </p>
+                    <p>
+                      <a href="<%= contribution_path(@conn, :for_repository, repo.owner, repo.name) %>">
+                        <%= IncentivizeWeb.RepositoryView.count_contributions_for_repository(repo) %> Contributions
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        </div>
+      </div>

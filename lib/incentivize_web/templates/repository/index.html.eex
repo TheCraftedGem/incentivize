@@ -27,7 +27,11 @@
                       </div>
                     </h3>
                     <p>An incentive platform for software development.</p>
-                    <p><%= count_contributions_for_repository(repo) %> Contributions</p>
+                    <p>
+                      <a href="<%= contribution_path(@conn, :for_repository, repo.owner, repo.name) %>">
+                        <%= count_contributions_for_repository(repo) %> Contributions
+                      </a>
+                    </p>
                   </div>
                 </div>
               </div>
