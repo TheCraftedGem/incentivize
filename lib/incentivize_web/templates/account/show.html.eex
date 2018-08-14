@@ -1,0 +1,42 @@
+<div>
+  <div>
+
+    <div class="rev-Row">
+      <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
+        <h2>Account Information</h2>
+        <div class="rev-Row">
+          <div class="rev-Col">
+            <label class="rev-InputStack rev-InputLabel">
+              <h5>Email</h5>
+              <div><%= @user.email %></div>
+            </label>
+
+            <label class="rev-InputStack rev-InputLabel">
+              <h5>Stellar Public Key</h5>
+              <div><%= @user.stellar_public_key %></div>
+            </label>
+
+            <label class="rev-InputStack rev-InputLabel">
+              <h5>Balance</h5>
+              <div data-stellar-balance="<%= @user.stellar_public_key %>">Loading</div>
+            </label>
+
+            <label class="rev-InputStack rev-InputLabel">
+              <a href="<%= account_path(@conn, :edit) %>">Edit Account</a>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= if not Enum.empty?(@funds) do %>
+      <hr/>
+      <%= render "_supported_projects.html", assigns %>
+    <% end %>
+
+    <%= if not Enum.empty?(@contributions) do %>
+      <hr/>
+      <%= render "_contributions.html", assigns %>
+    <% end %>
+
+  </div>
+</div>

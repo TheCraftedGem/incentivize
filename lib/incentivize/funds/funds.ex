@@ -18,6 +18,14 @@ defmodule Incentivize.Funds do
     |> Repo.get_by(repository_id: repository.id, id: id)
   end
 
+  def list_funds_for_supporter(supporter) do
+    Fund
+    |> where([f], f.supporter_id == ^supporter.id)
+    |> order_by([f], f.inserted_at)
+    |> preload([:pledges, :repository])
+    |> Repo.all()
+  end
+
   def list_funds_for_repository(repository) do
     Fund
     |> where([f], f.repository_id == ^repository.id)

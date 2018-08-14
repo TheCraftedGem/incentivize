@@ -41,6 +41,15 @@ defmodule IncentivizeWeb.GithubAuthController do
 
     case Users.create_or_update_user_by_github_login(user["login"], params) do
       {:ok, user} ->
+        url =
+          case user.stellar_public_key do
+            nil ->
+              account_path(conn, :edit)
+
+            _ ->
+              account_path(conn, :show)
+          end
+
         conn =
           conn
           |> assign(:current_user, user)
@@ -49,7 +58,7 @@ defmodule IncentivizeWeb.GithubAuthController do
 
         conn
         |> put_flash(:info, "Logged in successfully")
-        |> redirect(to: account_path(conn, :edit))
+        |> redirect(to: url)
 
       {:error, _changeset} ->
         conn

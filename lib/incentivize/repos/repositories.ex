@@ -25,7 +25,13 @@ defmodule Incentivize.Repositories do
   end
 
   def get_repository_by_owner_and_name(owner, name) do
-    Repo.get_by(Repository, owner: owner, name: name)
+    query =
+      from(repo in Repository,
+        where: ilike(repo.owner, ^owner),
+        where: ilike(repo.name, ^name)
+      )
+
+    Repo.one(query)
   end
 
   def get_repository(id) do
