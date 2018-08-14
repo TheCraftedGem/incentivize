@@ -6,8 +6,15 @@ defmodule Incentivize.Repositories do
   import Ecto.{Query}, warn: false
   alias Incentivize.{Repo, Repository}
 
-  def list_repositories() do
+  def list_repositories do
     Repository
+    |> order_by([r], asc: r.owner, asc: r.name)
+    |> Repo.all()
+  end
+
+  def list_repositories_for_user(user) do
+    Repository
+    |> where([r], r.admin_id == ^user.id)
     |> order_by([r], asc: r.owner, asc: r.name)
     |> Repo.all()
   end

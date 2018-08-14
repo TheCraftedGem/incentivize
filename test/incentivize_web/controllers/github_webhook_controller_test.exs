@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.GithubWebhookController.Test do
   @moduledoc false
-  use IncentivizeWeb.ConnCase
+ use IncentivizeWeb.ConnCase, async: true
 
   test "POST /github/webhook", %{conn: conn} do
     _repo = insert!(:repository, %{owner: "test", name: "test", webhook_secret: "12345"})

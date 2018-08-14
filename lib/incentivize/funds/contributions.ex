@@ -24,6 +24,7 @@ defmodule Incentivize.Contributions do
     Contribution
     |> where([c], c.repository_id == ^repository.id)
     |> order_by([c], c.inserted_at)
+    |> preload([:pledge, :user])
     |> Repo.all()
   end
 
@@ -36,6 +37,7 @@ defmodule Incentivize.Contributions do
         on: pledge.fund_id == fund.id,
         where: fund.id == ^fund.id,
         order_by: c.inserted_at,
+        preload: [:pledge, :user],
         select: c
       )
 
