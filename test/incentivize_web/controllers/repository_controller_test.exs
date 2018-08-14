@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.RepositoryControllerTest do
   @moduledoc false
- use IncentivizeWeb.ConnCase, async: true
+  use IncentivizeWeb.ConnCase, async: true
   alias Incentivize.Repositories
 
   setup %{conn: conn} do
@@ -17,7 +17,7 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
     conn = get(conn, repository_path(conn, :new))
     assert html_response(conn, 200) =~ "Connect To Repository"
     assert html_response(conn, 200) =~ "Owner"
-    assert html_response(conn, 200) =~ "Repository Name"
+    assert html_response(conn, 200) =~ "Name"
   end
 
   test "POST /repos/create", %{conn: conn, user: _user} do
