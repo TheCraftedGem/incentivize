@@ -1,0 +1,30 @@
+<div class="rev-Row">
+        <div class="rev-Col rev-Col--smallCentered">
+          <h2>Contributions</h2>
+        </div>
+      </div>
+<div class="rev-Row">
+        <%= for contribution <- @contributions do %>
+          <div class="rev-Col rev-Col--medium6">
+            <div class="rev-Card rev-CardLayout">
+
+              <div class="rev-Card-header rev-CardLayout-bar">
+                <div class="rev-Row">
+                  <div class="rev-Col">
+                    <h3 class="ButtonLink">
+                      <div class="ButtonLink--header">
+                        <a href="<%= fund_path(@conn, :show, contribution.repository.owner, contribution.repository.name, contribution.pledge.fund_id) %>">
+                          <%= IncentivizeWeb.FundView.action_display(contribution.action) %> on <%= contribution.repository.name %>/<%= contribution.repository.name %>
+                        </a>
+                      </div>
+                    </h3>
+                    <p><a href="<%= contribution.stellar_transaction_url %>" target="_blank">Received <%= contribution.pledge.amount %> Lumen(s)</a></p>
+                    <p><a href="<%= contribution.github_url %>" target="_blank">Contribution on GitHub</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        </div>
+      </div>

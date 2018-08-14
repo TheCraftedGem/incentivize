@@ -99,6 +99,7 @@ defmodule IncentivizeWeb.Router do
   scope "/account", IncentivizeWeb do
     pipe_through([:browser, :require_auth])
 
+    get("/", AccountController, :show)
     get("/edit", AccountController, :edit)
     put("/edit", AccountController, :update)
   end

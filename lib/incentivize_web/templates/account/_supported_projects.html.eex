@@ -12,7 +12,6 @@
                 <div class="rev-Row">
                   <div class="rev-Col">
                     <h3 class="ButtonLink">
-                      <img alt="Repo Favicon" src="/favicon.ico" />
                       <div class="ButtonLink--header">
                         <a href="<%= fund_path(@conn, :show, fund.repository.owner, fund.repository.name, fund.id) %>">
                           Fund for <%= fund.repository.owner %>/<%= fund.repository.name %>

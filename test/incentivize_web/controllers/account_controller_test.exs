@@ -1,5 +1,5 @@
 defmodule IncentivizeWeb.AccountControllerTest do
-    @moduledoc false
+  @moduledoc false
   use IncentivizeWeb.ConnCase
   alias Incentivize.Users
 
@@ -11,6 +11,12 @@ defmodule IncentivizeWeb.AccountControllerTest do
       |> assign(:current_user, user)
 
     [user: user, conn: conn]
+  end
+
+  test "GET /account", %{conn: conn} do
+    conn = get(conn, account_path(conn, :show))
+    assert html_response(conn, 200) =~ "Account"
+    assert html_response(conn, 200) =~ "Stellar Public Key"
   end
 
   test "GET /account/edit", %{conn: conn} do

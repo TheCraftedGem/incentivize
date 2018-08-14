@@ -12,6 +12,14 @@ defmodule Incentivize.Contributions do
     |> Repo.insert()
   end
 
+  def list_contributions_for_user(user) do
+    Contribution
+    |> where([c], c.user_id == ^user.id)
+    |> order_by([c], c.inserted_at)
+    |> preload([:pledge, :repository])
+    |> Repo.all()
+  end
+
   def list_contributions_for_repository(repository) do
     Contribution
     |> where([c], c.repository_id == ^repository.id)
