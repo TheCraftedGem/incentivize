@@ -1,0 +1,56 @@
+<div>
+  <div>
+
+    <div class="rev-Row">
+      <div class="rev-Col">
+
+        <div class="rev-Row">
+          <div class="rev-Col">
+            <h2>All Project Funds for <%= @repository.owner %>/<%= @repository.name %></h2>
+          </div>
+        </div>
+
+        <div class="rev-Row">
+        <%= for fund <- @funds do %>
+          <div class="rev-Col rev-Col--medium6">
+            <div class="rev-Card rev-CardLayout">
+
+              <div class="rev-Card-header rev-CardLayout-bar">
+                <div class="rev-Row">
+                  <div class="rev-Col">
+                    <h3 class="ButtonLink">
+                      <img alt="Repo Favicon" src="/favicon.ico" />
+                      <div class="ButtonLink--header">
+                        <a href="<%= fund_path(@conn, :show, @repository.owner, @repository.name, fund.id) %>">
+                          <%= fund.supporter.github_login %>'s Fund
+                        </a>
+                      </div>
+                    </h3>
+                    <p data-stellar-balance="<%= fund.stellar_public_key %>">Loading</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rev-Card-footer rev-CardLayout-bar">
+                <%= for pledge <- fund.pledges, pledge.amount > Decimal.new(0) do %>
+                  <div class="rev-Row rev-Row--flex">
+                    <div class="rev-Col">
+                      <div class="ButtonLink">
+                        <i class="material-icons">share</i>
+                        <p class="ButtonLink--text"><%= pledge.amount %> Lumens per <%= action_display(pledge.action) %></p>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+
+            </div>
+          </div>
+        <% end %>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

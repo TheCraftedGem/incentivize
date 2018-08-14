@@ -1,6 +1,42 @@
 import 'babel-polyfill'
 import 'phoenix_html'
 import '../css/app.scss'
+import StellarSdk from 'stellar-sdk'
+
+function createServer(network) {
+  const server = new StellarSdk.Server(network)
+
+  if (network.includes('test')) {
+    StellarSdk.Network.useTestNetwork()
+  } else {
+    StellarSdk.Network.usePublicNetwork()
+  }
+
+  return server
+}
+
+function getStellarBalances() {
+  const server = createServer(self.incentivize.stellarNetwork)
+
+  const balanceElements = document.querySelectorAll('[data-stellar-balance]')
+
+  for (const balanceElement of balanceElements) {
+    const publicKey = balanceElement.dataset.stellarBalance
+
+    server
+      .loadAccount(publicKey)
+      .then((account) => {
+        for (const balance of account.balances) {
+          if (balance.asset_type === 'native') {
+            balanceElement.innerHTML = `${balance.balance} Lumens`
+          }
+        }
+      })
+      .catch(() => {
+        balanceElement.innerHTML = 'Unable to get balance'
+      })
+  }
+}
 
 function setupFundForm() {
   const form = document.getElementById('fund_form')
@@ -31,6 +67,7 @@ function setupMenu() {
 function init() {
   setupMenu()
   setupFundForm()
+  getStellarBalances()
 }
 
 document.addEventListener('DOMContentLoaded', init)

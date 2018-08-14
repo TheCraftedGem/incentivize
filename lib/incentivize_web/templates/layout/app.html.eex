@@ -161,6 +161,14 @@
       // End Rollbar Snippet
       </script>
     <% end %>
+    <script>
+      const incentivize = {
+        stellarNetwork: '<%= Incentivize.Stellar.network_url() %>',
+        isTestNetwork: <%= Incentivize.Stellar.test_network?() %>
+      };
+
+      self.incentivize = window.incentivize || incentivize;
+    </script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

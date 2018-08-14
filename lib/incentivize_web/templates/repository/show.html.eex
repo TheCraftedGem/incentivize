@@ -20,6 +20,9 @@
 
                 <p></p>
 
+                <a class="ButtonLink" href="<%= fund_path(@conn, :index, @repository.owner, @repository.name) %>">
+                  <p class="ButtonLink--textRight">All Project Funds</p><i class="material-icons">share</i>
+                </a>
               </div>
             </div>
           </div>
