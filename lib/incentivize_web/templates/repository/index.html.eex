@@ -27,6 +27,7 @@
                       </div>
                     </h3>
                     <p>An incentive platform for software development.</p>
+                    <p><%= count_contributions_for_repository(repo) %> Contributions</p>
                   </div>
                 </div>
               </div>

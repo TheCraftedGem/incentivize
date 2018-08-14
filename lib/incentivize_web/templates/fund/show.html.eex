@@ -32,6 +32,11 @@
                     </ul>
                   </div>
                 </label>
+
+                <label class="rev-InputStack rev-InputLabel">
+                  <h5>Contributions</h5>
+                  <div><%= count_contributions_for_fund(@fund) %> Contributions</div>
+                </label>
               </div>
             </div>
 
