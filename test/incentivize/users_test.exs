@@ -1,5 +1,5 @@
 defmodule Incentivize.Users.Test do
-  use Incentivize.DataCase
+  use Incentivize.DataCase, async: true
   alias Incentivize.Users
 
   test "create" do
@@ -48,19 +48,21 @@ defmodule Incentivize.Users.Test do
   test "create_or_update_user_by_github_login with existing user" do
     user = insert!(:user)
 
-    {:ok, user_from_db} = Users.create_or_update_user_by_github_login(user.github_login, %{
-      "email" => "111111111@example.com"
-    })
+    {:ok, user_from_db} =
+      Users.create_or_update_user_by_github_login(user.github_login, %{
+        "email" => "111111111@example.com"
+      })
 
     assert user_from_db.email == "111111111@example.com"
   end
 
   test "create_or_update_user_by_github_login without existing user" do
-    {:ok, user_from_db} = Users.create_or_update_user_by_github_login("testuser12345", %{
-      "github_login" => "testuser12345",
-      "email" => "111111111@example.com",
-      "github_access_token" => "12345"
-    })
+    {:ok, user_from_db} =
+      Users.create_or_update_user_by_github_login("testuser12345", %{
+        "github_login" => "testuser12345",
+        "email" => "111111111@example.com",
+        "github_access_token" => "12345"
+      })
 
     assert user_from_db.github_login == "testuser12345"
     assert user_from_db.email == "111111111@example.com"

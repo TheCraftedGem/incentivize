@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.FundControllerTest do
   @moduledoc false
-  use IncentivizeWeb.ConnCase
+ use IncentivizeWeb.ConnCase, async: true
   alias Incentivize.{Funds}
 
   setup %{conn: conn} do

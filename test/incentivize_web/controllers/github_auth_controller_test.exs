@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.GithubAuthController.Test do
     @moduledoc false
-  use IncentivizeWeb.ConnCase
+ use IncentivizeWeb.ConnCase, async: true
 
   test "GET /auth/github", %{conn: conn} do
     conn = get(conn, github_auth_path(conn, :index))

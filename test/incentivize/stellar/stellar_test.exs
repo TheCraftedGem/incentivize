@@ -1,5 +1,5 @@
 defmodule Incentivize.Stellar.Test do
-  use Incentivize.DataCase, async: true
+  use Incentivize.DataCase
   alias Incentivize.Stellar
 
   test "network_url is set" do

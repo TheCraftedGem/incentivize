@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.AccountControllerTest do
   @moduledoc false
-  use IncentivizeWeb.ConnCase
+ use IncentivizeWeb.ConnCase, async: true
   alias Incentivize.Users
 
   setup %{conn: conn} do

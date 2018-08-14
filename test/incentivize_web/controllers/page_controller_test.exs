@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.PageControllerTest do
   @moduledoc false
-  use IncentivizeWeb.ConnCase
+ use IncentivizeWeb.ConnCase, async: true
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")
