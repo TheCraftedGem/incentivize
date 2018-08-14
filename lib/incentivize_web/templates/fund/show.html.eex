@@ -35,7 +35,11 @@
 
                 <label class="rev-InputStack rev-InputLabel">
                   <h5>Contributions</h5>
-                  <div><%= count_contributions_for_fund(@fund) %> Contributions</div>
+                  <div>
+                    <a href="<%= contribution_path(@conn, :for_fund, @repository.owner, @repository.name, @fund.id) %>">
+                      <%= count_contributions_for_fund(@fund) %> Contributions
+                    </a>
+                  </div>
                 </label>
               </div>
             </div>

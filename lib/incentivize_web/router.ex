@@ -118,6 +118,7 @@ defmodule IncentivizeWeb.Router do
     post("/create", RepositoryController, :create)
 
     get("/:owner/:name/webhook", RepositoryController, :webhook)
+    get("/:owner/:name/contributions", ContributionController, :for_repository)
   end
 
   scope "/repos/:owner/:name/funds", IncentivizeWeb do
@@ -132,6 +133,7 @@ defmodule IncentivizeWeb.Router do
 
     get("/", FundController, :index)
     get("/:id", FundController, :show)
+    get("/:id/contributions", ContributionController, :for_fund)
   end
 
   scope "/github/webhooks", IncentivizeWeb do
