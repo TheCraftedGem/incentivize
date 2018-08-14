@@ -124,7 +124,12 @@ defmodule IncentivizeWeb.Router do
 
     get("/new", FundController, :new)
     post("/create", FundController, :create)
+  end
 
+  scope "/repos/:owner/:name/funds", IncentivizeWeb do
+    pipe_through([:browser])
+
+    get("/", FundController, :index)
     get("/:id", FundController, :show)
   end
 

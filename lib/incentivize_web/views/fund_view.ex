@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.FundView do
   use IncentivizeWeb, :view
-  alias Incentivize.{Pledge, Actions}
+  alias Incentivize.{Actions, Contributions}
 
   def action_choices do
     actions = Actions.github_actions()
@@ -14,16 +14,7 @@ defmodule IncentivizeWeb.FundView do
     Actions.github_actions()[action]
   end
 
-  def blank_pledge_row(changeset) do
-    cond do
-      Ecto.assoc_loaded?(changeset.data.pledges) == false ->
-        []
-
-      length(changeset.data.pledges) > 0 ->
-        []
-
-      true ->
-        [%Pledge{}]
-    end
+  def count_contributions_for_fund(fund) do
+    length(Contributions.list_contributions_for_fund(fund))
   end
 end

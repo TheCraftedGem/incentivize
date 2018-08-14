@@ -16,16 +16,26 @@
                 </label>
 
                 <label class="rev-InputStack rev-InputLabel">
+                  <h5>Balance</h5>
+                  <div data-stellar-balance="<%= @fund.stellar_public_key %>">Loading</div>
+                </label>
+
+                <label class="rev-InputStack rev-InputLabel">
                   <h5>Pledges</h5>
                   <div>
                     <ul>
                       <%= for pledge <- @fund.pledges do %>
                         <%= if pledge.amount > Decimal.new(0) do %>
-                          <li><%= pledge.amount %> Lumen(s) when <%= action_display(pledge.action) %></li>
+                          <li><%= pledge.amount %> Lumen(s) per <%= action_display(pledge.action) %></li>
                         <% end %>
                       <% end %>
                     </ul>
                   </div>
+                </label>
+
+                <label class="rev-InputStack rev-InputLabel">
+                  <h5>Contributions</h5>
+                  <div><%= count_contributions_for_fund(@fund) %> Contributions</div>
                 </label>
               </div>
             </div>

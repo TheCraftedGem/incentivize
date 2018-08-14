@@ -18,8 +18,11 @@
                   </div>
                 </h3>
 
-                <p></p>
+                <p><%= count_contributions_for_repository(@repository) %> Contributions</p>
 
+                <a class="ButtonLink" href="<%= fund_path(@conn, :index, @repository.owner, @repository.name) %>">
+                  <p class="ButtonLink--textRight">All Project Funds</p><i class="material-icons">share</i>
+                </a>
               </div>
             </div>
           </div>
