@@ -20,21 +20,23 @@ function getStellarBalances() {
 
   const balanceElements = document.querySelectorAll('[data-stellar-balance]')
 
-  for (const balanceElement of balanceElements) {
-    const publicKey = balanceElement.dataset.stellarBalance
+  if (balanceElements) {
+    balanceElements.forEach((balanceElement) => {
+      const publicKey = balanceElement.dataset.stellarBalance
 
-    server
-      .loadAccount(publicKey)
-      .then((account) => {
-        for (const balance of account.balances) {
-          if (balance.asset_type === 'native') {
-            balanceElement.innerHTML = `${balance.balance} Lumens`
+      server
+        .loadAccount(publicKey)
+        .then((account) => {
+          for (const balance of account.balances) {
+            if (balance.asset_type === 'native') {
+              balanceElement.innerHTML = `${balance.balance} Lumens`
+            }
           }
-        }
-      })
-      .catch(() => {
-        balanceElement.innerHTML = 'Unable to get balance'
-      })
+        })
+        .catch(() => {
+          balanceElement.innerHTML = 'Unable to get balance'
+        })
+    })
   }
 }
 
