@@ -24,6 +24,10 @@
         <% end %>
       </div>
     </div>
+    <%= if not Enum.empty?(@funds) do %>
+      <hr/>
+      <%= render "_supported_projects.html", assigns %>
+    <% end %>
 
   </div>
 </div>

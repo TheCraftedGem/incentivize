@@ -1,11 +1,13 @@
 defmodule IncentivizeWeb.AccountController do
   use IncentivizeWeb, :controller
-  alias Incentivize.{Users, User}
+  alias Incentivize.{Funds, User, Users}
 
   def edit(conn, _params) do
-    changeset = User.changeset(conn.assigns.current_user)
+    user = conn.assigns.current_user
+    changeset = User.changeset(user)
+    funds = Funds.list_funds_for_supporter(user)
 
-    render(conn, "edit.html", changeset: changeset)
+    render(conn, "edit.html", changeset: changeset, user: user, funds: funds)
   end
 
   def update(conn, %{"user" => user_params}) do
