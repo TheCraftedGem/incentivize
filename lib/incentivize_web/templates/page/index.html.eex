@@ -34,15 +34,6 @@
       </div>
     </div> -->
 
-    <div class="Section">
-      <div class="rev-Row">
-        <div id="About" class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
-          <h2>About Incentivize</h2>
-          <p>The software industry is lacking an <strong>incentive platform</strong> for <strong>building communities</strong> around projects outside of bounty offerings, employers paying hourly/salaries, or maintainers receiving donations. Contributors to open and closed source projects should be <strong>incentivized for the value they bring to a project</strong> beyond just their time.</p>
-        </div>
-      </div>
-    </div>
-
     <div class="Section light">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium4">
@@ -54,8 +45,8 @@
           <p>It can be difficult to maintain and grow Open Source projects. Contributors often don't get rewarded for open source work so there is a lack of incentives to make meaningful contributions.</p>
         </div>
         <div class="rev-Col rev-Col--medium4">
-          <h3>Our Tech Stack</h3>
-          <p>Our tech stack includes Elixir, Phoenix, Node, React, Harmonium, StellarSDK js client, Stellar Horizon Server, and AWS.</p>
+          <h3>What's The Tech?</h3>
+          <p>Our stack includes Elixir, Phoenix, Node, React, Harmonium, Stellar SDK for JavaScript, Stellar Horizon Server, and AWS.</p>
         </div>
       </div>
     </div>
@@ -109,6 +100,12 @@
             <a href="https://revelry.co/" target="_blank">
               <img class="Footer-logo" src="/images/revelry-logo.png" />
             </a>
+          </p>
+          <p>
+            Send inquiries to
+            <a href="mailto:incentivize@revelry.co">incentivize@revelry.co</a>
+            or find us on
+            <a href="https://github.com/revelrylabs/incentivize">GitHub</a>.
           </p>
         </div>
       </div>

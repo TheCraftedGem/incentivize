@@ -92,13 +92,7 @@
           <div class="rev-TopBar-item Hide--mediumDown">
             <ul class="rev-Menu rev-Menu--horizontalRight">
               <li class="rev-Menu-item">
-                <a href="#About">About</a>
-              </li>
-              <li class="rev-Menu-item">
                 <a href="<%= repository_path(@conn, :index) %>">Discover</a>
-              </li>
-              <li class="rev-Menu-item">
-                <a href="#Contact">Contact</a>
               </li>
               <%= if logged_in?(@conn) do %>
                 <li class="rev-Menu-item">
