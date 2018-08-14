@@ -12,6 +12,13 @@ defmodule Incentivize.Repositories do
     |> Repo.all()
   end
 
+  def list_repositories_for_user(user) do
+    Repository
+    |> where([r], r.admin_id == ^user.id)
+    |> order_by([r], asc: r.owner, asc: r.name)
+    |> Repo.all()
+  end
+
   def create_repository(params) do
     %Repository{}
     |> Repository.create_changeset(params)

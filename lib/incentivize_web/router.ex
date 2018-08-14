@@ -2,7 +2,7 @@ defmodule IncentivizeWeb.Router do
   use IncentivizeWeb, :router
   use Plug.ErrorHandler
   alias Plug.Conn
-  alias IncentivizeWeb.{RequireAuth, LoadUser}
+  alias IncentivizeWeb.{LoadUser, RequireAuth}
   @filtered_params ["password"]
 
   defp handle_errors(conn, %{kind: kind, reason: reason, stack: stacktrace}) do
