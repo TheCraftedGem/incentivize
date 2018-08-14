@@ -13,6 +13,14 @@ defmodule IncentivizeWeb.FundControllerTest do
     [user: user, conn: conn]
   end
 
+  test "GET /repos/:owner/:name/funds", %{conn: conn} do
+    insert!(:repository, owner: "me", name: "me")
+
+    conn = get(conn, fund_path(conn, :index, "me", "me"))
+    assert html_response(conn, 200) =~ "Funds for"
+    assert html_response(conn, 200) =~ "me/me"
+  end
+
   test "GET /repos/:owner/:name/funds/new", %{conn: conn} do
     insert!(:repository, owner: "me", name: "me")
 

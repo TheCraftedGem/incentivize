@@ -120,17 +120,17 @@ defmodule IncentivizeWeb.Router do
   end
 
   scope "/repos/:owner/:name/funds", IncentivizeWeb do
-    pipe_through([:browser])
-
-    get("/", FundController, :index)
-    get("/:id", FundController, :show)
-  end
-
-  scope "/repos/:owner/:name/funds", IncentivizeWeb do
     pipe_through([:browser, :require_auth])
 
     get("/new", FundController, :new)
     post("/create", FundController, :create)
+  end
+
+  scope "/repos/:owner/:name/funds", IncentivizeWeb do
+    pipe_through([:browser])
+
+    get("/", FundController, :index)
+    get("/:id", FundController, :show)
   end
 
   scope "/github/webhooks", IncentivizeWeb do
