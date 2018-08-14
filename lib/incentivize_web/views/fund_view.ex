@@ -2,14 +2,6 @@ defmodule IncentivizeWeb.FundView do
   use IncentivizeWeb, :view
   alias Incentivize.{Actions, Contributions}
 
-  def action_choices do
-    actions = Actions.github_actions()
-    keys = Map.keys(actions)
-    values = Map.values(actions)
-
-    Enum.zip(values, keys)
-  end
-
   def action_display(action) do
     Actions.github_actions()[action]
   end
