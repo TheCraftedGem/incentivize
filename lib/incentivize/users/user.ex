@@ -1,6 +1,10 @@
 defmodule Incentivize.User do
+  @moduledoc """
+  User Schema
+  """
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
+  alias Incentivize.{Contribution, User}
 
   @type t :: %__MODULE__{}
   schema "users" do
@@ -10,10 +14,11 @@ defmodule Incentivize.User do
     field(:github_avatar_url, :string)
     field(:logged_in_at, :utc_datetime)
     field(:stellar_public_key, :string)
+    has_many(:contributions, Contribution)
     timestamps()
   end
 
-  def changeset(model, params \\ %{}) do
+  def changeset(%User{} = model, params \\ %{}) do
     model
     |> cast(params, [
       :email,

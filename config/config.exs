@@ -35,6 +35,9 @@ config :rollbax,
   enabled: false,
   environment: "dev"
 
+config :incentivize, :stellar_module, Incentivize.Stellar
+config :incentivize, :nodejs, timeout: {:system, :integer, "NODEJS_TIMEOUT", 60_000}
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

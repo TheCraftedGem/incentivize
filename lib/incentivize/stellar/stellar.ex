@@ -18,12 +18,16 @@ defmodule Incentivize.Stellar do
     Confex.get_env(:incentivize, __MODULE__)
   end
 
+  defp node_js_opts do
+    Confex.get_env(:incentivize, :nodejs)
+  end
+
   @doc """
   Generates a random keypair for creating a Stellar account
   """
   @spec generate_random_keypair() :: {:ok, map()}
   def generate_random_keypair do
-    NodeJS.call({:repositoryFund, :generateRandomKeyPair}, [])
+    make_node_call({:repositoryFund, :generateRandomKeyPair}, [])
   end
 
   @doc """
@@ -35,6 +39,52 @@ defmodule Incentivize.Stellar do
   """
   @spec create_fund_account(binary()) :: {:ok, binary()} | {:error, binary()}
   def create_fund_account(supporter_public_key) do
-    NodeJS.call({:repositoryFund, :create}, [network_url(), secret(), supporter_public_key])
+    make_node_call(
+      {:repositoryFund, :create},
+      [network_url(), secret(), supporter_public_key]
+    )
+  end
+
+  @doc """
+  Gives contributor the amount specified from the given fund
+  """
+  @spec reward_contribution(binary(), binary(), Decimal.t(), binary()) ::
+          {:ok, binary()} | {:error, binary()}
+  def reward_contribution(fund_public_key, contributor_public_key, amount, memo_text) do
+    make_node_call(
+      {:repositoryFund, :rewardContribution},
+      [
+        network_url(),
+        secret(),
+        fund_public_key,
+        contributor_public_key,
+        Decimal.to_string(amount),
+        memo_text
+      ]
+    )
+  end
+
+  def add_funds_to_account(fund_public_key, amount, memo_text) do
+    make_node_call(
+      {:repositoryFund, :addFunds},
+      [
+        network_url(),
+        secret(),
+        fund_public_key,
+        Decimal.to_string(amount),
+        memo_text
+      ]
+    )
+  end
+
+  # Indirect to nodejs process in order to capture
+  # any process-level errors
+  defp make_node_call(func, args) do
+    try do
+      NodeJS.call(func, args, node_js_opts())
+    catch
+      :exit, _value ->
+        {:error, "node_process_exited"}
+    end
   end
 end

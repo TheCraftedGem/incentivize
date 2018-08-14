@@ -1,9 +1,10 @@
 defmodule Incentivize.Factory do
   @moduledoc false
-  alias Incentivize.{Fund, Pledge, Repo, Repository, Stellar, User}
+  alias Incentivize.{Actions, Fund, Pledge, Repo, Repository, User}
+  @stellar_module Application.get_env(:incentivize, :stellar_module)
 
   def build(:user) do
-    {:ok, %{"publicKey" => public_key}} = Stellar.generate_random_keypair()
+    {:ok, %{"publicKey" => public_key}} = @stellar_module.generate_random_keypair()
 
     %User{
       email: "test#{System.unique_integer([:positive])}@example.com",
@@ -33,7 +34,7 @@ defmodule Incentivize.Factory do
   def build(:pledge) do
     %Pledge{
       amount: Decimal.new("1.0"),
-      action: "issues.opened"
+      action: Enum.random(Map.keys(Actions.github_actions()))
     }
   end
 
