@@ -6,7 +6,7 @@
 
         <div class="rev-Row">
           <div class="rev-Col">
-            <h2>All Project Funds for <%= @repository.owner %>/<%= @repository.name %></h2>
+            <h2 class="u-break-word">All Project Funds for <%= @repository.owner %>/<%= @repository.name %></h2>
           </div>
         </div>
 

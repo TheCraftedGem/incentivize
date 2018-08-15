@@ -10,3 +10,10 @@
 .u-noPadding-top {
   padding-top: 0;
 }
+.u-break-word {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+.u-truncate {
+  @include truncate;
+}

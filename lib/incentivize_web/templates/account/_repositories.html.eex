@@ -12,7 +12,7 @@
                 <div class="rev-Row">
                   <div class="rev-Col">
                     <h3 class="ButtonLink">
-                      <div class="ButtonLink--header">
+                      <div class="ButtonLink--header u-truncate">
                         <a href="<%= repository_path(@conn, :show, repo.owner, repo.name) %>">
                           <%= repo.owner %>/<%= repo.name %>
                         </a>
