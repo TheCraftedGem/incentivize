@@ -13,7 +13,7 @@
 
                 <h3 class="ButtonLink">
                   <img alt="Repo Favicon" src="/favicon.ico" />
-                  <div class="ButtonLink--header">
+                  <div class="ButtonLink--header u-truncate">
                     <%= @repository.owner %>/<%= @repository.name %>
                   </div>
                 </h3>

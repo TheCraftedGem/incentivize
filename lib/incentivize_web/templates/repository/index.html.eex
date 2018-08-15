@@ -20,7 +20,7 @@
                   <div class="rev-Col">
                     <h3 class="ButtonLink">
                       <img alt="Repo Favicon" src="/favicon.ico" />
-                      <div class="ButtonLink--header">
+                      <div class="ButtonLink--header u-truncate">
                         <a href="<%= repository_path(@conn, :show, repo.owner, repo.name) %>">
                           <%= repo.owner %>/<%= repo.name %>
                         </a>

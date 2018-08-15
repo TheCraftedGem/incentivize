@@ -5,9 +5,9 @@
       <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
         <h2>Webhook Information</h2>
 
-        <h2 class="u-noPadding-top"><%= @repository.owner %>/<%= @repository.name %></h2>
+        <h2 class="u-noPadding-top u-break-word"><%= @repository.owner %>/<%= @repository.name %></h2>
         <p>
-          Go to <a href="https://github.com/<%= @repository.owner %>/<%= @repository.name %>/settings/hooks">https://github.com/<%= @repository.owner %>/<%= @repository.name %>/settings/hooks</a>.
+          Go to <a href="https://github.com/<%= @repository.owner %>/<%= @repository.name %>/settings/hooks" class="u-break-word">https://github.com/<%= @repository.owner %>/<%= @repository.name %>/settings/hooks</a>.
         </p>
         <p>Click the "<strong>Add webhook</strong>" button.</p>
         <p>Enter the information below:</p>
