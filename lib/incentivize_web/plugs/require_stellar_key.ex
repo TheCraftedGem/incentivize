@@ -1,6 +1,7 @@
 defmodule IncentivizeWeb.RequireStellarKey do
   @moduledoc """
-  Ensures user is logged in
+  Ensures user has a stellar key.
+  If not, redirects to account edit page
   """
 
   import Plug.Conn
