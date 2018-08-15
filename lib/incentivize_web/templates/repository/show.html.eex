@@ -12,7 +12,7 @@
               <div class="rev-Col">
 
                 <h3 class="ButtonLink">
-                  <img alt="Repo Favicon" src="/favicon.ico" />
+                  <img alt="Repo Favicon" src="/images/favicon.ico" />
                   <div class="ButtonLink--header u-truncate">
                     <%= @repository.owner %>/<%= @repository.name %>
                   </div>
