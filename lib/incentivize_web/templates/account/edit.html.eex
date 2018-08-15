@@ -23,6 +23,7 @@
               placeholder: "example: GCEXAMPLE5HWNK4AYSTEQ4UWDKHTCKADVS2AHF3UI2ZMO3DPUSM6Q4UG"
             ) %>
             <%= error_tag f, :stellar_public_key %>
+            <span>Don't have a stellar account? You can create one <a href="<%= stellar_account_creation_link(Incentivize.Stellar.test_network?()) %>" target="_blank">here</a></span>
           </label>
 
           <section class="u-noBorder-bottom">
