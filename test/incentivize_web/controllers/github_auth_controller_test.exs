@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.GithubAuthController.Test do
-    @moduledoc false
- use IncentivizeWeb.ConnCase, async: true
+  @moduledoc false
+  use IncentivizeWeb.ConnCase, async: true
 
   test "GET /auth/github", %{conn: conn} do
     conn = get(conn, github_auth_path(conn, :index))
@@ -9,7 +9,7 @@ defmodule IncentivizeWeb.GithubAuthController.Test do
 
   test "GET /auth/delete when logged out", %{conn: conn} do
     conn = get(conn, github_auth_path(conn, :delete))
-    assert response(conn, 403) =~ "Unauthorized"
+    assert redirected_to(conn) =~ page_path(conn, :index)
   end
 
   test "GET /session/delete when logged in", %{conn: conn} do
