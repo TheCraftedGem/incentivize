@@ -4,6 +4,8 @@ defmodule IncentivizeWeb.RequireAuth do
   """
 
   import Plug.Conn
+  alias IncentivizeWeb.Router.Helpers
+  alias Phoenix.Controller
 
   def init(opts) do
     opts
@@ -13,8 +15,9 @@ defmodule IncentivizeWeb.RequireAuth do
     case conn.assigns.current_user do
       nil ->
         conn
-        |> send_resp(403, "Unauthorized")
-        |> halt()
+        |> Controller.put_flash(:error, "Please log in before accessing requested page.")
+        |> Controller.redirect(to: Helpers.page_path(conn, :index))
+        |> halt
 
       _user ->
         conn
