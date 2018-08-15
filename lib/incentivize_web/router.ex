@@ -2,7 +2,7 @@ defmodule IncentivizeWeb.Router do
   use IncentivizeWeb, :router
   use Plug.ErrorHandler
   alias Plug.Conn
-  alias IncentivizeWeb.{LoadUser, RequireAuth}
+  alias IncentivizeWeb.{LoadUser, RequireAuth, RequireStellarKey}
   @filtered_params ["password"]
 
   defp handle_errors(conn, %{kind: kind, reason: reason, stack: stacktrace}) do
@@ -60,6 +60,7 @@ defmodule IncentivizeWeb.Router do
 
   pipeline :require_auth do
     plug(RequireAuth)
+    plug(RequireStellarKey)
   end
 
   pipeline :api do
