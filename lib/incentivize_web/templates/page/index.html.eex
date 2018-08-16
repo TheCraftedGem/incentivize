@@ -1,14 +1,16 @@
 <div>
   <div class="HeaderWrapper">
     <div class="rev-Row">
-      <div class="HeaderImage">
+      <!-- <div class="HeaderImage">
         <img src="/images/home-hero.png" />
-      </div>
-      <div class="rev-Col rev-Col--medium7 rev-Col--large6">
+      </div> -->
+      <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
         <h1>Incentivize</h1>
         <h3>
           <strong>Incentivize.io</strong> is an <strong>incentive platform for software development</strong> that enables organizations or individuals to distribute XLM to project contributors.
         </h3>
+      </div>
+      <div class="rev-Col rev-Col--medium6 rev-Col--smallCentered Text-center"> 
         <button
           href="http://join.incentivize.io"
           class="rev-Button rev-Button--expanded"
