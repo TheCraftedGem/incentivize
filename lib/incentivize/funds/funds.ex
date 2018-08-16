@@ -51,4 +51,16 @@ defmodule Incentivize.Funds do
 
     Repo.all(query)
   end
+
+  def get_pledge(pledge_id) do
+    Pledge
+    |> preload([:fund])
+    |> Repo.get(pledge_id)
+  end
+
+  def get_fund(fund_id) do
+    Fund
+    |> preload([:pledges])
+    |> Repo.get(fund_id)
+  end
 end

@@ -16,7 +16,8 @@ defmodule Incentivize.Application do
       # worker(Incentivize.Worker, [arg1, arg2, arg3]),
       supervisor(NodeJS.Supervisor, [
         [path: Path.join(File.cwd!(), "nodejs"), pool_size: 4, timeout: 60_000]
-      ])
+      ]),
+      {Rihanna.Supervisor, [name: Rihanna.Supervisor, postgrex: Incentivize.Repo.config()]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
