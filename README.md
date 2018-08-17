@@ -167,6 +167,10 @@ config :incentivize, Incentivize.Github.OAuth,
   client_id: <github_client_id>,
   client_secret: <github_client_secret>
 
+config :incentivize, Incentivize.Github.App,
+  app_id: <github_app_id>,
+  private_key_path: <github_private_key_path>
+
 config :incentivize, Incentivize.Stellar,
   network_url: <stellar_network_url>, # Optional. Defaults to test network.
   public_key: <stellar_public_key>,
