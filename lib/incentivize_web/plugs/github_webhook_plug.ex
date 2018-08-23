@@ -5,7 +5,6 @@ defmodule IncentivizeWeb.GithubWebhookPlug do
 
   import Plug.Conn
   require Logger
-  alias Incentivize.Repositories
 
   def init(options) do
     options
@@ -16,32 +15,17 @@ defmodule IncentivizeWeb.GithubWebhookPlug do
   """
   def call(conn, _options) do
     payload = conn.assigns[:raw_body]
-    parsed_body = conn.body_params
 
-    repository =
-      Repositories.get_repository_by_owner_and_name(
-        parsed_body["repository"]["owner"]["login"],
-        parsed_body["repository"]["name"]
-      )
+    secret = Confex.get_env(:incentivize, :github, [])[:webhook_secret]
 
-    case repository do
-      nil ->
-        conn
-        |> send_resp(403, "Forbidden")
-        |> halt()
+    [signature_in_header] = get_req_header(conn, "x-hub-signature")
 
-      repository ->
-        secret = repository.webhook_secret
-
-        [signature_in_header] = get_req_header(conn, "x-hub-signature")
-
-        if verify_signature(payload, secret, signature_in_header) do
-          conn
-        else
-          conn
-          |> send_resp(403, "Forbidden")
-          |> halt()
-        end
+    if verify_signature(payload, secret, signature_in_header) do
+      conn
+    else
+      conn
+      |> send_resp(403, "Forbidden")
+      |> halt()
     end
   end
 

@@ -21,11 +21,9 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :incentivize, Incentivize.Github.OAuth,
+config :incentivize, :github,
   client_id: {:system, "GITHUB_CLIENT_ID"},
-  client_secret: {:system, "GITHUB_CLIENT_SECRET"}
-
-config :incentivize, Incentivize.Github.App,
+  client_secret: {:system, "GITHUB_CLIENT_SECRET"},
   app_id: {:system, "GITHUB_APP_ID"},
   private_key_path: {:system, "GITHUB_APP_KEY_PATH"}
 

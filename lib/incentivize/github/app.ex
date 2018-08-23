@@ -34,7 +34,7 @@ defmodule Incentivize.Github.App do
 
   # Generates token for github app-level API calls
   defp get_app_auth_token do
-    config = Application.get_env(:incentivize, __MODULE__)
+    config = Application.get_env(:incentivize, :github)
 
     import Joken
     key = JOSE.JWK.from_pem_file(config[:private_key_path])

@@ -51,6 +51,22 @@ defmodule Incentivize.Github.WebhookHandler do
     end
   end
 
+  def handle("installation.created", _) do
+    {:ok, []}
+  end
+
+  def handle("installation.deleted", _) do
+    {:ok, []}
+  end
+
+  def handle("installation_repositories.added", _) do
+    {:ok, []}
+  end
+
+  def handle("installation_repositories.removed", _) do
+    {:ok, []}
+  end
+
   def handle(_, _) do
     {:error, :invalid_action}
   end
