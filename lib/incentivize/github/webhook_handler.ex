@@ -2,7 +2,7 @@ defmodule Incentivize.Github.WebhookHandler do
   @moduledoc """
   Handles processing of GitHub webhooks
   """
-  alias Incentivize.{Actions, Contributions, Funds, Repositories, Users}
+  alias Incentivize.{Actions, Contributions, Funds, Installations, Repositories, Users}
   @stellar_module Application.get_env(:incentivize, :stellar_module)
   @actions Map.keys(Actions.github_actions())
   @event_to_payload_map %{
@@ -51,7 +51,15 @@ defmodule Incentivize.Github.WebhookHandler do
     end
   end
 
-  def handle("installation.created", _) do
+  def handle("installation.created", payload) do
+    Installations.create_installation(%{
+      installation_id: get_in(payload, ["installation", "id"]),
+      github_login: get_in(payload, ["installation", "account", "login"]),
+      github_login_type: get_in(payload, ["installation", "account", "type"])
+    })
+
+    add_repositories_from_installation(payload["repositories"])
+
     {:ok, []}
   end
 
@@ -59,7 +67,9 @@ defmodule Incentivize.Github.WebhookHandler do
     {:ok, []}
   end
 
-  def handle("installation_repositories.added", _) do
+  def handle("installation_repositories.added", payload) do
+    add_repositories_from_installation(payload["repositories_added"])
+
     {:ok, []}
   end
 
@@ -69,6 +79,20 @@ defmodule Incentivize.Github.WebhookHandler do
 
   def handle(_, _) do
     {:error, :invalid_action}
+  end
+
+  defp add_repositories_from_installation(repos) do
+    Enum.each(repos, fn %{"full_name" => full_name} ->
+      [owner, name] = String.split(full_name, "/")
+
+      if is_nil(Repositories.get_repository_by_owner_and_name(owner, name)) do
+        # TODO: admin_id?
+        Repositories.create_repository(%{
+          owner: owner,
+          name: name
+        })
+      end
+    end)
   end
 
   defp can_reward_contribution?(repository, user, pledges) do
