@@ -21,11 +21,11 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :incentivize, :github,
+config :incentivize, Incentivize.Github,
   client_id: {:system, "GITHUB_CLIENT_ID"},
   client_secret: {:system, "GITHUB_CLIENT_SECRET"},
   app_id: {:system, "GITHUB_APP_ID"},
-  private_key_path: {:system, "GITHUB_APP_KEY_PATH"}
+  private_key: {:system, "GITHUB_APP_PRIVATE_KEY"}
 
 config :incentivize, Incentivize.Stellar,
   # Defaults to test network

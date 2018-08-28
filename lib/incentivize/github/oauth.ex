@@ -4,7 +4,7 @@ defmodule Incentivize.Github.OAuth do
   alias OAuth2.Strategy.AuthCode
 
   def client do
-    config = Confex.get_env(:incentivize, :github, [])
+    config = Confex.get_env(:incentivize, Incentivize.Github, [])
 
     Client.new(
       strategy: __MODULE__,
