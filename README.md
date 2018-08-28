@@ -160,7 +160,7 @@ Here we are using the localhost url, `http://localhost:4000`, In production use 
 ### Required Secrets
 
 In development, values can go into `config/dev.secret.exs`.
-To generate a Stellar test network key/pair and fund the account with Lumens, go here: https://www.stellar.org/laboratory/?network=test#account-creator
+To generate a Stellar test network key/pair and fund the account with Lumens, go here: https://www.stellar.org/laboratory/#account-creator?network=test
 
 ```elixir
 config :incentivize, Incentivize.Github.OAuth,
