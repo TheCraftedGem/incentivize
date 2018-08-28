@@ -1,10 +1,10 @@
-defmodule Incentivize.Installations do
+defmodule Incentivize.Github.Installations do
   @moduledoc """
   Module for interacting with Installations
   """
 
   import Ecto.{Query}, warn: false
-  alias Incentivize.{Installation, Repo}
+  alias Incentivize.{Github.Installation, Repo}
 
   def create_installation(params) do
     %Installation{}
@@ -16,6 +16,11 @@ defmodule Incentivize.Installations do
     installation
     |> Installation.changeset(params)
     |> Repo.update()
+  end
+
+  def delete_installation(installation) do
+    installation
+    |> Repo.delete()
   end
 
   def get_installation_by_github_login(github_login) do

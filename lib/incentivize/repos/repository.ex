@@ -5,15 +5,17 @@ defmodule Incentivize.Repository do
 
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
-  alias Incentivize.{Fund, Repository, User}
+  alias Incentivize.{Fund, Github.Installation, Repository, User}
 
   @type t :: %__MODULE__{}
   schema "repositories" do
     field(:name, :string)
     field(:owner, :string)
     field(:webhook_secret, :string)
+    field(:private, :boolean, default: false)
     belongs_to(:admin, User)
     has_many(:funds, Fund)
+    belongs_to(:installation, Installation)
     timestamps()
   end
 
@@ -22,9 +24,11 @@ defmodule Incentivize.Repository do
     |> cast(params, [
       :name,
       :owner,
-      :admin_id
+      :admin_id,
+      :installation_id,
+      :private
     ])
-    |> validate_required([:name, :owner, :admin_id])
+    |> validate_required([:name, :owner, :admin_id, :installation_id, :private])
     |> unique_constraint(:owner,
       name: "repositories_owner_name_index",
       message: "Repository already connected."
@@ -38,9 +42,11 @@ defmodule Incentivize.Repository do
       :name,
       :owner,
       :webhook_secret,
-      :admin_id
+      :admin_id,
+      :installation_id,
+      :private
     ])
-    |> validate_required([:name, :owner, :webhook_secret, :admin_id])
+    |> validate_required([:name, :owner, :webhook_secret, :admin_id, :installation_id, :private])
   end
 
   defp random_string(length) do

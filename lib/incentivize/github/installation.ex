@@ -1,17 +1,17 @@
-defmodule Incentivize.Installation do
+defmodule Incentivize.Github.Installation do
   @moduledoc """
   Repository Schema
   """
 
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
-  alias Incentivize.Installation
+  alias Incentivize.Github.Installation
 
   @type t :: %__MODULE__{}
-  schema "installations" do
+  schema "github_installations" do
     field(:installation_id, :integer)
-    field(:github_login, :string)
-    field(:github_login_type, :string)
+    field(:login, :string)
+    field(:login_type, :string)
     timestamps()
   end
 
@@ -19,13 +19,13 @@ defmodule Incentivize.Installation do
     schema
     |> cast(params, [
       :installation_id,
-      :github_login,
-      :github_login_type
+      :login,
+      :login_type
     ])
     |> validate_required([
       :installation_id,
-      :github_login,
-      :github_login_type
+      :login,
+      :login_type
     ])
   end
 end

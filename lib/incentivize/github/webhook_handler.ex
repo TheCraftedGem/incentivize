@@ -2,7 +2,7 @@ defmodule Incentivize.Github.WebhookHandler do
   @moduledoc """
   Handles processing of GitHub webhooks
   """
-  alias Incentivize.{Actions, Contributions, Funds, Installations, Repositories, Users}
+  alias Incentivize.{Actions, Contributions, Funds, Github.Installations, Repositories, Users}
   @stellar_module Application.get_env(:incentivize, :stellar_module)
   @actions Map.keys(Actions.github_actions())
   @event_to_payload_map %{
@@ -54,21 +54,32 @@ defmodule Incentivize.Github.WebhookHandler do
   def handle("installation.created", payload) do
     Installations.create_installation(%{
       installation_id: get_in(payload, ["installation", "id"]),
-      github_login: get_in(payload, ["installation", "account", "login"]),
-      github_login_type: get_in(payload, ["installation", "account", "type"])
+      login: get_in(payload, ["installation", "account", "login"]),
+      login_type: get_in(payload, ["installation", "account", "type"])
     })
 
-    add_repositories_from_installation(payload["repositories"])
+    add_repositories_from_installation(
+      payload["repositories"],
+      get_in(payload, ["installation", "id"])
+    )
 
     {:ok, []}
   end
 
-  def handle("installation.deleted", _) do
+  def handle("installation.deleted", payload) do
+    installation =
+      Installations.get_installation_by_installation_id(get_in(payload, ["installation", "id"]))
+
+    Installations.delete_installation(installation)
+
     {:ok, []}
   end
 
   def handle("installation_repositories.added", payload) do
-    add_repositories_from_installation(payload["repositories_added"])
+    add_repositories_from_installation(
+      payload["repositories_added"],
+      get_in(payload, ["installation", "id"])
+    )
 
     {:ok, []}
   end
@@ -81,15 +92,17 @@ defmodule Incentivize.Github.WebhookHandler do
     {:error, :invalid_action}
   end
 
-  defp add_repositories_from_installation(repos) do
-    Enum.each(repos, fn %{"full_name" => full_name} ->
+  defp add_repositories_from_installation(repos, installation_id) do
+    Enum.each(repos, fn %{"full_name" => full_name, "private" => private} ->
       [owner, name] = String.split(full_name, "/")
 
       if is_nil(Repositories.get_repository_by_owner_and_name(owner, name)) do
         # TODO: admin_id?
         Repositories.create_repository(%{
           owner: owner,
-          name: name
+          name: name,
+          installation_id: installation_id,
+          private: private
         })
       end
     end)
