@@ -57,7 +57,8 @@ defmodule Incentivize.Mixfile do
       {:confex, "~> 3.3"},
       {:nodejs, "~> 0.2"},
       {:rollbax, "~> 0.9.2"},
-      {:harmonium, "~> 0.2.0"}
+      {:harmonium, "~> 0.2.0"},
+      {:mix_test_watch, "~> 0.8", only: :dev, runtime: false}
     ]
   end
 
