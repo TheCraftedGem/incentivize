@@ -24,8 +24,6 @@ defmodule IncentivizeWeb.GithubAuthController do
     # Request the user's data with the access token
     %{body: user} = OAuth2.Client.get!(client, "/user")
 
-    IO.inspect(user)
-
     params = %{
       github_login: user["login"],
       github_avatar_url: user["avatar_url"],
