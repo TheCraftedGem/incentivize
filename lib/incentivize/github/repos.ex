@@ -8,7 +8,12 @@ defmodule Incentivize.Github.API.Repos do
   """
   @spec get_public_repo(binary, binary) :: {:ok, map} | {:error, binary}
   def get_public_repo(owner, name) do
-    case HTTPoison.get("https://api.github.com/repos/#{owner}/#{name}") do
+    headers = [
+      {"User-Agent", "Incentivize"},
+      {"Accept", "application/vnd.github.v3+json"}
+    ]
+
+    case HTTPoison.get("https://api.github.com/repos/#{owner}/#{name}", headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         {:ok, Jason.decode!(body)}
 
