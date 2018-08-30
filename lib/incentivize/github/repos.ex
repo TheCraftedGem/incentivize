@@ -13,7 +13,7 @@ defmodule Incentivize.Github.API.Repos do
       {"Accept", "application/vnd.github.v3+json"}
     ]
 
-    config = Confex.get_env(:incentivize, Incentivize.Github.OAuth, [])
+    config = Confex.get_env(:incentivize, Incentivize.Github, [])
     client_id = Keyword.get(config, :client_id)
     client_secret = Keyword.get(config, :client_secret)
 
