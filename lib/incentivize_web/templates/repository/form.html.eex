@@ -3,6 +3,7 @@
     <span>Owner</span>
     <%= text_input(f, :owner, required: true, class: "rev-Input", placeholder: "GitHub username or organization") %>
     <%= error_tag f, :owner %>
+    <%= error_tag f, :public %>
   </label>
 
   <label class="rev-InputStack rev-InputLabel">
