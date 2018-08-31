@@ -1,7 +1,7 @@
 defmodule IncentivizeWeb.GithubAuthController do
   use IncentivizeWeb, :controller
-  alias Incentivize.{Users}
   alias Incentivize.Github.OAuth, as: GitHub
+  alias Incentivize.Users
 
   def index(conn, _params) do
     redirect(conn, external: GitHub.authorize_url!())
@@ -23,19 +23,11 @@ defmodule IncentivizeWeb.GithubAuthController do
 
     # Request the user's data with the access token
     %{body: user} = OAuth2.Client.get!(client, "/user")
-    %{body: emails} = OAuth2.Client.get!(client, "/user/public_emails")
-
-    email =
-      case List.first(emails) do
-        %{"email" => email} -> email
-        _ -> user["email"]
-      end
 
     params = %{
       github_login: user["login"],
       github_avatar_url: user["avatar_url"],
       github_access_token: client.token.access_token,
-      email: email,
       logged_in_at: DateTime.utc_now()
     }
 

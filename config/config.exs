@@ -21,9 +21,11 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :incentivize, Incentivize.Github.OAuth,
+config :incentivize, Incentivize.Github,
   client_id: {:system, "GITHUB_CLIENT_ID"},
-  client_secret: {:system, "GITHUB_CLIENT_SECRET"}
+  client_secret: {:system, "GITHUB_CLIENT_SECRET"},
+  app_id: {:system, "GITHUB_APP_ID"},
+  private_key: {:system, "GITHUB_APP_PRIVATE_KEY"}
 
 config :incentivize, Incentivize.Stellar,
   # Defaults to test network
@@ -36,6 +38,7 @@ config :rollbax,
   environment: "dev"
 
 config :incentivize, :stellar_module, Incentivize.Stellar
+config :incentivize, :github_repos_module, Incentivize.Github.API.Repos
 config :incentivize, :nodejs, timeout: {:system, :integer, "NODEJS_TIMEOUT", 60_000}
 
 # Import environment specific config. This must remain at the bottom
