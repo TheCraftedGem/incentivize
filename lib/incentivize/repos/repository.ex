@@ -63,7 +63,7 @@ defmodule Incentivize.Repository do
     end
   end
 
-  defp github_repos_module() do
-    Incentivize.Github.API.Repos
+  defp github_repos_module do
+    Application.get_env(:incentivize, :github_repos_module, Incentivize.Github.API.Repos)
   end
 end
