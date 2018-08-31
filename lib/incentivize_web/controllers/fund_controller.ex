@@ -13,17 +13,31 @@ defmodule IncentivizeWeb.FundController do
   def new(conn, %{"owner" => owner, "name" => name}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
-    pledges =
-      for {action, _display} <- Actions.github_actions() do
-        %Pledge{action: action, amount: Decimal.new("0")}
-      end
-
-    changeset = Fund.create_changeset(%Fund{pledges: pledges})
+    changeset = Fund.create_changeset(%Fund{pledges: [%Pledge{amount: Decimal.new("0")}]})
 
     render(conn, "new.html", repository: repository, changeset: changeset)
   end
 
   def create(conn, %{"owner" => owner, "name" => name, "fund" => params}) do
+    # %{
+    #  "pledges" => %{"0" => %{"action" => "issue_comment.created", "amount" => "0"}}
+    # }
+
+    pledges = Map.get(params, "pledges", %{})
+
+    pledges =
+      pledges
+      |> Enum.filter(fn {index, %{"action" => _action, "amount" => amount}} ->
+        if amount == "" or amount == "0" do
+          false
+        else
+          true
+        end
+      end)
+      |> Enum.into(%{})
+
+    params = Map.put(params, "pledges", pledges)
+
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
     params =

@@ -29,6 +29,6 @@ defmodule Incentivize.Pledge do
       :amount,
       :action
     ])
-    |> validate_number(:amount, greater_than_or_equal_to: 0)
+    |> validate_number(:amount, greater_than: 0)
   end
 end

@@ -2,6 +2,7 @@ import 'babel-polyfill'
 import 'phoenix_html'
 import '../css/app.scss'
 import StellarSdk from 'stellar-sdk'
+import Funds from './funds'
 
 function createServer(network) {
   const server = new StellarSdk.Server(network)
@@ -97,6 +98,7 @@ function init() {
   setupFundForm()
   getStellarBalances()
   setupConnectRepositoryHelper()
+  Funds.init()
 }
 
 document.addEventListener('DOMContentLoaded', init)
