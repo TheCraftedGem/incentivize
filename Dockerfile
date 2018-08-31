@@ -19,12 +19,38 @@ RUN apt-get install -y postgresql-client
 # Add OS-level dependencies here
 
 
-# Make App folder
-RUN mkdir /app
-WORKDIR /app
+WORKDIR /opt/app
+
+# Install and compile project dependencies
+# We do this before all other files to make container build faster
+# when configuration and dependencies are not changed
+COPY mix.* ./
+RUN mix local.rebar --force
+RUN mix local.hex --force
+RUN mix deps.get --only prod
+RUN mix deps.compile
+
+COPY assets ./assets
+
+WORKDIR assets
+# Cache Node deps
+RUN npm i
+
+# Compile JavaScript
+RUN npm run deploy
+
+WORKDIR ..
+
+COPY nodejs ./nodejs
+
+WORKDIR nodejs
+# Cache Node deps
+RUN npm i
+
+WORKDIR ..
 
 # Add the files to the image
-ADD . .
+COPY . .
 
 # Cache Elixir deps
 RUN mix local.rebar --force
@@ -48,8 +74,7 @@ RUN npm i
 WORKDIR ..
 
 # Compile app
-RUN mix compile
-RUN mix phx.digest
+RUN mix do compile, phx.digest
 
-# The command to run when this image starts up
+# Run server
 CMD ["mix", "phx.server", "--no-deps-check", "--no-compile", "--no-halt"]
