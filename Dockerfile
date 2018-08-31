@@ -52,27 +52,6 @@ WORKDIR ..
 # Add the files to the image
 COPY . .
 
-# Cache Elixir deps
-RUN mix local.rebar --force
-RUN mix local.hex --force
-RUN mix deps.get --only prod
-RUN mix deps.compile
-
-WORKDIR assets
-# Cache Node deps
-RUN npm i
-
-# Compile JavaScript
-RUN npm run deploy
-
-WORKDIR ..
-
-WORKDIR nodejs
-# Cache Node deps
-RUN npm i
-
-WORKDIR ..
-
 # Compile app
 RUN mix do compile, phx.digest
 
