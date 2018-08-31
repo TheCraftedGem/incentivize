@@ -5,7 +5,7 @@ defmodule Incentivize.Repository do
 
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
-  alias Incentivize.{Fund, Github.API.Repos, Repository, User}
+  alias Incentivize.{Fund, Repository, User}
 
   @type t :: %__MODULE__{}
   schema "repositories" do
@@ -54,12 +54,16 @@ defmodule Incentivize.Repository do
     name = get_field(changeset, :name)
 
     if owner != nil and name != nil do
-      case Repos.get_public_repo(owner, name) do
+      case github_repos_module().get_public_repo(owner, name) do
         {:ok, _} -> changeset
         _ -> add_error(changeset, :public, "private repositories are not allowed")
       end
     else
       changeset
     end
+  end
+
+  defp github_repos_module() do
+    Incentivize.Github.API.Repos
   end
 end

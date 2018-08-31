@@ -25,6 +25,7 @@ config :incentivize, Incentivize.Repo,
   ownership_timeout: timeout
 
 config :incentivize, :stellar_module, Incentivize.Stellar.Mock
+config :incentivize, :github_repos_module, Incentivize.Github.API.Repos.Mock
 
 if File.exists?(Path.join([__DIR__, "dev.secret.exs"])) do
   import_config "dev.secret.exs"

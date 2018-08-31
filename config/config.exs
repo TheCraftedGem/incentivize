@@ -38,6 +38,7 @@ config :rollbax,
   environment: "dev"
 
 config :incentivize, :stellar_module, Incentivize.Stellar
+config :incentivize, :github_repos_module, Incentivize.Github.API.Repos
 config :incentivize, :nodejs, timeout: {:system, :integer, "NODEJS_TIMEOUT", 60_000}
 
 # Import environment specific config. This must remain at the bottom
