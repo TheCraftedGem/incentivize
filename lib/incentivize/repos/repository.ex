@@ -30,6 +30,7 @@ defmodule Incentivize.Repository do
       message: "Repository already connected."
     )
     |> put_change(:webhook_secret, random_string(32))
+    |> validate_public_repo()
   end
 
   def update_changeset(%Repository{} = model, params \\ %{}) do
@@ -41,9 +42,28 @@ defmodule Incentivize.Repository do
       :admin_id
     ])
     |> validate_required([:name, :owner, :webhook_secret, :admin_id])
+    |> validate_public_repo()
   end
 
   defp random_string(length) do
     length |> :crypto.strong_rand_bytes() |> Base.encode64() |> binary_part(0, length)
+  end
+
+  defp validate_public_repo(changeset) do
+    owner = get_field(changeset, :owner)
+    name = get_field(changeset, :name)
+
+    if owner != nil and name != nil do
+      case github_repos_module().get_public_repo(owner, name) do
+        {:ok, _} -> changeset
+        _ -> add_error(changeset, :public, "private repositories are not allowed")
+      end
+    else
+      changeset
+    end
+  end
+
+  defp github_repos_module do
+    Application.get_env(:incentivize, :github_repos_module, Incentivize.Github.API.Repos)
   end
 end

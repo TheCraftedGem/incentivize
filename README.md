@@ -163,9 +163,12 @@ In development, values can go into `config/dev.secret.exs`.
 To generate a Stellar test network key/pair and fund the account with Lumens, go here: https://www.stellar.org/laboratory/#account-creator?network=test
 
 ```elixir
-config :incentivize, Incentivize.Github.OAuth,
-  client_id: <github_client_id>,
-  client_secret: <github_client_secret>
+config :incentivize, Incentivize.Github,
+  client_id: <github_app_client_id>,
+  client_secret: <github_app_client_secret>
+  app_id: <github_app_id>,
+  private_key: <github_app_private_key>, #contents of .pem file as a string
+  webhook_secret: <github_app_webhook_secret> #not used by incentivize just yet
 
 config :incentivize, Incentivize.Stellar,
   network_url: <stellar_network_url>, # Optional. Defaults to test network.

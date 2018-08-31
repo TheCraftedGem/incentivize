@@ -6,6 +6,7 @@ defmodule IncentivizeWeb.GithubWebhookPlug do
   import Plug.Conn
   require Logger
   alias Incentivize.Repositories
+  alias Plug.Crypto
 
   def init(options) do
     options
@@ -16,37 +17,36 @@ defmodule IncentivizeWeb.GithubWebhookPlug do
   """
   def call(conn, _options) do
     payload = conn.assigns[:raw_body]
-    parsed_body = conn.body_params
 
+    secret = get_webhook_secret(conn.body_params)
+
+    [signature_in_header] = get_req_header(conn, "x-hub-signature")
+
+    if verify_signature(payload, secret, signature_in_header) do
+      conn
+    else
+      conn
+      |> send_resp(403, "Forbidden")
+      |> halt()
+    end
+  end
+
+  defp get_webhook_secret(parsed_body) do
     repository =
       Repositories.get_repository_by_owner_and_name(
         parsed_body["repository"]["owner"]["login"],
         parsed_body["repository"]["name"]
       )
 
-    case repository do
-      nil ->
-        conn
-        |> send_resp(403, "Forbidden")
-        |> halt()
-
-      repository ->
-        secret = repository.webhook_secret
-
-        [signature_in_header] = get_req_header(conn, "x-hub-signature")
-
-        if verify_signature(payload, secret, signature_in_header) do
-          conn
-        else
-          conn
-          |> send_resp(403, "Forbidden")
-          |> halt()
-        end
+    if is_nil(repository) do
+      ""
+    else
+      repository.webhook_secret
     end
   end
 
   defp verify_signature(payload, secret, signature_in_header) do
     signature = "sha1=" <> (:crypto.hmac(:sha, secret, payload) |> Base.encode16(case: :lower))
-    Plug.Crypto.secure_compare(signature, signature_in_header)
+    Crypto.secure_compare(signature, signature_in_header)
   end
 end

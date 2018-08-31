@@ -27,7 +27,7 @@ defmodule IncentivizeWeb.AccountControllerTest do
 
   test "PUT /account/edit", %{conn: conn, user: user} do
     conn = put(conn, account_path(conn, :edit), user: [stellar_public_key: "12345"])
-    assert redirected_to(conn) =~ account_path(conn, :edit)
+    assert redirected_to(conn) =~ account_path(conn, :show)
 
     assert Users.get_user(user.id).stellar_public_key == "12345"
   end

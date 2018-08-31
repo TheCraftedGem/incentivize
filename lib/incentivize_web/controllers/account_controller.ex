@@ -30,7 +30,7 @@ defmodule IncentivizeWeb.AccountController do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Updated successfully.")
-        |> redirect(to: account_path(conn, :edit))
+        |> redirect(to: account_path(conn, :show))
 
       {:error, _} ->
         changeset = User.changeset(conn.assigns.current_user)

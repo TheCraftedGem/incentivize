@@ -1,5 +1,7 @@
 sudo: false
 language: elixir
+git:
+  depth: false
 elixir:
   - 1.7
 otp_release:
