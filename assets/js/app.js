@@ -21,18 +21,20 @@ function setupMenu() {
   }
 }
 
-function init() {
+function init(config) {
   setupMenu()
-  Stellar.getStellarBalances(self.incentivize.stellarNetwork)
+  Stellar.getStellarBalances(config.stellarNetwork)
 
-  if (self.incentivize && self.incentivize.jsModuleToLoad) {
+  if (config && config.jsModuleToLoad) {
     const modules = {
       Funds,
       Repositories,
     }
 
-    modules[self.incentivize.jsModuleToLoad].init(self.incentivize)
+    modules[config.jsModuleToLoad].init(config)
   }
 }
 
-document.addEventListener('DOMContentLoaded', init)
+document.addEventListener('DOMContentLoaded', () => {
+  init(self.incentivize)
+})
