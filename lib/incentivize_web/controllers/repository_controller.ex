@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.RepositoryController do
   use IncentivizeWeb, :controller
-  alias Incentivize.{Repositories, Repository}
+  alias Incentivize.{Github.API.Repos, Repositories, Repository}
 
   def index(conn, _params) do
     repositories = Repositories.list_repositories()
@@ -9,6 +9,14 @@ defmodule IncentivizeWeb.RepositoryController do
   end
 
   def new(conn, _params) do
+    case Repos.get_all_public_repos(conn.assigns.current_user) do
+      {:ok, map} ->
+        Enum.map(map, fn m -> IO.inspect(m["full_name"]) end)
+
+      _ ->
+        nil
+    end
+
     changeset = Repository.create_changeset(%Repository{})
 
     render(conn, "new.html", changeset: changeset)
