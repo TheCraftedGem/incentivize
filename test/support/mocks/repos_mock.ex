@@ -8,4 +8,8 @@ defmodule Incentivize.Github.API.Repos.Mock do
   def get_public_repo(_, _, _) do
     {:ok, %{}}
   end
+
+  def get_all_public_repos(_) do
+    {:ok, []}
+  end
 end

@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.RepositoryController do
   use IncentivizeWeb, :controller
-  alias Incentivize.{Github.API.Repos, Repositories, Repository}
+  alias Incentivize.{Repositories, Repository}
 
   def index(conn, _params) do
     repositories = Repositories.list_repositories()
@@ -9,21 +9,26 @@ defmodule IncentivizeWeb.RepositoryController do
   end
 
   def new(conn, _params) do
-    case Repos.get_all_public_repos(conn.assigns.current_user) do
-      {:ok, map} ->
-        Enum.map(map, fn m -> IO.inspect(m["full_name"]) end)
+    case get_list_of_filtered_repos(conn.assigns.current_user) do
+      {:ok, repos} ->
+        changeset = Repository.create_changeset(%Repository{})
+        render(conn, "new.html", changeset: changeset, repos: repos)
 
-      _ ->
-        nil
+      {:error, _} ->
+        conn
+        |> put_flash(:error, "Unable to retrieve your public repositories")
+        |> redirect(to: page_path(conn, :index))
     end
-
-    changeset = Repository.create_changeset(%Repository{})
-
-    render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"repository" => repo_params}) do
-    repo_params = Map.put(repo_params, "admin_id", conn.assigns.current_user.id)
+  def create(conn, %{"repository" => %{"repo_name" => repo_name}}) do
+    [repo_owner, repo_name] = String.split(repo_name, "/")
+
+    repo_params = %{
+      "owner" => repo_owner,
+      "name" => repo_name,
+      "admin_id" => conn.assigns.current_user.id
+    }
 
     case Repositories.create_repository(repo_params) do
       {:ok, repository} ->
@@ -32,10 +37,12 @@ defmodule IncentivizeWeb.RepositoryController do
         |> redirect(to: repository_path(conn, :webhook, repository.owner, repository.name))
 
       {:error, changeset} ->
+        {:ok, repos} = get_list_of_filtered_repos(conn.assigns.current_user)
+
         conn
         |> put_status(400)
         |> put_flash(:error, "Failed to create.")
-        |> render("new.html", changeset: changeset)
+        |> render("new.html", changeset: changeset, repos: repos)
     end
   end
 
@@ -55,5 +62,30 @@ defmodule IncentivizeWeb.RepositoryController do
       |> put_status(403)
       |> text("Unauthorized")
     end
+  end
+
+  defp get_list_of_filtered_repos(user) do
+    with {:ok, public_repos} <- github_repos_module().get_all_public_repos(user),
+         repositories <- Repositories.list_repositories() do
+      repositories_full_names =
+        Enum.map(repositories, fn repo -> "#{repo.owner}/#{repo.name}" end)
+
+      full_names =
+        public_repos
+        |> Enum.map(fn repo -> repo["full_name"] end)
+        |> Enum.reject(fn full_name -> full_name in repositories_full_names end)
+
+      {:ok, full_names}
+    else
+      {:error, _} = error ->
+        error
+
+      _ ->
+        {:error, "unspecified error"}
+    end
+  end
+
+  defp github_repos_module do
+    Application.get_env(:incentivize, :github_repos_module, Incentivize.Github.API.Repos)
   end
 end
