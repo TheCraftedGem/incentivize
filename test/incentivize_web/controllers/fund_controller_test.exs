@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.FundControllerTest do
   @moduledoc false
- use IncentivizeWeb.ConnCase, async: true
+  use IncentivizeWeb.ConnCase, async: true
   alias Incentivize.{Funds}
 
   setup %{conn: conn} do
@@ -59,11 +59,36 @@ defmodule IncentivizeWeb.FundControllerTest do
     assert Enum.empty?(Funds.list_funds_for_repository(repository)) == true
   end
 
-  test "GET /repos/:owner/:name", %{conn: conn, user: user} do
+  test "GET /repos/:owner/:name/fund/:id", %{conn: conn, user: user} do
     repository = insert!(:repository, owner: "me", name: "me")
     fund = insert!(:fund, repository: repository, supporter: user)
 
     conn = get(conn, fund_path(conn, :show, "me", "me", fund.id))
     assert html_response(conn, 200) =~ "me/me"
+    assert html_response(conn, 200) =~ "Add Lumens"
+  end
+
+  test "GET /repos/:owner/:name/fund/:id when not fund owner and logged in", %{
+    conn: conn
+  } do
+    repository = insert!(:repository, owner: "me", name: "me")
+    new_user = insert!(:user)
+    fund = insert!(:fund, repository: repository, supporter: new_user)
+
+    conn = get(conn, fund_path(conn, :show, "me", "me", fund.id))
+    assert html_response(conn, 200) =~ "me/me"
+    refute html_response(conn, 200) =~ "Add Lumens"
+  end
+
+  test "GET /repos/:owner/:name/fund/:id when not fund owner and not logged in" do
+    repository = insert!(:repository, owner: "me", name: "me")
+    new_user = insert!(:user)
+    fund = insert!(:fund, repository: repository, supporter: new_user)
+
+    conn = build_conn()
+
+    conn = get(conn, fund_path(conn, :show, "me", "me", fund.id))
+    assert html_response(conn, 200) =~ "me/me"
+    refute html_response(conn, 200) =~ "Add Lumens"
   end
 end

@@ -63,4 +63,8 @@ defmodule Incentivize.Funds do
     |> preload([:pledges])
     |> Repo.get(fund_id)
   end
+
+  def user_owns_fund?(fund, user) do
+    user.id == fund.supporter_id
+  end
 end
