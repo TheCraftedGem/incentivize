@@ -5,7 +5,7 @@
       <input class="rev-Input" id="fund_pledges_<%= @index %>_amount" name="fund[pledges][<%= @index %>][amount]" step="0.0001" type="number" value="<%= @amount %>" required>
     </label>
   </div>
-  <div class="rev-Col rev-Col--medium5 rev-Col--largeOffset1">
+  <div class="rev-Col rev-Col--medium6">
     <label class="rev-InputStack InputStack-pledge rev-InputLabel">
       <span>Action:</span>
       <select class="rev-Select" id="fund_pledges_<%= @index %>_action" name="fund[pledges][<%= @index %>][action]" required>
@@ -17,8 +17,10 @@
     </label>
   </div>
   <div class="rev-Col rev-Col--medium1">
-    <div class="ButtonLink" data-delete="<%= @index %>">
-      <i class="material-icons">highlight_off</i>
-    </div>
+    <label class="rev-InputStack InputStack-pledge rev-InputLabel">
+      <button type="button" class="ButtonLink incentivize-Button-pledge" data-delete="<%= @index %>" title="Remove Pledge">
+        <i class="material-icons">highlight_off</i>
+      </button>
+    </label>
   </div>
 </div>
