@@ -1,5 +1,5 @@
-<div class="rev-Row u-border-bottom">
-  <div class="rev-Col rev-Col--medium6">
+<div class="rev-Row u-border-bottom" data-row="<%= @index %>">
+  <div class="rev-Col rev-Col--medium5">
     <label class="rev-InputStack InputStack-pledge rev-InputLabel">
       <span>Pledge Amount</span>
       <input class="rev-Input" id="fund_pledges_<%= @index %>_amount" name="fund[pledges][<%= @index %>][amount]" step="0.0001" type="number" value="<%= @amount %>" required>
@@ -7,13 +7,18 @@
   </div>
   <div class="rev-Col rev-Col--medium5 rev-Col--largeOffset1">
     <label class="rev-InputStack InputStack-pledge rev-InputLabel">
-      <strong>Action:</strong>
-      <select class="rev-Input" id="fund_pledges_<%= @index %>_action" name="fund[pledges][<%= @index %>][action]" required>
+      <span>Action:</span>
+      <select class="rev-Select" id="fund_pledges_<%= @index %>_action" name="fund[pledges][<%= @index %>][action]" required>
         <option value="">Choose an action</option>
         <%= for {value, key} <- actions_dropdown() do %>
             <option value="<%= key %>" <%= if key == @action, do: "selected", else: nil %>><%= value %></option>
         <% end %>
       </select>
     </label>
+  </div>
+  <div class="rev-Col rev-Col--medium1">
+    <div class="ButtonLink" data-delete="<%= @index %>">
+      <i class="material-icons">highlight_off</i>
+    </div>
   </div>
 </div>

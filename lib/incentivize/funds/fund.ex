@@ -29,8 +29,32 @@ defmodule Incentivize.Fund do
       :repository_id
     ])
     |> cast_assoc(:pledges, required: true)
+    |> validate_pledges()
     |> create_stellar_fund()
     |> validate_required([:stellar_public_key])
+  end
+
+  defp validate_pledges(changeset) do
+    pledges = get_change(changeset, :pledges)
+
+    if changeset.valid? and pledges != nil do
+      if Enum.empty?(pledges) do
+        add_error(changeset, :pledges, "Must have at least one pledge")
+      else
+        duplicate_exist? =
+          pledges
+          |> Enum.group_by(fn pledge -> pledge.changes.action end)
+          |> Enum.find(fn {_action, pledges} -> length(pledges) > 1 end)
+
+        if duplicate_exist? do
+          add_error(changeset, :pledges, "Can not have same action for multiple pledges")
+        else
+          changeset
+        end
+      end
+    else
+      changeset
+    end
   end
 
   defp create_stellar_fund(changeset) do

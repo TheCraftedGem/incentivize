@@ -1,23 +1,12 @@
 # Set the Docker image you want to base your image off.
 FROM elixir:1.7
 
-ENV MIX_ENV prod
-ENV PORT 5000
-
-# Exposes this port from the docker container to the host machine
-EXPOSE 5000
-
 # Add nodejs
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-RUN apt-get install -y nodejs
 
 # Install other stable dependencies that don't change often
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends apt-utils
-RUN apt-get install -y postgresql-client
-
-# Add OS-level dependencies here
-
+RUN apt-get update && \
+  apt-get install -y --no-install-recommends apt-utils postgresql-client nodejs
 
 WORKDIR /opt/app
 
@@ -25,19 +14,17 @@ WORKDIR /opt/app
 # We do this before all other files to make container build faster
 # when configuration and dependencies are not changed
 COPY mix.* ./
-RUN mix local.rebar --force
-RUN mix local.hex --force
-RUN mix deps.get --only prod
-RUN mix deps.compile
+COPY config/* ./config/
+
+ENV MIX_ENV prod
+
+RUN mix do local.rebar --force, local.hex --force, deps.get --only prod, deps.compile
 
 COPY assets ./assets
 
 WORKDIR assets
 # Cache Node deps
-RUN npm i
-
-# Compile JavaScript
-RUN npm run deploy
+RUN npm install && npm run deploy
 
 WORKDIR ..
 
@@ -45,15 +32,20 @@ COPY nodejs ./nodejs
 
 WORKDIR nodejs
 # Cache Node deps
-RUN npm i
+RUN npm install
 
 WORKDIR ..
 
 # Add the files to the image
 COPY . .
 
+ENV PORT 5000
+
 # Compile app
 RUN mix do compile, phx.digest
+
+# Exposes this port from the docker container to the host machine
+EXPOSE 5000
 
 # Run server
 CMD ["mix", "phx.server", "--no-deps-check", "--no-compile", "--no-halt"]

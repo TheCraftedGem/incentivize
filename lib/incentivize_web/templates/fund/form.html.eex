@@ -1,13 +1,23 @@
 <%= form_for @changeset, @action, [id: "fund_form"], fn f -> %>
+  <div class="rev-Row">
+    <div class="rev-Col">
+      <%= error_tag f, :pledges %>
+    </div>
+  </div>
+
   <div id="fund_row_container">
-    <%= for {pledge, index} <- pledges_with_indexes(f.data.pledges) do %>
-      <%= render "_fund_row.html", amount: pledge.amount, action: pledge.action, index: index %>
+    <%= for {pledge, index} <- pledges_with_indexes(f) do %>
+      <%= render "_fund_row.html", amount: Map.get(pledge.changes, :amount, 0), action: Map.get(pledge.changes, :action, ""), index: index %>
     <% end %>
   </div>
 
   <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
     <div class="rev-Col rev-Col--medium6 u-flexAlignEnd">
       <button class="rev-Button" type="button" data-add-fund-row>Add Pledge</button>
+    </div>
+  </div>
+  <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
+    <div class="rev-Col rev-Col--medium6 u-flexAlignEnd">
       <button class="rev-Button" type="submit">Incentivize</button>
     </div>
   </div>

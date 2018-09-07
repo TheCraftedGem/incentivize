@@ -41,6 +41,7 @@ defmodule IncentivizeWeb do
       import IncentivizeWeb.Router.Helpers
       import IncentivizeWeb.ErrorHelpers
       import IncentivizeWeb.Gettext
+      import IncentivizeWeb.ViewHelpers
     end
   end
 

@@ -18,11 +18,29 @@
                 <label class="rev-InputStack rev-InputLabel">
                   <h5>Balance</h5>
                   <div data-stellar-balance="<%= @fund.stellar_public_key %>">Loading</div>
-                  <p>
-                    Make sure there are enough lumens in your fund to reward contributors.
-                    To add lumens to your fund, go to the <a href="https://www.stellar.org/laboratory/#txbuilder" target="_blank">Stellar Laboratory Transaction Builder</a>
-                  </p>
                 </label>
+
+                <%= if supporter_owns_fund?(@conn, @fund) do %>
+                  <div id="add_lumen_form">
+                    <h5>Add Lumens to Project Fund</h5>
+                    <div class="rev-Row">
+                      <label class="rev-InputStack rev-InputLabel">
+                          <span>Amount</span>
+                          <input class="rev-Input" id="fund_amount" step="0.0001" type="number" autocomplete="off">
+                      </label>
+                      <label class="rev-InputStack rev-InputLabel">
+                          <span>Stellar Secret Key</span>
+                          <input class="rev-Input" id="fund_private_key" maxlength="56" minlength="56" pattern="S[A-Z0-9]{55}" placeholder="Example: SCHKBJ............ZLJ7" type="text" autocomplete="off">
+                          <input id="fund_public_key" type="hidden" value="<%= @fund.stellar_public_key %>"/>
+                      </label>
+                    </div>
+                    <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
+                      <div class="rev-Col rev-Col--medium6 u-flexAlignEnd">
+                        <button class="rev-Button" type="button" id="fund_add_button" disabled>Add Lumens</button>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
 
                 <label class="rev-InputStack rev-InputLabel">
                   <h5>Pledges</h5>

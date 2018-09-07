@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.FundController do
   use IncentivizeWeb, :controller
-  alias Incentivize.{Actions, Fund, Funds, Pledge, Repositories}
+  alias Incentivize.{Funds, Pledge, Repositories}
 
   def index(conn, %{"owner" => owner, "name" => name}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
@@ -13,21 +13,17 @@ defmodule IncentivizeWeb.FundController do
   def new(conn, %{"owner" => owner, "name" => name}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
-    changeset = Fund.create_changeset(%Fund{pledges: [%Pledge{amount: Decimal.new("0")}]})
+    changeset = Fund.create_changeset(%Fund{})
 
     render(conn, "new.html", repository: repository, changeset: changeset)
   end
 
   def create(conn, %{"owner" => owner, "name" => name, "fund" => params}) do
-    # %{
-    #  "pledges" => %{"0" => %{"action" => "issue_comment.created", "amount" => "0"}}
-    # }
-
     pledges = Map.get(params, "pledges", %{})
 
     pledges =
       pledges
-      |> Enum.filter(fn {index, %{"action" => _action, "amount" => amount}} ->
+      |> Enum.filter(fn {_index, %{"action" => _action, "amount" => amount}} ->
         if amount == "" or amount == "0" do
           false
         else
