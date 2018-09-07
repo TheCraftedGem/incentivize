@@ -1,29 +1,25 @@
 <%= form_for @changeset, @action, [id: "fund_form"], fn f -> %>
-  <div>
-    <%= inputs_for f, :pledges, fn fs -> %>
-    <div class="rev-Row u-border-bottom">
-      <div class="rev-Col rev-Col--medium6">
-        <label class="rev-InputStack InputStack-pledge rev-InputLabel">
-          <span>Pledge Amount</span>
-          <%= number_input(fs, :amount, required: true, class: "rev-Input", step: "0.0001") %>
-          <%= error_tag fs, :amount %>
-        </label>
-      </div>
-      <div class="rev-Col rev-Col--medium5 rev-Col--largeOffset1">
-        <label class="rev-InputStack InputStack-pledge rev-InputLabel">
-          <strong>Action:</strong>
-          <div class="InputLabel-pledge"><%= action_display(Ecto.Changeset.get_field(fs.source, :action)) %></div>
-          <%= hidden_input(fs, :action, required: true) %>
-        </label>
-      </div>
+  <div class="rev-Row">
+    <div class="rev-Col">
+      <%= error_tag f, :pledges %>
     </div>
+  </div>
+
+  <div id="fund_row_container">
+    <%= for {pledge, index} <- pledges_with_indexes(f) do %>
+      <%= render "_fund_row.html", amount: Map.get(pledge.changes, :amount, 0), action: Map.get(pledge.changes, :action, ""), index: index %>
     <% end %>
   </div>
 
   <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
-    <div class="rev-Col rev-Col--medium6 u-flexAlignEnd">
-      <button class="rev-Button" type="submit">Incentivize</button>
+    <div class="rev-Col">
+      <div class="rev-ButtonGroup u-flexAlignEnd">
+        <button class="rev-Button rev-Button--secondary" type="button" data-add-fund-row>Add Pledge</button>
+        <button class="rev-Button" type="submit">Incentivize</button>
+      </div>
     </div>
   </div>
-
 <% end %>
+<script id="fund_row_template" type="x-tmpl-mustache">
+  <%= render "_fund_row.html", amount: 0, action: nil, index: "{{index}}" %>
+</script>

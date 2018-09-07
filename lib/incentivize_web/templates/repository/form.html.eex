@@ -1,7 +1,7 @@
 <%= form_for @changeset, @action, fn f -> %>
   <label class="rev-InputStack rev-InputLabel">
     <span>Repository</span>
-    <%= select(f, :repo_name, @repos, prompt: "Choose a repository", required: true) %>
+    <%= select(f, :repo_name, @repos, class: "rev-Select", prompt: "Choose a repository", required: true) %>
     <%= error_tag f, :owner %>
     <%= error_tag f, :name %>
   </label>

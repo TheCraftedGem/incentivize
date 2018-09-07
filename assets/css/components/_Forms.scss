@@ -1,6 +1,18 @@
+$icon-alignment-margin: 2.1em;
+
 .InputStack-pledge {
   padding-top: $global-padding;
 }
 .InputLabel-pledge {
   padding-top: $global-padding-small;
+}
+
+.Icon-cancel {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: 0;
+  cursor: pointer;
+  margin-top: $icon-alignment-margin;
+  outline: none;
+  overflow: hidden;
 }

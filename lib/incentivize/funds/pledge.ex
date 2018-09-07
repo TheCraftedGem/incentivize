@@ -29,6 +29,11 @@ defmodule Incentivize.Pledge do
       :amount,
       :action
     ])
-    |> validate_number(:amount, greater_than_or_equal_to: 0)
+    |> validate_number(:amount, greater_than: 0)
+    |> unique_constraint(
+      :fund_id,
+      index: :pledges_fund_id_action_index,
+      message: "Can not have same action for multiple pledges"
+    )
   end
 end

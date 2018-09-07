@@ -59,6 +59,24 @@ defmodule IncentivizeWeb.FundControllerTest do
     assert Enum.empty?(Funds.list_funds_for_repository(repository)) == true
   end
 
+  test "POST /repos/:owner/:name/funds/create fails with duplicates", %{conn: conn, user: _user} do
+    repository = insert!(:repository, owner: "me", name: "me")
+
+    conn =
+      post(conn, fund_path(conn, :create, "me", "me"),
+        fund: [
+          pledges: %{
+            "0" => %{"action" => "pull_request.opened", "amount" => "1"},
+            "1" => %{"action" => "pull_request.opened", "amount" => "1"}
+          }
+        ]
+      )
+
+    assert html_response(conn, 400) =~ "Pledges"
+
+    assert Enum.empty?(Funds.list_funds_for_repository(repository)) == true
+  end
+
   test "GET /repos/:owner/:name/fund/:id", %{conn: conn, user: user} do
     repository = insert!(:repository, owner: "me", name: "me")
     fund = insert!(:fund, repository: repository, supporter: user)
