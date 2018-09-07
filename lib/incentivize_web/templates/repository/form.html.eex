@@ -1,19 +1,9 @@
 <%= form_for @changeset, @action, fn f -> %>
   <label class="rev-InputStack rev-InputLabel">
-    <span>Owner</span>
-    <%= text_input(f, :owner, required: true, class: "rev-Input", placeholder: "GitHub username or organization") %>
+    <span>Repository</span>
+    <%= select(f, :repo_name, @repos, prompt: "Choose a repository", required: true) %>
     <%= error_tag f, :owner %>
-    <%= error_tag f, :public %>
-  </label>
-
-  <label class="rev-InputStack rev-InputLabel">
-    <span>Name</span>
-    <%= text_input(f, :name, required: true, class: "rev-Input", placeholder: "Your project name only") %>
     <%= error_tag f, :name %>
-  </label>
-
-  <label class="rev-InputStack rev-InputLabel">
-    <div>https://github.com/<span data-repository-owner>[owner]</span>/<span data-repository-name>[name]</span></div>
   </label>
 
   <section class="u-noBorder-bottom">
