@@ -1,6 +1,7 @@
 defmodule IncentivizeWeb.FundView do
   use IncentivizeWeb, :view
   alias Incentivize.{Actions, Contributions, Funds, Pledge}
+  alias Ecto.Changeset
 
   def supporter_owns_fund?(conn, fund) do
     logged_in?(conn) and Funds.user_owns_fund?(fund, conn.assigns.current_user)
@@ -21,12 +22,8 @@ defmodule IncentivizeWeb.FundView do
     Enum.zip(values, keys)
   end
 
-  # def pledges_with_indexes(%Ecto.Association.NotLoaded{}) do
-  #  []
-  # end
-
   def pledges_with_indexes(form) do
-    pledges = Ecto.Changeset.get_change(form.source, :pledges, [])
+    pledges = Changeset.get_change(form.source, :pledges, [])
 
     pledges =
       if Enum.empty?(pledges) do
