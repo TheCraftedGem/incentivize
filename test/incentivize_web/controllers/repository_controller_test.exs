@@ -16,26 +16,16 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
   test "GET /repos/new", %{conn: conn} do
     conn = get(conn, repository_path(conn, :new))
     assert html_response(conn, 200) =~ "Connect To Repository"
-    assert html_response(conn, 200) =~ "Owner"
-    assert html_response(conn, 200) =~ "Name"
+    assert html_response(conn, 200) =~ "Repository"
   end
 
   test "POST /repos/create", %{conn: conn, user: _user} do
     conn =
-      post(conn, repository_path(conn, :create),
-        repository: [owner: "octocat", name: "Hello-World"]
-      )
+      post(conn, repository_path(conn, :create), repository: [repo_name: "octocat/Hello-World"])
 
     assert redirected_to(conn) =~ repository_path(conn, :webhook, "octocat", "Hello-World")
 
     assert Repositories.get_repository_by_owner_and_name("octocat", "Hello-World") != nil
-  end
-
-  test "POST /repos/create with bad data", %{conn: conn} do
-    conn = post(conn, repository_path(conn, :create), repository: [owner: "", name: "me"])
-    assert html_response(conn, 400) =~ "Owner"
-
-    assert Repositories.get_repository_by_owner_and_name("me", "me") == nil
   end
 
   test "GET /repos/:owner/:name/webhook when not authorized", %{conn: conn, user: _user} do
@@ -56,9 +46,7 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
     insert!(:repository, owner: "octocat", name: "Hello-World")
 
     conn =
-      post(conn, repository_path(conn, :create),
-        repository: [owner: "octocat", name: "Hello-World"]
-      )
+      post(conn, repository_path(conn, :create), repository: [repo_name: "octocat/Hello-World"])
 
     assert html_response(conn, 400) =~ "already connected"
   end

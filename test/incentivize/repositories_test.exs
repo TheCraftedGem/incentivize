@@ -16,17 +16,6 @@ defmodule Incentivize.Repositories.Test do
     assert repository.webhook_secret != nil
   end
 
-  test "create does not allow private repos" do
-    user = insert!(:user)
-
-    assert {:error, _} =
-             Repositories.create_repository(%{
-               "owner" => "hi",
-               "name" => "hi",
-               "admin_id" => user.id
-             })
-  end
-
   test "update" do
     repo = insert!(:repository)
 
