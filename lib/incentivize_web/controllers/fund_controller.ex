@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.FundController do
   use IncentivizeWeb, :controller
-  alias Incentivize.{Funds, Pledge, Repositories}
+  alias Incentivize.{Fund, Funds, Pledge, Repositories}
 
   def index(conn, %{"owner" => owner, "name" => name}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
