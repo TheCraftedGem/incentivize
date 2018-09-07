@@ -1,54 +1,9 @@
 import 'babel-polyfill'
 import 'phoenix_html'
 import '../css/app.scss'
-import StellarSdk from 'stellar-sdk'
-
-function createServer(network) {
-  const server = new StellarSdk.Server(network)
-
-  if (network.includes('test')) {
-    StellarSdk.Network.useTestNetwork()
-  } else {
-    StellarSdk.Network.usePublicNetwork()
-  }
-
-  return server
-}
-
-function getStellarBalances() {
-  const server = createServer(self.incentivize.stellarNetwork)
-
-  const balanceElements = document.querySelectorAll('[data-stellar-balance]')
-
-  if (balanceElements) {
-    balanceElements.forEach((balanceElement) => {
-      const publicKey = balanceElement.dataset.stellarBalance
-
-      server
-        .loadAccount(publicKey)
-        .then((account) => {
-          for (const balance of account.balances) {
-            if (balance.asset_type === 'native') {
-              balanceElement.innerHTML = `${balance.balance} Lumens`
-            }
-          }
-        })
-        .catch(() => {
-          balanceElement.innerHTML = 'Unable to get balance'
-        })
-    })
-  }
-}
-
-function setupFundForm() {
-  const form = document.getElementById('fund_form')
-
-  if (form) {
-    form.addEventListener('submit', () => {
-      document.querySelector('#fund_form button[type=submit]').disabled = true
-    })
-  }
-}
+import Funds from './funds/funds'
+import Repositories from './repositories/repositories'
+import Stellar from './stellar/stellar'
 
 function setupMenu() {
   const expander = document.querySelector('.rev-Drawer-expander')
@@ -66,37 +21,20 @@ function setupMenu() {
   }
 }
 
-function setupConnectRepositoryHelper() {
-  const ownerSource = document.querySelector('#repository_owner')
-  const nameSource = document.querySelector('#repository_name')
+function init(config) {
+  setupMenu()
+  Stellar.getStellarBalances(config.stellarNetwork)
 
-  const ownerSink = document.querySelector('[data-repository-owner]')
-  const nameSink = document.querySelector('[data-repository-name]')
+  if (config && config.jsModuleToLoad) {
+    const modules = {
+      Funds,
+      Repositories,
+    }
 
-  if (ownerSource && ownerSink && nameSource && nameSink) {
-    ownerSource.addEventListener('input', () => {
-      if (ownerSource.value !== '') {
-        ownerSink.innerHTML = ownerSource.value
-      } else {
-        ownerSink.innerHTML = '[owner]'
-      }
-    })
-
-    nameSource.addEventListener('input', () => {
-      if (nameSource.value !== '') {
-        nameSink.innerHTML = nameSource.value
-      } else {
-        nameSink.innerHTML = '[name]'
-      }
-    })
+    modules[config.jsModuleToLoad].init(config)
   }
 }
 
-function init() {
-  setupMenu()
-  setupFundForm()
-  getStellarBalances()
-  setupConnectRepositoryHelper()
-}
-
-document.addEventListener('DOMContentLoaded', init)
+document.addEventListener('DOMContentLoaded', () => {
+  init(self.incentivize)
+})

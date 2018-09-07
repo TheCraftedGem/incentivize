@@ -166,10 +166,11 @@
     <script>
       const incentivize = {
         stellarNetwork: '<%= Incentivize.Stellar.network_url() %>',
-        isTestNetwork: <%= Incentivize.Stellar.test_network?() %>
+        isTestNetwork: <%= Incentivize.Stellar.test_network?() %>,
+        jsModuleToLoad: <%= init_js_module(@view_module, @view_template) %>
       };
 
-      self.incentivize = window.incentivize || incentivize;
+      self.incentivize = self.incentivize || incentivize;
     </script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
