@@ -18,8 +18,8 @@
                         </a>
                       </div>
                     </h3>
-                    <p><a href="<%= contribution.stellar_transaction_url %>" target="_blank">Received <%= contribution.pledge.amount %> Lumen(s)</a></p>
-                    <p><a href="<%= contribution.github_url %>" target="_blank">Contribution on GitHub</a></p>
+                    <p><a href="<%= contribution.stellar_transaction_url %>" target="_blank" rel="noreferrer">Received <%= contribution.pledge.amount %> Lumen(s)</a></p>
+                    <p><a href="<%= contribution.github_url %>" target="_blank" rel="noreferrer">Contribution on GitHub</a></p>
                   </div>
                 </div>
               </div>

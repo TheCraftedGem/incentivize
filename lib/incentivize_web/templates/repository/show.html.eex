@@ -35,7 +35,7 @@
             <div class="rev-Row">
               <div class="rev-Col">
                 <div class="u-flexAlignEnd">
-                  <a class="ButtonLink" href="https://github.com/<%= @repository.owner %>/<%= @repository.name %>" target="_blank">
+                  <a class="ButtonLink" href="https://github.com/<%= @repository.owner %>/<%= @repository.name %>" target="_blank" rel="noreferrer">
                     <p class="ButtonLink--textRight">GitHub Repo</p><i class="material-icons">arrow_forward</i>
                   </a>
                 </div>

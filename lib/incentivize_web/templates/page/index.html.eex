@@ -58,12 +58,12 @@
         <div class="rev-Col rev-Col--medium5">
           <h2>Contribute to Projects</h2>
           <p>When a Contributor finds a project they want to work on, they can select contribute and see all of the project pieces that are funded and the rewards associated with them.</p>
-          <a href="#" target="_blank" class='rev-Button rev-Button--white'>
+          <a href="#" target="_blank" rel="noreferrer" class='rev-Button rev-Button--white'>
             Start Contributing
           </a>
         </div>
         <div class="rev-Col rev-Col--medium7">
-          <img class="Image" src="/images/highlight-img.png" />
+          <img class="Image" src="/images/highlight-img.png" alt="GitHub Repository" />
         </div>
       </div>
     </div>
@@ -71,12 +71,12 @@
     <div class="Section">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium6">
-          <img class="Image" src="/images/highlight-img-2.png" />
+          <img class="Image" src="/images/highlight-img-2.png" alt="Support a Project" />
         </div>
         <div class="rev-Col rev-Col--medium6">
           <h2>Support a Project</h2>
           <p>the people who choose projects to support by adding lumens to the project fund. Supporters are anyone who is motivated to support a project by backing it with Lumens. It could be the owner of the repository, a business, or just a single person who uses this open source tool and wants to motivate others to improve it.</p>
-          <a href="#" target="_blank" class='rev-Button rev-Button--white'>
+          <a href="#" target="_blank" rel="noreferrer" class='rev-Button rev-Button--white'>
             Start Supporting
           </a>
         </div>
@@ -88,7 +88,7 @@
         <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
           <h2>Join the Waitlist</h2>
           <p class="lead">Sign up for the waitlist below and we will send you more details.</p>
-          <a href="http://join.incentivize.io" target="_blank" class='rev-Button rev-Button--white'>
+          <a href="http://join.incentivize.io" target="_blank" rel="noreferrer" class='rev-Button rev-Button--white'>
             Join Now
           </a>
         </div>
@@ -99,8 +99,8 @@
       <div class="rev-Row Footer">
         <div class="rev-Col">
           <p>Created by
-            <a href="https://revelry.co/" target="_blank">
-              <img class="Footer-logo" src="/images/revelry-logo.png" />
+            <a href="https://revelry.co/" target="_blank" rel="noreferrer">
+              <img class="Footer-logo" src="/images/revelry-logo.png" alt="Revelry" />
             </a>
           </p>
           <p>

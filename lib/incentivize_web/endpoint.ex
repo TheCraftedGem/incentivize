@@ -1,5 +1,6 @@
 defmodule IncentivizeWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :incentivize
+  @gzip Mix.env() == :prod
 
   socket("/socket", IncentivizeWeb.UserSocket)
 
@@ -10,7 +11,7 @@ defmodule IncentivizeWeb.Endpoint do
   plug(Plug.Static,
     at: "/",
     from: :incentivize,
-    gzip: false,
+    gzip: @gzip,
     only: ~w(css fonts images js favicon.ico robots.txt)
   )
 
