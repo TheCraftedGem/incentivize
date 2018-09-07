@@ -1,3 +1,5 @@
+$icon-alignment-margin: 2.1em;
+
 .InputStack-pledge {
   padding-top: $global-padding;
 }
@@ -5,12 +7,12 @@
   padding-top: $global-padding-small;
 }
 
-.incentivize-Button-pledge {
-  background-color: Transparent;
+.Icon-cancel {
+  background-color: transparent;
   background-repeat: no-repeat;
   border: 0;
   cursor: pointer;
-  margin-top: 2.1em;
-  overflow: hidden;
+  margin-top: $icon-alignment-margin;
   outline: none;
+  overflow: hidden;
 }

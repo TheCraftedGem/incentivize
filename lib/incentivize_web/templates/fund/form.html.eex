@@ -11,12 +11,12 @@
     <% end %>
   </div>
 
-  <div class="rev-Row rev-Row--flex">
-    <div class="rev-Col rev-Col--medium6 u-flexAlignStart">
-      <button class="rev-Button rev-Button--secondary" type="button" data-add-fund-row>Add Pledge</button>
-    </div>
-    <div class="rev-Col rev-Col--medium6 u-flexAlignEnd">
-      <button class="rev-Button rev-Button--primary" type="submit">Incentivize</button>
+  <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
+    <div class="rev-Col">
+      <div class="rev-ButtonGroup u-flexAlignEnd">
+        <button class="rev-Button rev-Button--secondary" type="button" data-add-fund-row>Add Pledge</button>
+        <button class="rev-Button" type="submit">Incentivize</button>
+      </div>
     </div>
   </div>
 <% end %>

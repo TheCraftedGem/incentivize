@@ -18,7 +18,7 @@
   </div>
   <div class="rev-Col rev-Col--medium1">
     <label class="rev-InputStack InputStack-pledge rev-InputLabel">
-      <button type="button" class="ButtonLink incentivize-Button-pledge" data-delete="<%= @index %>" title="Remove Pledge">
+      <button type="button" class="ButtonLink Icon-cancel" data-delete="<%= @index %>" title="Remove Pledge">
         <i class="material-icons">highlight_off</i>
       </button>
     </label>
