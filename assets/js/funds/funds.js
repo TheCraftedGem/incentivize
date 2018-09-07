@@ -1,6 +1,14 @@
 import StellarSdk from 'stellar-sdk'
 import Stellar from '../stellar/stellar'
 
+/**
+ * Adds funds to the given account
+ * @param {String} secret - The secret key of the stellar account sending lumens
+ * @param {String} amount - The number of lumens to send
+ * @param {String} fundPublicKey - The public key of the receiving account
+ * @param {String} stellarNetwork - The stellar network
+ * @returns {Object} - The transaction result
+ */
 async function addFundsToAccount(
   secret,
   amount,
@@ -56,7 +64,7 @@ function init({stellarNetwork}) {
 
     button.addEventListener('click', async() => {
       button.disabled = true
-      button.innerHTML = 'Funding'
+      button.textContent = 'Funding'
       try {
         await addFundsToAccount(
           secret.value,
@@ -65,12 +73,12 @@ function init({stellarNetwork}) {
           stellarNetwork
         )
         button.disabled = false
-        button.innerHTML = 'Add Lumens'
+        button.textContent = 'Add Lumens'
         Stellar.getStellarBalances(stellarNetwork)
         alert('Funds added successfully')
       } catch (e) {
         button.disabled = false
-        button.innerHTML = 'Add Lumens'
+        button.textContent = 'Add Lumens'
         console.error(e)
         alert('Unable to add funds to account')
       }

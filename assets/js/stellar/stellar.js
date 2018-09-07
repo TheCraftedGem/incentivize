@@ -26,12 +26,12 @@ function getStellarBalances(stellarNetwork) {
         .then((account) => {
           for (const balance of account.balances) {
             if (balance.asset_type === 'native') {
-              balanceElement.innerHTML = `${balance.balance} Lumens`
+              balanceElement.textContent = `${balance.balance} Lumens`
             }
           }
         })
         .catch(() => {
-          balanceElement.innerHTML = 'Unable to get balance'
+          balanceElement.textContent = 'Unable to get balance'
         })
     })
   }

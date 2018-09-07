@@ -8,17 +8,17 @@ function init() {
   if (ownerSource && ownerSink && nameSource && nameSink) {
     ownerSource.addEventListener('input', () => {
       if (ownerSource.value !== '') {
-        ownerSink.innerHTML = ownerSource.value
+        ownerSink.textContent = ownerSource.value
       } else {
-        ownerSink.innerHTML = '[owner]'
+        ownerSink.textContent = '[owner]'
       }
     })
 
     nameSource.addEventListener('input', () => {
       if (nameSource.value !== '') {
-        nameSink.innerHTML = nameSource.value
+        nameSink.textContent = nameSource.value
       } else {
-        nameSink.innerHTML = '[name]'
+        nameSink.textContent = '[name]'
       }
     })
   }
