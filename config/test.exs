@@ -22,7 +22,8 @@ config :incentivize, Incentivize.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_timeout: timeout,
   timeout: timeout,
-  ownership_timeout: timeout
+  ownership_timeout: timeout,
+  loggers: [{Ecto.LogEntry, :log, []}, {Incentivize.Metrics, :record_ecto_metric, []}]
 
 config :incentivize, :stellar_module, Incentivize.Stellar.Mock
 config :incentivize, :github_repos_module, Incentivize.Github.API.Repos.Mock

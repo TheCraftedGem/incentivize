@@ -11,7 +11,8 @@ config :incentivize, Incentivize.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-  ssl: true
+  ssl: true,
+  loggers: [{Ecto.LogEntry, :log, []}, {Incentivize.Metrics, :record_ecto_metric, []}]
 
 config :incentivize, :google_analytics_id, {:system, "GOOGLE_ANALYTICS_ID"}
 

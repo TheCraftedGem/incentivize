@@ -49,7 +49,8 @@ config :incentivize, Incentivize.Repo,
   database: "incentivize_dev",
   hostname: "localhost",
   port: String.to_integer(System.get_env("PGPORT") || "5432"),
-  pool_size: 10
+  pool_size: 10,
+  loggers: [{Ecto.LogEntry, :log, []}, {Incentivize.Metrics, :record_ecto_metric, []}]
 
 if File.exists?(Path.join([__DIR__, "dev.secret.exs"])) do
   import_config "dev.secret.exs"

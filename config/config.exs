@@ -14,7 +14,8 @@ config :incentivize, IncentivizeWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "2ICx98yJO4b08TwDLYwn4iFDWkxDwOqzCR6wyk0O1giiPBr3MvI9ySwg6o7dKeeu",
   render_errors: [view: IncentivizeWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Incentivize.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Incentivize.PubSub, adapter: Phoenix.PubSub.PG2],
+  instrumenters: [IncentivizeWeb.Instrumenter]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -36,6 +37,19 @@ config :incentivize, Incentivize.Stellar,
 config :rollbax,
   enabled: false,
   environment: "dev"
+
+config :incentivize, :statix,
+  prefix: "incentivize",
+  host: {:system, "DATADOG_HOST", "localhost"},
+  port: {:system, :integer, "DATADOG_PORT", 8125}
+
+config(
+  :vmstats,
+  sink: Incentivize.Metrics,
+  base_key: "incentivize.erlang",
+  key_separator: ".",
+  interval: 1_000
+)
 
 config :incentivize, :stellar_module, Incentivize.Stellar
 config :incentivize, :github_repos_module, Incentivize.Github.API.Repos

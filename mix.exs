@@ -59,7 +59,9 @@ defmodule Incentivize.Mixfile do
       {:rollbax, "~> 0.9.2"},
       {:harmonium, "~> 0.2.0"},
       {:rihanna, ">= 0.0.0"},
-      {:mix_test_watch, "~> 0.8", only: :dev, runtime: false}
+      {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
+      {:vmstats, "~> 2.3"},
+      {:statix, "~> 1.1"}
     ]
   end
 

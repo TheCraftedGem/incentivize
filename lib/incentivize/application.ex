@@ -6,6 +6,12 @@ defmodule Incentivize.Application do
   def start(_type, _args) do
     import Supervisor.Spec
 
+    statix_config = Confex.get_env(:incentivize, :statix)
+
+    Application.put_env(:statix, Incentivize.Statix, statix_config)
+
+    :ok = Incentivize.Statix.connect()
+
     # Define workers and child supervisors to be supervised
     children = [
       # Start the Ecto repository
