@@ -15,6 +15,7 @@ jobs:
           - _build
           - deps
           - assets/node_modules
+          - nodejs/node_modules
       addons:
         postgresql: '9.6'
       services:
