@@ -1,5 +1,5 @@
 defmodule Incentivize.Stellar.Test do
-  use Incentivize.DataCase
+  use ExUnit.Case
   alias Incentivize.Stellar
 
   @moduletag timeout: 120_000
