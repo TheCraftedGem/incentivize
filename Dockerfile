@@ -20,19 +20,19 @@ ENV MIX_ENV prod
 
 RUN mix do local.rebar --force, local.hex --force, deps.get --only prod, deps.compile
 
-COPY assets ./assets
-
-WORKDIR assets
-# Cache Node deps
-RUN npm install && npm run deploy
-
-WORKDIR ..
-
 COPY nodejs ./nodejs
 
 WORKDIR nodejs
 # Cache Node deps
 RUN npm install
+
+WORKDIR ..
+
+COPY assets ./assets
+
+WORKDIR assets
+# Cache Node deps
+RUN npm install && npm run deploy
 
 WORKDIR ..
 
