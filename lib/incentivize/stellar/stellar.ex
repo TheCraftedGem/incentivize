@@ -27,7 +27,13 @@ defmodule Incentivize.Stellar do
   """
   @spec generate_random_keypair() :: {:ok, map()}
   def generate_random_keypair do
-    make_node_call({:repositoryFund, :generateRandomKeyPair}, [])
+    {public, secret} = Stellar.KeyPair.random()
+
+    {:ok,
+     %{
+       "publicKey" => public,
+       "secret" => secret
+     }}
   end
 
   @doc """
@@ -39,10 +45,51 @@ defmodule Incentivize.Stellar do
   """
   @spec create_fund_account(binary()) :: {:ok, binary()} | {:error, binary()}
   def create_fund_account(supporter_public_key) do
-    make_node_call(
-      {:repositoryFund, :create},
-      [network_url(), secret(), supporter_public_key]
-    )
+    with {:ok, {escrow_public, escrow_secret}} <- generate_escrow_account_xdr(),
+         {:ok, _} <- set_weights_xdr(supporter_public_key, escrow_secret) do
+      {:ok, escrow_public}
+    else
+      error ->
+        error
+    end
+  end
+
+  defp generate_escrow_account_xdr do
+    {escrow_public, escrow_secret} = Stellar.KeyPair.random()
+
+    {:ok, xdr} =
+      make_node_call(
+        {:repositoryFund, :generateEscrowAccountXDR},
+        [
+          network_url(),
+          secret(),
+          escrow_public,
+          "2.5000000"
+        ]
+      )
+
+    case Stellar.Transactions.post(xdr) do
+      {:ok, _result} ->
+        {:ok, {escrow_public, escrow_secret}}
+
+      error ->
+        error
+    end
+  end
+
+  defp set_weights_xdr(supporter_public_key, escrow_secret) do
+    {:ok, xdr} =
+      make_node_call(
+        {:repositoryFund, :setWeightsXDR},
+        [
+          network_url(),
+          escrow_secret,
+          supporter_public_key,
+          public_key()
+        ]
+      )
+
+    Stellar.Transactions.post(xdr)
   end
 
   @doc """
@@ -51,30 +98,42 @@ defmodule Incentivize.Stellar do
   @spec reward_contribution(binary(), binary(), Decimal.t(), binary()) ::
           {:ok, binary()} | {:error, binary()}
   def reward_contribution(fund_public_key, contributor_public_key, amount, memo_text) do
-    make_node_call(
-      {:repositoryFund, :rewardContribution},
-      [
-        network_url(),
-        secret(),
-        fund_public_key,
-        contributor_public_key,
-        Decimal.to_string(amount),
-        memo_text
-      ]
-    )
+    {:ok, transaction_xdr} =
+      make_node_call(
+        {:repositoryFund, :rewardContributionXDR},
+        [
+          network_url(),
+          secret(),
+          fund_public_key,
+          contributor_public_key,
+          Decimal.to_string(amount),
+          memo_text
+        ]
+      )
+
+    case Stellar.Transactions.post(transaction_xdr) do
+      {:ok, result} ->
+        {:ok, get_in(result, ["_links", "transaction", "href"])}
+
+      error ->
+        error
+    end
   end
 
   def add_funds_to_account(fund_public_key, amount, memo_text) do
-    make_node_call(
-      {:repositoryFund, :addFunds},
-      [
-        network_url(),
-        secret(),
-        fund_public_key,
-        Decimal.to_string(amount),
-        memo_text
-      ]
-    )
+    {:ok, xdr} =
+      make_node_call(
+        {:repositoryFund, :addFundsXDR},
+        [
+          network_url(),
+          secret(),
+          fund_public_key,
+          Decimal.to_string(amount),
+          memo_text
+        ]
+      )
+
+    Stellar.Transactions.post(xdr)
   end
 
   # Indirect to nodejs process in order to capture
