@@ -3,6 +3,12 @@ defmodule IncentivizeWeb.RepositoryController do
   alias Incentivize.{Repositories, Repository}
 
   def index(conn, _params) do
+    Incentivize.Github.API.Webhooks.list_webhooks(
+      conn.assigns.current_user,
+      "bryanjos",
+      "dotfiles"
+    )
+
     repositories = Repositories.list_repositories()
 
     render(conn, "index.html", repositories: repositories)

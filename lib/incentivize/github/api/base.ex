@@ -1,31 +1,24 @@
-defmodule Incentivize.Github.API.Repos do
+defmodule Incentivize.Github.API.Base do
   @moduledoc """
   API module for GitHub Repos
   """
-  alias Incentivize.User
   @base_url "https://api.github.com"
 
-  @doc """
-  Gets info about a public repo from github
-  """
-  @spec get_public_repo(User.t(), binary, binary) :: {:ok, map} | {:error, binary}
-  def get_public_repo(user, owner, name) do
-    url = "#{@base_url}/repos/#{owner}/#{name}?access_token=#{user.github_access_token}"
+  @spec get(binary, binary, list) :: {:ok, map} | {:error, binary}
+  def get(github_access_token, endpoint, query_params \\ []) do
+    url = "#{@base_url}#{endpoint}" <> process_query_params(github_access_token, query_params)
 
     url
     |> HTTPoison.get(headers())
     |> process_response
   end
 
-  @doc """
-  Gets all public repos that a user has access to
-  """
-  @spec get_all_public_repos(User.t()) :: {:ok, []} | {:error, binary}
-  def get_all_public_repos(user) do
-    url = "#{@base_url}/user/repos?access_token=#{user.github_access_token}&visibility=public"
+  @spec post(binary, binary, any, list) :: {:ok, map} | {:error, binary}
+  def post(github_access_token, endpoint, body, query_params \\ []) do
+    url = "#{@base_url}#{endpoint}" <> process_query_params(github_access_token, query_params)
 
     url
-    |> HTTPoison.get(headers())
+    |> HTTPoison.post(headers(), body)
     |> process_response
   end
 
@@ -61,6 +54,12 @@ defmodule Incentivize.Github.API.Repos do
       {"User-Agent", "Incentivize"},
       {"Accept", "application/vnd.github.v3+json"}
     ]
+  end
+
+  defp process_query_params(github_access_token, []), do: "?access_token=#{github_access_token}"
+
+  defp process_query_params(github_access_token, params) do
+    "?access_token=#{github_access_token}&" <> URI.encode_query(params)
   end
 
   defp process_link_header({"Link", value}) do
