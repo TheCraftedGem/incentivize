@@ -56,6 +56,7 @@ defmodule Incentivize.Stellar do
 
   defp generate_escrow_account_xdr do
     {escrow_public, escrow_secret} = Stellar.KeyPair.random()
+    starting_balance = "2.5000000"
 
     {:ok, xdr} =
       make_node_call(
@@ -64,7 +65,7 @@ defmodule Incentivize.Stellar do
           network_url(),
           secret(),
           escrow_public,
-          "2.5000000"
+          starting_balance
         ]
       )
 
