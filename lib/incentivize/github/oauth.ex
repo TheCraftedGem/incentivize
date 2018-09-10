@@ -18,7 +18,6 @@ defmodule Incentivize.Github.OAuth do
 
   def authorize_url! do
     Client.authorize_url!(client(), scope: "read:user,user:email,admin:repo_hook")
-    |> IO.inspect()
   end
 
   # you can pass options to the underlying http library via `opts` parameter
