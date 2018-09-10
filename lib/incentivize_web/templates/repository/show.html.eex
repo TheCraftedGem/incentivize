@@ -20,7 +20,7 @@
 
                 <p>
                   <a href="<%= contribution_path(@conn, :for_repository, @repository.owner, @repository.name) %>">
-                    <%= count_contributions_for_repository(@repository) %> Contributions
+                    <%= length(@repository.contributions) %> Contributions
                   </a>
                 </p>
 

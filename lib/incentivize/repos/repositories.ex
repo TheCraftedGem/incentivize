@@ -9,6 +9,7 @@ defmodule Incentivize.Repositories do
   def list_repositories do
     Repository
     |> order_by([r], asc: r.owner, asc: r.name)
+    |> preload([:funds, :contributions])
     |> Repo.all()
   end
 
@@ -16,6 +17,7 @@ defmodule Incentivize.Repositories do
     Repository
     |> where([r], r.admin_id == ^user.id)
     |> order_by([r], asc: r.owner, asc: r.name)
+    |> preload([:funds, :contributions])
     |> Repo.all()
   end
 
@@ -35,14 +37,17 @@ defmodule Incentivize.Repositories do
     query =
       from(repo in Repository,
         where: ilike(repo.owner, ^owner),
-        where: ilike(repo.name, ^name)
+        where: ilike(repo.name, ^name),
+        preload: [:funds, :contributions]
       )
 
     Repo.one(query)
   end
 
   def get_repository(id) do
-    Repo.get(Repository, id)
+    Repository
+    |> preload([:funds, :contributions])
+    |> Repo.get(id)
   end
 
   def user_owns_repository?(repository, user) do

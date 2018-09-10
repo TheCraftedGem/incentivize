@@ -5,7 +5,7 @@ defmodule Incentivize.Repository do
 
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
-  alias Incentivize.{Fund, Repository, User}
+  alias Incentivize.{Fund, Repository, User, Contribution}
 
   @type t :: %__MODULE__{}
   schema "repositories" do
@@ -14,6 +14,7 @@ defmodule Incentivize.Repository do
     field(:webhook_secret, :string)
     belongs_to(:admin, User)
     has_many(:funds, Fund)
+    has_many(:contributions, Contribution)
     timestamps()
   end
 
