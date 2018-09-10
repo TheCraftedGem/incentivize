@@ -25,7 +25,7 @@
                     </p>
                     <p>
                       <a href="<%= contribution_path(@conn, :for_repository, repo.owner, repo.name) %>">
-                        <%= IncentivizeWeb.RepositoryView.count_contributions_for_repository(repo) %> Contributions
+                        <%= length(repo.contributions) %> Contributions
                       </a>
                     </p>
                   </div>

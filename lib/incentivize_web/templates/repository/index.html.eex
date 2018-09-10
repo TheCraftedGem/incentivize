@@ -26,12 +26,6 @@
                         </a>
                       </div>
                     </h3>
-                    <p>An incentive platform for software development.</p>
-                    <p>
-                      <a href="<%= contribution_path(@conn, :for_repository, repo.owner, repo.name) %>">
-                        <%= count_contributions_for_repository(repo) %> Contributions
-                      </a>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -39,16 +33,20 @@
               <div class="rev-Card-footer rev-CardLayout-bar">
                 <div class="rev-Row rev-Row--flex">
                   <div class="rev-Col">
-                    <div class="ButtonLink">
-                      <i class="material-icons">share</i>
-                      <p class="ButtonLink--text">2,000 Lumens</p>
-                    </div>
+                    <a class="ButtonLink" href="<%= fund_path(@conn, :index, repo.owner, repo.name) %>">
+                      <div class="ButtonLink">
+                        <i class="material-icons">share</i>
+                        <p class="ButtonLink--text"><%= length(repo.funds) %> Project Funds</p>
+                      </div>
+                    </a>
                   </div>
                   <div class="rev-Col rev-Col--shrink">
-                    <div class="ButtonLink">
-                      <i class="material-icons">screen_share</i>
-                      <p class="ButtonLink--text">350 Distributed</p>
-                    </div>
+                    <a href="<%= contribution_path(@conn, :for_repository, repo.owner, repo.name) %>">
+                      <div class="ButtonLink">
+                        <i class="material-icons">screen_share</i>
+                        <p class="ButtonLink--text"><%= length(repo.contributions) %> Contributions</p>
+                      </div>
+                    </a>
                   </div>
                 </div>
                 <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
