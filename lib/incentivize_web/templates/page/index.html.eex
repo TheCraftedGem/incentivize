@@ -10,14 +10,6 @@
           <strong>Incentivize.io</strong> is an <strong>incentive platform for software development</strong> that enables organizations or individuals to distribute XLM to project contributors.
         </h3>
       </div>
-      <div class="rev-Col rev-Col--medium6 rev-Col--smallCentered Text-center">
-        <a
-          href="http://join.incentivize.io"
-          class="rev-Button rev-Button--expanded"
-        >
-          Join Waitlist
-        </a>
-      </div>
     </div>
   </div>
 
@@ -78,18 +70,6 @@
           <p>the people who choose projects to support by adding lumens to the project fund. Supporters are anyone who is motivated to support a project by backing it with Lumens. It could be the owner of the repository, a business, or just a single person who uses this open source tool and wants to motivate others to improve it.</p>
           <a href="#" target="_blank" rel="noreferrer" class='rev-Button rev-Button--white'>
             Start Supporting
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="HeaderWrapper small">
-      <div class="rev-Row">
-        <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
-          <h2>Join the Waitlist</h2>
-          <p class="lead">Sign up for the waitlist below and we will send you more details.</p>
-          <a href="http://join.incentivize.io" target="_blank" rel="noreferrer" class='rev-Button rev-Button--white'>
-            Join Now
           </a>
         </div>
       </div>
