@@ -55,6 +55,10 @@ config :incentivize, :stellar_module, Incentivize.Stellar
 config :incentivize, :github_repos_module, Incentivize.Github.API.Repos
 config :incentivize, :nodejs, timeout: {:system, :integer, "NODEJS_TIMEOUT", 60_000}
 
+config :incentivize, :stellar_asset,
+  code: {:system, "STELLAR_ASSET_CODE", "XLM"},
+  issuer: {:system, "STELLAR_ASSET_ISSUER"}
+
 config :rihanna, dispatcher_max_concurrency: 1
 
 # Import environment specific config. This must remain at the bottom

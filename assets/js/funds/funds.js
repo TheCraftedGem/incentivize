@@ -4,8 +4,8 @@ import Mustache from 'mustache'
 
 /**
  * Adds funds to the given account
- * @param {String} secret - The secret key of the stellar account sending lumens
- * @param {String} amount - The number of lumens to send
+ * @param {String} secret - The secret key of the stellar account sending XLM
+ * @param {String} amount - The number of XLM to send
  * @param {String} fundPublicKey - The public key of the receiving account
  * @param {String} stellarNetwork - The stellar network
  * @returns {Object} - The transaction result
@@ -39,6 +39,7 @@ async function addFundsToAccount(
 
 function initFundShow({stellarNetwork}) {
   const form = document.getElementById('fund_form')
+  const assetCode = StellarSdk.Asset.native().code
 
   if (form) {
     form.addEventListener('submit', () => {
@@ -74,12 +75,12 @@ function initFundShow({stellarNetwork}) {
           stellarNetwork
         )
         button.disabled = false
-        button.textContent = 'Add Lumens'
+        button.textContent = `Add ${assetCode}`
         Stellar.getStellarBalances(stellarNetwork)
         alert('Funds added successfully')
       } catch (e) {
         button.disabled = false
-        button.textContent = 'Add Lumens'
+        button.textContent = `Add ${assetCode}`
         console.error(e)
         alert('Unable to add funds to account')
       }

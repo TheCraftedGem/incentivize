@@ -117,7 +117,7 @@ async function create(network, incentivizeSecret, supporterPublicKey) {
  * @param incentivizeSecret - Incentivize's account secret
  * @param escrowPublicKey - The public key of the escrow account
  * @param contributerPublicKey - The public key of the contributer to incentivize
- * @param amount - The amount of lumens to give
+ * @param amount - The amount of XLM to give
  * @param memoText - A memo about the contribution
  *
  */

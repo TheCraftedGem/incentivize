@@ -14,7 +14,7 @@ defmodule Incentivize.Github.WebhookHandler do
   Takes in GitHub event payload and process contributions
 
   Checks to see if action is incentivized and user exists.
-  If so, then they are given the amount of lumens specified
+  If so, then they are given the amount of XLM specified
   by the pledge for that action and repo. This checks for
   all pledges for the repo so may give more than one contribution
   if multiple pledges exist.

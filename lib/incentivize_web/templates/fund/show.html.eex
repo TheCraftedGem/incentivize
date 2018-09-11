@@ -22,7 +22,7 @@
 
                 <%= if supporter_owns_fund?(@conn, @fund) do %>
                   <div id="add_lumen_form">
-                    <h5>Add Lumens to Project Fund</h5>
+                    <h5>Add <%= Incentivize.Stellar.asset_display() %> to Project Fund</h5>
                     <div class="rev-Row">
                       <label class="rev-InputStack rev-InputLabel">
                           <span>Amount</span>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
                       <div class="rev-Col rev-Col--medium6 u-flexAlignEnd">
-                        <button class="rev-Button" type="button" id="fund_add_button" disabled>Add Lumens</button>
+                        <button class="rev-Button" type="button" id="fund_add_button" disabled>Add <%= Incentivize.Stellar.asset_display() %></button>
                       </div>
                     </div>
                   </div>

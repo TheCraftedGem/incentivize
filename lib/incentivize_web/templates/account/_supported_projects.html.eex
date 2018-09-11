@@ -34,7 +34,7 @@
                     <div class="rev-Col">
                       <div class="ButtonLink">
                         <i class="material-icons">share</i>
-                        <p class="ButtonLink--text"><%= pledge.amount %> Lumens per <%= IncentivizeWeb.FundView.action_display(pledge.action) %></p>
+                        <p class="ButtonLink--text"><%= pledge.amount %> <%= Incentivize.Stellar.asset_display() %> per <%= IncentivizeWeb.FundView.action_display(pledge.action) %></p>
                       </div>
                     </div>
                   </div>

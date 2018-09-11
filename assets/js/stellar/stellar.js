@@ -14,6 +14,7 @@ function createServer(network) {
 
 function getStellarBalances(stellarNetwork) {
   const server = createServer(stellarNetwork)
+  const assetCode = StellarSdk.Asset.native().code
 
   const balanceElements = document.querySelectorAll('[data-stellar-balance]')
 
@@ -26,7 +27,7 @@ function getStellarBalances(stellarNetwork) {
         .then((account) => {
           for (const balance of account.balances) {
             if (balance.asset_type === 'native') {
-              balanceElement.textContent = `${balance.balance} Lumens`
+              balanceElement.textContent = `${balance.balance} ${assetCode}`
             }
           }
         })

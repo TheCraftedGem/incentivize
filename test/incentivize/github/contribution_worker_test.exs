@@ -3,7 +3,7 @@ defmodule Incentivize.Github.ContributionWorker.Test do
   alias Incentivize.{Funds, Github.ContributionWorker}
   @stellar_module Application.get_env(:incentivize, :stellar_module)
 
-  test "fund has no lumens in it" do
+  test "fund has no XLM in it" do
     repository = insert!(:repository, owner: "Codertocat", name: "Hello-World")
 
     supporter =
@@ -32,7 +32,7 @@ defmodule Incentivize.Github.ContributionWorker.Test do
              ])
   end
 
-  test "fund has lumens in it" do
+  test "fund has XLM in it" do
     repository = insert!(:repository, owner: "Codertocat", name: "Hello-World")
 
     supporter =

@@ -38,7 +38,7 @@ defmodule Incentivize.Github.WebhookHandler.Test do
              )
   end
 
-  test "fund has no lumens in it" do
+  test "fund has no XLM in it" do
     repository = insert!(:repository, owner: "Codertocat", name: "Hello-World")
 
     supporter =
@@ -66,7 +66,7 @@ defmodule Incentivize.Github.WebhookHandler.Test do
              )
   end
 
-  test "fund has lumens in it" do
+  test "fund has XLM in it" do
     repository = insert!(:repository, owner: "Codertocat", name: "Hello-World")
 
     supporter =
