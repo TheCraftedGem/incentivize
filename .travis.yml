@@ -50,6 +50,14 @@ jobs:
           password: '$DEIS_PASSWORD'
           on:
             branch: master
+        - provider: deis
+          controller: deis.prod.revelry.net
+          app: incentivize
+          cli_version: v2.19.4
+          username: '$DEIS_USERNAME'
+          password: '$DEIS_PASSWORD'
+          on:
+            tags: true
       after_deploy:
         - ./deis run "mix do deps.loadpaths --no-deps-check, ecto.migrate" -a incentivize
 notifications:
