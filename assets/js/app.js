@@ -23,7 +23,7 @@ function setupMenu() {
 
 function init(config) {
   setupMenu()
-  Stellar.getStellarBalances(config.stellarNetwork)
+  Stellar.getXLMBalances(config.stellarNetwork)
 
   if (config && config.jsModuleToLoad) {
     const modules = {

@@ -37,7 +37,7 @@ async function addFundsToAccount(
   await server.submitTransaction(transaction)
 }
 
-function initFundShow({stellarNetwork}) {
+function initFundShow({stellarNetwork, asset}) {
   const form = document.getElementById('fund_form')
   const assetCode = StellarSdk.Asset.native().code
 
@@ -76,7 +76,7 @@ function initFundShow({stellarNetwork}) {
         )
         button.disabled = false
         button.textContent = `Add ${assetCode}`
-        Stellar.getStellarBalances(stellarNetwork)
+        Stellar.getXLMBalances(stellarNetwork)
         alert('Funds added successfully')
       } catch (e) {
         button.disabled = false

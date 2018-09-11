@@ -167,7 +167,8 @@
       const incentivize = {
         stellarNetwork: '<%= Incentivize.Stellar.network_url() %>',
         isTestNetwork: <%= Incentivize.Stellar.test_network?() %>,
-        jsModuleToLoad: <%= init_js_module(@view_module, @view_template) %>
+        jsModuleToLoad: <%= init_js_module(@view_module, @view_template) %>,
+        asset: <%= raw Poison.encode!(Incentivize.Stellar.asset()) %>
       };
 
       self.incentivize = self.incentivize || incentivize;

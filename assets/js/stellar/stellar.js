@@ -12,9 +12,16 @@ function createServer(network) {
   return server
 }
 
-function getStellarBalances(stellarNetwork) {
+function processAsset({code, issuer}) {
+  if (code === StellarSdk.Asset.native().code) {
+    return StellarSdk.Asset.native()
+  } else {
+    return new StellarSdk.Asset(code, issuer)
+  }
+}
+
+function getXLMBalances(stellarNetwork) {
   const server = createServer(stellarNetwork)
-  const assetCode = StellarSdk.Asset.native().code
 
   const balanceElements = document.querySelectorAll('[data-stellar-balance]')
 
@@ -27,7 +34,7 @@ function getStellarBalances(stellarNetwork) {
         .then((account) => {
           for (const balance of account.balances) {
             if (balance.asset_type === 'native') {
-              balanceElement.textContent = `${balance.balance} ${assetCode}`
+              balanceElement.textContent = `${balance.balance} XLM`
             }
           }
         })
@@ -39,6 +46,7 @@ function getStellarBalances(stellarNetwork) {
 }
 
 export default {
-  getStellarBalances,
+  getXLMBalances,
   createServer,
+  processAsset,
 }

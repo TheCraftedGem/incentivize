@@ -126,6 +126,7 @@ defmodule Incentivize.Stellar do
           fund_public_key,
           contributor_public_key,
           Decimal.to_string(amount),
+          asset(),
           memo_text
         ]
       )
@@ -148,6 +149,7 @@ defmodule Incentivize.Stellar do
           secret(),
           fund_public_key,
           Decimal.to_string(amount),
+          asset(),
           memo_text
         ]
       )
