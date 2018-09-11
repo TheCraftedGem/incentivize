@@ -61,7 +61,8 @@ defmodule Incentivize.Mixfile do
       {:rihanna, ">= 0.0.0"},
       {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
       {:vmstats, "~> 2.3"},
-      {:statix, "~> 1.1"}
+      {:statix, "~> 1.1"},
+      {:stellar, "~> 0.3.0"}
     ]
   end
 

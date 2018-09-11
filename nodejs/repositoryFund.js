@@ -12,48 +12,38 @@ function createServer(network) {
   return server
 }
 
-/**
- * Generates a random keypair to be
- * used to create new Stellar Account
- */
-function generateRandomKeyPair() {
-  keypair = StellarSdk.Keypair.random()
-
-  return {
-    publicKey: keypair.publicKey(),
-    secret: keypair.secret(),
-  }
-}
-
-async function generateEscrowAccount(server, ownerKeyPair) {
+async function generateEscrowAccountXDR(
+  network,
+  ownerSecret,
+  escrowPublicKey,
+  startingBalance
+) {
+  const server = createServer(network)
+  const ownerKeyPair = StellarSdk.Keypair.fromSecret(ownerSecret)
   const ownerAccount = await server.loadAccount(ownerKeyPair.publicKey())
 
-  const escrowKey = StellarSdk.Keypair.random()
   let transaction = new StellarSdk.TransactionBuilder(ownerAccount)
     .addOperation(
       StellarSdk.Operation.createAccount({
-        destination: escrowKey.publicKey(),
-        startingBalance: '2.5000000',
+        destination: escrowPublicKey,
+        startingBalance: startingBalance,
       })
     )
     .build()
 
   transaction.sign(ownerKeyPair)
 
-  let response = await server.submitTransaction(transaction)
-
-  return {
-    keyPair: escrowKey,
-    transactionResponse: response,
-  }
+  return transaction.toEnvelope().toXDR('base64')
 }
 
-async function setWeights(
-  server,
-  escrowKeyPair,
+async function setWeightsXDR(
+  network,
+  escrowSecret,
   supporterPublicKey,
   incentivizePublicKey
 ) {
+  const server = createServer(network)
+  const escrowKeyPair = StellarSdk.Keypair.fromSecret(escrowSecret)
   const escrowAccount = await server.loadAccount(escrowKeyPair.publicKey())
 
   const transaction = new StellarSdk.TransactionBuilder(escrowAccount)
@@ -80,34 +70,7 @@ async function setWeights(
     .build()
 
   transaction.sign(escrowKeyPair)
-  response = await server.submitTransaction(transaction)
-
-  return response
-}
-
-/**
- * Creates Repository Fund
- *
- * @param network - The Stellar Network to use
- * @param incentivizeSecret - Incentivize's account secret
- * @param supporterPublicKey - The public key of the Supporter who will fund the account
- */
-async function create(network, incentivizeSecret, supporterPublicKey) {
-  const server = createServer(network)
-
-  const incentivizeKey = StellarSdk.Keypair.fromSecret(incentivizeSecret)
-
-  const escrowResult = await generateEscrowAccount(server, incentivizeKey)
-  const escrowKeyPair = escrowResult.keyPair
-
-  await setWeights(
-    server,
-    escrowKeyPair,
-    supporterPublicKey,
-    incentivizeKey.publicKey()
-  )
-
-  return escrowKeyPair.publicKey()
+  return transaction.toEnvelope().toXDR('base64')
 }
 
 /**
@@ -121,7 +84,7 @@ async function create(network, incentivizeSecret, supporterPublicKey) {
  * @param memoText - A memo about the contribution
  *
  */
-async function rewardContribution(
+async function rewardContributionXDR(
   network,
   incentivizeSecret,
   escrowPublicKey,
@@ -145,12 +108,11 @@ async function rewardContribution(
     .build()
 
   transaction.sign(ownerKeyPair)
-  transactionResult = await server.submitTransaction(transaction)
 
-  return transactionResult._links.transaction.href
+  return transaction.toEnvelope().toXDR('base64')
 }
 
-async function addFunds(network, secret, escrowPublicKey, amount, memoText) {
+async function addFundsXDR(network, secret, escrowPublicKey, amount, memoText) {
   const server = createServer(network)
   const ownerKeyPair = StellarSdk.Keypair.fromSecret(secret)
   const ownerAccount = await server.loadAccount(ownerKeyPair.publicKey())
@@ -169,14 +131,13 @@ async function addFunds(network, secret, escrowPublicKey, amount, memoText) {
     .build()
 
   transaction.sign(ownerKeyPair)
-  transactionResult = await server.submitTransaction(transaction)
 
-  return transactionResult._links.transaction.href
+  return transaction.toEnvelope().toXDR('base64')
 }
 
 module.exports = {
-  create,
-  rewardContribution,
-  generateRandomKeyPair,
-  addFunds,
+  rewardContributionXDR,
+  addFundsXDR,
+  generateEscrowAccountXDR,
+  setWeightsXDR,
 }
