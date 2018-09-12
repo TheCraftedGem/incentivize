@@ -48,7 +48,7 @@
                     <ul>
                       <%= for pledge <- @fund.pledges do %>
                         <%= if pledge.amount > Decimal.new(0) do %>
-                          <li><%= pledge.amount %> Lumen(s) per <%= action_display(pledge.action) %></li>
+                          <li><%= pledge.amount %> <%= Incentivize.Stellar.asset_display() %> per <%= action_display(pledge.action) %></li>
                         <% end %>
                       <% end %>
                     </ul>
