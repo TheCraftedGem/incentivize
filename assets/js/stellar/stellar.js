@@ -13,7 +13,7 @@ function createServer(network) {
 }
 
 function processAsset({code, issuer}) {
-  if (code === StellarSdk.Asset.native().code) {
+  if (code === StellarSdk.Asset.native().code && !issuer) {
     return StellarSdk.Asset.native()
   } else {
     return new StellarSdk.Asset(code, issuer)
