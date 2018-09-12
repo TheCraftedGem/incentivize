@@ -32,14 +32,14 @@ function getAccountBalances(stellarNetwork) {
       server
         .loadAccount(publicKey)
         .then((account) => {
+          balanceElement.innerHTML = ''
           for (const balance of account.balances) {
-            if (balance.asset_type === 'native') {
-              balanceElement.textContent = `${balance.balance} XLM`
-            } else {
-              balanceElement.textContent = `${balance.balance} ${
-                balance.asset_type
-              }`
-            }
+            const newDiv = document.createElement('div')
+            const type =
+              balance.asset_type === 'native' ? 'XLM' : balance.asset_type
+
+            newDiv.textContent = `${balance.balance} ${type}`
+            balanceElement.appendChild(newDiv)
           }
         })
         .catch(() => {
