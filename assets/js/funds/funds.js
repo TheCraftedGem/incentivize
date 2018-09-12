@@ -4,8 +4,9 @@ import Mustache from 'mustache'
 
 /**
  * Adds funds to the given account
- * @param {String} secret - The secret key of the stellar account sending lumens
- * @param {String} amount - The number of lumens to send
+ * @param {String} secret - The secret key of the stellar account sending XLM
+ * @param {String} amount - The amount to send
+ * @param {StellarSdk.Asset} asset - The asset to send
  * @param {String} fundPublicKey - The public key of the receiving account
  * @param {String} stellarNetwork - The stellar network
  * @returns {Object} - The transaction result
@@ -13,6 +14,7 @@ import Mustache from 'mustache'
 async function addFundsToAccount(
   secret,
   amount,
+  asset,
   fundPublicKey,
   stellarNetwork
 ) {
@@ -26,7 +28,7 @@ async function addFundsToAccount(
     .addOperation(
       StellarSdk.Operation.payment({
         destination: fundPublicKey,
-        asset: StellarSdk.Asset.native(),
+        asset,
         amount,
       })
     )
@@ -37,8 +39,10 @@ async function addFundsToAccount(
   await server.submitTransaction(transaction)
 }
 
-function initFundShow({stellarNetwork}) {
+function initFundShow({stellarNetwork, asset}) {
   const form = document.getElementById('fund_form')
+  const assetObj = Stellar.processAsset(asset)
+  const assetCode = assetObj.code
 
   if (form) {
     form.addEventListener('submit', () => {
@@ -70,16 +74,17 @@ function initFundShow({stellarNetwork}) {
         await addFundsToAccount(
           secret.value,
           amount.value,
+          assetObj,
           fundKey,
           stellarNetwork
         )
         button.disabled = false
-        button.textContent = 'Add Lumens'
-        Stellar.getStellarBalances(stellarNetwork)
+        button.textContent = `Add ${assetCode}`
+        Stellar.getAccountBalances(stellarNetwork)
         alert('Funds added successfully')
       } catch (e) {
         button.disabled = false
-        button.textContent = 'Add Lumens'
+        button.textContent = `Add ${assetCode}`
         console.error(e)
         alert('Unable to add funds to account')
       }

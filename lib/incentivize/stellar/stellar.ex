@@ -14,6 +14,24 @@ defmodule Incentivize.Stellar do
 
   def test_network?, do: String.contains?(network_url(), "test")
 
+  def asset do
+    {code, issuer} =
+      case Confex.get_env(:incentivize, :stellar_asset) do
+        nil ->
+          {"XLM", nil}
+
+        result ->
+          {result[:code], result[:issuer]}
+      end
+
+    %{"code" => code, "issuer" => issuer}
+  end
+
+  def asset_display do
+    %{"code" => code} = asset()
+    code
+  end
+
   defp config do
     Confex.get_env(:incentivize, __MODULE__)
   end
@@ -108,6 +126,7 @@ defmodule Incentivize.Stellar do
           fund_public_key,
           contributor_public_key,
           Decimal.to_string(amount),
+          asset(),
           memo_text
         ]
       )
@@ -130,6 +149,7 @@ defmodule Incentivize.Stellar do
           secret(),
           fund_public_key,
           Decimal.to_string(amount),
+          asset(),
           memo_text
         ]
       )

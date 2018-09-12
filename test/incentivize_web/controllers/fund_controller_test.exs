@@ -83,7 +83,7 @@ defmodule IncentivizeWeb.FundControllerTest do
 
     conn = get(conn, fund_path(conn, :show, "me", "me", fund.id))
     assert html_response(conn, 200) =~ "me/me"
-    assert html_response(conn, 200) =~ "Add Lumens"
+    assert html_response(conn, 200) =~ "Add XLM"
   end
 
   test "GET /repos/:owner/:name/fund/:id when not fund owner and logged in", %{
@@ -95,7 +95,7 @@ defmodule IncentivizeWeb.FundControllerTest do
 
     conn = get(conn, fund_path(conn, :show, "me", "me", fund.id))
     assert html_response(conn, 200) =~ "me/me"
-    refute html_response(conn, 200) =~ "Add Lumens"
+    refute html_response(conn, 200) =~ "Add XLM"
   end
 
   test "GET /repos/:owner/:name/fund/:id when not fund owner and not logged in" do
@@ -107,6 +107,6 @@ defmodule IncentivizeWeb.FundControllerTest do
 
     conn = get(conn, fund_path(conn, :show, "me", "me", fund.id))
     assert html_response(conn, 200) =~ "me/me"
-    refute html_response(conn, 200) =~ "Add Lumens"
+    refute html_response(conn, 200) =~ "Add XLM"
   end
 end
