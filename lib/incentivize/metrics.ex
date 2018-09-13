@@ -7,8 +7,7 @@ defmodule Incentivize.Metrics do
 
   def collect(_type, name, value) do
     try do
-      result = Statix.gauge(IO.iodata_to_binary(name), value, tags: Statix.base_tags())
-      Logger.info("collect result: #{inspect(result)}")
+      Statix.gauge(IO.iodata_to_binary(name), value, tags: Statix.base_tags())
     rescue
       ArgumentError ->
         Logger.warn("Incentivize.Metrics.collect failed")
@@ -37,9 +36,7 @@ defmodule Incentivize.Metrics do
       )
 
       Statix.histogram("ecto.query.exec.time", duration, tags: tags)
-      result = Statix.histogram("ecto.query.queue.time", queue_time, tags: tags)
-
-      Logger.info("record_ecto_metric ecto.query.queue.time result: #{inspect(result)}")
+      Statix.histogram("ecto.query.queue.time", queue_time, tags: tags)
     rescue
       ArgumentError ->
         Logger.warn("Incentivize.Metrics.record_ecto_metric failed")
