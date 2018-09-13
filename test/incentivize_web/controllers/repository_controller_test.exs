@@ -64,4 +64,9 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
     conn = get(conn, repository_path(conn, :show, "octocat", "Hello-World5"))
     assert html_response(conn, 200) =~ "octocat/Hello-World"
   end
+
+  test "GET /repos/:owner/:name when not found", %{conn: conn} do
+    conn = get(conn, repository_path(conn, :show, "octocat", "Hello-World5"))
+    assert html_response(conn, 404)
+  end
 end

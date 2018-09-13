@@ -1,6 +1,7 @@
 defmodule IncentivizeWeb.RepositoryController do
   use IncentivizeWeb, :controller
   alias Incentivize.{Repositories, Repository}
+  action_fallback(IncentivizeWeb.FallbackController)
 
   def index(conn, _params) do
     repositories = Repositories.list_repositories()
@@ -47,9 +48,13 @@ defmodule IncentivizeWeb.RepositoryController do
   end
 
   def show(conn, %{"owner" => owner, "name" => name}) do
-    repository = Repositories.get_repository_by_owner_and_name(owner, name)
+    case Repositories.get_repository_by_owner_and_name(owner, name) do
+      nil ->
+        :not_found
 
-    render(conn, "show.html", repository: repository)
+      repository ->
+        render(conn, "show.html", repository: repository)
+    end
   end
 
   def webhook(conn, %{"owner" => owner, "name" => name}) do

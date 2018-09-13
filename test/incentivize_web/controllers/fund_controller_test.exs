@@ -109,4 +109,13 @@ defmodule IncentivizeWeb.FundControllerTest do
     assert html_response(conn, 200) =~ "me/me"
     refute html_response(conn, 200) =~ "Add XLM"
   end
+
+  test "GET /repos/:owner/:name/fund/:id when fund not found" do
+    _repository = insert!(:repository, owner: "me", name: "me")
+
+    conn = build_conn()
+
+    conn = get(conn, fund_path(conn, :show, "me", "me", 0))
+    assert html_response(conn, 404)
+  end
 end

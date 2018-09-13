@@ -4,7 +4,7 @@ defmodule Incentivize.Github.WebhookHandler.Test do
   @stellar_module Application.get_env(:incentivize, :stellar_module)
 
   test "invalid action" do
-    assert :ok = WebhookHandler.handle("whatever", %{})
+    assert {:error, :unsupported} = WebhookHandler.handle("whatever", %{})
   end
 
   test "unsupported user" do
@@ -15,7 +15,7 @@ defmodule Incentivize.Github.WebhookHandler.Test do
       |> File.read!()
       |> Poison.decode!()
 
-    assert :ok =
+    assert {:error, :ineligible} =
              WebhookHandler.handle(
                "issues.opened",
                json
@@ -31,7 +31,7 @@ defmodule Incentivize.Github.WebhookHandler.Test do
       |> File.read!()
       |> Poison.decode!()
 
-    assert :ok =
+    assert {:error, :ineligible} =
              WebhookHandler.handle(
                "issues.opened",
                json
@@ -59,7 +59,7 @@ defmodule Incentivize.Github.WebhookHandler.Test do
       |> File.read!()
       |> Poison.decode!()
 
-    assert :ok =
+    assert {:ok, :scheduled} =
              WebhookHandler.handle(
                "issues.opened",
                json
@@ -94,9 +94,79 @@ defmodule Incentivize.Github.WebhookHandler.Test do
       |> File.read!()
       |> Poison.decode!()
 
-    assert :ok =
+    assert {:ok, :scheduled} =
              WebhookHandler.handle(
                "issues.opened",
+               json
+             )
+  end
+
+  test "PR closed but not merged" do
+    repository = insert!(:repository, owner: "Codertocat", name: "Hello-World")
+
+    supporter =
+      insert!(:user,
+        github_login: "Codertocat",
+        stellar_public_key: "GBZY6AL6QU6TYSGUZ22LXNUR7BZNTCABEP7VOOVEHDANJDY4YULNBLW5"
+      )
+
+    {:ok, fund} =
+      Funds.create_fund(%{
+        repository_id: repository.id,
+        supporter_id: supporter.id,
+        pledges: %{"0" => %{"action" => "pull_request.closed", "amount" => "1"}}
+      })
+
+    {:ok, _transaction_url} =
+      @stellar_module.add_funds_to_account(
+        fund.stellar_public_key,
+        Decimal.new(20),
+        "Fund escrow"
+      )
+
+    json =
+      "./test/fixtures/pull_request_closed.json"
+      |> File.read!()
+      |> Poison.decode!()
+
+    assert {:error, :ineligible} =
+             WebhookHandler.handle(
+               "pull_request.closed",
+               json
+             )
+  end
+
+  test "PR merged" do
+    repository = insert!(:repository, owner: "Codertocat", name: "Hello-World")
+
+    supporter =
+      insert!(:user,
+        github_login: "Codertocat",
+        stellar_public_key: "GBZY6AL6QU6TYSGUZ22LXNUR7BZNTCABEP7VOOVEHDANJDY4YULNBLW5"
+      )
+
+    {:ok, fund} =
+      Funds.create_fund(%{
+        repository_id: repository.id,
+        supporter_id: supporter.id,
+        pledges: %{"0" => %{"action" => "pull_request.closed", "amount" => "1"}}
+      })
+
+    {:ok, _transaction_url} =
+      @stellar_module.add_funds_to_account(
+        fund.stellar_public_key,
+        Decimal.new(20),
+        "Fund escrow"
+      )
+
+    json =
+      "./test/fixtures/pull_request_merged.json"
+      |> File.read!()
+      |> Poison.decode!()
+
+    assert {:ok, :scheduled} =
+             WebhookHandler.handle(
+               "pull_request.closed",
                json
              )
   end

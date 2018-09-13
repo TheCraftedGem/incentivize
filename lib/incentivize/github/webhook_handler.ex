@@ -19,7 +19,7 @@ defmodule Incentivize.Github.WebhookHandler do
   all pledges for the repo so may give more than one contribution
   if multiple pledges exist.
   """
-  @spec handle(binary(), map()) :: :ok
+  @spec handle(binary(), map()) :: {:ok, :scheduled} | {:error, atom}
   def handle(event_and_action, payload) when event_and_action in @actions do
     [event, _action] = String.split(event_and_action, ".")
 
@@ -33,7 +33,7 @@ defmodule Incentivize.Github.WebhookHandler do
     user = Users.get_user_by_github_login(user["login"])
     pledges = Funds.list_pledges_for_repository_and_action(repository, event_and_action)
 
-    if can_reward_contribution?(repository, user, pledges) do
+    if can_reward_contribution?(event_and_action, event_payload, repository, user, pledges) do
       Enum.each(
         pledges,
         fn pledge ->
@@ -46,16 +46,24 @@ defmodule Incentivize.Github.WebhookHandler do
           ])
         end
       )
-    end
 
-    :ok
+      {:ok, :scheduled}
+    else
+      {:error, :ineligible}
+    end
   end
 
   def handle(_, _) do
-    :ok
+    {:error, :unsupported}
   end
 
-  defp can_reward_contribution?(repository, user, pledges) do
+  # Make sure PR was merged and not just closed
+  defp can_reward_contribution?("pull_request.closed", event_payload, repository, user, pledges) do
+    event_payload["merged"] == true && repository != nil && user != nil &&
+      Enum.empty?(pledges) == false
+  end
+
+  defp can_reward_contribution?(_event_and_action, _payload, repository, user, pledges) do
     repository != nil && user != nil && Enum.empty?(pledges) == false
   end
 end

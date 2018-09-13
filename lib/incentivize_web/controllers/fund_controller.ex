@@ -2,6 +2,8 @@ defmodule IncentivizeWeb.FundController do
   use IncentivizeWeb, :controller
   alias Incentivize.{Fund, Funds, Repositories}
 
+  action_fallback(IncentivizeWeb.FallbackController)
+
   def index(conn, %{"owner" => owner, "name" => name}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
@@ -56,10 +58,13 @@ defmodule IncentivizeWeb.FundController do
   end
 
   def show(conn, %{"owner" => owner, "name" => name, "id" => id}) do
-    repository = Repositories.get_repository_by_owner_and_name(owner, name)
-
-    fund = Funds.get_fund_for_repository(repository, id)
-
-    render(conn, "show.html", repository: repository, fund: fund)
+    with repository when not is_nil(repository) <-
+           Repositories.get_repository_by_owner_and_name(owner, name),
+         fund when not is_nil(fund) <- Funds.get_fund_for_repository(repository, id) do
+      render(conn, "show.html", repository: repository, fund: fund)
+    else
+      _ ->
+        :not_found
+    end
   end
 end
