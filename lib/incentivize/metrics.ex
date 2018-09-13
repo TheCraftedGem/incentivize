@@ -10,10 +10,10 @@ defmodule Incentivize.Metrics do
       Statix.gauge(IO.iodata_to_binary(name), value, tags: Statix.base_tags())
     rescue
       ArgumentError ->
-        nil
+        Logger.warn("Incentivize.Metrics.collect failed")
     catch
       :exit, _value ->
-        nil
+        Logger.warn("Incentivize.Metrics.collect failed")
     end
   end
 
@@ -39,10 +39,10 @@ defmodule Incentivize.Metrics do
       Statix.histogram("ecto.query.queue.time", queue_time, tags: tags)
     rescue
       ArgumentError ->
-        nil
+        Logger.warn("Incentivize.Metrics.record_ecto_metric failed")
     catch
       :exit, _value ->
-        nil
+        Logger.warn("Incentivize.Metrics.record_ecto_metric failed")
     end
   end
 end
