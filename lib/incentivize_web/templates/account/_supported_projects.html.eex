@@ -21,7 +21,7 @@
                     <p data-stellar-balance="<%= fund.stellar_public_key %>">Loading</p>
                     <p>
                       <a href="<%= contribution_path(@conn, :for_fund, fund.repository.owner, fund.repository.name, fund.id) %>">
-                        <%= IncentivizeWeb.FundView.count_contributions_for_fund(fund) %> Contributions
+                        View Contributions
                       </a>
                     </p>
                   </div>

@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.FundView do
   use IncentivizeWeb, :view
-  alias Incentivize.{Actions, Contributions, Funds, Pledge}
+  alias Incentivize.{Actions, Funds, Pledge}
   alias Ecto.Changeset
 
   def supporter_owns_fund?(conn, fund) do
@@ -9,10 +9,6 @@ defmodule IncentivizeWeb.FundView do
 
   def action_display(action) do
     Actions.github_actions()[action]
-  end
-
-  def count_contributions_for_fund(fund) do
-    length(Contributions.list_contributions_for_fund(fund))
   end
 
   def actions_dropdown do

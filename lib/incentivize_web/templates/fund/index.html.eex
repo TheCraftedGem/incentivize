@@ -27,7 +27,11 @@
                       </div>
                     </h3>
                     <p data-stellar-balance="<%= fund.stellar_public_key %>">Loading</p>
-                    <p><%= count_contributions_for_fund(fund) %> Contributions</p>
+                    <p>
+                      <a href="<%= contribution_path(@conn, :for_fund, @repository.owner, @repository.name, fund.id) %>">
+                        View Contributions
+                      </a>
+                    </p>
                   </div>
                 </div>
               </div>
