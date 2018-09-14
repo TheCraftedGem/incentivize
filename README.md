@@ -1,9 +1,7 @@
-|            | Build Status                                                                                                                                                 |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Staging    | [![Build Status](https://travis-ci.com/revelrylabs/incentivize.svg?token=eDnMwv6sT4GHB9E2RzXt&branch=master)](https://travis-ci.com/revelrylabs/incentivize) |
-| Production | [![Build Status](https://travis-ci.com/revelrylabs/incentivize.svg?token=eDnMwv6sT4GHB9E2RzXt&branch=master)](https://travis-ci.com/revelrylabs/incentivize) |
-
 # Incentivize
+
+[![Coverage Status](https://coveralls.io/repos/github/revelrylabs/incentivize/badge.svg?branch=master)](https://coveralls.io/github/revelrylabs/incentivize?branch=master)
+[![Build Status](https://travis-ci.com/revelrylabs/incentivize.svg?token=eDnMwv6sT4GHB9E2RzXt&branch=master)](https://travis-ci.com/revelrylabs/incentivize)
 
 Product Owner: Gerard Ramos
 
