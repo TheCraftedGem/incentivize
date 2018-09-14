@@ -4,6 +4,15 @@ defmodule IncentivizeWeb.Router do
   alias Plug.Conn
   alias IncentivizeWeb.{LoadUser, RequireAuth, RequireStellarKey}
   @filtered_params ["password"]
+  @ignore_error_routes [
+    "/wp-login.php"
+  ]
+
+  # ignore errors for paths that have no reason to exist
+  defp handle_errors(%{request_path: request_path}, _)
+       when request_path in @ignore_error_routes do
+    nil
+  end
 
   defp handle_errors(conn, %{kind: kind, reason: reason, stack: stacktrace}) do
     if Application.get_env(:rollbax, :access_token) do
