@@ -5,14 +5,14 @@ defmodule Incentivize.Fund do
 
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
-  alias Incentivize.{Fund, Pledge, Repository, User, Users}
+  alias Incentivize.{Fund, Pledge, Repository}
   require Logger
   @stellar_module Application.get_env(:incentivize, :stellar_module)
 
   @type t :: %__MODULE__{}
   schema "funds" do
     field(:stellar_public_key, :string)
-    belongs_to(:supporter, User)
+    field(:supporter_stellar_public_key, :string, virtual: true)
     belongs_to(:repository, Repository)
     has_many(:pledges, Pledge)
     timestamps()
@@ -21,12 +21,12 @@ defmodule Incentivize.Fund do
   def create_changeset(%Fund{} = model, params \\ %{}) do
     model
     |> cast(params, [
-      :supporter_id,
-      :repository_id
+      :repository_id,
+      :supporter_stellar_public_key
     ])
     |> validate_required([
-      :supporter_id,
-      :repository_id
+      :repository_id,
+      :supporter_stellar_public_key
     ])
     |> cast_assoc(:pledges, required: true)
     |> validate_pledges_present()
@@ -62,10 +62,10 @@ defmodule Incentivize.Fund do
   end
 
   defp create_stellar_fund(changeset) do
-    if changeset.valid? and get_field(changeset, :supporter_id) != nil do
-      user = Users.get_user(get_field(changeset, :supporter_id))
-
-      case @stellar_module.create_fund_account(user.stellar_public_key) do
+    if changeset.valid? and get_field(changeset, :supporter_stellar_public_key) != nil do
+      case @stellar_module.create_fund_account(
+             get_field(changeset, :supporter_stellar_public_key)
+           ) do
         {:ok, escrow_public_key} ->
           put_change(changeset, :stellar_public_key, escrow_public_key)
 

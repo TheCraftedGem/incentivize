@@ -4,7 +4,8 @@ defmodule Incentivize.Repositories do
   """
 
   import Ecto.{Query}, warn: false
-  alias Incentivize.{Repo, Repository}
+  alias Ecto.Multi
+  alias Incentivize.{Repo, Repository, User, UserRepository}
 
   def list_repositories do
     Repository
@@ -15,16 +16,26 @@ defmodule Incentivize.Repositories do
 
   def list_repositories_for_user(user) do
     Repository
-    |> where([r], r.admin_id == ^user.id)
+    |> join(
+      :inner,
+      [r],
+      ur in UserRepository,
+      r.id == ur.repository_id and ur.user_id == ^user.id
+    )
     |> order_by([r], asc: r.owner, asc: r.name)
     |> preload([:funds, :contributions])
     |> Repo.all()
   end
 
-  def create_repository(params) do
-    %Repository{}
-    |> Repository.create_changeset(params)
-    |> Repo.insert()
+  def create_repository(params, %User{} = user) do
+    Multi.new()
+    |> Multi.insert(:repository, Repository.create_changeset(%Repository{}, params))
+    |> Multi.run(:user_repositories, fn %{repository: repo} ->
+      %UserRepository{}
+      |> UserRepository.changeset(%{repository_id: repo.id, user_id: user.id})
+      |> Repo.insert()
+    end)
+    |> Repo.transaction()
   end
 
   def update_repository(repository, params) do
@@ -51,6 +62,12 @@ defmodule Incentivize.Repositories do
   end
 
   def user_owns_repository?(repository, user) do
-    user.id == repository.admin_id
+    result =
+      UserRepository
+      |> where([ur], ur.repository_id == ^repository.id)
+      |> where([ur], ur.user_id == ^user.id)
+      |> Repo.one()
+
+    result != nil
   end
 end

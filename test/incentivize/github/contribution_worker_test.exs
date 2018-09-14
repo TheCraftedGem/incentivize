@@ -12,12 +12,15 @@ defmodule Incentivize.Github.ContributionWorker.Test do
         stellar_public_key: "GBDIIX7BVWB6WLYMHH22VBTC4DNVU4FURM75O374RAC4FYNN7H46VRSS"
       )
 
-    {:ok, fund} =
-      Funds.create_fund(%{
-        repository_id: repository.id,
-        supporter_id: supporter.id,
-        pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}}
-      })
+    {:ok, %{fund: fund}} =
+      Funds.create_fund(
+        %{
+          repository_id: repository.id,
+          pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}},
+          supporter_stellar_public_key: supporter.stellar_public_key
+        },
+        supporter
+      )
 
     fund = Funds.get_fund(fund.id)
     pledge = hd(fund.pledges)
@@ -41,12 +44,15 @@ defmodule Incentivize.Github.ContributionWorker.Test do
         stellar_public_key: "GBZY6AL6QU6TYSGUZ22LXNUR7BZNTCABEP7VOOVEHDANJDY4YULNBLW5"
       )
 
-    {:ok, fund} =
-      Funds.create_fund(%{
-        repository_id: repository.id,
-        supporter_id: supporter.id,
-        pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}}
-      })
+    {:ok, %{fund: fund}} =
+      Funds.create_fund(
+        %{
+          repository_id: repository.id,
+          supporter_stellar_public_key: supporter.stellar_public_key,
+          pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}}
+        },
+        supporter
+      )
 
     {:ok, _transaction_url} =
       @stellar_module.add_funds_to_account(

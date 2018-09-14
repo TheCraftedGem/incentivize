@@ -48,11 +48,14 @@ defmodule Incentivize.Github.WebhookHandler.Test do
       )
 
     {:ok, _fund} =
-      Funds.create_fund(%{
-        repository_id: repository.id,
-        supporter_id: supporter.id,
-        pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}}
-      })
+      Funds.create_fund(
+        %{
+          repository_id: repository.id,
+          pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}},
+          supporter_stellar_public_key: supporter.stellar_public_key
+        },
+        supporter
+      )
 
     json =
       "./test/fixtures/issues_opened.json"
@@ -75,12 +78,15 @@ defmodule Incentivize.Github.WebhookHandler.Test do
         stellar_public_key: "GBZY6AL6QU6TYSGUZ22LXNUR7BZNTCABEP7VOOVEHDANJDY4YULNBLW5"
       )
 
-    {:ok, fund} =
-      Funds.create_fund(%{
-        repository_id: repository.id,
-        supporter_id: supporter.id,
-        pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}}
-      })
+    {:ok, %{fund: fund}} =
+      Funds.create_fund(
+        %{
+          repository_id: repository.id,
+          pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}},
+          supporter_stellar_public_key: supporter.stellar_public_key
+        },
+        supporter
+      )
 
     {:ok, _transaction_url} =
       @stellar_module.add_funds_to_account(
@@ -110,12 +116,15 @@ defmodule Incentivize.Github.WebhookHandler.Test do
         stellar_public_key: "GBZY6AL6QU6TYSGUZ22LXNUR7BZNTCABEP7VOOVEHDANJDY4YULNBLW5"
       )
 
-    {:ok, fund} =
-      Funds.create_fund(%{
-        repository_id: repository.id,
-        supporter_id: supporter.id,
-        pledges: %{"0" => %{"action" => "pull_request.closed", "amount" => "1"}}
-      })
+    {:ok, %{fund: fund}} =
+      Funds.create_fund(
+        %{
+          repository_id: repository.id,
+          pledges: %{"0" => %{"action" => "pull_request.closed", "amount" => "1"}},
+          supporter_stellar_public_key: supporter.stellar_public_key
+        },
+        supporter
+      )
 
     {:ok, _transaction_url} =
       @stellar_module.add_funds_to_account(
@@ -145,12 +154,15 @@ defmodule Incentivize.Github.WebhookHandler.Test do
         stellar_public_key: "GBZY6AL6QU6TYSGUZ22LXNUR7BZNTCABEP7VOOVEHDANJDY4YULNBLW5"
       )
 
-    {:ok, fund} =
-      Funds.create_fund(%{
-        repository_id: repository.id,
-        supporter_id: supporter.id,
-        pledges: %{"0" => %{"action" => "pull_request.closed", "amount" => "1"}}
-      })
+    {:ok, %{fund: fund}} =
+      Funds.create_fund(
+        %{
+          repository_id: repository.id,
+          pledges: %{"0" => %{"action" => "pull_request.closed", "amount" => "1"}},
+          supporter_stellar_public_key: supporter.stellar_public_key
+        },
+        supporter
+      )
 
     {:ok, _transaction_url} =
       @stellar_module.add_funds_to_account(

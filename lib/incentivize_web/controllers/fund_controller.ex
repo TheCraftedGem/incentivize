@@ -40,16 +40,16 @@ defmodule IncentivizeWeb.FundController do
 
     params =
       params
-      |> Map.put("supporter_id", conn.assigns.current_user.id)
       |> Map.put("repository_id", repository.id)
+      |> Map.put("supporter_stellar_public_key", conn.assigns.current_user.stellar_public_key)
 
-    case Funds.create_fund(params) do
-      {:ok, fund} ->
+    case Funds.create_fund(params, conn.assigns.current_user) do
+      {:ok, %{fund: fund}} ->
         conn
         |> put_flash(:info, "Created successfully.")
         |> redirect(to: fund_path(conn, :show, repository.owner, repository.name, fund.id))
 
-      {:error, changeset} ->
+      {:error, :fund, changeset, _} ->
         conn
         |> put_status(400)
         |> put_flash(:error, "Failed to create.")

@@ -36,7 +36,8 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
   end
 
   test "GET /repos/:owner/:name/webhook when authorized", %{conn: conn, user: user} do
-    insert!(:repository, owner: "octocat", name: "Hello-World3", admin: user)
+    repo = insert!(:repository, owner: "octocat", name: "Hello-World3")
+    insert!(:user_repository, user: user, repository: repo)
 
     conn = get(conn, repository_path(conn, :webhook, "octocat", "Hello-World3"))
     assert html_response(conn, 200)
