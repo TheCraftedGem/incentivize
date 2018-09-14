@@ -4,7 +4,7 @@ defmodule Incentivize.User do
   """
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
-  alias Incentivize.{Contribution, User}
+  alias Incentivize.{Contribution, Fund, Repository, User, UserFund, UserRepository}
 
   @type t :: %__MODULE__{}
   schema "users" do
@@ -15,6 +15,8 @@ defmodule Incentivize.User do
     field(:logged_in_at, :utc_datetime)
     field(:stellar_public_key, :string)
     has_many(:contributions, Contribution)
+    many_to_many(:repositories, Repository, join_through: UserRepository)
+    many_to_many(:funds, Fund, join_through: UserFund)
     timestamps()
   end
 

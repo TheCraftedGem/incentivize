@@ -4,12 +4,18 @@ defmodule Incentivize.Funds do
   """
 
   import Ecto.{Query}, warn: false
-  alias Incentivize.{Fund, Pledge, Repo, Repository}
+  alias Ecto.Multi
+  alias Incentivize.{Fund, Pledge, Repo, Repository, User, UserFund}
 
-  def create_fund(params) do
-    %Fund{}
-    |> Fund.create_changeset(params)
-    |> Repo.insert()
+  def create_fund(params, %User{} = user) do
+    Multi.new()
+    |> Multi.insert(:fund, Fund.create_changeset(%Fund{}, params))
+    |> Multi.run(:user_funds, fn %{fund: fund} ->
+      %UserFund{}
+      |> UserFund.changeset(%{fund_id: fund.id, user_id: user.id})
+      |> Repo.insert()
+    end)
+    |> Repo.transaction()
   end
 
   def get_fund_for_repository(repository, id) do
@@ -20,7 +26,7 @@ defmodule Incentivize.Funds do
 
   def list_funds_for_supporter(supporter) do
     Fund
-    |> where([f], f.supporter_id == ^supporter.id)
+    |> join(:inner, [f], uf in UserFund, f.id == uf.fund_id and uf.user_id == ^supporter.id)
     |> order_by([f], f.inserted_at)
     |> preload([:pledges, :repository])
     |> Repo.all()
@@ -30,7 +36,7 @@ defmodule Incentivize.Funds do
     Fund
     |> where([f], f.repository_id == ^repository.id)
     |> order_by([f], f.inserted_at)
-    |> preload([:pledges, :supporter])
+    |> preload([:pledges])
     |> Repo.all()
   end
 
@@ -65,6 +71,12 @@ defmodule Incentivize.Funds do
   end
 
   def user_owns_fund?(fund, user) do
-    user.id == fund.supporter_id
+    result =
+      UserFund
+      |> where([uf], uf.fund_id == ^fund.id)
+      |> where([uf], uf.user_id == ^user.id)
+      |> Repo.one()
+
+    result != nil
   end
 end

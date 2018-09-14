@@ -31,13 +31,13 @@ defmodule IncentivizeWeb.RepositoryController do
       "admin_id" => conn.assigns.current_user.id
     }
 
-    case Repositories.create_repository(repo_params) do
-      {:ok, repository} ->
+    case Repositories.create_repository(repo_params, conn.assigns.current_user) do
+      {:ok, %{repository: repository}} ->
         conn
         |> put_flash(:info, "Created successfully.")
         |> redirect(to: repository_path(conn, :webhook, repository.owner, repository.name))
 
-      {:error, changeset} ->
+      {:error, :repository, changeset, _} ->
         {:ok, repos} = get_list_of_filtered_repos(conn.assigns.current_user)
 
         conn
