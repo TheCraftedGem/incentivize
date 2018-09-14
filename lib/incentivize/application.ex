@@ -1,5 +1,6 @@
 defmodule Incentivize.Application do
   use Application
+  alias Incentivize.StatCollector
 
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
@@ -8,9 +9,9 @@ defmodule Incentivize.Application do
 
     statix_config = Confex.get_env(:incentivize, :statix)
 
-    Application.put_env(:statix, Incentivize.Statix, statix_config)
+    Application.put_env(:statix, Incentivize.StatCollector, statix_config)
 
-    :ok = Incentivize.Statix.connect()
+    :ok = StatCollector.connect()
 
     # Define workers and child supervisors to be supervised
     children = [

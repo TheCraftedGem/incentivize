@@ -1,4 +1,4 @@
-defmodule Incentivize.Statix do
+defmodule Incentivize.StatCollector do
   @moduledoc false
   use Statix, runtime_config: true
 
@@ -7,8 +7,11 @@ defmodule Incentivize.Statix do
     hostname = String.replace(hostname, "\n", "")
 
     [
-      "app:incentivize",
-      "pod_name:#{hostname}"
+      tag("app", "incentivize"),
+      tag("pod_name", hostname)
     ]
   end
+
+  def tag(key, value) when value in ["", nil], do: nil
+  def tag(key, value), do: "#{key}:#{value}"
 end
