@@ -21,6 +21,7 @@ jobs:
       services:
         - postgresql
       before_script:
+        - gem install coveralls-multi
         - psql -c 'create database incentivize_test;' -U postgres
         - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 10
       install:
@@ -34,10 +35,11 @@ jobs:
         - npm install
         - cd ..
       script:
-        - mix test
+        - mix coveralls.json
         - cd assets
         - npm test
         - cd ..
+        - coveralls-multi
     - stage: deploy
       name: 'Deploy'
       script: skip

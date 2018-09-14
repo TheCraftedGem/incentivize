@@ -4,7 +4,7 @@
   "scripts": {
     "build": "webpack --mode development",
     "deploy": "BABEL_ENV=production NODE_ENV=production webpack --mode production",
-    "test": "mocha --require babel-core/register --require jsdom-global/register ./test/**/*_test.js"
+    "test": "nyc --reporter=lcov mocha --require babel-core/register --require jsdom-global/register ./test/**/*_test.js"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
@@ -41,6 +41,7 @@
     "mini-css-extract-plugin": "^0.4.0",
     "mocha": "^5.2.0",
     "node-sass": "^4.5.3",
+    "nyc": "^13.0.1",
     "postcss-flexbugs-fixes": "^3.0.0",
     "postcss-loader": "^2.0.6",
     "resolve-url-loader": "^2.1.0",
