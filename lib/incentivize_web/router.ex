@@ -5,7 +5,8 @@ defmodule IncentivizeWeb.Router do
   alias IncentivizeWeb.{LoadUser, RequireAuth, RequireStellarKey}
   @filtered_params ["password"]
   @ignore_error_routes [
-    "/wp-login.php"
+    "/wp-login.php",
+    "/favicon.ico"
   ]
 
   # ignore errors for paths that have no reason to exist
