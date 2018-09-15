@@ -38,10 +38,7 @@ defmodule IncentivizeWeb.FundController do
 
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
-    params =
-      params
-      |> Map.put("repository_id", repository.id)
-      |> Map.put("supporter_stellar_public_key", conn.assigns.current_user.stellar_public_key)
+    params = Map.put(params, "repository_id", repository.id)
 
     case Funds.create_fund(params, conn.assigns.current_user) do
       {:ok, %{fund: fund}} ->

@@ -51,8 +51,7 @@ defmodule Incentivize.Github.WebhookHandler.Test do
       Funds.create_fund(
         %{
           repository_id: repository.id,
-          pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}},
-          supporter_stellar_public_key: supporter.stellar_public_key
+          pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}}
         },
         supporter
       )
@@ -82,8 +81,7 @@ defmodule Incentivize.Github.WebhookHandler.Test do
       Funds.create_fund(
         %{
           repository_id: repository.id,
-          pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}},
-          supporter_stellar_public_key: supporter.stellar_public_key
+          pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}}
         },
         supporter
       )
@@ -120,8 +118,7 @@ defmodule Incentivize.Github.WebhookHandler.Test do
       Funds.create_fund(
         %{
           repository_id: repository.id,
-          pledges: %{"0" => %{"action" => "pull_request.closed", "amount" => "1"}},
-          supporter_stellar_public_key: supporter.stellar_public_key
+          pledges: %{"0" => %{"action" => "pull_request.closed", "amount" => "1"}}
         },
         supporter
       )
@@ -158,8 +155,7 @@ defmodule Incentivize.Github.WebhookHandler.Test do
       Funds.create_fund(
         %{
           repository_id: repository.id,
-          pledges: %{"0" => %{"action" => "pull_request.closed", "amount" => "1"}},
-          supporter_stellar_public_key: supporter.stellar_public_key
+          pledges: %{"0" => %{"action" => "pull_request.closed", "amount" => "1"}}
         },
         supporter
       )

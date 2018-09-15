@@ -23,7 +23,7 @@ defmodule IncentivizeWeb.Instrumenter do
 
   defp tags(conn) do
     user_tag =
-      if conn.assigns.current_user != nil do
+      if Map.has_key?(conn.assigns, :current_user) and conn.assigns.current_user != nil do
         StatCollector.tag("user", conn.assigns.current_user.id)
       else
         nil

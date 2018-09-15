@@ -6,11 +6,20 @@ defmodule Incentivize.Funds do
   import Ecto.{Query}, warn: false
   alias Ecto.Multi
   alias Incentivize.{Fund, Pledge, Repo, Repository, User, UserFund}
+  @stellar_module Application.get_env(:incentivize, :stellar_module)
 
   def create_fund(params, %User{} = user) do
     Multi.new()
     |> Multi.insert(:fund, Fund.create_changeset(%Fund{}, params))
-    |> Multi.run(:user_funds, fn %{fund: fund} ->
+    |> Multi.run(:create_stellar_fund, fn _ ->
+      @stellar_module.create_fund_account(user.stellar_public_key)
+    end)
+    |> Multi.run(:update_fund, fn %{fund: fund, create_stellar_fund: escrow_public_key} ->
+      fund
+      |> Fund.add_stellar_public_key_changeset(%{stellar_public_key: escrow_public_key})
+      |> Repo.update()
+    end)
+    |> Multi.run(:user_funds, fn %{update_fund: fund} ->
       %UserFund{}
       |> UserFund.changeset(%{fund_id: fund.id, user_id: user.id})
       |> Repo.insert()

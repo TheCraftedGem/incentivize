@@ -1,8 +1,8 @@
 defmodule IncentivizeWeb.Router do
   use IncentivizeWeb, :router
   use Plug.ErrorHandler
-  alias Plug.Conn
   alias IncentivizeWeb.{LoadUser, RequireAuth, RequireStellarKey}
+  alias Plug.Conn
   @filtered_params ["password"]
   @ignore_error_routes [
     "/wp-login.php",
