@@ -4,7 +4,7 @@
   "scripts": {
     "build": "webpack --mode development",
     "deploy": "BABEL_ENV=production NODE_ENV=production webpack --mode production",
-    "test": "nyc --reporter=lcov mocha --require babel-core/register --require jsdom-global/register ./test/**/*_test.js"
+    "test": "nyc --all --reporter=text --reporter=lcov mocha --require babel-core/register --require jsdom-global/register ./test/**/*_test.js"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
@@ -60,5 +60,12 @@
     "last 2 Safari versions",
     "last 2 Edge versions",
     "last 2 iOS versions"
-  ]
+  ],
+  "nyc": {
+    "exclude": [
+      "*.config.js",
+      "**/*_test.js",
+      "coverage/**/*"
+    ]
+  }
 }
