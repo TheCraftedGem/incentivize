@@ -20,32 +20,37 @@ function processAsset({code, issuer}) {
   }
 }
 
-function getAccountBalances(stellarNetwork) {
+async function getAccountBalance(server, balanceElement) {
+  try {
+    const publicKey = balanceElement.dataset.stellarBalance
+
+    balanceElement.textContent = ''
+    const account = await server.loadAccount(publicKey)
+
+    for (const balance of account.balances) {
+      const newDiv = document.createElement('div')
+      const type = balance.asset_type === 'native' ? 'XLM' : balance.asset_type
+
+      newDiv.textContent = `${balance.balance} ${type}`
+      balanceElement.appendChild(newDiv)
+    }
+  } catch (e) {
+    balanceElement.textContent = 'Unable to get balance'
+  }
+}
+
+async function getAccountBalances(stellarNetwork) {
   const server = createServer(stellarNetwork)
 
   const balanceElements = document.querySelectorAll('[data-stellar-balance]')
 
   if (balanceElements) {
-    balanceElements.forEach((balanceElement) => {
-      const publicKey = balanceElement.dataset.stellarBalance
+    const promises = Array.prototype.map.call(
+      balanceElements,
+      (balanceElement) => getAccountBalance(server, balanceElement)
+    )
 
-      server
-        .loadAccount(publicKey)
-        .then((account) => {
-          balanceElement.innerHTML = ''
-          for (const balance of account.balances) {
-            const newDiv = document.createElement('div')
-            const type =
-              balance.asset_type === 'native' ? 'XLM' : balance.asset_type
-
-            newDiv.textContent = `${balance.balance} ${type}`
-            balanceElement.appendChild(newDiv)
-          }
-        })
-        .catch(() => {
-          balanceElement.textContent = 'Unable to get balance'
-        })
-    })
+    await Promise.all(promises)
   }
 }
 
