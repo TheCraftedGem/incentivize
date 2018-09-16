@@ -1,6 +1,3 @@
-import 'babel-polyfill'
-import 'phoenix_html'
-import '../css/app.scss'
 import Stellar from './stellar/stellar'
 import Menu from './menu'
 import Loader from './loader'
@@ -14,3 +11,7 @@ function init(config) {
 document.addEventListener('DOMContentLoaded', () => {
   init(self.incentivize)
 })
+
+export default {
+  init,
+}
