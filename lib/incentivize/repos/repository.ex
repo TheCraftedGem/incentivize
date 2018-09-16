@@ -5,7 +5,7 @@ defmodule Incentivize.Repository do
 
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
-  alias Incentivize.{Contribution, Fund, Repository, User}
+  alias Incentivize.{Contribution, Fund, Repository}
 
   @type t :: %__MODULE__{}
   schema "repositories" do

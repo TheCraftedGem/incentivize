@@ -1,28 +1,66 @@
 {
-  "presets": [
-    [
-      "env",
-      {
-        "targets": {
-          "browsers": [
-            "ie 11",
-            "last 2 Chrome versions",
-            "last 2 ChromeAndroid versions",
-            "last 2 Firefox versions",
-            "last 2 Safari versions",
-            "last 2 Edge versions",
-            "last 2 iOS versions"
-          ]
-        },
-        "useBuiltIns": true
-      }
-    ],
-    "stage-3",
-    "react"
-  ],
   "env": {
+    "development": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "browsers": [
+                "ie 11",
+                "last 2 Chrome versions",
+                "last 2 ChromeAndroid versions",
+                "last 2 Firefox versions",
+                "last 2 Safari versions",
+                "last 2 Edge versions",
+                "last 2 iOS versions"
+              ]
+            },
+            "useBuiltIns": true
+          }
+        ],
+        "stage-3",
+        "react"
+      ]
+    },
     "production": {
-      "presets": ["minify"]
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "browsers": [
+                "ie 11",
+                "last 2 Chrome versions",
+                "last 2 ChromeAndroid versions",
+                "last 2 Firefox versions",
+                "last 2 Safari versions",
+                "last 2 Edge versions",
+                "last 2 iOS versions"
+              ]
+            },
+            "useBuiltIns": true
+          }
+        ],
+        "stage-3",
+        "react",
+        "minify"
+      ]
+    },
+    "test": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            },
+            "useBuiltIns": true
+          }
+        ],
+        "stage-3",
+        "react"
+      ]
     }
   }
 }

@@ -12,6 +12,6 @@ defmodule Incentivize.StatCollector do
     ]
   end
 
-  def tag(key, value) when value in ["", nil], do: nil
+  def tag(_key, value) when value in ["", nil], do: nil
   def tag(key, value), do: "#{key}:#{value}"
 end
