@@ -9,7 +9,9 @@ function init(config) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  init(self.incentivize)
+  if (self.incentivize) {
+    init(self.incentivize)
+  }
 })
 
 export default {

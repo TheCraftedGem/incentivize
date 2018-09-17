@@ -4,7 +4,7 @@
   "scripts": {
     "build": "webpack --mode development",
     "deploy": "BABEL_ENV=production NODE_ENV=production webpack --mode production",
-    "test": "NODE_ENV=test nyc --all --reporter=text --reporter=lcov mocha --require babel-core/register --require jsdom-global/register --recursive test"
+    "test": "NODE_ENV=test nyc --all --reporter=text --reporter=lcov mocha --require @babel/register --require jsdom-global/register --recursive test"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
@@ -26,6 +26,7 @@
     "@babel/plugin-syntax-import-meta": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "autoprefixer": "^9.1.5",
     "babel-eslint": "^8.0.2",
     "babel-loader": "^8.0.0",
