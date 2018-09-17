@@ -81,6 +81,9 @@
                       <a href="<%= account_path(@conn, :edit) %>">Account</a>
                     </li>
                     <li class="rev-Menu-item">
+                      <a href="<%= account_path(@conn, :wallet) %>">Wallet</a>
+                    </li>
+                    <li class="rev-Menu-item">
                       <a href="<%= repository_path(@conn, :new) %>">Connect a Repository</a>
                     </li>
                   <% end %>
@@ -106,6 +109,9 @@
               <%= if logged_in?(@conn) do %>
                 <li class="rev-Menu-item">
                   <a href="<%= account_path(@conn, :show) %>">Account</a>
+                </li>
+                <li class="rev-Menu-item">
+                  <a href="<%= account_path(@conn, :wallet) %>">Wallet</a>
                 </li>
                 <li class="rev-Menu-item">
                   <a href="<%= repository_path(@conn, :new) %>">Connect a Repository</a>

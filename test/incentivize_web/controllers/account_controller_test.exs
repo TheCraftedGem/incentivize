@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.AccountControllerTest do
   @moduledoc false
- use IncentivizeWeb.ConnCase, async: true
+  use IncentivizeWeb.ConnCase, async: true
   alias Incentivize.Users
 
   setup %{conn: conn} do
@@ -16,6 +16,12 @@ defmodule IncentivizeWeb.AccountControllerTest do
   test "GET /account", %{conn: conn} do
     conn = get(conn, account_path(conn, :show))
     assert html_response(conn, 200) =~ "Account"
+    assert html_response(conn, 200) =~ "Stellar Public Key"
+  end
+
+  test "GET /account/wallet", %{conn: conn} do
+    conn = get(conn, account_path(conn, :wallet))
+    assert html_response(conn, 200) =~ "Wallet"
     assert html_response(conn, 200) =~ "Stellar Public Key"
   end
 

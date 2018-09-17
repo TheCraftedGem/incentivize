@@ -4,18 +4,21 @@ defmodule IncentivizeWeb.AccountController do
 
   def show(conn, _params) do
     user = conn.assigns.current_user
-    changeset = User.changeset(user)
     funds = Funds.list_funds_for_supporter(user)
     contributions = Contributions.list_contributions_for_user(user)
     repositories = Repositories.list_repositories_for_user(user)
 
     render(conn, "show.html",
-      changeset: changeset,
       user: user,
       funds: funds,
       contributions: contributions,
       repositories: repositories
     )
+  end
+
+  def wallet(conn, _params) do
+    user = conn.assigns.current_user
+    render(conn, "wallet.html", user: user)
   end
 
   def edit(conn, _params) do

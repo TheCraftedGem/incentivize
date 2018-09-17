@@ -111,6 +111,7 @@ defmodule IncentivizeWeb.Router do
     pipe_through([:browser, :require_auth])
 
     get("/", AccountController, :show)
+    get("/wallet", AccountController, :wallet)
     get("/edit", AccountController, :edit)
     put("/edit", AccountController, :update)
   end

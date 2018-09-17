@@ -5,7 +5,7 @@ defmodule Incentivize.Repositories do
 
   import Ecto.{Query}, warn: false
   alias Ecto.Multi
-  alias Incentivize.{Repo, Repository, UserRepository, Users}
+  alias Incentivize.{Repo, Repository, UserRepository}
 
   def list_repositories do
     Repository

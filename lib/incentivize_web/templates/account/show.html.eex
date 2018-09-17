@@ -8,17 +8,13 @@
           <div class="rev-Col">
             <label class="rev-InputStack rev-InputLabel">
               <h5>Email</h5>
-              <div><%= @user.email %></div>
+              <span><%= @user.email %></span>
             </label>
 
             <label class="rev-InputStack rev-InputLabel">
               <h5>Stellar Public Key</h5>
-              <div><%= @user.stellar_public_key %></div>
-            </label>
-
-            <label class="rev-InputStack rev-InputLabel">
-              <h5>Balance</h5>
-              <div data-stellar-balance="<%= @user.stellar_public_key %>">Loading</div>
+              <span><%= @user.stellar_public_key %></span>
+              <a href="<%= account_path(@conn, :wallet) %>">View Wallet</a>
             </label>
 
             <label class="rev-InputStack rev-InputLabel">
