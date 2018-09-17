@@ -21,10 +21,8 @@ defmodule Incentivize.Funds do
       |> Repo.update()
     end)
     |> Multi.run(:user_funds, fn %{update_fund: fund} ->
-      user = Users.get_user(fund.created_by_id)
-
       %UserFund{}
-      |> UserFund.changeset(%{fund_id: fund.id, user_id: user.id})
+      |> UserFund.changeset(%{fund_id: fund.id, user_id: fund.created_by_id})
       |> Repo.insert()
     end)
     |> Repo.transaction()

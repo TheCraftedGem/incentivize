@@ -31,10 +31,8 @@ defmodule Incentivize.Repositories do
     Multi.new()
     |> Multi.insert(:repository, Repository.create_changeset(%Repository{}, params))
     |> Multi.run(:user_repositories, fn %{repository: repo} ->
-      user = Users.get_user(repo.created_by_id)
-
       %UserRepository{}
-      |> UserRepository.changeset(%{repository_id: repo.id, user_id: user.id})
+      |> UserRepository.changeset(%{repository_id: repo.id, user_id: repo.created_by_id})
       |> Repo.insert()
     end)
     |> Repo.transaction()
