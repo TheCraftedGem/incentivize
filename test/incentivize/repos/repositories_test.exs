@@ -6,13 +6,11 @@ defmodule Incentivize.Repositories.Test do
     user = insert!(:user)
 
     {:ok, %{repository: repository}} =
-      Repositories.create_repository(
-        %{
-          "owner" => "octocat",
-          "name" => "Hello-World"
-        },
-        user
-      )
+      Repositories.create_repository(%{
+        "owner" => "octocat",
+        "name" => "Hello-World",
+        "created_by_id" => user.id
+      })
 
     assert repository.name == "Hello-World"
     assert repository.webhook_secret != nil

@@ -5,7 +5,7 @@ defmodule Incentivize.Repositories do
 
   import Ecto.{Query}, warn: false
   alias Ecto.Multi
-  alias Incentivize.{Repo, Repository, User, UserRepository}
+  alias Incentivize.{Repo, Repository, UserRepository, Users}
 
   def list_repositories do
     Repository
@@ -27,12 +27,12 @@ defmodule Incentivize.Repositories do
     |> Repo.all()
   end
 
-  def create_repository(params, %User{} = user) do
+  def create_repository(params) do
     Multi.new()
     |> Multi.insert(:repository, Repository.create_changeset(%Repository{}, params))
     |> Multi.run(:user_repositories, fn %{repository: repo} ->
       %UserRepository{}
-      |> UserRepository.changeset(%{repository_id: repo.id, user_id: user.id})
+      |> UserRepository.changeset(%{repository_id: repo.id, user_id: repo.created_by_id})
       |> Repo.insert()
     end)
     |> Repo.transaction()

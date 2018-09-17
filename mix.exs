@@ -50,7 +50,6 @@ defmodule Incentivize.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:credo, "~> 0.10", only: :dev},
       {:excoveralls, "~> 0.7", only: :test},
       {:joken, "~> 1.5"},
       {:httpoison, "~> 1.2"},
@@ -60,10 +59,12 @@ defmodule Incentivize.Mixfile do
       {:rollbax, "~> 0.9.2"},
       {:harmonium, "~> 0.2.0"},
       {:rihanna, ">= 0.0.0"},
-      {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
       {:vmstats, "~> 2.3"},
       {:statix, "~> 1.1"},
-      {:stellar, "~> 0.3.0"}
+      {:stellar, "~> 0.3.0"},
+      {:credo, "~> 0.10", only: :dev, runtime: false},
+      {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.0.0-rc", only: :dev, runtime: false}
     ]
   end
 

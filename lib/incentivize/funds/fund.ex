@@ -5,7 +5,7 @@ defmodule Incentivize.Fund do
 
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
-  alias Incentivize.{Fund, Pledge, Repository, User, UserFund}
+  alias Incentivize.{Fund, Pledge, Repository, User}
   require Logger
 
   @type t :: %__MODULE__{}
@@ -13,17 +13,19 @@ defmodule Incentivize.Fund do
     field(:stellar_public_key, :string)
     belongs_to(:repository, Repository)
     has_many(:pledges, Pledge)
-    many_to_many(:supporters, User, join_through: UserFund)
+    belongs_to(:created_by, User)
     timestamps()
   end
 
   def create_changeset(%Fund{} = model, params \\ %{}) do
     model
     |> cast(params, [
-      :repository_id
+      :repository_id,
+      :created_by_id
     ])
     |> validate_required([
-      :repository_id
+      :repository_id,
+      :created_by_id
     ])
     |> cast_assoc(:pledges, required: true)
     |> validate_pledges_present()
