@@ -37,7 +37,7 @@ defmodule Incentivize.Organizations do
   end
 
   def get_organization_by_slug(slug) do
-    Repo.get_by!(Organization, slug: slug)
+    Repo.get_by(Organization, slug: slug)
   end
 
   def get_organization(id) do

@@ -153,6 +153,19 @@ defmodule IncentivizeWeb.Router do
     post("/", GithubWebhookController, :handle_webhook)
   end
 
+  scope "/organizations", IncentivizeWeb do
+    pipe_through([:browser, :require_auth])
+
+    get("/new", OrganizationController, :new)
+    post("/create", OrganizationController, :create)
+  end
+
+  scope "/organizations", IncentivizeWeb do
+    pipe_through(:browser)
+
+    get("/:slug", OrganizationController, :show)
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", IncentivizeWeb do
   #   pipe_through :api

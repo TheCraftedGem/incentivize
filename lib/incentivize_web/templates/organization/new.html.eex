@@ -1,0 +1,12 @@
+<div>
+  <div>
+
+    <div class="rev-Row">
+      <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
+        <h2>Create an Organization</h2>
+        <%= render "form.html", changeset: @changeset, action: organization_path(@conn, :create), create: true %>
+      </div>
+    </div>
+
+  </div>
+</div>

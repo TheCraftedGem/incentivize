@@ -1,0 +1,18 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <label class="rev-InputStack rev-InputLabel">
+    <span>Name</span>
+    <%= text_input(f,
+      :name,
+      required: true,
+      class: "rev-Input",
+      maxlength: 100,
+      minlength: 3,
+      placeholder: "Organization name"
+    ) %>
+    <%= error_tag f, :name %>
+  </label>
+
+  <section class="u-noBorder-bottom">
+    <button class="rev-Button" type="submit">Create</button>
+  </section>
+<% end %>

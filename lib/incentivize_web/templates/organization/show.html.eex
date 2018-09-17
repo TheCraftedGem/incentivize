@@ -1,0 +1,9 @@
+<div>
+  <div>
+    <div class="rev-Row">
+      <div class="rev-Col rev-Col--medium9 rev-Col--smallCentered">
+        <h1><%= @organization.name %></h1>
+      </div>
+    </div>
+  </div>
+</div>
