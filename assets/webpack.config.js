@@ -7,13 +7,7 @@ const nodeModulesPath = path.resolve(__dirname, 'node_modules')
 module.exports = {
   devtool: 'source-map',
   entry: {
-    app: [
-      'babel-polyfill',
-      'whatwg-fetch',
-      'phoenix_html',
-      './css/app.scss',
-      './js/app.js',
-    ],
+    app: ['@babel/polyfill', 'phoenix_html', './css/app.scss', './js/app.js'],
   },
   output: {
     path: path.resolve(__dirname, '..', 'priv', 'static'),
