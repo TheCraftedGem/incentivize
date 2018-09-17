@@ -1,6 +1,17 @@
 defmodule Incentivize.Factory do
   @moduledoc false
-  alias Incentivize.{Actions, Fund, Pledge, Repo, Repository, User, UserFund, UserRepository}
+  alias Incentivize.{
+    Actions,
+    Fund,
+    Organization,
+    Pledge,
+    Repo,
+    Repository,
+    User,
+    UserFund,
+    UserRepository
+  }
+
   @stellar_module Application.get_env(:incentivize, :stellar_module)
 
   def build(:user) do
@@ -47,6 +58,14 @@ defmodule Incentivize.Factory do
     %Pledge{
       amount: Decimal.new("1.0"),
       action: Enum.random(Map.keys(Actions.github_actions()))
+    }
+  end
+
+  def build(:organization) do
+    %Organization{
+      name: "organization#{System.unique_integer([:positive])}",
+      slug: "organization#{System.unique_integer([:positive])}",
+      created_by: build(:user)
     }
   end
 

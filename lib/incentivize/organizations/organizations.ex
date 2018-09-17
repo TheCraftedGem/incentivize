@@ -25,7 +25,7 @@ defmodule Incentivize.Organizations do
   end
 
   def create_organization(params) do
-    Organization
+    %Organization{}
     |> Organization.changeset(params)
     |> Repo.insert()
   end
