@@ -3,7 +3,7 @@
 
     <div class="rev-Row">
       <div class="rev-Col rev-Col--medium9 rev-Col--smallCentered">
-        <h1>Fund for <%= @repository.owner %>/<%= @repository.name %></h1>
+        <h1>Fund for <a href="<%= repository_path(@conn, :show, @repository.owner, @repository.name) %>"><%= @repository.owner %>/<%= @repository.name %></a></h1>
 
         <div class="rev-Card">
           <div class="rev-Card-body">

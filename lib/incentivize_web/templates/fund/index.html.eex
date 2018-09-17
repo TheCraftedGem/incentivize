@@ -22,7 +22,7 @@
                       <img alt="Repo Favicon" src="/images/favicon.ico" />
                       <div class="ButtonLink--header">
                         <a href="<%= fund_path(@conn, :show, @repository.owner, @repository.name, fund.id) %>">
-                          <%= fund.supporter.github_login %>'s Fund
+                          <%= hd(fund.supporters).github_login %>'s Fund
                         </a>
                       </div>
                     </h3>

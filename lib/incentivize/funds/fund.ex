@@ -5,7 +5,7 @@ defmodule Incentivize.Fund do
 
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
-  alias Incentivize.{Fund, Pledge, Repository}
+  alias Incentivize.{Fund, Pledge, Repository, User, UserFund}
   require Logger
 
   @type t :: %__MODULE__{}
@@ -13,6 +13,7 @@ defmodule Incentivize.Fund do
     field(:stellar_public_key, :string)
     belongs_to(:repository, Repository)
     has_many(:pledges, Pledge)
+    many_to_many(:supporters, User, join_through: UserFund)
     timestamps()
   end
 
