@@ -45,7 +45,7 @@ defmodule Incentivize.Funds do
     Fund
     |> where([f], f.repository_id == ^repository.id)
     |> order_by([f], f.inserted_at)
-    |> preload([:pledges])
+    |> preload([:pledges, :supporters])
     |> Repo.all()
   end
 
