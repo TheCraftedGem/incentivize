@@ -1,0 +1,15 @@
+<div class="rev-Row">
+    <div class="rev-Col rev-Col--smallCentered">
+      <h2>Organizations</h2>
+    </div>
+  </div>
+  <div class="rev-Row">
+    <%= for org <- @organizations do %>
+      <div class="rev-Col">
+          <a href="<%= organization_path(@conn, :show, org.name) %>">
+            <%= org.name %>
+          </a>
+      </div>
+    <% end %>
+  </div>
+</div>

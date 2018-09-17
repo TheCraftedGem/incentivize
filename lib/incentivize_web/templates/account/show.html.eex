@@ -28,6 +28,11 @@
         </div>
       </div>
     </div>
+    <%= if not Enum.empty?(@organizations) do %>
+      <hr/>
+      <%= render "_organizations.html", assigns %>
+    <% end %>
+
     <%= if not Enum.empty?(@repositories) do %>
       <hr/>
       <%= render "_repositories.html", assigns %>

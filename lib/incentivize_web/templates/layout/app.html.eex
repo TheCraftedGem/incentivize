@@ -83,6 +83,9 @@
                     <li class="rev-Menu-item">
                       <a href="<%= repository_path(@conn, :new) %>">Connect a Repository</a>
                     </li>
+                    <li class="rev-Menu-item">
+                      <a href="<%= organization_path(@conn, :new) %>">Create an Organization</a>
+                    </li>
                   <% end %>
                   <%= if logged_in?(@conn) do %>
                     <div class="rev-Form">
@@ -109,6 +112,9 @@
                 </li>
                 <li class="rev-Menu-item">
                   <a href="<%= repository_path(@conn, :new) %>">Connect a Repository</a>
+                </li>
+                <li class="rev-Menu-item">
+                  <a href="<%= organization_path(@conn, :new) %>">Create an Organization</a>
                 </li>
               <% end %>
               <%= if logged_in?(@conn) do %>
