@@ -13,13 +13,11 @@ defmodule Incentivize.Github.ContributionWorker.Test do
       )
 
     {:ok, %{fund: fund}} =
-      Funds.create_fund(
-        %{
-          repository_id: repository.id,
-          pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}}
-        },
-        supporter
-      )
+      Funds.create_fund(%{
+        repository_id: repository.id,
+        pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}},
+        created_by_id: supporter.id
+      })
 
     fund = Funds.get_fund(fund.id)
     pledge = hd(fund.pledges)
@@ -44,13 +42,11 @@ defmodule Incentivize.Github.ContributionWorker.Test do
       )
 
     {:ok, %{fund: fund}} =
-      Funds.create_fund(
-        %{
-          repository_id: repository.id,
-          pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}}
-        },
-        supporter
-      )
+      Funds.create_fund(%{
+        repository_id: repository.id,
+        pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}},
+        created_by_id: supporter.id
+      })
 
     {:ok, _transaction_url} =
       @stellar_module.add_funds_to_account(

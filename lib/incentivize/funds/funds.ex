@@ -5,13 +5,14 @@ defmodule Incentivize.Funds do
 
   import Ecto.{Query}, warn: false
   alias Ecto.Multi
-  alias Incentivize.{Fund, Pledge, Repo, Repository, User, UserFund}
+  alias Incentivize.{Fund, Pledge, Repo, Repository, UserFund, Users}
   @stellar_module Application.get_env(:incentivize, :stellar_module)
 
-  def create_fund(params, %User{} = user) do
+  def create_fund(params) do
     Multi.new()
     |> Multi.insert(:fund, Fund.create_changeset(%Fund{}, params))
-    |> Multi.run(:create_stellar_fund, fn _ ->
+    |> Multi.run(:create_stellar_fund, fn %{fund: fund} ->
+      user = Users.get_user(fund.created_by_id)
       @stellar_module.create_fund_account(user.stellar_public_key)
     end)
     |> Multi.run(:update_fund, fn %{fund: fund, create_stellar_fund: escrow_public_key} ->
@@ -20,6 +21,8 @@ defmodule Incentivize.Funds do
       |> Repo.update()
     end)
     |> Multi.run(:user_funds, fn %{update_fund: fund} ->
+      user = Users.get_user(fund.created_by_id)
+
       %UserFund{}
       |> UserFund.changeset(%{fund_id: fund.id, user_id: user.id})
       |> Repo.insert()
@@ -45,7 +48,7 @@ defmodule Incentivize.Funds do
     Fund
     |> where([f], f.repository_id == ^repository.id)
     |> order_by([f], f.inserted_at)
-    |> preload([:pledges, :supporters])
+    |> preload([:pledges, :created_by])
     |> Repo.all()
   end
 

@@ -38,9 +38,12 @@ defmodule IncentivizeWeb.FundController do
 
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
-    params = Map.put(params, "repository_id", repository.id)
+    params =
+      params
+      |> Map.put("repository_id", repository.id)
+      |> Map.put("created_by_id", conn.assigns.current_user.id)
 
-    case Funds.create_fund(params, conn.assigns.current_user) do
+    case Funds.create_fund(params) do
       {:ok, %{fund: fund}} ->
         conn
         |> put_flash(:info, "Created successfully.")

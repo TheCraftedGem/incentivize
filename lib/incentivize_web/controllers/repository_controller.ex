@@ -28,10 +28,10 @@ defmodule IncentivizeWeb.RepositoryController do
     repo_params = %{
       "owner" => repo_owner,
       "name" => repo_name,
-      "admin_id" => conn.assigns.current_user.id
+      "created_by_id" => conn.assigns.current_user.id
     }
 
-    case Repositories.create_repository(repo_params, conn.assigns.current_user) do
+    case Repositories.create_repository(repo_params) do
       {:ok, %{repository: repository}} ->
         conn
         |> put_flash(:info, "Created successfully.")

@@ -18,7 +18,8 @@ defmodule Incentivize.Factory do
     %Repository{
       name: "test#{System.unique_integer([:positive])}",
       owner: "test#{System.unique_integer([:positive])}",
-      webhook_secret: "12345"
+      webhook_secret: "12345",
+      created_by: build(:user)
     }
   end
 
@@ -32,7 +33,8 @@ defmodule Incentivize.Factory do
   def build(:fund) do
     %Fund{
       repository: build(:repository),
-      pledges: [build(:pledge)]
+      pledges: [build(:pledge)],
+      created_by: build(:user)
     }
   end
 

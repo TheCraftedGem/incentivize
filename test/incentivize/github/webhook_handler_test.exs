@@ -48,13 +48,11 @@ defmodule Incentivize.Github.WebhookHandler.Test do
       )
 
     {:ok, _fund} =
-      Funds.create_fund(
-        %{
-          repository_id: repository.id,
-          pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}}
-        },
-        supporter
-      )
+      Funds.create_fund(%{
+        repository_id: repository.id,
+        pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}},
+        created_by_id: supporter.id
+      })
 
     json =
       "./test/fixtures/issues_opened.json"
@@ -78,13 +76,11 @@ defmodule Incentivize.Github.WebhookHandler.Test do
       )
 
     {:ok, %{fund: fund}} =
-      Funds.create_fund(
-        %{
-          repository_id: repository.id,
-          pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}}
-        },
-        supporter
-      )
+      Funds.create_fund(%{
+        repository_id: repository.id,
+        pledges: %{"0" => %{"action" => "issues.opened", "amount" => "1"}},
+        created_by_id: supporter.id
+      })
 
     {:ok, _transaction_url} =
       @stellar_module.add_funds_to_account(
@@ -115,13 +111,11 @@ defmodule Incentivize.Github.WebhookHandler.Test do
       )
 
     {:ok, %{fund: fund}} =
-      Funds.create_fund(
-        %{
-          repository_id: repository.id,
-          pledges: %{"0" => %{"action" => "pull_request.closed", "amount" => "1"}}
-        },
-        supporter
-      )
+      Funds.create_fund(%{
+        repository_id: repository.id,
+        pledges: %{"0" => %{"action" => "pull_request.closed", "amount" => "1"}},
+        created_by_id: supporter.id
+      })
 
     {:ok, _transaction_url} =
       @stellar_module.add_funds_to_account(
@@ -152,13 +146,11 @@ defmodule Incentivize.Github.WebhookHandler.Test do
       )
 
     {:ok, %{fund: fund}} =
-      Funds.create_fund(
-        %{
-          repository_id: repository.id,
-          pledges: %{"0" => %{"action" => "pull_request.closed", "amount" => "1"}}
-        },
-        supporter
-      )
+      Funds.create_fund(%{
+        repository_id: repository.id,
+        pledges: %{"0" => %{"action" => "pull_request.closed", "amount" => "1"}},
+        created_by_id: supporter.id
+      })
 
     {:ok, _transaction_url} =
       @stellar_module.add_funds_to_account(
