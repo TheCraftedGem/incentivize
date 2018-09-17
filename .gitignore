@@ -33,3 +33,4 @@ npm-debug.log
 *.pem
 .nyc_output
 coverage
+.DS_Store
