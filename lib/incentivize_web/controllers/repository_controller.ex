@@ -53,7 +53,9 @@ defmodule IncentivizeWeb.RepositoryController do
         :not_found
 
       repository ->
-        render(conn, "show.html", repository: repository)
+        stats = Repositories.get_repository_stats(repository)
+
+        render(conn, "show.html", repository: repository, stats: stats)
     end
   end
 

@@ -61,6 +61,59 @@ defmodule Incentivize.Repositories do
     |> Repo.get(id)
   end
 
+  @doc """
+  Stats include:
+
+  - the number of assets distributed
+  - number of Funds created
+  - the total number of contributions
+  - the total number of contributors
+  """
+  def get_repository_stats(repository) do
+    query =
+      from(
+        contribution in Incentivize.Contribution,
+        where: contribution.repository_id == ^repository.id,
+        select: sum(contribution.amount)
+      )
+
+    number_of_assets_distributed = Repo.one(query) || 0
+
+    query =
+      from(
+        fund in Incentivize.Fund,
+        where: fund.repository_id == ^repository.id,
+        select: count(fund.id)
+      )
+
+    number_of_funds_created = Repo.one(query) || 0
+
+    query =
+      from(
+        contribution in Incentivize.Contribution,
+        where: contribution.repository_id == ^repository.id,
+        select: count(contribution.id)
+      )
+
+    number_of_contributions = Repo.one(query) || 0
+
+    query =
+      from(
+        contribution in Incentivize.Contribution,
+        where: contribution.repository_id == ^repository.id,
+        select: count(contribution.user_id, :distinct)
+      )
+
+    number_of_contributors = Repo.one(query) || 0
+
+    %{
+      number_of_assets_distributed: number_of_assets_distributed,
+      number_of_funds_created: number_of_funds_created,
+      number_of_contributions: number_of_contributions,
+      number_of_contributors: number_of_contributors
+    }
+  end
+
   def user_owns_repository?(repository, user) do
     result =
       UserRepository

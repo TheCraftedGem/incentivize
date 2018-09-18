@@ -3,42 +3,55 @@
 
     <div class="rev-Row">
       <div class="rev-Col rev-Col--medium9 rev-Col--smallCentered">
-        <h2>Project Details</h2>
+        <h2>
+          <a href="https://github.com/<%= @repository.owner %>/<%= @repository.name %>" target="_blank" rel="noreferrer">
+            <%= @repository.owner %>/<%= @repository.name %>
+          </a>
+        </h2>
 
         <div class="rev-Card rev-CardLayout">
-
           <div class="rev-Card-header rev-CardLayout-bar">
             <div class="rev-Row">
               <div class="rev-Col">
-
-                <h3 class="ButtonLink">
-                  <img alt="Repo Favicon" src="/images/favicon.ico" />
-                  <div class="ButtonLink--header u-truncate">
-                    <%= @repository.owner %>/<%= @repository.name %>
+                <div class="rev-Row">
+                  <div class="rev-Col rev-Col--medium3 Text-center">
+                    <h3>Contributions</h3>
+                    <span><%= @stats.number_of_contributions %></span>
                   </div>
-                </h3>
-
-                <p>
-                  <a href="<%= contribution_path(@conn, :for_repository, @repository.owner, @repository.name) %>">
-                    <%= length(@repository.contributions) %> Contributions
-                  </a>
-                </p>
-
-                <a class="ButtonLink" href="<%= fund_path(@conn, :index, @repository.owner, @repository.name) %>">
-                  <p class="ButtonLink--textRight">All Project Funds</p><i class="material-icons">share</i>
-                </a>
+                  <div class="rev-Col rev-Col--medium3 Text-center">
+                    <h3>Contributors</h3>
+                    <span><%= @stats.number_of_contributors %></span>
+                  </div>
+                  <div class="rev-Col rev-Col--medium2 Text-center">
+                    <h3>Funds</h3>
+                    <span><%= @stats.number_of_funds_created %></span>
+                  </div>
+                  <div class="rev-Col rev-Col--medium4 Text-center">
+                    <h3>Assets Given</h3>
+                    <span><%= @stats.number_of_assets_distributed %> <%= Incentivize.Stellar.asset_display() %></span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="rev-Card-footer">
-            <div class="rev-Row">
+            <div class="rev-Row rev-Row--flex">
               <div class="rev-Col">
-                <div class="u-flexAlignEnd">
-                  <a class="ButtonLink" href="https://github.com/<%= @repository.owner %>/<%= @repository.name %>" target="_blank" rel="noreferrer">
-                    <p class="ButtonLink--textRight">GitHub Repo</p><i class="material-icons">arrow_forward</i>
-                  </a>
-                </div>
+                <a class="ButtonLink" href="<%= fund_path(@conn, :index, @repository.owner, @repository.name) %>">
+                  <div class="ButtonLink">
+                    <i class="material-icons">share</i>
+                    <p class="ButtonLink--text">View Project Funds</p>
+                  </div>
+                </a>
+              </div>
+              <div class="rev-Col rev-Col--shrink">
+                <a href="<%= contribution_path(@conn, :for_repository, @repository.owner, @repository.name) %>">
+                  <div class="ButtonLink">
+                    <i class="material-icons">screen_share</i>
+                    <p class="ButtonLink--text">View Contributions</p>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
