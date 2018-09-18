@@ -31,18 +31,14 @@ environment :dev do
   set(dev_mode: true)
   set(include_erts: false)
 
-  set(
-    cookie: :crypto.hash(:sha256, System.get_env("COOKIE")) |> Base.encode16() |> String.to_atom()
-  )
+  set(cookie: :crypto.strong_rand_bytes(32) |> Base.encode16() |> String.to_atom())
 end
 
 environment :prod do
   set(include_erts: true)
   set(include_src: false)
 
-  set(
-    cookie: :crypto.hash(:sha256, System.get_env("COOKIE")) |> Base.encode16() |> String.to_atom()
-  )
+  set(cookie: :crypto.strong_rand_bytes(32) |> Base.encode16() |> String.to_atom())
 
   set(
     config_providers: [
