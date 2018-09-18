@@ -12,6 +12,7 @@ defmodule Incentivize.Repository do
     field(:name, :string)
     field(:owner, :string)
     field(:webhook_secret, :string)
+    field(:is_public, :boolean, default: true)
     has_many(:funds, Fund)
     has_many(:contributions, Contribution)
     belongs_to(:created_by, User)
