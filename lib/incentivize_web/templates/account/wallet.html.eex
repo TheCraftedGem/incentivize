@@ -1,0 +1,18 @@
+<div class="rev-Row">
+  <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
+    <h2>Wallet</h2>
+    <div class="rev-Row">
+      <div class="rev-Col">
+        <label class="rev-InputStack rev-InputLabel">
+          <h5>Stellar Public Key</h5>
+          <span><%= @user.stellar_public_key %></span>
+        </label>
+
+        <label class="rev-InputStack rev-InputLabel">
+          <h5>Balances</h5>
+          <div data-stellar-balance="<%= @user.stellar_public_key %>">Loading</div>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
