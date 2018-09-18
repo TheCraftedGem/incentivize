@@ -20,13 +20,13 @@ ENV MIX_ENV prod
 
 RUN mix do local.rebar --force, local.hex --force, deps.get --only prod, deps.compile
 
-COPY nodejs ./nodejs
+COPY priv/nodejs ./priv/nodejs
 
-WORKDIR nodejs
+WORKDIR priv/nodejs
 # Cache Node deps
 RUN npm install
 
-WORKDIR ..
+WORKDIR ../..
 
 COPY assets ./assets
 
