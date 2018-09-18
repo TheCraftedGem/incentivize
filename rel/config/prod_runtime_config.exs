@@ -12,7 +12,7 @@ config :incentivize, IncentivizeWeb.Endpoint,
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
   server: true,
-  root: ".",
+  root: "."
 
 config :incentivize, :google_analytics_id, System.get_env("GOOGLE_ANALYTICS_ID")
 
