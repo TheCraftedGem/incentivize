@@ -20,8 +20,6 @@ ENV MIX_ENV prod
 
 RUN mix do local.rebar --force, local.hex --force, deps.get --only prod, deps.compile
 
-RUN env
-
 COPY priv/nodejs ./priv/nodejs
 
 WORKDIR priv/nodejs

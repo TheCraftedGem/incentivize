@@ -30,13 +30,11 @@ environment :dev do
   # dev mode.
   set(dev_mode: true)
   set(include_erts: false)
-  set(cookie: :"7Ru1lxtFOhfknO[z?$AmGw!,eC$t&@vL[zb_rp(eH?rL/2;$oC,|&iXAP8DT5Q`<")
 end
 
 environment :prod do
   set(include_erts: true)
   set(include_src: false)
-  set(cookie: System.get_env("APP_COOKIE") |> String.to_atom())
 
   set(
     config_providers: [
