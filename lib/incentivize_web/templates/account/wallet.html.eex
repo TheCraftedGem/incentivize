@@ -12,6 +12,13 @@
           <h5>Balances</h5>
           <div data-stellar-balance="<%= @user.stellar_public_key %>">Loading</div>
         </label>
+
+    <div class="rev-Row">
+      <div class="rev-Col">
+        <h5>Transaction History</h5>
+        <div data-transaction-history></div>
+      </div>
+    </div>
       </div>
     </div>
   </div>
