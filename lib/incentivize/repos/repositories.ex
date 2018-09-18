@@ -9,6 +9,7 @@ defmodule Incentivize.Repositories do
 
   def list_repositories do
     Repository
+    |> where([r], r.is_public == true)
     |> order_by([r], asc: r.owner, asc: r.name)
     |> preload([:funds, :contributions])
     |> Repo.all()
@@ -22,6 +23,7 @@ defmodule Incentivize.Repositories do
       ur in UserRepository,
       r.id == ur.repository_id and ur.user_id == ^user.id
     )
+    |> where([r], r.is_public == true)
     |> order_by([r], asc: r.owner, asc: r.name)
     |> preload([:funds, :contributions])
     |> Repo.all()
@@ -49,6 +51,7 @@ defmodule Incentivize.Repositories do
       from(repo in Repository,
         where: ilike(repo.owner, ^owner),
         where: ilike(repo.name, ^name),
+        where: repo.is_public == true,
         preload: [:funds, :contributions]
       )
 
