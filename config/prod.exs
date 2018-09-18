@@ -5,7 +5,10 @@ config :incentivize, IncentivizeWeb.Endpoint,
   url: [scheme: "https", host: System.get_env("APP_DOMAIN"), port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  secret_key_base: System.get_env("SECRET_KEY_BASE")
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
+  server: true,
+  root: ".",
+  version: Application.spec(:incentivize, :vsn)
 
 config :incentivize, Incentivize.Repo,
   adapter: Ecto.Adapters.Postgres,
@@ -14,15 +17,7 @@ config :incentivize, Incentivize.Repo,
   ssl: true,
   loggers: [{Ecto.LogEntry, :log, []}, {Incentivize.Metrics, :record_ecto_metric, []}]
 
-config :incentivize, :google_analytics_id, {:system, "GOOGLE_ANALYTICS_ID"}
-
 # Do not print debug messages in production
 config :logger, level: :info
-
-config :rollbax,
-  client_token: System.get_env("ROLLBAR_CLIENT_TOKEN"),
-  access_token: System.get_env("ROLLBAR_SERVER_TOKEN"),
-  environment: System.get_env("ROLLBAR_ENVIRONMENT"),
-  enabled: true
 
 config :rollbax, enable_crash_reports: true

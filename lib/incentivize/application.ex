@@ -22,7 +22,7 @@ defmodule Incentivize.Application do
       # Start your own worker by calling: Incentivize.Worker.start_link(arg1, arg2, arg3)
       # worker(Incentivize.Worker, [arg1, arg2, arg3]),
       supervisor(NodeJS.Supervisor, [
-        [path: Path.join(File.cwd!(), "nodejs"), pool_size: 4, timeout: 60_000]
+        [path: Path.join(:code.priv_dir(:incentivize), "nodejs"), pool_size: 4, timeout: 60_000]
       ]),
       {Rihanna.Supervisor, [name: Rihanna.Supervisor, postgrex: Incentivize.Repo.config()]}
     ]

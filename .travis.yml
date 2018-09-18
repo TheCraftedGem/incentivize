@@ -63,7 +63,7 @@ jobs:
           on:
             tags: true
       after_deploy:
-        - ./deis run "mix do deps.loadpaths --no-deps-check, ecto.migrate" -a incentivize
+        - ./deis run "_build/prod/rel/incentivize/bin/incentivize migrate" -a incentivize
 notifications:
   slack:
     secure: A+T1wks8KiRVzxoSSgXCwTChB2xZ7AKep1dS/rHEjG9ZY1oq+albynV6UNKVdbv1kr9uxxffrjH/MFT+z6Q9JkS+21n+nEOghhtQHk4VDin+nEGgmMSpBfvePM7Mqe8lo079JYdXhao2yQW6A2XuXYTxjukbC6nl7FhZW3c6yuw50qUjdlzGzlQSh4rCHXPXwyLHcFLJ/cDH+W1v4dMemy+SCa/KhvQAEk63nyRlo1yMta82iY0hQb2E+3xj41/t+LBNT8Q9UPPupO4P/hMnSE9gYQJjsZkiGgznUFPojjB8wPdj94wJ9E/4fOPb0Wk2dMTXROtJ4PAoCW5dL0Y4Bhwc1XnlOxleiSkQgg6IniTTAFuPps3YreMmXb0qapDClplbQZuqxwDuGHK2eTDwGAsd2DAvAcjxyKsYdNZb66FRaJDo/URDuTcyiK/PJQlAFmFH+Iov6R/MVDrv393wrNaU8NY2+U8/dP+ubaczPkbuievC8lvJ4erny8ZzP1y7nf8Zbp0hKiAkC/oX1qmnkZRM5Eov6P64scW5KtnnR04tU0zQbeX30BHNvkfDoFyRh/44w7q8OCOZUav9cbqx24S4JSIEz/LWbQ/QnMq+azrKLPXOZToQy2teCfKFYhrfOzK7Eq+WWaV6Kqa55p0O3q4QmXvO/zeMhOVbT1++HzE=

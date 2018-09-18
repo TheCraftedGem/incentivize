@@ -41,11 +41,11 @@ COPY . .
 
 ENV PORT 5000
 
-# Compile app
-RUN mix do compile, phx.digest
+# Compile app and make release
+RUN mix do compile, phx.digest, release
 
 # Exposes this port from the docker container to the host machine
 EXPOSE 5000
 
-# Run server
-CMD ["mix", "phx.server", "--no-deps-check", "--no-compile", "--no-halt"]
+# The command to run when this image starts up
+CMD ["_build/prod/rel/incentivize/bin/incentivize", "foreground"]

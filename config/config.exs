@@ -23,16 +23,16 @@ config :logger, :console,
   metadata: [:request_id]
 
 config :incentivize, Incentivize.Github,
-  client_id: {:system, "GITHUB_CLIENT_ID"},
-  client_secret: {:system, "GITHUB_CLIENT_SECRET"},
-  app_id: {:system, "GITHUB_APP_ID"},
-  private_key: {:system, "GITHUB_APP_PRIVATE_KEY"}
+  client_id: nil,
+  client_secret: nil,
+  app_id: nil,
+  private_key: nil
 
 config :incentivize, Incentivize.Stellar,
   # Defaults to test network
-  network_url: {:system, "STELLAR_NETWORK_URL", "https://horizon-testnet.stellar.org"},
-  public_key: {:system, "STELLAR_PUBLIC_KEY"},
-  secret: {:system, "STELLAR_SECRET"}
+  network_url: "https://horizon-testnet.stellar.org",
+  public_key: nil,
+  secret: nil
 
 config :rollbax,
   enabled: false,
@@ -40,8 +40,8 @@ config :rollbax,
 
 config :incentivize, :statix,
   prefix: "incentivize",
-  host: {:system, "DATADOG_HOST", "localhost"},
-  port: {:system, :integer, "DATADOG_PORT", 8125}
+  host: "localhost",
+  port: 8125
 
 config(
   :vmstats,
@@ -53,11 +53,11 @@ config(
 
 config :incentivize, :stellar_module, Incentivize.Stellar
 config :incentivize, :github_repos_module, Incentivize.Github.API.Repos
-config :incentivize, :nodejs, timeout: {:system, :integer, "NODEJS_TIMEOUT", 60_000}
+config :incentivize, :nodejs, timeout: 60_000
 
 config :incentivize, :stellar_asset,
-  code: {:system, "STELLAR_ASSET_CODE", "XLM"},
-  issuer: {:system, "STELLAR_ASSET_ISSUER"}
+  code: "XLM",
+  issuer: nil
 
 config :rihanna, dispatcher_max_concurrency: 1
 

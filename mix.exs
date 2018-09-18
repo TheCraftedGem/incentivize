@@ -62,6 +62,7 @@ defmodule Incentivize.Mixfile do
       {:vmstats, "~> 2.3"},
       {:statix, "~> 1.1"},
       {:stellar, "~> 0.3.0"},
+      {:distillery, "~> 2.0"},
       {:credo, "~> 0.10", only: :dev, runtime: false},
       {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
       {:dialyxir, "~> 1.0.0-rc", only: :dev, runtime: false}
