@@ -28,6 +28,11 @@ config :incentivize, Incentivize.Repo,
 config :incentivize, :stellar_module, Incentivize.Stellar.Mock
 config :incentivize, :github_repos_module, Incentivize.Github.API.Repos.Mock
 
+config :incentivize, Incentivize.Stellar,
+  network_url: "https://horizon-testnet.stellar.org",
+  public_key: System.get_env("STELLAR_PUBLIC_KEY"),
+  secret: System.get_env("STELLAR_SECRET")
+
 if File.exists?(Path.join([__DIR__, "dev.secret.exs"])) do
   import_config "dev.secret.exs"
 end
