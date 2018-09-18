@@ -28,7 +28,7 @@ function handleCreateAccount(data, payment) {
 
   return {
     amount: formatAmount(payment.starting_balance, '+', assetCode),
-    accountId: payment.funder,
+    accountId: payment.account,
   }
 }
 
