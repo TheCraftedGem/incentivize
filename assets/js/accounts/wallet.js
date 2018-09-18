@@ -1,40 +1,64 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Stellar from '../stellar/stellar'
-const transactionHistoryLimit = 100
+import Table from 'harmonium/lib/Table'
+const TRANSACTION_HISTORY_LIMIT = 100
+
+function getAssetCode(assetCode) {
+  if (assetCode) {
+    return assetCode
+  } else {
+    return 'XLM'
+  }
+}
+
+function formatAmount(amount, sign, assetCode) {
+  return `${sign}${amount} ${assetCode}`
+}
+
+function handleAccountMerge(publicKey, data, payment) {
+  return {
+    amount: '[account merge]',
+    accountId: publicKey ? payment.into : payment.account,
+  }
+}
+
+function handleCreateAccount(data, payment) {
+  const assetCode = getAssetCode(payment.asset_code)
+
+  return {
+    amount: formatAmount(payment.starting_balance, '+', assetCode),
+    accountId: payment.funder,
+  }
+}
+
+function handlePayment(publicKey, data, payment) {
+  const sign = payment.from === publicKey ? '-' : '+'
+
+  const assetCode = getAssetCode(payment.asset_code)
+
+  data.amount = formatAmount(payment.amount, sign, assetCode)
+
+  return {
+    amount: formatAmount(payment.amount, sign, assetCode),
+    accountId: payment.from === publicKey ? payment.to : payment.from,
+  }
+}
 
 function prepareData(publicKey, payment) {
   const data = {
+    id: payment.id,
+    url: payment._links.self.href,
     type: payment.type,
   }
 
   if (payment.type === 'account_merge') {
-    data.amount = '[account merge]'
-    data.accountId =
-      payment.account === publicKey ? payment.into : payment.account
+    return Object.assign({}, data, handleAccountMerge(publicKey, data, payment))
   } else if (payment.type === 'create_account') {
-    data.amount = `+${ payment.starting_balance}`
-    data.accountId = payment.funder
-    if (payment.asset_code) {
-      data.asset_code = payment.asset_code
-    } else {
-      data.asset_code = 'XLM'
-    }
+    return Object.assign({}, data, handleCreateAccount(data, payment))
   } else {
-    data.accountId = payment.from === publicKey ? payment.to : payment.from
-
-    const sign = payment.from === publicKey ? '-' : '+'
-
-    data.amount = `${sign}${payment.amount}`
-
-    if (payment.asset_code) {
-      data.asset_code = payment.asset_code
-    } else {
-      data.asset_code = 'XLM'
-    }
+    return Object.assign({}, data, handlePayment(publicKey, data, payment))
   }
-
-  return data
 }
 
 async function getTransactionHistory(publicKey, server) {
@@ -42,7 +66,7 @@ async function getTransactionHistory(publicKey, server) {
     .payments()
     .forAccount(publicKey)
     .order('desc')
-    .limit(transactionHistoryLimit)
+    .limit(TRANSACTION_HISTORY_LIMIT)
     .call()
 
   const promises = payments.records.map(async(payment) => {
@@ -51,14 +75,45 @@ async function getTransactionHistory(publicKey, server) {
     const data = prepareData(publicKey, payment)
 
     return Object.assign({}, data, {
-      transactionID: transaction.id,
-      transactionURL: payment._links.transaction.href,
       memo: transaction.memo,
       memoType: transaction.memo_type,
     })
   })
 
   return await Promise.all(promises)
+}
+
+function Transactions({transactions}) {
+  return (
+    <Table striped>
+      <Table.Head>
+        <Table.Row>
+          <Table.Header>Account ID</Table.Header>
+          <Table.Header>Amount</Table.Header>
+          <Table.Header>Memo</Table.Header>
+          <Table.Header>Operation</Table.Header>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        {transactions.map((transaction) => (
+          <Table.Row key={transaction.id}>
+            <Table.Data>{transaction.accountId}</Table.Data>
+            <Table.Data>{transaction.amount}</Table.Data>
+            <Table.Data>{transaction.memo}</Table.Data>
+            <Table.Data>
+              <a
+                href={transaction.url}
+                target="_blank"
+                rel="nooppener noreferrer"
+              >
+                {transaction.id}
+              </a>
+            </Table.Data>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table>
+  )
 }
 
 async function buildTransactionHistory(stellarNetwork) {
@@ -71,41 +126,10 @@ async function buildTransactionHistory(stellarNetwork) {
       server
     )
 
-    const Transactions = ({transactions}) => {
-      return (
-        <table>
-          <thead>
-            <tr>
-              <th>Account ID</th>
-              <th>Amount</th>
-              <th>Memo</th>
-              <th>TransactionID</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactions.map((transaction) => (
-              <tr key={transaction.transactionID}>
-                <td>{transaction.accountId}</td>
-                <td>{transaction.amount} {transaction.asset_code}</td>
-                <td>{transaction.memo}</td>
-                <td>
-                  <a href={transaction.transactionURL}>
-                    {transaction.transactionID}
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )
-    }
-
     ReactDOM.render(
       <Transactions transactions={data} />,
       document.querySelector('[data-transaction-history]')
     )
-
-    console.log(data)
   }
 }
 

@@ -1,5 +1,5 @@
 <div class="rev-Row">
-  <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
+  <div class="rev-Col rev-Col--smallCentered">
     <h2>Wallet</h2>
     <div class="rev-Row">
       <div class="rev-Col">
@@ -13,12 +13,8 @@
           <div data-stellar-balance="<%= @user.stellar_public_key %>">Loading</div>
         </label>
 
-    <div class="rev-Row">
-      <div class="rev-Col">
         <h5>Transaction History</h5>
-        <div data-transaction-history></div>
-      </div>
-    </div>
+        <div class="rev-TableContainer" data-transaction-history>Loading transaction history</div>
       </div>
     </div>
   </div>
