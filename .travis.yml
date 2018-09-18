@@ -33,9 +33,9 @@ jobs:
         - cd assets
         - npm install
         - cd ..
-        - cd nodejs
+        - cd priv/nodejs
         - npm install
-        - cd ..
+        - cd ../..
       script:
         - mix coveralls.json
         - cd assets
