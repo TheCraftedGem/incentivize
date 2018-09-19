@@ -24,7 +24,7 @@ describe('App', () => {
       App.default.init({
         stellarNetwork: 'https://horizon-testnet.stellar.org',
         asset: {code: 'XLM', issuer: null},
-        jsModuleToLoad: 'Funds',
+        jsModuleToLoad: 'FundShow',
       })
     })
   })

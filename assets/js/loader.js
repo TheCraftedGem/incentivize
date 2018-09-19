@@ -1,10 +1,12 @@
-import Funds from './funds/funds'
+import FundShow from './funds/show'
+import FundNew from './funds/new'
 import Wallet from './accounts/wallet'
 
 function init(config) {
   if (config && config.jsModuleToLoad) {
     const modules = {
-      Funds,
+      FundShow,
+      FundNew,
       Wallet,
     }
 

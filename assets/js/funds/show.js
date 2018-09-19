@@ -1,6 +1,5 @@
 import StellarSdk from 'stellar-sdk'
 import Stellar from '../stellar/stellar'
-import Mustache from 'mustache'
 
 /**
  * Adds funds to the given account
@@ -39,7 +38,7 @@ async function addFundsToAccount(
   await server.submitTransaction(transaction)
 }
 
-function initFundShow({stellarNetwork, asset}) {
+function init({stellarNetwork, asset}) {
   const form = document.getElementById('fund_form')
   const assetObj = Stellar.processAsset(asset)
   const assetCode = assetObj.code
@@ -90,65 +89,6 @@ function initFundShow({stellarNetwork, asset}) {
       }
     })
   }
-}
-
-function removeRow(index) {
-  const row = document.querySelector(`[data-row='${index}']`)
-
-  if (row) {
-    row.parentNode.removeChild(row)
-  }
-}
-
-function setupRemoveRowHandler(index) {
-  const removeRowButton = document.querySelector(`[data-delete='${index}']`)
-
-  removeRowButton.addEventListener('click', () => {
-    if (document.querySelectorAll('#fund_row_container > div').length > 1) {
-      removeRow(index)
-    }
-  })
-}
-
-function addRow(rowLength, template, fundRowContainer) {
-  const rendered = Mustache.render(template, {index: rowLength})
-
-  const newDiv = document.createElement('div')
-
-  newDiv.innerHTML = rendered
-
-  fundRowContainer.appendChild(newDiv.firstElementChild)
-
-  setupRemoveRowHandler(rowLength)
-}
-
-function initFundForm() {
-  const addRowButton = document.querySelector('[data-add-fund-row]')
-  const templateElement = document.querySelector('#fund_row_template')
-  const fundRowContainer = document.querySelector('#fund_row_container')
-
-  if (addRowButton && templateElement && fundRowContainer) {
-    let rowLength = document.querySelectorAll('#fund_row_container > div')
-      .length
-
-    for (let i = 0; i < rowLength; i++) {
-      setupRemoveRowHandler(i)
-    }
-
-    const template = templateElement.innerHTML
-
-    Mustache.parse(template)
-
-    addRowButton.addEventListener('click', () => {
-      addRow(rowLength, template, fundRowContainer)
-      rowLength = rowLength + 1
-    })
-  }
-}
-
-function init(incentivize) {
-  initFundShow(incentivize)
-  initFundForm(1)
 }
 
 export default {

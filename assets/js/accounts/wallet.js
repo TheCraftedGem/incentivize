@@ -16,14 +16,14 @@ function formatAmount(amount, sign, assetCode) {
   return `${sign}${amount} ${assetCode}`
 }
 
-function handleAccountMerge(publicKey, data, payment) {
+function handleAccountMerge(publicKey, payment) {
   return {
     amount: '[account merge]',
     accountId: publicKey ? payment.into : payment.account,
   }
 }
 
-function handleCreateAccount(data, payment) {
+function handleCreateAccount(payment) {
   const assetCode = getAssetCode(payment.asset_code)
 
   return {
@@ -32,12 +32,10 @@ function handleCreateAccount(data, payment) {
   }
 }
 
-function handlePayment(publicKey, data, payment) {
+function handlePayment(publicKey, payment) {
   const sign = payment.from === publicKey ? '-' : '+'
 
   const assetCode = getAssetCode(payment.asset_code)
-
-  data.amount = formatAmount(payment.amount, sign, assetCode)
 
   return {
     amount: formatAmount(payment.amount, sign, assetCode),
@@ -53,11 +51,11 @@ function prepareData(publicKey, payment) {
   }
 
   if (payment.type === 'account_merge') {
-    return Object.assign({}, data, handleAccountMerge(publicKey, data, payment))
+    return Object.assign({}, data, handleAccountMerge(publicKey, payment))
   } else if (payment.type === 'create_account') {
-    return Object.assign({}, data, handleCreateAccount(data, payment))
+    return Object.assign({}, data, handleCreateAccount(payment))
   } else {
-    return Object.assign({}, data, handlePayment(publicKey, data, payment))
+    return Object.assign({}, data, handlePayment(publicKey, payment))
   }
 }
 

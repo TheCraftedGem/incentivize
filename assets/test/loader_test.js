@@ -13,7 +13,7 @@ describe('Loader', () => {
       const isLoaded = Loader.default.init({
         stellarNetwork: '',
         asset: {code: 'XLM', issuer: null},
-        jsModuleToLoad: 'Funds',
+        jsModuleToLoad: 'FundNew',
       })
 
       expect(isLoaded).to.be.true
