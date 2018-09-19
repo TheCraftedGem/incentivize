@@ -46,4 +46,15 @@ defmodule IncentivizeWeb.AccountControllerTest do
 
     assert html_response(conn, 400) =~ "Account"
   end
+
+  test "redirect to /account/edit when no stellar key defined" do
+    user = insert!(:user, stellar_public_key: nil)
+
+    conn =
+      build_conn()
+      |> assign(:current_user, user)
+
+    conn = get(conn, account_path(conn, :show))
+    assert redirected_to(conn) =~ account_path(conn, :edit)
+  end
 end
