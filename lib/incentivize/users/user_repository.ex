@@ -1,6 +1,6 @@
 defmodule Incentivize.UserRepository do
   @moduledoc """
-  User Schema
+  UserRepository Schema
   """
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false

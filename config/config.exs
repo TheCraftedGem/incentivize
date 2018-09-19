@@ -26,7 +26,8 @@ config :incentivize, Incentivize.Github,
   client_id: nil,
   client_secret: nil,
   app_id: nil,
-  private_key: nil
+  private_key: nil,
+  public_url: nil
 
 config :incentivize, Incentivize.Stellar,
   # Defaults to test network
