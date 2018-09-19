@@ -2,7 +2,15 @@ defmodule Incentivize.Github.WebhookHandler do
   @moduledoc """
   Handles processing of GitHub webhooks
   """
-  alias Incentivize.{Actions, Funds, Github.ContributionWorker, Repositories, Users}
+  alias Incentivize.{
+    Actions,
+    Funds,
+    Github.ContributionWorker,
+    Github.Installations,
+    Repositories,
+    Users
+  }
+
   @actions Map.keys(Actions.github_actions())
   @event_to_payload_map %{
     "issues" => "issue",
@@ -53,6 +61,61 @@ defmodule Incentivize.Github.WebhookHandler do
     end
   end
 
+  def handle("installation.created", payload) do
+    Installations.create_installation(%{
+      installation_id: get_in(payload, ["installation", "id"]),
+      login: get_in(payload, ["installation", "account", "login"]),
+      login_type: get_in(payload, ["installation", "account", "type"])
+    })
+
+    add_repositories_from_installation(
+      payload["repositories"],
+      get_in(payload, ["installation", "id"])
+    )
+
+    {:ok, []}
+  end
+
+  def handle("installation.deleted", payload) do
+    installation_id = get_in(payload, ["installation", "id"])
+
+    installation = Installations.get_installation_by_installation_id(installation_id)
+
+    if installation do
+      Installations.delete_installation(installation)
+    end
+
+    {:ok, []}
+  end
+
+  def handle("installation_repositories.added", payload) do
+    add_repositories_from_installation(
+      payload["repositories_added"],
+      get_in(payload, ["installation", "id"])
+    )
+
+    {:ok, []}
+  end
+
+  def handle("installation_repositories.removed", payload) do
+    installation_id = get_in(payload, ["installation", "id"])
+    installation = Installations.get_installation_by_installation_id(installation_id)
+
+    if installation do
+      repos =
+        payload["repositories_removed"]
+        |> Enum.map(fn %{"full_name" => full_name} ->
+          [owner, name] = String.split(full_name, "/")
+          Repositories.get_repository_by_owner_and_name(owner, name)
+        end)
+        |> Enum.reject(fn x -> is_nil(x) end)
+
+      Installations.delete_installation_repositories(installation, repos)
+    end
+
+    {:ok, []}
+  end
+
   def handle(_, _) do
     {:error, :unsupported}
   end
@@ -65,5 +128,35 @@ defmodule Incentivize.Github.WebhookHandler do
 
   defp can_reward_contribution?(_event_and_action, _payload, repository, user, pledges) do
     repository != nil && user != nil && Enum.empty?(pledges) == false
+  end
+
+  defp add_repositories_from_installation(repos, installation_id) do
+    Enum.each(repos, fn %{"full_name" => full_name, "private" => private} ->
+      [owner, name] = String.split(full_name, "/")
+      repository = Repositories.get_repository_by_owner_and_name(owner, name)
+
+      # Create new repo if it does not exist already
+      repository =
+        if is_nil(repository) do
+          {:ok, repository} =
+            Repositories.create_repository(%{
+              owner: owner,
+              name: name,
+              is_public: !private
+            })
+
+          repository
+        else
+          repository
+        end
+
+      # Create and InstallationRepository to mark the relationship
+      # Between this installation and the repo.
+      {:ok, _} =
+        Installations.create_installation_repository(%{
+          repository_id: repository.id,
+          installation_id: installation_id
+        })
+    end)
   end
 end

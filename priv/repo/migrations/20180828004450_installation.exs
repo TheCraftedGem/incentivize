@@ -14,7 +14,11 @@ defmodule Incentivize.Repo.Migrations.Installation do
     create(index(:github_installations, [:login_type]))
 
     create table(:github_installation_repositories) do
-      add(:installation_id, references(:github_installations, on_delete: :nothing))
+      add(
+        :installation_id,
+        references(:github_installations, column: :installation_id, on_delete: :nothing)
+      )
+
       add(:repository_id, references(:repositories, on_delete: :nothing))
       timestamps()
     end
