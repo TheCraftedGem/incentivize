@@ -22,4 +22,4 @@ echo "Installing node dependencies for assets"
 (cd assets && npm install && cd ..)
 
 echo "Installing node dependencies for nodejs"
-(cd nodejs && npm install && cd ..)
+(cd priv/nodejs && npm install && cd ..)
