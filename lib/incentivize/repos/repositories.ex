@@ -10,6 +10,7 @@ defmodule Incentivize.Repositories do
   def list_repositories do
     Repository
     |> where([r], r.is_public == true)
+    |> where([r], is_nil(r.deleted_at))
     |> order_by([r], asc: r.owner, asc: r.name)
     |> preload([:funds, :contributions])
     |> Repo.all()
@@ -24,6 +25,7 @@ defmodule Incentivize.Repositories do
       r.id == ur.repository_id and ur.user_id == ^user.id
     )
     |> where([r], r.is_public == true)
+    |> where([r], is_nil(r.deleted_at))
     |> order_by([r], asc: r.owner, asc: r.name)
     |> preload([:funds, :contributions])
     |> Repo.all()
@@ -51,7 +53,31 @@ defmodule Incentivize.Repositories do
       from(repo in Repository,
         where: ilike(repo.owner, ^owner),
         where: ilike(repo.name, ^name),
+        where: is_nil(repo.deleted_at),
+        preload: [:funds, :contributions]
+      )
+
+    Repo.one(query)
+  end
+
+  def get_public_repository_by_owner_and_name(owner, name) do
+    query =
+      from(repo in Repository,
+        where: ilike(repo.owner, ^owner),
+        where: ilike(repo.name, ^name),
         where: repo.is_public == true,
+        where: is_nil(repo.deleted_at),
+        preload: [:funds, :contributions]
+      )
+
+    Repo.one(query)
+  end
+
+  def get_repository_by_owner_and_name_include_deleted(owner, name) do
+    query =
+      from(repo in Repository,
+        where: ilike(repo.owner, ^owner),
+        where: ilike(repo.name, ^name),
         preload: [:funds, :contributions]
       )
 
@@ -125,5 +151,18 @@ defmodule Incentivize.Repositories do
       |> Repo.one()
 
     result != nil
+  end
+
+  def delete_repository(repository) do
+    from(r in Repository,
+      where: r.id == ^repository.id,
+      update: [set: [deleted_at: ^DateTime.utc_now()]]
+    )
+    |> Repo.update_all([])
+  end
+
+  def undelete_repository(repository) do
+    from(r in Repository, where: r.id == ^repository.id, update: [set: [deleted_at: nil]])
+    |> Repo.update_all([])
   end
 end

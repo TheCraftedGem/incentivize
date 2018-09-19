@@ -5,8 +5,6 @@ defmodule IncentivizeWeb.GithubWebhookPlug do
 
   import Plug.Conn
   require Logger
-  alias Incentivize.Repositories
-  alias Plug.Crypto
 
   def init(options) do
     options

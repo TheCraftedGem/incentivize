@@ -13,6 +13,7 @@ defmodule Incentivize.Repository do
     field(:owner, :string)
     field(:webhook_secret, :string)
     field(:is_public, :boolean, default: true)
+    field(:deleted_at, :utc_datetime)
     has_many(:funds, Fund)
     has_many(:contributions, Contribution)
     belongs_to(:created_by, User)
@@ -26,7 +27,7 @@ defmodule Incentivize.Repository do
       :owner,
       :created_by_id
     ])
-    |> validate_required([:name, :owner, :created_by_id])
+    |> validate_required([:name, :owner])
     |> unique_constraint(:owner,
       name: "repositories_owner_name_index",
       message: "Repository already connected."
@@ -40,9 +41,10 @@ defmodule Incentivize.Repository do
       :name,
       :owner,
       :webhook_secret,
-      :created_by_id
+      :created_by_id,
+      :deleted_at
     ])
-    |> validate_required([:name, :owner, :webhook_secret, :created_by_id])
+    |> validate_required([:name, :owner, :webhook_secret])
   end
 
   defp random_string(length) do

@@ -5,7 +5,7 @@ defmodule IncentivizeWeb.FundController do
   action_fallback(IncentivizeWeb.FallbackController)
 
   def index(conn, %{"owner" => owner, "name" => name}) do
-    repository = Repositories.get_repository_by_owner_and_name(owner, name)
+    repository = Repositories.get_public_repository_by_owner_and_name(owner, name)
 
     funds = Funds.list_funds_for_repository(repository)
 
@@ -13,7 +13,7 @@ defmodule IncentivizeWeb.FundController do
   end
 
   def new(conn, %{"owner" => owner, "name" => name}) do
-    repository = Repositories.get_repository_by_owner_and_name(owner, name)
+    repository = Repositories.get_public_repository_by_owner_and_name(owner, name)
 
     changeset = Fund.create_changeset(%Fund{})
 
@@ -36,7 +36,7 @@ defmodule IncentivizeWeb.FundController do
 
     params = Map.put(params, "pledges", pledges)
 
-    repository = Repositories.get_repository_by_owner_and_name(owner, name)
+    repository = Repositories.get_public_repository_by_owner_and_name(owner, name)
 
     params =
       params
@@ -59,7 +59,7 @@ defmodule IncentivizeWeb.FundController do
 
   def show(conn, %{"owner" => owner, "name" => name, "id" => id}) do
     with repository when not is_nil(repository) <-
-           Repositories.get_repository_by_owner_and_name(owner, name),
+           Repositories.get_public_repository_by_owner_and_name(owner, name),
          fund when not is_nil(fund) <- Funds.get_fund_for_repository(repository, id) do
       render(conn, "show.html", repository: repository, fund: fund)
     else

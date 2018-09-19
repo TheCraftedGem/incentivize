@@ -25,7 +25,7 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
 
     assert redirected_to(conn) =~ repository_path(conn, :webhook, "octocat", "Hello-World1")
 
-    assert Repositories.get_repository_by_owner_and_name("octocat", "Hello-World1") != nil
+    assert Repositories.get_public_repository_by_owner_and_name("octocat", "Hello-World1") != nil
   end
 
   test "GET /repos/:owner/:name/webhook when not authorized", %{conn: conn, user: _user} do

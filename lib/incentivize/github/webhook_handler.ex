@@ -38,6 +38,7 @@ defmodule Incentivize.Github.WebhookHandler do
     [repo_owner, repo_name] = String.split(repository["full_name"], "/")
 
     repository = Repositories.get_repository_by_owner_and_name(repo_owner, repo_name)
+
     user = Users.get_user_by_github_login(user["login"])
     pledges = Funds.list_pledges_for_repository_and_action(repository, event_and_action)
 
@@ -106,7 +107,7 @@ defmodule Incentivize.Github.WebhookHandler do
         payload["repositories_removed"]
         |> Enum.map(fn %{"full_name" => full_name} ->
           [owner, name] = String.split(full_name, "/")
-          Repositories.get_repository_by_owner_and_name(owner, name)
+          Repositories.get_repository_by_owner_and_name_include_deleted(owner, name)
         end)
         |> Enum.reject(fn x -> is_nil(x) end)
 
@@ -133,7 +134,7 @@ defmodule Incentivize.Github.WebhookHandler do
   defp add_repositories_from_installation(repos, installation_id) do
     Enum.each(repos, fn %{"full_name" => full_name, "private" => private} ->
       [owner, name] = String.split(full_name, "/")
-      repository = Repositories.get_repository_by_owner_and_name(owner, name)
+      repository = Repositories.get_repository_by_owner_and_name_include_deleted(owner, name)
 
       # Create new repo if it does not exist already
       repository =
@@ -147,6 +148,10 @@ defmodule Incentivize.Github.WebhookHandler do
 
           repository
         else
+          if is_nil(repository.deleted_at) == false do
+            Repositories.undelete_repository(repository)
+          end
+
           repository
         end
 

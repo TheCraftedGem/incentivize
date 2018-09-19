@@ -26,5 +26,11 @@ defmodule Incentivize.Repo.Migrations.Installation do
     create(unique_index(:github_installation_repositories, [:installation_id, :repository_id]))
     create(index(:github_installation_repositories, [:installation_id]))
     create(index(:github_installation_repositories, [:repository_id]))
+
+    alter table(:repositories) do
+      add(:deleted_at, :utc_datetime)
+    end
+
+    create(index(:repositories, [:deleted_at]))
   end
 end

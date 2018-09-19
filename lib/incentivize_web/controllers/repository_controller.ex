@@ -48,7 +48,7 @@ defmodule IncentivizeWeb.RepositoryController do
   end
 
   def show(conn, %{"owner" => owner, "name" => name}) do
-    case Repositories.get_repository_by_owner_and_name(owner, name) do
+    case Repositories.get_public_repository_by_owner_and_name(owner, name) do
       nil ->
         :not_found
 
@@ -60,7 +60,7 @@ defmodule IncentivizeWeb.RepositoryController do
   end
 
   def webhook(conn, %{"owner" => owner, "name" => name}) do
-    repository = Repositories.get_repository_by_owner_and_name(owner, name)
+    repository = Repositories.get_public_repository_by_owner_and_name(owner, name)
 
     if Repositories.user_owns_repository?(repository, conn.assigns.current_user) do
       render(conn, "webhook.html", repository: repository)
