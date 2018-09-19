@@ -8,7 +8,8 @@ defmodule Incentivize.Github.App do
   The public URL of the GitHub App.
   """
   def public_url do
-    Confex.get_env(:incentivize, Incentivize.Github)[:public_url]
+    app_slug = Confex.get_env(:incentivize, Incentivize.Github)[:app_slug]
+    "https://github.com/apps/#{app_slug}"
   end
 
   @doc """

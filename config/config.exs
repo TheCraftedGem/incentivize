@@ -26,12 +26,16 @@ config :incentivize, Incentivize.Github,
   client_id: nil,
   client_secret: nil,
   app_id: nil,
+  # The private key of the github app as a string
   private_key: nil,
-  public_url: nil
+  # https://github.com/settings/apps/:app_slug
+  app_slug: nil
 
 config :incentivize, Incentivize.Stellar,
   # Defaults to test network
   network_url: "https://horizon-testnet.stellar.org",
+  # Stellar account used for application-level actions
+  # including creating escrow accounts for funds
   public_key: nil,
   secret: nil
 
@@ -58,6 +62,7 @@ config :incentivize, :nodejs, timeout: 60_000
 
 config :incentivize, :stellar_asset,
   code: "XLM",
+  # Should be nil for XLM or be the public key of the asset issuer
   issuer: nil
 
 config :rihanna, dispatcher_max_concurrency: 1
