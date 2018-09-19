@@ -2,6 +2,7 @@ const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const nodeModulesPath = path.resolve(__dirname, 'node_modules')
+const ImageminPlugin = require('imagemin-webpack-plugin').default
 
 // The webpack config
 module.exports = {
@@ -21,6 +22,10 @@ module.exports = {
         to: path.resolve(__dirname, '..', 'priv', 'static'),
       },
     ]),
+    new ImageminPlugin({
+      disable: process.env.NODE_ENV !== 'production',
+      test: /\.(jpe?g|png|gif|svg)$/i,
+    }),
     // Separate the css into it's own file
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
