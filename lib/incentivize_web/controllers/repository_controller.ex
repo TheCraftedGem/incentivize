@@ -5,8 +5,7 @@ defmodule IncentivizeWeb.RepositoryController do
     Github.App,
     Repositories,
     Github.API.Organizations,
-    Github.API.Users,
-    Repository
+    Github.API.Users
   }
 
   action_fallback(IncentivizeWeb.FallbackController)

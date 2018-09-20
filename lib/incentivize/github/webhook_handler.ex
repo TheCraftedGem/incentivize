@@ -79,12 +79,7 @@ defmodule Incentivize.Github.WebhookHandler do
 
   def handle("installation.deleted", payload) do
     installation_id = get_in(payload, ["installation", "id"])
-
-    installation = Installations.get_installation_by_installation_id(installation_id)
-
-    if installation do
-      Installations.delete_installation(installation)
-    end
+    Installations.delete_installation(installation_id)
 
     {:ok, []}
   end
@@ -99,20 +94,15 @@ defmodule Incentivize.Github.WebhookHandler do
   end
 
   def handle("installation_repositories.removed", payload) do
-    installation_id = get_in(payload, ["installation", "id"])
-    installation = Installations.get_installation_by_installation_id(installation_id)
+    repos =
+      payload["repositories_removed"]
+      |> Enum.map(fn %{"full_name" => full_name} ->
+        [owner, name] = String.split(full_name, "/")
+        Repositories.get_repository_by_owner_and_name(owner, name)
+      end)
+      |> Enum.reject(fn x -> is_nil(x) end)
 
-    if installation do
-      repos =
-        payload["repositories_removed"]
-        |> Enum.map(fn %{"full_name" => full_name} ->
-          [owner, name] = String.split(full_name, "/")
-          Repositories.get_repository_by_owner_and_name_include_deleted(owner, name)
-        end)
-        |> Enum.reject(fn x -> is_nil(x) end)
-
-      Installations.delete_installation_repositories(installation, repos)
-    end
+    Repositories.delete_repositories(repos)
 
     {:ok, []}
   end
@@ -137,31 +127,22 @@ defmodule Incentivize.Github.WebhookHandler do
       repository = Repositories.get_repository_by_owner_and_name_include_deleted(owner, name)
 
       # Create new repo if it does not exist already
-      repository =
-        if is_nil(repository) do
-          {:ok, %{repository: repository}} =
-            Repositories.create_repository(%{
-              owner: owner,
-              name: name,
-              is_public: !private
-            })
+      if is_nil(repository) do
+        {:ok, %{repository: repository}} =
+          Repositories.create_repository(%{
+            owner: owner,
+            name: name,
+            public: !private,
+            installation_id: installation_id
+          })
 
-          repository
-        else
-          if is_nil(repository.deleted_at) == false do
-            Repositories.undelete_repository(repository)
-          end
-
-          repository
+        repository
+      else
+        # if it already exists but is deleted, undelete it
+        # the installation id could have changed so update that as well
+        if is_nil(repository.deleted_at) == false do
+          Repositories.undelete_repository(repository, installation_id)
         end
-
-      # Create and InstallationRepository to mark the relationship
-      # Between this installation and the repo.
-      if Installations.get_installation_repository(installation_id, repository.id) == nil do
-        Installations.create_installation_repository(%{
-          repository_id: repository.id,
-          installation_id: installation_id
-        })
       end
     end)
   end

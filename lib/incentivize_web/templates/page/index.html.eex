@@ -15,19 +15,6 @@
 
   <div class="LandingPageWrapper">
 
-    <!-- <div>
-      <div class="rev-Row">
-        <div class="rev-Col rev-Col--centered rev-Col--smallCentered">
-          <div class="LogoWrapper">
-            <img class="Image" src="/images/logo-placeholder.png" />
-            <img class="Image" src="/images/logo-placeholder.png" />
-            <img class="Image" src="/images/logo-placeholder.png" />
-            <img class="Image" src="/images/logo-placeholder.png" />
-          </div>
-        </div>
-      </div>
-    </div> -->
-
     <div class="Section light">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium4">

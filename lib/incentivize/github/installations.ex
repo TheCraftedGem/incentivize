@@ -7,9 +7,7 @@ defmodule Incentivize.Github.Installations do
 
   alias Incentivize.{
     Github.Installation,
-    Github.InstallationRepository,
     Repo,
-    Repository,
     Repositories
   }
 
@@ -25,38 +23,17 @@ defmodule Incentivize.Github.Installations do
     |> Repo.update()
   end
 
-  def delete_installation(installation) do
+  def delete_installation(installation_id) do
     Repo.transaction(fn ->
-      # Get Repositories connected with installation
-      # We use this to check if we need to delete any later on
-      repositories =
-        Repo.all(
-          from(
-            repository in Repository,
-            join: ir in InstallationRepository,
-            on:
-              ir.repository_id == repository.id and
-                ir.installation_id == ^installation.installation_id,
-            select: repository
-          )
-        )
+      installation = get_installation_by_installation_id(installation_id)
 
-      # Delete installation repository associations
-      Repo.delete_all(
-        from(ir in InstallationRepository,
-          where: ir.installation_id == ^installation.installation_id
-        )
-      )
+      if installation do
+        # Delete repos associated with the installation
+        Repositories.delete_repositories_for_installation_id(installation.id)
 
-      # Delete installation
-      Repo.delete(installation)
-
-      # Delete any repositories that do not have any more installations
-      Enum.each(repositories, fn repository ->
-        if count_installation_repositories_for_repository(repository.id) == 0 do
-          Repositories.delete_repository(repository)
-        end
-      end)
+        # Delete installation
+        Repo.delete(installation)
+      end
     end)
   end
 
@@ -70,47 +47,5 @@ defmodule Incentivize.Github.Installations do
 
   def get_installation(id) do
     Repo.get(Installation, id)
-  end
-
-  def delete_installation_repositories(installation, repositories) do
-    Repo.transaction(fn ->
-      repository_ids = Enum.map(repositories, fn repository -> repository.id end)
-
-      Repo.delete_all(
-        from(ir in InstallationRepository,
-          where:
-            ir.installation_id == ^installation.installation_id and
-              ir.repository_id in ^repository_ids
-        )
-      )
-
-      Enum.each(repositories, fn repository ->
-        if count_installation_repositories_for_repository(repository.id) == 0 do
-          Repositories.delete_repository(repository)
-        end
-      end)
-    end)
-  end
-
-  def create_installation_repository(params) do
-    %InstallationRepository{}
-    |> InstallationRepository.changeset(params)
-    |> Repo.insert()
-  end
-
-  def get_installation_repository(installation_id, repository_id) do
-    Repo.get_by(InstallationRepository,
-      installation_id: installation_id,
-      repository_id: repository_id
-    )
-  end
-
-  def count_installation_repositories_for_repository(repository_id) do
-    Repo.one(
-      from(ir in InstallationRepository,
-        where: ir.repository_id == ^repository_id,
-        select: count(ir.id)
-      )
-    ) || 0
   end
 end
