@@ -167,6 +167,7 @@ config :incentivize, Incentivize.Github,
   app_id: <github_app_id>,
   private_key: <github_app_private_key>, #contents of .pem file as a string
   webhook_secret: <github_app_webhook_secret> #not used by incentivize just yet
+  app_slug: <github_app_slug> # https://github.com/settings/apps/:app_slug
 
 config :incentivize, Incentivize.Stellar,
   network_url: <stellar_network_url>, # Optional. Defaults to test network.

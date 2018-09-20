@@ -15,7 +15,7 @@
           href="<%= Incentivize.Github.App.public_url()  %>"
           class="rev-Button rev-Button--expanded"
         >
-          Start here
+          Incentivize your repos
         </a>
       </div>
     </div>

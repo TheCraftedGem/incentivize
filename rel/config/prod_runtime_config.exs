@@ -27,7 +27,8 @@ config :incentivize, Incentivize.Github,
   client_secret: System.get_env("GITHUB_CLIENT_SECRET"),
   app_id: System.get_env("GITHUB_APP_ID"),
   private_key: System.get_env("GITHUB_APP_PRIVATE_KEY"),
-  app_slug: System.get_env("GITHUB_APP_SLUG")
+  app_slug: System.get_env("GITHUB_APP_SLUG"),
+  webhook_secret: System.get_env("GITHUB_APP_WEBHOOK_SECRET")
 
 config :incentivize, Incentivize.Stellar,
   # Defaults to test network
