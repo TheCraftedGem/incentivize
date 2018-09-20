@@ -30,7 +30,8 @@ defmodule IncentivizeWeb.RepositoryController do
       end
 
     organization_installation_info =
-      Enum.map(organizations, fn org ->
+      organizations
+      |> Enum.map(fn org ->
         case App.get_organization_app_installation_by_github_login(org["login"]) do
           {:ok, installation} ->
             %{id: org["id"], login: org["login"], installation_id: installation["id"]}
@@ -39,7 +40,7 @@ defmodule IncentivizeWeb.RepositoryController do
             %{id: org["id"], login: org["login"], installation_id: nil}
         end
       end)
-      |> Enum.sort(fn x, y -> String.downcase(x.login) < String.downcase(y.login) end)
+      |> Enum.sort(fn org1, org2 -> String.downcase(org1.login) < String.downcase(org2.login) end)
 
     render(conn, "new.html",
       user_installation_info: user_installation_info,

@@ -151,12 +151,6 @@ defmodule IncentivizeWeb.Router do
     post("/", GithubWebhookController, :handle_webhook)
   end
 
-  scope "/github/setup", IncentivizeWeb do
-    pipe_through(:browser)
-
-    get("/", GithubAppSetupController, :index)
-  end
-
   # Other scopes may use custom stacks.
   # scope "/api", IncentivizeWeb do
   #   pipe_through :api
