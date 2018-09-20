@@ -62,6 +62,8 @@ defmodule Incentivize.Github.WebhookHandler do
     end
   end
 
+  # New Installation is created
+  # Add a record of if and add associated repos as well
   def handle("installation.created", payload) do
     Installations.create_installation(%{
       installation_id: get_in(payload, ["installation", "id"]),
@@ -77,6 +79,8 @@ defmodule Incentivize.Github.WebhookHandler do
     {:ok, []}
   end
 
+  # Installation deleted
+  # Remove it and soft delete repos
   def handle("installation.deleted", payload) do
     installation_id = get_in(payload, ["installation", "id"])
     Installations.delete_installation(installation_id)
@@ -84,6 +88,8 @@ defmodule Incentivize.Github.WebhookHandler do
     {:ok, []}
   end
 
+  # Repos added to installation
+  # Add them and associate with installation
   def handle("installation_repositories.added", payload) do
     add_repositories_from_installation(
       payload["repositories_added"],
@@ -93,6 +99,8 @@ defmodule Incentivize.Github.WebhookHandler do
     {:ok, []}
   end
 
+  # Repos removed from installation
+  # remove them
   def handle("installation_repositories.removed", payload) do
     repos =
       payload["repositories_removed"]
