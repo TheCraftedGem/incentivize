@@ -13,21 +13,6 @@ defmodule Incentivize.Github.App do
   end
 
   @doc """
-  Gets all installations associated with the app
-  """
-  def get_app_installations do
-    "#{Base.base_url()}/app/installations"
-    |> HTTPoison.get(headers())
-    |> Base.process_response()
-  end
-
-  def get_app_installation(installation_id) do
-    "#{Base.base_url()}/app/installations/#{installation_id}"
-    |> HTTPoison.get(headers())
-    |> Base.process_response()
-  end
-
-  @doc """
   Gets the user's app installation information using their
   username
   """
@@ -45,19 +30,6 @@ defmodule Incentivize.Github.App do
     "#{Base.base_url()}/orgs/#{github_login}/installation"
     |> HTTPoison.get(headers())
     |> Base.process_response()
-  end
-
-  @doc """
-  Gets repositories for the given installation
-  """
-  def get_app_installation_repositories(installation_id) do
-    {:ok, %{"token" => token}} = get_installation_access_token(installation_id)
-
-    header = headers(token)
-
-    "#{Base.base_url()}/installation/repositories"
-    |> HTTPoison.get(header)
-    |> Base.process_response(header)
   end
 
   @doc """
@@ -102,5 +74,23 @@ defmodule Incentivize.Github.App do
     |> token
     |> sign(rs256(key))
     |> get_compact
+  end
+
+  @spec list_organizations_for_user(User.t()) :: {:ok, map} | {:error, binary}
+  def list_organizations_for_user(user) do
+    url = "#{Base.base_url()}/user/orgs?access_token=#{user.github_access_token}"
+
+    url
+    |> HTTPoison.get(Base.headers())
+    |> Base.process_response()
+  end
+
+  @spec get_user(User.t()) :: {:ok, map} | {:error, binary}
+  def get_user(user) do
+    url = "#{Base.base_url()}/user?access_token=#{user.github_access_token}"
+
+    url
+    |> HTTPoison.get(Base.headers())
+    |> Base.process_response()
   end
 end

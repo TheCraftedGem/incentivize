@@ -26,7 +26,7 @@ config :incentivize, Incentivize.Repo,
   loggers: [{Ecto.LogEntry, :log, []}, {Incentivize.Metrics, :record_ecto_metric, []}]
 
 config :incentivize, :stellar_module, Incentivize.Stellar.Mock
-config :incentivize, :github_repos_module, Incentivize.Github.API.Repos.Mock
+config :incentivize, :github_app_module, Incentivize.Github.App.Mock
 
 config :incentivize, Incentivize.Stellar,
   network_url: "https://horizon-testnet.stellar.org",
