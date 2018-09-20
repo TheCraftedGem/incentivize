@@ -4,8 +4,9 @@ defmodule IncentivizeWeb.GithubWebhookController.Test do
 
   def calculate_signature(json) do
     secret = Application.get_env(:incentivize, Incentivize.Github.App, [])[:webhook_secret]
+    hmac = :crypto.hmac(:sha, secret, json)
 
-    "sha1=" <> (:crypto.hmac(:sha, secret, json) |> Base.encode16(case: :lower))
+    "sha1=" <> Base.encode16(hmac, case: :lower)
   end
 
   test "POST /github/webhook", %{conn: conn} do

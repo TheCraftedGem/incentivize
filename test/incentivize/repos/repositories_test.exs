@@ -11,7 +11,7 @@ defmodule Incentivize.Repositories.Test do
         "name" => "Hello-World",
         "created_by_id" => user.id,
         "public" => true,
-        "installation_id" => 12345
+        "installation_id" => 12_345
       })
 
     assert repository.name == "Hello-World"
@@ -26,7 +26,7 @@ defmodule Incentivize.Repositories.Test do
         "owner" => "octocat",
         "name" => "Hello-World",
         "public" => true,
-        "installation_id" => 12345
+        "installation_id" => 12_345
       })
 
     assert repository.name == "Hello-World"
