@@ -76,7 +76,7 @@ defmodule Incentivize.Github.WebhookHandler do
       get_in(payload, ["installation", "id"])
     )
 
-    {:ok, []}
+    {:ok, :installation_created}
   end
 
   # Installation deleted
@@ -85,7 +85,7 @@ defmodule Incentivize.Github.WebhookHandler do
     installation_id = get_in(payload, ["installation", "id"])
     Installations.delete_installation(installation_id)
 
-    {:ok, []}
+    {:ok, :installation_deleted}
   end
 
   # Repos added to installation
@@ -96,7 +96,7 @@ defmodule Incentivize.Github.WebhookHandler do
       get_in(payload, ["installation", "id"])
     )
 
-    {:ok, []}
+    {:ok, :installation_repositories_added}
   end
 
   # Repos removed from installation
@@ -112,7 +112,7 @@ defmodule Incentivize.Github.WebhookHandler do
 
     Repositories.delete_repositories(repos)
 
-    {:ok, []}
+    {:ok, :installation_repositories_removed}
   end
 
   def handle(_, _) do
