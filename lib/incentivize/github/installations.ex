@@ -17,19 +17,13 @@ defmodule Incentivize.Github.Installations do
     |> Repo.insert()
   end
 
-  def update_installation(installation, params) do
-    installation
-    |> Installation.changeset(params)
-    |> Repo.update()
-  end
-
   def delete_installation(installation_id) do
     Repo.transaction(fn ->
       installation = get_installation_by_installation_id(installation_id)
 
       if installation do
         # Delete repos associated with the installation
-        Repositories.delete_repositories_for_installation_id(installation.id)
+        Repositories.delete_repositories_for_installation_id(installation.installation_id)
 
         # Delete installation
         Repo.delete(installation)

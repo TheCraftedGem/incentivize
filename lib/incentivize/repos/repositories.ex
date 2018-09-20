@@ -175,16 +175,6 @@ defmodule Incentivize.Repositories do
     )
   end
 
-  def delete_repository(repository) do
-    Repo.update_all(
-      from(r in Repository,
-        where: r.id == ^repository.id,
-        update: [set: [deleted_at: ^DateTime.utc_now()]]
-      ),
-      []
-    )
-  end
-
   def undelete_repository(repository, installation_id) do
     Repo.update_all(from(r in Repository,
       where: r.id == ^repository.id,

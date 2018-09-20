@@ -1,6 +1,6 @@
 defmodule Incentivize.Github.WebhookHandler.Test do
   use Incentivize.DataCase, async: true
-  alias Incentivize.{Funds, Github.WebhookHandler}
+  alias Incentivize.{Funds, Github.WebhookHandler, Github.Installations, Repositories}
   @stellar_module Application.get_env(:incentivize, :stellar_module)
 
   test "invalid action" do
@@ -169,5 +169,81 @@ defmodule Incentivize.Github.WebhookHandler.Test do
                "pull_request.closed",
                json
              )
+  end
+
+  describe "Installation Webhooks" do
+    test "installation created" do
+      json =
+        "./test/fixtures/installation_created.json"
+        |> File.read!()
+        |> Poison.decode!()
+
+        assert {:ok, _} =
+          WebhookHandler.handle(
+            "installation.created",
+            json
+          )
+
+        assert Installations.get_installation_by_installation_id(2) != nil
+        assert Repositories.get_repository_by_owner_and_name("octocat", "Hello-World") != nil
+    end
+
+    test "installation deleted" do
+      json =
+        "./test/fixtures/installation_deleted.json"
+        |> File.read!()
+        |> Poison.decode!()
+
+        assert {:ok, _} =
+          WebhookHandler.handle(
+            "installation.deleted",
+            json
+          )
+
+        assert Installations.get_installation_by_installation_id(2) == nil
+        assert Repositories.get_repository_by_owner_and_name("octocat", "Hello-World") == nil
+    end
+
+    test "installation repositories added and removed" do
+      json =
+        "./test/fixtures/installation_created.json"
+        |> File.read!()
+        |> Poison.decode!()
+
+        assert {:ok, _} =
+          WebhookHandler.handle(
+            "installation.created",
+            json
+          )
+
+      assert Installations.get_installation_by_installation_id(2) != nil
+      assert Repositories.get_repository_by_owner_and_name("octocat", "Hello-World") != nil
+
+      json =
+        "./test/fixtures/installation_repositories_added.json"
+        |> File.read!()
+        |> Poison.decode!()
+
+        assert {:ok, _} =
+          WebhookHandler.handle(
+            "installation_repositories.added",
+            json
+          )
+
+      assert Repositories.get_repository_by_owner_and_name("test", "test-repo") != nil
+
+      json =
+        "./test/fixtures/installation_repositories_removed.json"
+        |> File.read!()
+        |> Poison.decode!()
+
+        assert {:ok, _} =
+          WebhookHandler.handle(
+            "installation_repositories.removed",
+            json
+          )
+
+      assert Repositories.get_repository_by_owner_and_name("test", "test-repo") == nil
+    end
   end
 end
