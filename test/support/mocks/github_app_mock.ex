@@ -5,13 +5,13 @@ defmodule Incentivize.Github.App.Mock do
     "https://github.com/apps/test"
   end
 
-  def get_user_app_installation_by_github_login(github_login) do
+  def get_user_app_installation_by_github_login(_github_login) do
   end
 
-  def get_organization_app_installation_by_github_login(github_login) do
+  def get_organization_app_installation_by_github_login(_github_login) do
   end
 
-  def list_organizations_for_user(user) do
+  def list_organizations_for_user(_user) do
     {:ok,
      [
        %{
@@ -31,7 +31,7 @@ defmodule Incentivize.Github.App.Mock do
      ]}
   end
 
-  def get_user(user) do
+  def get_user(_user) do
     {:ok,
      %{
        "login" => "octocat",

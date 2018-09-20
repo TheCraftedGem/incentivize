@@ -37,15 +37,7 @@ defmodule Incentivize.Github.Installations do
     end)
   end
 
-  def get_installation_by_github_login(github_login) do
-    Repo.get_by(Installation, github_login: github_login)
-  end
-
   def get_installation_by_installation_id(installation_id) do
     Repo.get_by(Installation, installation_id: installation_id)
-  end
-
-  def get_installation(id) do
-    Repo.get(Installation, id)
   end
 end
