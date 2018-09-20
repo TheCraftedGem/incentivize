@@ -28,6 +28,16 @@ defmodule Incentivize.Github.App do
   end
 
   @doc """
+  Gets the user's app installation information using their
+  username
+  """
+  def get_app_installation_by_github_login(github_login) do
+    "#{Base.base_url()}/users/#{github_login}/installation"
+    |> HTTPoison.get(headers())
+    |> Base.process_response()
+  end
+
+  @doc """
   Gets an installation app token. Used to make GitHub API requests as the installation
   """
   def get_installation_access_token(installation_id) do
