@@ -98,6 +98,13 @@ defmodule Incentivize.Github.Installations do
     |> Repo.insert()
   end
 
+  def get_installation_repository(installation_id, repository_id) do
+    Repo.get_by(InstallationRepository,
+      installation_id: installation_id,
+      repository_id: repository_id
+    )
+  end
+
   def count_installation_repositories_for_repository(repository_id) do
     Repo.one(
       from(ir in InstallationRepository,

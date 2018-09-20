@@ -157,11 +157,12 @@ defmodule Incentivize.Github.WebhookHandler do
 
       # Create and InstallationRepository to mark the relationship
       # Between this installation and the repo.
-      {:ok, _} =
+      if Installations.get_installation_repository(installation_id, repository.id) == nil do
         Installations.create_installation_repository(%{
           repository_id: repository.id,
           installation_id: installation_id
         })
+      end
     end)
   end
 end
