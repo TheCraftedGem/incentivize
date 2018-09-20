@@ -126,10 +126,7 @@ defmodule IncentivizeWeb.Router do
   scope "/repos", IncentivizeWeb do
     pipe_through([:browser, :require_auth])
 
-    get("/new", RepositoryController, :new)
-    post("/create", RepositoryController, :create)
-
-    get("/:owner/:name/webhook", RepositoryController, :webhook)
+    get("/settings", RepositoryController, :new)
     get("/:owner/:name/contributions", ContributionController, :for_repository)
   end
 

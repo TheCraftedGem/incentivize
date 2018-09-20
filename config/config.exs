@@ -22,9 +22,12 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :incentivize, Incentivize.Github,
+config :incentivize, Incentivize.Github.OAuth,
+  # The client id and secret from oauth app
   client_id: nil,
-  client_secret: nil,
+  client_secret: nil
+
+config :incentivize, Incentivize.Github.App,
   app_id: nil,
   # The private key of the github app as a string
   private_key: nil,

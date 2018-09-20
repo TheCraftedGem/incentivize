@@ -10,14 +10,6 @@
           <strong>Incentivize.io</strong> is an <strong>incentive platform for software development</strong> that enables organizations or individuals to distribute XLM to project contributors.
         </h3>
       </div>
-      <div class="rev-Col rev-Col--medium6 rev-Col--smallCentered Text-center">
-        <a
-          href="<%= Incentivize.Github.App.public_url()  %>"
-          class="rev-Button rev-Button--expanded"
-        >
-          Incentivize your repos
-        </a>
-      </div>
     </div>
   </div>
 

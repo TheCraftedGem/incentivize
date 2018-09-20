@@ -16,7 +16,7 @@ defmodule IncentivizeWeb.GithubWebhookPlug do
   def call(conn, _options) do
     payload = conn.assigns[:raw_body]
 
-    secret = Confex.get_env(:incentivize, Incentivize.Github, [])[:webhook_secret]
+    secret = Confex.get_env(:incentivize, Incentivize.Github.App, [])[:webhook_secret]
 
     [signature_in_header] = get_req_header(conn, "x-hub-signature")
 

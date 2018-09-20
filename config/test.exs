@@ -33,9 +33,11 @@ config :incentivize, Incentivize.Stellar,
   public_key: System.get_env("STELLAR_PUBLIC_KEY"),
   secret: System.get_env("STELLAR_SECRET")
 
-config :incentivize, Incentivize.Github,
+config :incentivize, Incentivize.Github.OAuth,
   client_id: System.get_env("GITHUB_CLIENT_ID"),
-  client_secret: System.get_env("GITHUB_CLIENT_SECRET"),
+  client_secret: System.get_env("GITHUB_CLIENT_SECRET")
+
+config :incentivize, Incentivize.Github.App,
   app_id: System.get_env("GITHUB_APP_ID"),
   private_key: System.get_env("GITHUB_APP_PRIVATE_KEY"),
   app_slug: System.get_env("GITHUB_APP_SLUG"),

@@ -7,9 +7,10 @@ defmodule Incentivize.Github.API.Base do
     "https://api.github.com"
   end
 
-  def process_response(response, accum \\ []) do
+  def process_response(response, request_headers, accum \\ []) do
     case response do
-      {:ok, %HTTPoison.Response{headers: headers, status_code: 200, body: body}} ->
+      {:ok, %HTTPoison.Response{headers: headers, status_code: status_code, body: body}}
+      when status_code in [200, 201] ->
         link_header = Enum.find(headers, fn header -> elem(header, 0) == "Link" end)
         body = Jason.decode!(body)
 
@@ -22,7 +23,11 @@ defmodule Incentivize.Github.API.Base do
           if next_url == nil do
             {:ok, List.flatten(accum)}
           else
-            process_response(HTTPoison.get(next_url["url"], headers()), accum)
+            process_response(
+              HTTPoison.get(next_url["url"], request_headers),
+              request_headers,
+              accum
+            )
           end
         end
 
@@ -32,6 +37,10 @@ defmodule Incentivize.Github.API.Base do
       {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, reason}
     end
+  end
+
+  def process_response(response) do
+    process_response(response, headers(), [])
   end
 
   def headers do

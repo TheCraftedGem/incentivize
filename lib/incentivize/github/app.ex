@@ -8,7 +8,7 @@ defmodule Incentivize.Github.App do
   The public URL of the GitHub App.
   """
   def public_url do
-    app_slug = Confex.get_env(:incentivize, Incentivize.Github)[:app_slug]
+    app_slug = Confex.get_env(:incentivize, Incentivize.Github.App)[:app_slug]
     "https://github.com/apps/#{app_slug}"
   end
 
@@ -31,10 +31,33 @@ defmodule Incentivize.Github.App do
   Gets the user's app installation information using their
   username
   """
-  def get_app_installation_by_github_login(github_login) do
+  def get_user_app_installation_by_github_login(github_login) do
     "#{Base.base_url()}/users/#{github_login}/installation"
     |> HTTPoison.get(headers())
     |> Base.process_response()
+  end
+
+  @doc """
+  Gets the organizations's app installation information using their
+  name
+  """
+  def get_organization_app_installation_by_github_login(github_login) do
+    "#{Base.base_url()}/orgs/#{github_login}/installation"
+    |> HTTPoison.get(headers())
+    |> Base.process_response()
+  end
+
+  @doc """
+  Gets repositories for the given installation
+  """
+  def get_app_installation_repositories(installation_id) do
+    {:ok, %{"token" => token}} = get_installation_access_token(installation_id)
+
+    header = headers(token)
+
+    "#{Base.base_url()}/installation/repositories"
+    |> HTTPoison.get(header)
+    |> Base.process_response(header)
   end
 
   @doc """
@@ -54,12 +77,20 @@ defmodule Incentivize.Github.App do
     ]
   end
 
+  defp headers(installation_access_token) do
+    [
+      {"User-Agent", "Incentivize"},
+      {"Accept", "application/vnd.github.machine-man-preview+json"},
+      {"Authorization", "Bearer #{installation_access_token}"}
+    ]
+  end
+
   # Generates token for github app-level API calls
   defp get_app_auth_token do
     import Joken
     alias JOSE.JWK
 
-    config = Confex.get_env(:incentivize, Incentivize.Github)
+    config = Confex.get_env(:incentivize, Incentivize.Github.App)
 
     key = JWK.from_pem(config[:private_key])
 
