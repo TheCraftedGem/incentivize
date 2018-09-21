@@ -71,7 +71,7 @@
                     <a href="#About">About</a>
                   </li>
                   <li class="rev-Menu-item">
-                    <a href="#">Discover</a>
+                    <a href="<%= repository_path(@conn, :index) %>">Discover</a>
                   </li>
                   <li class="rev-Menu-item">
                     <a href="#Contact">Contact</a>
