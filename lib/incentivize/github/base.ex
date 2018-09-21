@@ -1,37 +1,16 @@
-defmodule Incentivize.Github.API.Repos do
+defmodule Incentivize.Github.API.Base do
   @moduledoc """
   API module for GitHub Repos
   """
-  alias Incentivize.User
-  @base_url "https://api.github.com"
 
-  @doc """
-  Gets info about a public repo from github
-  """
-  @spec get_public_repo(User.t(), binary, binary) :: {:ok, map} | {:error, binary}
-  def get_public_repo(user, owner, name) do
-    url = "#{@base_url}/repos/#{owner}/#{name}?access_token=#{user.github_access_token}"
-
-    url
-    |> HTTPoison.get(headers())
-    |> process_response
+  def base_url do
+    Application.get_env(:incentivize, :github_api_base_url, "https://api.github.com")
   end
 
-  @doc """
-  Gets all public repos that a user has access to
-  """
-  @spec get_all_public_repos(User.t()) :: {:ok, []} | {:error, binary}
-  def get_all_public_repos(user) do
-    url = "#{@base_url}/user/repos?access_token=#{user.github_access_token}&visibility=public"
-
-    url
-    |> HTTPoison.get(headers())
-    |> process_response
-  end
-
-  defp process_response(response, accum \\ []) do
+  def process_response(response, request_headers, accum \\ []) do
     case response do
-      {:ok, %HTTPoison.Response{headers: headers, status_code: 200, body: body}} ->
+      {:ok, %HTTPoison.Response{headers: headers, status_code: status_code, body: body}}
+      when status_code in [200, 201] ->
         link_header = Enum.find(headers, fn header -> elem(header, 0) == "Link" end)
         body = Jason.decode!(body)
 
@@ -44,7 +23,11 @@ defmodule Incentivize.Github.API.Repos do
           if next_url == nil do
             {:ok, List.flatten(accum)}
           else
-            process_response(HTTPoison.get(next_url["url"], headers()), accum)
+            process_response(
+              HTTPoison.get(next_url["url"], request_headers),
+              request_headers,
+              accum
+            )
           end
         end
 
@@ -56,7 +39,11 @@ defmodule Incentivize.Github.API.Repos do
     end
   end
 
-  defp headers do
+  def process_response(response) do
+    process_response(response, headers(), [])
+  end
+
+  def headers do
     [
       {"User-Agent", "Incentivize"},
       {"Accept", "application/vnd.github.v3+json"}

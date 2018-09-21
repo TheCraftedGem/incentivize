@@ -1,7 +1,6 @@
 defmodule IncentivizeWeb.RepositoryControllerTest do
   @moduledoc false
   use IncentivizeWeb.ConnCase, async: true
-  alias Incentivize.Repositories
 
   setup %{conn: conn} do
     user = insert!(:user)
@@ -13,43 +12,10 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
     [user: user, conn: conn]
   end
 
-  test "GET /repos/new", %{conn: conn} do
+  test "GET /repos/settings", %{conn: conn} do
     conn = get(conn, repository_path(conn, :new))
-    assert html_response(conn, 200) =~ "Connect To Repository"
-    assert html_response(conn, 200) =~ "Repository"
-  end
-
-  test "POST /repos/create", %{conn: conn, user: _user} do
-    conn =
-      post(conn, repository_path(conn, :create), repository: [repo_name: "octocat/Hello-World1"])
-
-    assert redirected_to(conn) =~ repository_path(conn, :webhook, "octocat", "Hello-World1")
-
-    assert Repositories.get_repository_by_owner_and_name("octocat", "Hello-World1") != nil
-  end
-
-  test "GET /repos/:owner/:name/webhook when not authorized", %{conn: conn, user: _user} do
-    insert!(:repository, owner: "octocat", name: "Hello-World2")
-
-    conn = get(conn, repository_path(conn, :webhook, "octocat", "Hello-World2"))
-    assert response(conn, 403) =~ "Unauthorized"
-  end
-
-  test "GET /repos/:owner/:name/webhook when authorized", %{conn: conn, user: user} do
-    repo = insert!(:repository, owner: "octocat", name: "Hello-World3")
-    insert!(:user_repository, user: user, repository: repo)
-
-    conn = get(conn, repository_path(conn, :webhook, "octocat", "Hello-World3"))
-    assert html_response(conn, 200)
-  end
-
-  test "POST /repos/create when repo already connected", %{conn: conn} do
-    insert!(:repository, owner: "octocat", name: "Hello-World4")
-
-    conn =
-      post(conn, repository_path(conn, :create), repository: [repo_name: "octocat/Hello-World4"])
-
-    assert html_response(conn, 400) =~ "already connected"
+    assert html_response(conn, 200) =~ "Connect Repositories"
+    assert html_response(conn, 200) =~ "Install"
   end
 
   test "GET /repos", %{conn: conn} do

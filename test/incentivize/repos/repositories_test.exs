@@ -9,7 +9,9 @@ defmodule Incentivize.Repositories.Test do
       Repositories.create_repository(%{
         "owner" => "octocat",
         "name" => "Hello-World",
-        "created_by_id" => user.id
+        "created_by_id" => user.id,
+        "public" => true,
+        "installation_id" => 12_345
       })
 
     assert repository.name == "Hello-World"
@@ -22,7 +24,9 @@ defmodule Incentivize.Repositories.Test do
     {:ok, repository} =
       Repositories.update_repository(repo, %{
         "owner" => "octocat",
-        "name" => "Hello-World"
+        "name" => "Hello-World",
+        "public" => true,
+        "installation_id" => 12_345
       })
 
     assert repository.name == "Hello-World"
@@ -30,7 +34,7 @@ defmodule Incentivize.Repositories.Test do
 
   test "get_repository_by_owner_and_name" do
     repo = insert!(:repository)
-    repo_from_db = Repositories.get_repository_by_owner_and_name(repo.owner, repo.name)
+    repo_from_db = Repositories.get_public_repository_by_owner_and_name(repo.owner, repo.name)
 
     assert repo.id == repo_from_db.id
   end

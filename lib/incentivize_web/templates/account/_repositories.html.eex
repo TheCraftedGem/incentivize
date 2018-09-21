@@ -19,11 +19,6 @@
                       </div>
                     </h3>
                     <p>
-                      <a href="<%= repository_path(@conn, :webhook, repo.owner, repo.name) %>">
-                        Webhook
-                      </a>
-                    </p>
-                    <p>
                       <a href="<%= contribution_path(@conn, :for_repository, repo.owner, repo.name) %>">
                         <%= length(repo.contributions) %> Contributions
                       </a>

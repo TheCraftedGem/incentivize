@@ -4,7 +4,7 @@ defmodule Incentivize.Github.OAuth do
   alias OAuth2.Strategy.AuthCode
 
   def client do
-    config = Confex.get_env(:incentivize, Incentivize.Github, [])
+    config = Confex.get_env(:incentivize, Incentivize.Github.OAuth, [])
 
     Client.new(
       strategy: __MODULE__,
@@ -17,7 +17,7 @@ defmodule Incentivize.Github.OAuth do
   end
 
   def authorize_url! do
-    Client.authorize_url!(client(), scope: "read:user,user:email")
+    Client.authorize_url!(client(), scope: "user,read:org")
   end
 
   # you can pass options to the underlying http library via `opts` parameter

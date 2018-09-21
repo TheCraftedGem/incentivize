@@ -2,6 +2,7 @@ defmodule Incentivize.Github.ContributionWorker do
   @behaviour Rihanna.Job
   alias Incentivize.{Contributions, Funds, Repositories, Users}
   @stellar_module Application.get_env(:incentivize, :stellar_module)
+  require Logger
 
   @moduledoc """
   Handles creating contributions
@@ -18,7 +19,7 @@ defmodule Incentivize.Github.ContributionWorker do
     repository = Repositories.get_repository(repository_id)
     user = Users.get_user(user_id)
 
-    if pledge && repository && user do
+    if pledge != nil && repository != nil && user != nil do
       with {:ok, transaction_url} <-
              @stellar_module.reward_contribution(
                pledge.fund.stellar_public_key,
@@ -38,7 +39,21 @@ defmodule Incentivize.Github.ContributionWorker do
              }) do
         :ok
       else
-        {:error, _error} ->
+        {:error, error} ->
+          data = %{
+            pledge_id: pledge_id,
+            repository_id: repository_id,
+            user_id: user_id,
+            action: action,
+            github_html_url: github_html_url
+          }
+
+          Logger.error(fn ->
+            "An error occurred while performing contribution. data: #{inspect(data)} error: #{
+              inspect(error)
+            }"
+          end)
+
           {:error, :failed}
       end
     else

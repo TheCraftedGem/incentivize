@@ -26,12 +26,22 @@ config :incentivize, Incentivize.Repo,
   loggers: [{Ecto.LogEntry, :log, []}, {Incentivize.Metrics, :record_ecto_metric, []}]
 
 config :incentivize, :stellar_module, Incentivize.Stellar.Mock
-config :incentivize, :github_repos_module, Incentivize.Github.API.Repos.Mock
+config :incentivize, :github_app_module, Incentivize.Github.App.Mock
 
 config :incentivize, Incentivize.Stellar,
   network_url: "https://horizon-testnet.stellar.org",
   public_key: System.get_env("STELLAR_PUBLIC_KEY"),
   secret: System.get_env("STELLAR_SECRET")
+
+config :incentivize, Incentivize.Github.OAuth,
+  client_id: System.get_env("GITHUB_CLIENT_ID"),
+  client_secret: System.get_env("GITHUB_CLIENT_SECRET")
+
+config :incentivize, Incentivize.Github.App,
+  app_id: System.get_env("GITHUB_APP_ID"),
+  private_key: System.get_env("GITHUB_APP_PRIVATE_KEY"),
+  app_slug: System.get_env("GITHUB_APP_SLUG"),
+  webhook_secret: System.get_env("GITHUB_APP_WEBHOOK_SECRET")
 
 if File.exists?(Path.join([__DIR__, "dev.secret.exs"])) do
   import_config "dev.secret.exs"

@@ -9,7 +9,8 @@ defmodule Incentivize.Repositories do
 
   def list_repositories do
     Repository
-    |> where([r], r.is_public == true)
+    |> where([r], r.public == true)
+    |> where([r], is_nil(r.deleted_at))
     |> order_by([r], asc: r.owner, asc: r.name)
     |> preload([:funds, :contributions])
     |> Repo.all()
@@ -23,7 +24,8 @@ defmodule Incentivize.Repositories do
       ur in UserRepository,
       r.id == ur.repository_id and ur.user_id == ^user.id
     )
-    |> where([r], r.is_public == true)
+    |> where([r], r.public == true)
+    |> where([r], is_nil(r.deleted_at))
     |> order_by([r], asc: r.owner, asc: r.name)
     |> preload([:funds, :contributions])
     |> Repo.all()
@@ -51,7 +53,31 @@ defmodule Incentivize.Repositories do
       from(repo in Repository,
         where: ilike(repo.owner, ^owner),
         where: ilike(repo.name, ^name),
-        where: repo.is_public == true,
+        where: is_nil(repo.deleted_at),
+        preload: [:funds, :contributions]
+      )
+
+    Repo.one(query)
+  end
+
+  def get_public_repository_by_owner_and_name(owner, name) do
+    query =
+      from(repo in Repository,
+        where: ilike(repo.owner, ^owner),
+        where: ilike(repo.name, ^name),
+        where: repo.public == true,
+        where: is_nil(repo.deleted_at),
+        preload: [:funds, :contributions]
+      )
+
+    Repo.one(query)
+  end
+
+  def get_repository_by_owner_and_name_include_deleted(owner, name) do
+    query =
+      from(repo in Repository,
+        where: ilike(repo.owner, ^owner),
+        where: ilike(repo.name, ^name),
         preload: [:funds, :contributions]
       )
 
@@ -125,5 +151,34 @@ defmodule Incentivize.Repositories do
       |> Repo.one()
 
     result != nil
+  end
+
+  def delete_repositories_for_installation_id(installation_id) do
+    Repo.update_all(
+      from(r in Repository,
+        where: r.installation_id == ^installation_id,
+        update: [set: [deleted_at: ^DateTime.utc_now()]]
+      ),
+      []
+    )
+  end
+
+  def delete_repositories(repositories) do
+    repo_ids = Enum.map(repositories, fn x -> x.id end)
+
+    Repo.update_all(
+      from(r in Repository,
+        where: r.id in ^repo_ids,
+        update: [set: [deleted_at: ^DateTime.utc_now()]]
+      ),
+      []
+    )
+  end
+
+  def undelete_repository(repository, installation_id) do
+    Repo.update_all(from(r in Repository,
+      where: r.id == ^repository.id,
+      update: [set: [installation_id: ^installation_id, deleted_at: nil]]
+    ), [])
   end
 end

@@ -141,7 +141,10 @@ The Phoenix app will manage all things, including GitHub web hooks. Node will be
 - node.js (Used to process stellar transactions)
 - StellarSDK (JavaScript Stellar Client)
 
-- Github OAuth App (Required to sign in)
+- GitHub OAuth App (Required to sign in, view user's organizations)
+- GitHub App (Required for connecting repositories)
+
+#### Creating an OAuth App
 
 Here we are using the localhost url, `http://localhost:4000`, In production use your prod URL
 
@@ -155,18 +158,27 @@ Here we are using the localhost url, `http://localhost:4000`, In production use 
 - On the page that shows up, put value from `Client ID` and `Client Secret` into the
   config below for `Incentivize.Github.OAuth`
 
+#### Creating a GitHub App
+
+TBD
+
 ### Required Secrets
 
 In development, values can go into `config/dev.secret.exs`.
 To generate a Stellar test network key/pair and fund the account with Lumens, go here: https://www.stellar.org/laboratory/#account-creator?network=test
 
 ```elixir
-config :incentivize, Incentivize.Github,
+# Configuration for Github OAuth
+config :incentivize, Incentivize.Github.OAuth,
   client_id: <github_app_client_id>,
   client_secret: <github_app_client_secret>
+
+# Configuration for Github App
+config :incentivize, Incentivize.Github.App,
   app_id: <github_app_id>,
   private_key: <github_app_private_key>, #contents of .pem file as a string
   webhook_secret: <github_app_webhook_secret> #not used by incentivize just yet
+  app_slug: <github_app_slug> # https://github.com/settings/apps/:app_slug
 
 config :incentivize, Incentivize.Stellar,
   network_url: <stellar_network_url>, # Optional. Defaults to test network.

@@ -22,15 +22,23 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :incentivize, Incentivize.Github,
+config :incentivize, Incentivize.Github.OAuth,
+  # The client id and secret from oauth app
   client_id: nil,
-  client_secret: nil,
+  client_secret: nil
+
+config :incentivize, Incentivize.Github.App,
   app_id: nil,
-  private_key: nil
+  # The private key of the github app as a string
+  private_key: nil,
+  # https://github.com/settings/apps/:app_slug
+  app_slug: nil
 
 config :incentivize, Incentivize.Stellar,
   # Defaults to test network
   network_url: "https://horizon-testnet.stellar.org",
+  # Stellar account used for application-level actions
+  # including creating escrow accounts for funds
   public_key: nil,
   secret: nil
 
@@ -52,11 +60,12 @@ config(
 )
 
 config :incentivize, :stellar_module, Incentivize.Stellar
-config :incentivize, :github_repos_module, Incentivize.Github.API.Repos
+config :incentivize, :github_app_module, Incentivize.Github.App
 config :incentivize, :nodejs, timeout: 60_000
 
 config :incentivize, :stellar_asset,
   code: "XLM",
+  # Should be nil for XLM or be the public key of the asset issuer
   issuer: nil
 
 config :rihanna, dispatcher_max_concurrency: 1

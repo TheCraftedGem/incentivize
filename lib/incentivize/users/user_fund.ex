@@ -1,6 +1,6 @@
 defmodule Incentivize.UserFund do
   @moduledoc """
-  User Schema
+  UserFund Schema
   """
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false

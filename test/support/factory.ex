@@ -1,6 +1,6 @@
 defmodule Incentivize.Factory do
   @moduledoc false
-  alias Incentivize.{Actions, Fund, Pledge, Repo, Repository, User, UserFund, UserRepository}
+  alias Incentivize.{Actions, Fund, Github.Installation, Pledge, Repo, Repository, User, UserFund, UserRepository}
   @stellar_module Application.get_env(:incentivize, :stellar_module)
 
   def build(:user) do
@@ -14,12 +14,22 @@ defmodule Incentivize.Factory do
     }
   end
 
+  def build(:installation) do
+    %Installation{
+      login: "test#{System.unique_integer([:positive])}",
+      login_type: "User",
+      installation_id: 12_345
+    }
+  end
+
   def build(:repository) do
     %Repository{
       name: "test#{System.unique_integer([:positive])}",
       owner: "test#{System.unique_integer([:positive])}",
       webhook_secret: "12345",
-      created_by: build(:user)
+      created_by: build(:user),
+      public: true,
+      installation_id: 12_345
     }
   end
 
