@@ -36,7 +36,7 @@ defmodule Incentivize.Github.App do
   Gets an installation app token. Used to make GitHub API requests as the installation
   """
   def get_installation_access_token(installation_id) do
-    "#{Base.base_url()}/installations/#{installation_id}/access_tokens"
+    "#{Base.base_url()}/app/installations/#{installation_id}/access_tokens"
     |> HTTPoison.post("", headers())
     |> Base.process_response()
   end

@@ -4,7 +4,7 @@ defmodule Incentivize.Github.API.Base do
   """
 
   def base_url do
-    "https://api.github.com"
+    Application.get_env(:incentivize, :github_api_base_url, "https://api.github.com")
   end
 
   def process_response(response, request_headers, accum \\ []) do
