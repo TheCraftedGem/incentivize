@@ -31,6 +31,11 @@ defmodule IncentivizeWeb.AccountControllerTest do
     assert html_response(conn, 200) =~ "Stellar Public Key"
   end
 
+  test "GET /account/github/sync", %{conn: conn} do
+    conn = get(conn, account_path(conn, :sync))
+    assert redirected_to(conn) =~ account_path(conn, :show)
+  end
+
   test "PUT /account/edit", %{conn: conn, user: user} do
     conn = put(conn, account_path(conn, :edit), user: [stellar_public_key: "12345"])
     assert redirected_to(conn) =~ account_path(conn, :show)

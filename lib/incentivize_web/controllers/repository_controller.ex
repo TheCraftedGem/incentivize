@@ -1,49 +1,55 @@
 defmodule IncentivizeWeb.RepositoryController do
   use IncentivizeWeb, :controller
-  alias Incentivize.{Repositories}
+  alias Incentivize.{Github.App, Repositories, Users}
 
   action_fallback(IncentivizeWeb.FallbackController)
 
   def index(conn, _params) do
     repositories = Repositories.list_repositories()
-
     render(conn, "index.html", repositories: repositories)
   end
 
   def new(conn, _params) do
-    {:ok, organizations} =
-      github_app_module().list_organizations_for_user(conn.assigns.current_user)
-
-    {:ok, user} = github_app_module().get_user(conn.assigns.current_user)
+    %{user: %{github_id: user_github_id}, organizations: organizations} =
+      Users.get_user_github_data(conn.assigns.current_user)
 
     user_installation_info =
-      case github_app_module().get_user_app_installation_by_github_login(
+      case App.github_app_module().get_user_app_installation_by_github_login(
              conn.assigns.current_user.github_login
            ) do
         {:ok, installation} ->
-          %{id: user["id"], login: user["login"], installation_id: installation["id"]}
+          %{
+            id: user_github_id,
+            login: conn.assigns.current_user.github_login,
+            installation_id: installation["id"]
+          }
 
         _ ->
-          %{id: user["id"], login: user["login"], installation_id: nil}
+          %{
+            id: user_github_id,
+            login: conn.assigns.current_user.github_login,
+            installation_id: nil
+          }
       end
 
     organization_installation_info =
       organizations
       |> Enum.map(fn org ->
-        case github_app_module().get_organization_app_installation_by_github_login(org["login"]) do
+        case App.github_app_module().get_organization_app_installation_by_github_login(
+               org["login"]
+             ) do
           {:ok, installation} ->
-            %{id: org["id"], login: org["login"], installation_id: installation["id"]}
+            %{id: org.id, login: org.login, installation_id: installation["id"]}
 
           _ ->
-            %{id: org["id"], login: org["login"], installation_id: nil}
+            %{id: org.id, login: org.login, installation_id: nil}
         end
       end)
-      |> Enum.sort(fn org1, org2 -> String.downcase(org1.login) < String.downcase(org2.login) end)
 
     render(conn, "new.html",
       user_installation_info: user_installation_info,
       organization_installation_info: organization_installation_info,
-      github_app_url: github_app_module().public_url()
+      github_app_url: App.github_app_module().public_url()
     )
   end
 

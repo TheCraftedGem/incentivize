@@ -62,6 +62,7 @@ config(
 config :incentivize, :stellar_module, Incentivize.Stellar
 config :incentivize, :github_app_module, Incentivize.Github.App
 config :incentivize, :nodejs, timeout: 60_000
+config :incentivize, :cache_ttl, 3_600_000
 
 config :incentivize, :stellar_asset,
   code: "XLM",

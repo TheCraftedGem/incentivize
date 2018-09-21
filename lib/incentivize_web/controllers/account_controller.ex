@@ -44,4 +44,13 @@ defmodule IncentivizeWeb.AccountController do
         |> render("edit.html", changeset: changeset)
     end
   end
+
+  def sync(conn, _params) do
+    Users.clear_user_github_data(conn.assigns.current_user)
+    Users.get_user_github_data(conn.assigns.current_user)
+
+    conn
+    |> put_flash(:info, "Github Data Synced")
+    |> redirect(to: account_path(conn, :show))
+  end
 end

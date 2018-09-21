@@ -5,6 +5,17 @@ defmodule Incentivize.Github.App do
   alias Incentivize.Github.API.Base
 
   @doc """
+  Gets either this module or one that is defined at :github_app_module
+  """
+  def github_app_module do
+    Application.get_env(
+      :incentivize,
+      :github_app_module,
+      __MODULE__
+    )
+  end
+
+  @doc """
   The public URL of the GitHub App.
   """
   def public_url do
@@ -93,6 +104,16 @@ defmodule Incentivize.Github.App do
   @spec get_user(User.t()) :: {:ok, map} | {:error, binary}
   def get_user(user) do
     url = "#{Base.base_url()}/user?access_token=#{user.github_access_token}"
+
+    url
+    |> HTTPoison.get(Base.headers())
+    |> Base.process_response()
+  end
+
+  @spec list_user_private_repos(User.t()) :: {:ok, map} | {:error, binary}
+  def list_user_private_repos(user) do
+    url =
+      "#{Base.base_url()}/user/repos?visibility=private&access_token=#{user.github_access_token}"
 
     url
     |> HTTPoison.get(Base.headers())

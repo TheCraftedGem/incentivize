@@ -49,3 +49,7 @@ config :incentivize, :stellar_asset,
 
 config :incentivize, :nodejs,
   timeout: String.to_integer(System.get_env("NODEJS_TIMEOUT") || "60000")
+
+config :incentivize,
+       :cache_ttl,
+       String.to_integer(System.get_env("CACHE_TTL") || "3600000")
