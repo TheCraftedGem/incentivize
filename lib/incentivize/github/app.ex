@@ -59,21 +59,26 @@ defmodule Incentivize.Github.App do
 
   # Generates token for github app-level API calls
   defp get_app_auth_token do
-    import Joken
-    alias JOSE.JWK
+    config = Confex.get_env(:incentivize, Incentivize.Github.App, [])
+    private_key = config[:private_key]
 
-    config = Confex.get_env(:incentivize, Incentivize.Github.App)
+    if private_key do
+      import Joken
+      alias JOSE.JWK
 
-    key = JWK.from_pem(config[:private_key])
+      key = JWK.from_pem(private_key)
 
-    %{
-      "iss" => config[:app_id],
-      "iat" => DateTime.to_unix(DateTime.utc_now()),
-      "exp" => DateTime.to_unix(DateTime.utc_now()) + 10 * 60
-    }
-    |> token
-    |> sign(rs256(key))
-    |> get_compact
+      %{
+        "iss" => config[:app_id],
+        "iat" => DateTime.to_unix(DateTime.utc_now()),
+        "exp" => DateTime.to_unix(DateTime.utc_now()) + 10 * 60
+      }
+      |> token
+      |> sign(rs256(key))
+      |> get_compact
+    else
+      ""
+    end
   end
 
   @spec list_organizations_for_user(User.t()) :: {:ok, map} | {:error, binary}
