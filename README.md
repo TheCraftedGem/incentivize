@@ -168,12 +168,12 @@ In development, values can go into `config/dev.secret.exs`.
 To generate a Stellar test network key/pair and fund the account with Lumens, go here: https://www.stellar.org/laboratory/#account-creator?network=test
 
 ```elixir
-# Configuration for Github OAuth
+# Configuration for GitHub OAuth
 config :incentivize, Incentivize.Github.OAuth,
   client_id: <github_app_client_id>,
   client_secret: <github_app_client_secret>
 
-# Configuration for Github App
+# Configuration for GitHub App
 config :incentivize, Incentivize.Github.App,
   app_id: <github_app_id>,
   private_key: <github_app_private_key>, #contents of .pem file as a string

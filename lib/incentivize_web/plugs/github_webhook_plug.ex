@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.GithubWebhookPlug do
   @moduledoc """
-  Github Webhook plug for verifying signatures
+  GitHub Webhook plug for verifying signatures
   """
 
   import Plug.Conn

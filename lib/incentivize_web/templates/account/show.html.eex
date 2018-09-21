@@ -25,7 +25,7 @@
                 <a
                   href="<%= account_path(@conn, :sync) %>"
                 >
-                  Sync Github Data
+                  Sync GitHub Data
                 </a>
             </label>
           </div>
