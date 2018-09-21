@@ -11,6 +11,9 @@ defmodule Incentivize.Application do
 
     Application.put_env(:statix, Incentivize.StatCollector, statix_config)
 
+    # default to an hour
+    cache_ttl = Application.get_env(:incentivize, :cache_ttl, 3_600_000)
+
     :ok = StatCollector.connect()
 
     # Define workers and child supervisors to be supervised
@@ -24,6 +27,12 @@ defmodule Incentivize.Application do
       supervisor(NodeJS.Supervisor, [
         [path: Path.join(:code.priv_dir(:incentivize), "nodejs"), pool_size: 4, timeout: 60_000]
       ]),
+      {ConCache,
+       [
+         name: :incentivize_cache,
+         ttl_check_interval: 60_000,
+         global_ttl: cache_ttl
+       ]},
       {Rihanna.Supervisor, [name: Rihanna.Supervisor, postgrex: Incentivize.Repo.config()]}
     ]
 

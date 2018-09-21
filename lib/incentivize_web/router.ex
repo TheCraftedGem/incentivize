@@ -114,6 +114,7 @@ defmodule IncentivizeWeb.Router do
     get("/wallet", AccountController, :wallet)
     get("/edit", AccountController, :edit)
     put("/edit", AccountController, :update)
+    get("/github/sync", AccountController, :sync)
   end
 
   scope "/repos", IncentivizeWeb do

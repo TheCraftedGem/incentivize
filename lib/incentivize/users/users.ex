@@ -4,7 +4,7 @@ defmodule Incentivize.Users do
   """
 
   import Ecto.{Query}, warn: false
-  alias Incentivize.{Repo, User}
+  alias Incentivize.{Github.App, Repo, User}
 
   def create_user(params) do
     %User{}
@@ -38,5 +38,52 @@ defmodule Incentivize.Users do
       user ->
         update_user(user, params)
     end
+  end
+
+  @doc """
+  Gets data needed from github for the given user.
+  This data is cached and read from cache at this point
+  up until the cache expires.
+  """
+  def get_user_github_data(user) do
+    ConCache.get_or_store(:incentivize_cache, user.github_login, fn ->
+      {:ok, organizations} = App.github_app_module().list_organizations_for_user(user)
+
+      {:ok, github_user} = App.github_app_module().get_user(user)
+
+      organizations =
+        organizations
+        |> Enum.map(fn org ->
+          %{id: org["id"], login: org["login"]}
+        end)
+        |> Enum.sort(fn org1, org2 ->
+          String.downcase(org1.login) < String.downcase(org2.login)
+        end)
+
+      {:ok, private_repos} = App.github_app_module().list_user_private_repos(user)
+
+      private_repos =
+        private_repos
+        |> Enum.map(fn repo ->
+          %{
+            full_name: repo["full_name"],
+            name: repo["name"],
+            owner: repo["owner"]["login"],
+            private: repo["private"]
+          }
+        end)
+
+      %{
+        user: %{
+          github_id: github_user["id"]
+        },
+        organizations: organizations,
+        private_repos: private_repos
+      }
+    end)
+  end
+
+  def clear_user_github_data(user) do
+    ConCache.delete(:incentivize_cache, user.github_login)
   end
 end

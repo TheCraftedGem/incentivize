@@ -20,6 +20,14 @@
             <label class="rev-InputStack rev-InputLabel">
               <a href="<%= account_path(@conn, :edit) %>">Edit Account</a>
             </label>
+
+            <label class="rev-InputStack rev-InputLabel">
+                <a
+                  href="<%= account_path(@conn, :sync) %>"
+                >
+                  Sync GitHub Data
+                </a>
+            </label>
           </div>
         </div>
       </div>

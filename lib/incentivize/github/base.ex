@@ -34,6 +34,9 @@ defmodule Incentivize.Github.API.Base do
       {:ok, %HTTPoison.Response{status_code: 404}} ->
         {:error, "Not Found"}
 
+      {:ok, %HTTPoison.Response{status_code: 401}} ->
+        {:error, "Bad credentials"}
+
       {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, reason}
     end

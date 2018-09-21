@@ -66,7 +66,8 @@ defmodule Incentivize.Mixfile do
       {:credo, "~> 0.10", only: :dev, runtime: false},
       {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
       {:dialyxir, "~> 1.0.0-rc", only: :dev, runtime: false},
-      {:bypass, "~> 0.8.1", only: :test}
+      {:bypass, "~> 0.8.1", only: :test},
+      {:con_cache, "~> 0.13"}
     ]
   end
 
