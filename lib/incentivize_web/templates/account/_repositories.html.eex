@@ -15,6 +15,9 @@
                       <div class="ButtonLink--header u-truncate">
                         <a href="<%= repository_path(@conn, :show, repo.owner, repo.name) %>">
                           <%= repo.owner %>/<%= repo.name %>
+                          <%= if repo.public == false do %>
+                            <i class="material-icons">lock</i>
+                          <% end %>
                         </a>
                       </div>
                     </h3>

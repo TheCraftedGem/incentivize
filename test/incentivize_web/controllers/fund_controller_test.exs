@@ -79,8 +79,7 @@ defmodule IncentivizeWeb.FundControllerTest do
 
   test "GET /repos/:owner/:name/fund/:id", %{conn: conn, user: user} do
     repository = insert!(:repository, owner: "me", name: "me")
-    fund = insert!(:fund, repository: repository)
-    insert!(:user_fund, user: user, fund: fund)
+    fund = insert!(:fund, repository: repository, created_by: user)
 
     conn = get(conn, fund_path(conn, :show, "me", "me", fund.id))
     assert html_response(conn, 200) =~ "me/me"
@@ -91,9 +90,7 @@ defmodule IncentivizeWeb.FundControllerTest do
     conn: conn
   } do
     repository = insert!(:repository, owner: "me", name: "me")
-    new_user = insert!(:user)
     fund = insert!(:fund, repository: repository)
-    insert!(:user_fund, user: new_user, fund: fund)
 
     conn = get(conn, fund_path(conn, :show, "me", "me", fund.id))
     assert html_response(conn, 200) =~ "me/me"
@@ -102,9 +99,7 @@ defmodule IncentivizeWeb.FundControllerTest do
 
   test "GET /repos/:owner/:name/fund/:id when not fund owner and not logged in" do
     repository = insert!(:repository, owner: "me", name: "me")
-    new_user = insert!(:user)
     fund = insert!(:fund, repository: repository)
-    insert!(:user_fund, user: new_user, fund: fund)
 
     conn = build_conn()
 

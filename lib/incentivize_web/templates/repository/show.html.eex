@@ -6,6 +6,9 @@
         <h2>
           <a href="https://github.com/<%= @repository.owner %>/<%= @repository.name %>" target="_blank" rel="noreferrer">
             <%= @repository.owner %>/<%= @repository.name %>
+            <%= if @repository.public == false do %>
+              <i class="material-icons">lock</i>
+            <% end %>
           </a>
         </h2>
 
