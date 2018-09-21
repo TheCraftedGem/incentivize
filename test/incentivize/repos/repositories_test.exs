@@ -5,7 +5,7 @@ defmodule Incentivize.Repositories.Test do
   test "create" do
     user = insert!(:user)
 
-    {:ok, %{repository: repository}} =
+    {:ok, repository} =
       Repositories.create_repository(%{
         "owner" => "octocat",
         "name" => "Hello-World",
@@ -34,7 +34,7 @@ defmodule Incentivize.Repositories.Test do
 
   test "get_repository_by_owner_and_name" do
     repo = insert!(:repository)
-    repo_from_db = Repositories.get_public_repository_by_owner_and_name(repo.owner, repo.name)
+    repo_from_db = Repositories.get_repository_by_owner_and_name(repo.owner, repo.name)
 
     assert repo.id == repo_from_db.id
   end

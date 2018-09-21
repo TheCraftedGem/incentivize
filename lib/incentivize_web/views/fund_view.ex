@@ -1,10 +1,10 @@
 defmodule IncentivizeWeb.FundView do
   use IncentivizeWeb, :view
-  alias Incentivize.{Actions, Funds, Pledge}
   alias Ecto.Changeset
+  alias Incentivize.{Actions, Funds, Pledge}
 
-  def supporter_owns_fund?(conn, fund) do
-    logged_in?(conn) and Funds.user_owns_fund?(fund, conn.assigns.current_user)
+  def can_add_assets_to_fund?(conn, fund) do
+    logged_in?(conn) and Funds.can_edit_fund?(fund, conn.assigns.current_user)
   end
 
   def action_display(action) do

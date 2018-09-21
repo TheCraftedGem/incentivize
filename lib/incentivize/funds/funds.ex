@@ -5,7 +5,7 @@ defmodule Incentivize.Funds do
 
   import Ecto.{Query}, warn: false
   alias Ecto.Multi
-  alias Incentivize.{Fund, Pledge, Repo, Repository, UserFund, Users}
+  alias Incentivize.{Fund, Pledge, Repo, Repository, Repositories, Users}
   @stellar_module Application.get_env(:incentivize, :stellar_module)
 
   def create_fund(params) do
@@ -20,11 +20,6 @@ defmodule Incentivize.Funds do
       |> Fund.add_stellar_public_key_changeset(%{stellar_public_key: escrow_public_key})
       |> Repo.update()
     end)
-    |> Multi.run(:user_funds, fn %{update_fund: fund} ->
-      %UserFund{}
-      |> UserFund.changeset(%{fund_id: fund.id, user_id: fund.created_by_id})
-      |> Repo.insert()
-    end)
     |> Repo.transaction()
   end
 
@@ -36,9 +31,9 @@ defmodule Incentivize.Funds do
 
   def list_funds_for_supporter(supporter) do
     Fund
-    |> join(:inner, [f], uf in UserFund, f.id == uf.fund_id and uf.user_id == ^supporter.id)
+    |> where([f], f.created_by_id == ^supporter.id)
     |> order_by([f], f.inserted_at)
-    |> preload([:pledges, :repository])
+    |> preload([:pledges, :created_by, :repository])
     |> Repo.all()
   end
 
@@ -80,13 +75,19 @@ defmodule Incentivize.Funds do
     |> Repo.get(fund_id)
   end
 
-  def user_owns_fund?(fund, user) do
-    result =
-      UserFund
-      |> where([uf], uf.fund_id == ^fund.id)
-      |> where([uf], uf.user_id == ^user.id)
-      |> Repo.one()
+  def can_view_fund?(fund, nil) do
+    repository = Repositories.get_repository(fund.repository_id)
+    Repositories.can_view_repository?(repository, nil)
+  end
 
-    result != nil
+  def can_view_fund?(fund, user) do
+    repository = Repositories.get_repository(fund.repository_id)
+    can_view_repo? = Repositories.can_view_repository?(repository, user)
+
+    can_view_repo? || fund.created_by_id == user.id
+  end
+
+  def can_edit_fund?(fund, user) do
+    fund.created_by_id == user.id
   end
 end

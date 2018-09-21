@@ -20,7 +20,7 @@
                   <div data-stellar-balance="<%= @fund.stellar_public_key %>">Loading</div>
                 </label>
 
-                <%= if supporter_owns_fund?(@conn, @fund) do %>
+                <%= if can_add_assets_to_fund?(@conn, @fund) do %>
                   <div id="add_lumen_form">
                     <h5>Add <%= Incentivize.Stellar.asset_display() %> to Project Fund</h5>
                     <div class="rev-Row">

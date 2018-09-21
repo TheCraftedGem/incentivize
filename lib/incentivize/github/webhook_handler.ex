@@ -136,7 +136,7 @@ defmodule Incentivize.Github.WebhookHandler do
 
       # Create new repo if it does not exist already
       if is_nil(repository) do
-        {:ok, %{repository: repository}} =
+        {:ok, repository} =
           Repositories.create_repository(%{
             owner: owner,
             name: name,

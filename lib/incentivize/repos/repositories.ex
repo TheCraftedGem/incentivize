@@ -4,10 +4,9 @@ defmodule Incentivize.Repositories do
   """
 
   import Ecto.{Query}, warn: false
-  alias Ecto.Multi
-  alias Incentivize.{Repo, Repository, UserRepository}
+  alias Incentivize.{Repo, Repository, Users}
 
-  def list_repositories do
+  def list_public_repositories do
     Repository
     |> where([r], r.public == true)
     |> where([r], is_nil(r.deleted_at))
@@ -17,14 +16,13 @@ defmodule Incentivize.Repositories do
   end
 
   def list_repositories_for_user(user) do
+    private_repo_full_names = get_private_repo_full_names(user)
+
     Repository
-    |> join(
-      :inner,
+    |> where(
       [r],
-      ur in UserRepository,
-      r.id == ur.repository_id and ur.user_id == ^user.id
+      r.public == true or fragment("(owner || '/' || name)") in ^private_repo_full_names
     )
-    |> where([r], r.public == true)
     |> where([r], is_nil(r.deleted_at))
     |> order_by([r], asc: r.owner, asc: r.name)
     |> preload([:funds, :contributions])
@@ -32,14 +30,9 @@ defmodule Incentivize.Repositories do
   end
 
   def create_repository(params) do
-    Multi.new()
-    |> Multi.insert(:repository, Repository.create_changeset(%Repository{}, params))
-    |> Multi.run(:user_repositories, fn %{repository: repo} ->
-      %UserRepository{}
-      |> UserRepository.changeset(%{repository_id: repo.id, user_id: repo.created_by_id})
-      |> Repo.insert()
-    end)
-    |> Repo.transaction()
+    %Repository{}
+    |> Repository.create_changeset(params)
+    |> Repo.insert()
   end
 
   def update_repository(repository, params) do
@@ -53,19 +46,6 @@ defmodule Incentivize.Repositories do
       from(repo in Repository,
         where: ilike(repo.owner, ^owner),
         where: ilike(repo.name, ^name),
-        where: is_nil(repo.deleted_at),
-        preload: [:funds, :contributions]
-      )
-
-    Repo.one(query)
-  end
-
-  def get_public_repository_by_owner_and_name(owner, name) do
-    query =
-      from(repo in Repository,
-        where: ilike(repo.owner, ^owner),
-        where: ilike(repo.name, ^name),
-        where: repo.public == true,
         where: is_nil(repo.deleted_at),
         preload: [:funds, :contributions]
       )
@@ -143,14 +123,17 @@ defmodule Incentivize.Repositories do
     }
   end
 
-  def user_owns_repository?(repository, user) do
-    result =
-      UserRepository
-      |> where([ur], ur.repository_id == ^repository.id)
-      |> where([ur], ur.user_id == ^user.id)
-      |> Repo.one()
+  def can_view_repository?(repository, nil) do
+    repository.public
+  end
 
-    result != nil
+  def can_view_repository?(repository, user) do
+    private_repo_full_names = get_private_repo_full_names(user)
+
+    repository.public == true or
+      Enum.any?(private_repo_full_names, fn x ->
+        x == "#{repository.owner}/#{repository.name}"
+      end)
   end
 
   def delete_repositories_for_installation_id(installation_id) do
@@ -176,9 +159,17 @@ defmodule Incentivize.Repositories do
   end
 
   def undelete_repository(repository, installation_id) do
-    Repo.update_all(from(r in Repository,
-      where: r.id == ^repository.id,
-      update: [set: [installation_id: ^installation_id, deleted_at: nil]]
-    ), [])
+    Repo.update_all(
+      from(r in Repository,
+        where: r.id == ^repository.id,
+        update: [set: [installation_id: ^installation_id, deleted_at: nil]]
+      ),
+      []
+    )
+  end
+
+  defp get_private_repo_full_names(user) do
+    %{private_repos: private_repos} = Users.get_user_github_data(user)
+    Enum.map(private_repos, fn repo -> repo.full_name end)
   end
 end

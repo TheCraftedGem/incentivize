@@ -17,7 +17,7 @@ defmodule Incentivize.Github.OAuth do
   end
 
   def authorize_url! do
-    Client.authorize_url!(client(), scope: "user,read:org")
+    Client.authorize_url!(client(), scope: "user,read:org,repo")
   end
 
   # you can pass options to the underlying http library via `opts` parameter

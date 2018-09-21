@@ -5,7 +5,11 @@ defmodule IncentivizeWeb.RepositoryController do
   action_fallback(IncentivizeWeb.FallbackController)
 
   def index(conn, _params) do
-    repositories = Repositories.list_repositories()
+    repositories =
+      if conn.assigns.current_user,
+        do: Repositories.list_repositories_for_user(conn.assigns.current_user),
+        else: Repositories.list_public_repositories()
+
     render(conn, "index.html", repositories: repositories)
   end
 
@@ -54,22 +58,18 @@ defmodule IncentivizeWeb.RepositoryController do
   end
 
   def show(conn, %{"owner" => owner, "name" => name}) do
-    case Repositories.get_public_repository_by_owner_and_name(owner, name) do
+    case Repositories.get_repository_by_owner_and_name(owner, name) do
       nil ->
         :not_found
 
       repository ->
-        stats = Repositories.get_repository_stats(repository)
+        if Repositories.can_view_repository?(repository, conn.assigns.current_user) do
+          stats = Repositories.get_repository_stats(repository)
 
-        render(conn, "show.html", repository: repository, stats: stats)
+          render(conn, "show.html", repository: repository, stats: stats)
+        else
+          :not_found
+        end
     end
-  end
-
-  defp github_app_module do
-    Application.get_env(
-      :incentivize,
-      :github_app_module,
-      Incentivize.Github.App
-    )
   end
 end
