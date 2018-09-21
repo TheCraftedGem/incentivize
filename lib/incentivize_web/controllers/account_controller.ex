@@ -1,18 +1,16 @@
 defmodule IncentivizeWeb.AccountController do
   use IncentivizeWeb, :controller
-  alias Incentivize.{Contributions, Funds, Repositories, User, Users}
+  alias Incentivize.{Contributions, Funds, User, Users}
 
   def show(conn, _params) do
     user = conn.assigns.current_user
     funds = Funds.list_funds_for_supporter(user)
     contributions = Contributions.list_contributions_for_user(user)
-    repositories = Repositories.list_repositories_for_user(user)
 
     render(conn, "show.html",
       user: user,
       funds: funds,
-      contributions: contributions,
-      repositories: repositories
+      contributions: contributions
     )
   end
 

@@ -32,11 +32,6 @@
         </div>
       </div>
     </div>
-    <%= if not Enum.empty?(@repositories) do %>
-      <hr/>
-      <%= render "_repositories.html", assigns %>
-    <% end %>
-
     <%= if not Enum.empty?(@funds) do %>
       <hr/>
       <%= render "_supported_projects.html", assigns %>
