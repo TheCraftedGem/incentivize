@@ -1,6 +1,6 @@
 defmodule Incentivize.Factory do
   @moduledoc false
-  alias Incentivize.{Actions, Fund, Github.Installation, Pledge, Repo, Repository, User, UserFund, UserRepository}
+  alias Incentivize.{Actions, Fund, Github.Installation, Pledge, Repo, Repository, User}
   @stellar_module Application.get_env(:incentivize, :stellar_module)
 
   def build(:user) do
@@ -33,25 +33,11 @@ defmodule Incentivize.Factory do
     }
   end
 
-  def build(:user_repository) do
-    %UserRepository{
-      user: build(:user),
-      repository: build(:repository)
-    }
-  end
-
   def build(:fund) do
     %Fund{
       repository: build(:repository),
       pledges: [build(:pledge)],
       created_by: build(:user)
-    }
-  end
-
-  def build(:user_fund) do
-    %UserFund{
-      user: build(:user),
-      fund: build(:fund)
     }
   end
 
