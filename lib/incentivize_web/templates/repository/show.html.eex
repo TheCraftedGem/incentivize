@@ -36,7 +36,43 @@
                 </div>
               </div>
             </div>
+            <%= row class: "Text-center" do %>
+              <%= col medium: 6 do %>
+                <h3>Most Contributions</h3>
+                <%= if Enum.empty?(@stats.most_contributions) do %>
+                  <div>No contributions</div>
+                <% else %>
+                <ol>
+                  <%= for contribution <- @stats.most_contributions do %>
+                      <li>
+                        <a href="https://github.com/<%= contribution.github_login %>">
+                          <%= contribution.github_login %> (<%= contribution.count %>)
+                        </a>
+                      </li>
+                  <% end %>
+                </ol>
+                <% end %>
+              <% end %>
+              <%= col medium: 6 do %>
+                <h3>Most Active Fund</h3>
+                <%= if Enum.empty?(@stats.most_active_funds) do %>
+                  <div>No active funds</div>
+                <% else %>
+                  <ol>
+                    <%= for fund <- @stats.most_active_funds do %>
+                      <li>
+                        <a href="<%= fund_path(@conn, :show, @repository.owner, @repository.name, fund.fund_id) %>">
+                          <%= fund.github_login %>'s Fund (<%= fund.sum %> <%= Incentivize.Stellar.asset_display() %>)
+                        </a>
+                      </li>
+                    <% end %>
+                  </ol>
+                <% end %>
+              <% end %>
+            <% end %>
+
           </div>
+
 
           <div class="rev-Card-footer">
             <div class="rev-Row rev-Row--flex">
@@ -47,6 +83,10 @@
                     <p class="ButtonLink--text">View Project Funds</p>
                   </div>
                 </a>
+
+              </div>
+              <div class="rev-Col">
+                <a class="rev-Button rev-Button--secondary" href="<%= fund_path(@conn, :new, @repository.owner, @repository.name) %>">Support Project</a>
               </div>
               <div class="rev-Col rev-Col--shrink">
                 <a href="<%= contribution_path(@conn, :for_repository, @repository.owner, @repository.name) %>">

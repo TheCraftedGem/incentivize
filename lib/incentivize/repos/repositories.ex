@@ -126,11 +126,51 @@ defmodule Incentivize.Repositories do
 
     number_of_contributors = Repo.one(query) || 0
 
+    leaderboard_top_number = 5
+
+    query =
+      from(
+        contribution in Incentivize.Contribution,
+        join: user in Incentivize.User,
+        on: user.id == contribution.user_id,
+        where: contribution.repository_id == ^repository.id,
+        group_by: user.github_login,
+        select: %{github_login: user.github_login, count: count(contribution.id)},
+        order_by: count(contribution.id),
+        limit: ^leaderboard_top_number
+      )
+
+    most_contributions = Repo.all(query)
+
+    query =
+      from(
+        contribution in Incentivize.Contribution,
+        join: pledge in Incentivize.Pledge,
+        on: pledge.id == contribution.pledge_id,
+        join: fund in Incentivize.Fund,
+        on: fund.id == pledge.fund_id,
+        join: user in Incentivize.User,
+        on: user.id == fund.created_by_id,
+        where: contribution.repository_id == ^repository.id,
+        group_by: [user.github_login, fund.id],
+        select: %{
+          github_login: user.github_login,
+          fund_id: fund.id,
+          sum: sum(contribution.amount)
+        },
+        order_by: sum(contribution.amount),
+        limit: ^leaderboard_top_number
+      )
+
+    most_active_funds = Repo.all(query)
+
     %{
       number_of_assets_distributed: number_of_assets_distributed,
       number_of_funds_created: number_of_funds_created,
       number_of_contributions: number_of_contributions,
-      number_of_contributors: number_of_contributors
+      number_of_contributors: number_of_contributors,
+      most_contributions: most_contributions,
+      most_active_funds: most_active_funds
     }
   end
 
