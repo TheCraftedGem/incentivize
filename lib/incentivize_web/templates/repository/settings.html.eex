@@ -3,7 +3,11 @@
 
     <div class="rev-Row">
       <div class="rev-Col rev-Col--smallCentered">
-        <h2>Settings</h2>
+        <h2>Connect Repositories</h2>
+        <p>
+          To connect repositories to Incentivize, install the Github App for you or for any GitHub Organization you are apart of.
+          During installation, you will be able to choose which repos to add or remove from Incentivize.
+        </p>
         <%= render "_installation.html",
           conn: @conn,
           name: @conn.assigns.current_user.github_login,
@@ -14,6 +18,14 @@
         %>
 
       <h3>Organizations</h3>
+        <a
+          href="<%= account_path(@conn, :sync) %>"
+          class="rev-Button"
+          title="Not seeing your organizations? Click here to resync organizations"
+        >
+          Sync Organizations
+        </a>
+        <div>Not seeing your organizations? Click above to resync organizations</div>
       <%= for org <- @organization_installation_info do %>
         <%= render "_installation.html",
           conn: @conn,

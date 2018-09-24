@@ -48,7 +48,7 @@ defmodule IncentivizeWeb.AccountController do
     Users.get_user_github_data(conn.assigns.current_user)
 
     conn
-    |> put_flash(:info, "GitHub Data Synced")
-    |> redirect(to: account_path(conn, :show))
+    |> put_flash(:info, "Organizations Synced")
+    |> redirect(to: repository_path(conn, :new))
   end
 end
