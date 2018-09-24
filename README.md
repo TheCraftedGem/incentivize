@@ -155,8 +155,16 @@ Here we are using the localhost url, `http://localhost:4000`, In production use 
   - Homepage URL: http://localhost:4000
   - Authorization callback URL: http://localhost:4000/auth/github/callback
 - Click `Update application`
+
 - On the page that shows up, put value from `Client ID` and `Client Secret` into the
   config below for `Incentivize.Github.OAuth`
+
+```elixir
+# Configuration for GitHub OAuth
+config :incentivize, Incentivize.Github.OAuth,
+  client_id: <github_app_client_id>, #Client ID from this page
+  client_secret: <github_app_client_secret> #Client secret from this page
+```
 
 #### Creating a GitHub App
 
