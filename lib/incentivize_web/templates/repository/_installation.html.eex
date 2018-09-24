@@ -1,0 +1,42 @@
+<div class="rev-Row">
+  <div class="rev-Col">
+    <div class="rev-Row">
+      <div class="rev-Col rev-Col--medium8">
+        <h3><%= @name %></h3>
+      </div>
+      <div class="rev-Col rev-Col--medium4 Text-center">
+          <a
+            href="<%= @github_app_url %>/installations/new/permissions?suggested_target_id=<%= @github_id %>"
+            class="rev-Button"
+          >
+            <%= if @installation_id do %>
+              Configure
+            <% else %>
+              Install
+            <% end %>
+          </a>
+      </div>
+    </div>
+    <hr/>
+    <div class="rev-Row">
+      <div class="rev-Col">
+      <%= if Enum.empty?(@repositories) do %>
+        <div>
+          No connected repositories
+          </div>
+      <% else %>
+        <%= for repo <- @repositories do %>
+          <div>
+          <a href="<%= repository_path(@conn, :show, repo.owner, repo.name) %>">
+            <%= repo.owner %>/<%= repo.name %>
+            <%= if repo.public == false do %>
+              <i class="material-icons">lock</i>
+            <% end %>
+          </a>
+          </div>
+        <% end %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

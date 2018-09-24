@@ -1,0 +1,31 @@
+<div>
+  <div>
+
+    <div class="rev-Row">
+      <div class="rev-Col rev-Col--smallCentered">
+        <h2>Settings</h2>
+        <%= render "_installation.html",
+          conn: @conn,
+          name: @conn.assigns.current_user.github_login,
+          github_app_url: @github_app_url,
+          github_id: @user_installation_info.id,
+          repositories: @user_installation_info.repositories,
+          installation_id: @user_installation_info.installation_id
+        %>
+
+      <h3>Organizations</h3>
+      <%= for org <- @organization_installation_info do %>
+        <%= render "_installation.html",
+          conn: @conn,
+          name: org.login,
+          github_app_url: @github_app_url,
+          github_id: org.id,
+          repositories: org.repositories,
+          installation_id: org.installation_id
+        %>
+      <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
