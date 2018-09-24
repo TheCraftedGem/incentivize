@@ -42,6 +42,7 @@ defmodule IncentivizeWeb do
       import IncentivizeWeb.ErrorHelpers
       import IncentivizeWeb.Gettext
       import IncentivizeWeb.ViewHelpers
+      import Harmonium
     end
   end
 
