@@ -22,17 +22,22 @@ defmodule IncentivizeWeb.RepositoryController do
              conn.assigns.current_user.github_login
            ) do
         {:ok, installation} ->
+          installation_id = installation["id"]
+          repositories = Repositories.list_repositories_for_installation(installation_id)
+
           %{
             id: user_github_id,
             login: conn.assigns.current_user.github_login,
-            installation_id: installation["id"]
+            installation_id: installation_id,
+            repositories: repositories
           }
 
         _ ->
           %{
             id: user_github_id,
             login: conn.assigns.current_user.github_login,
-            installation_id: nil
+            installation_id: nil,
+            repositories: []
           }
       end
 
@@ -43,14 +48,23 @@ defmodule IncentivizeWeb.RepositoryController do
                org["login"]
              ) do
           {:ok, installation} ->
-            %{id: org.id, login: org.login, installation_id: installation["id"]}
+            installation_id = installation["id"]
+
+            repositories = Repositories.list_repositories_for_installation(installation_id)
+
+            %{
+              id: org.id,
+              login: org.login,
+              installation_id: installation_id,
+              repositories: repositories
+            }
 
           _ ->
-            %{id: org.id, login: org.login, installation_id: nil}
+            %{id: org.id, login: org.login, installation_id: nil, repositories: []}
         end
       end)
 
-    render(conn, "new.html",
+    render(conn, "settings.html",
       user_installation_info: user_installation_info,
       organization_installation_info: organization_installation_info,
       github_app_url: App.github_app_module().public_url()

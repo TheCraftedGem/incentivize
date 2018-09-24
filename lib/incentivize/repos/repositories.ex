@@ -29,6 +29,17 @@ defmodule Incentivize.Repositories do
     |> Repo.all()
   end
 
+  def list_repositories_for_installation(installation_id) do
+    Repository
+    |> where(
+      [r],
+      r.installation_id == ^installation_id
+    )
+    |> where([r], is_nil(r.deleted_at))
+    |> order_by([r], asc: r.owner, asc: r.name)
+    |> Repo.all()
+  end
+
   def create_repository(params) do
     %Repository{}
     |> Repository.create_changeset(params)
