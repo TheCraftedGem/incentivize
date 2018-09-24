@@ -148,7 +148,7 @@ The Phoenix app will manage all things, including GitHub web hooks. Node will be
 
 Here we are using the localhost url, `http://localhost:4000`, In production use your prod URL
 
-- https://github.com/settings/developers
+- Go to https://github.com/settings/developers
 - Click `New OAuth App`
 - Put in the following:
   - Application Name: <Your App Name>
@@ -160,7 +160,38 @@ Here we are using the localhost url, `http://localhost:4000`, In production use 
 
 #### Creating a GitHub App
 
-TBD
+Since you will be receiving webhooks, you will need to use a domain other than `localhost`. For development, you can use a service such as `ngrok` to create a domain to let you use the webhooks locally
+
+- Go to https://github.com/settings/developers
+- Click `New OAuth App`
+- Put in the following:
+  - GitHub App name: <Your App Name>
+  - Homepage URL: https://<my_domain>
+  - User authorization callback URL: https://<my_domain>/auth/github/callback
+  - Setup URL (optional): https://<my_domain>/repos/settings
+  - Webhook URL: https://<my_domain>/github/webhooks
+  - Webhook Secret: `<random secret>`
+  - Permissions:
+    - Issues: Read-only
+    - Pull requests: Read-only
+  - Subscribe to Events
+    - Issue comment
+    - Issues
+    - Pull request
+- Click `Create GitHub App`
+
+Now go into your newly created Github App. Generate a private key by clicking `Generate a private key`.
+
+- From this page, add the following to the `Incentivize.Github.App` portion of your app configuration
+
+```elixir
+# Configuration for GitHub App
+config :incentivize, Incentivize.Github.App,
+  app_id: <github_app_id>, #Should be found in `About` section of page
+  private_key: <github_app_private_key>, #contents of private key .pem file as a string
+  webhook_secret: <github_app_webhook_secret> #the webhook secret you created for the app
+  app_slug: <github_app_slug> # https://github.com/settings/apps/:app_slug
+```
 
 ### Required Secrets
 
@@ -177,7 +208,7 @@ config :incentivize, Incentivize.Github.OAuth,
 config :incentivize, Incentivize.Github.App,
   app_id: <github_app_id>,
   private_key: <github_app_private_key>, #contents of .pem file as a string
-  webhook_secret: <github_app_webhook_secret> #not used by incentivize just yet
+  webhook_secret: <github_app_webhook_secret> #webhook secret of GitHub app
   app_slug: <github_app_slug> # https://github.com/settings/apps/:app_slug
 
 config :incentivize, Incentivize.Stellar,
