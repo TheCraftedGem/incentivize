@@ -10,6 +10,16 @@ describe('App', () => {
       <head>
       </head>
       <body>
+        <div class="rev-Callout success rev-Callout--success" data-alert role="alert">
+          <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
+            <div class="rev-Col rev-Col--medium8 Text-center">
+              <p></p>
+            </div>
+            <div class="rev-Col rev-Col--medium2 Text-center">
+              <p><i class="material-icons" data-alert-close>close</i></p>
+            </div>
+          </div>
+        </div>
       </body>
       </html>
       `

@@ -134,19 +134,25 @@
 
       <main role="main" class="rev-ContentWrapper">
         <%= if get_flash(@conn, :info) do %>
-          <div class="rev-Callout success rev-Callout--success" role="alert">
-            <div class="rev-Row">
-              <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
+          <div class="rev-Callout success rev-Callout--success" data-alert role="alert">
+            <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
+              <div class="rev-Col rev-Col--medium8 Text-center">
                 <p><%= get_flash(@conn, :info) %></p>
+              </div>
+              <div class="rev-Col rev-Col--medium2 Text-center">
+                <p><i class="material-icons" data-alert-close>close</i></p>
               </div>
             </div>
           </div>
         <% end %>
         <%= if get_flash(@conn, :error) do %>
-          <div class="rev-Callout alert rev-Callout--alert" role="alert">
-            <div class="rev-Row">
-              <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
+          <div class="rev-Callout alert rev-Callout--alert" data-alert role="alert">
+            <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
+              <div class="rev-Col rev-Col--medium8 Text-center">
                 <p><%= get_flash(@conn, :error) %></p>
+              </div>
+              <div class="rev-Col rev-Col--medium2 Text-center">
+                <p><i class="material-icons" data-alert-close>close</i></p>
               </div>
             </div>
           </div>
