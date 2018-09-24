@@ -1,15 +1,27 @@
 <%= form_for @changeset, @action, [id: "fund_form"], fn f -> %>
-  <div class="rev-Row">
-    <div class="rev-Col">
-      <%= error_tag f, :pledges %>
-    </div>
-  </div>
+  <label class="rev-InputStack rev-InputLabel">
+    <span>Name</span>
+    <%= text_input(f, :name, class: "rev-Input", maxlength: 250) %>
+    <%= error_tag f, :name %>
+  </label>
 
-  <div id="fund_row_container">
-    <%= for {pledge, index} <- pledges_with_indexes(f) do %>
-      <%= render "_fund_row.html", amount: Map.get(pledge.changes, :amount, 0), action: Map.get(pledge.changes, :action, ""), index: index %>
-    <% end %>
-  </div>
+  <label class="rev-InputStack rev-InputLabel">
+    <span>Description</span>
+    <%= textarea(f, :description, class: "rev-Input", maxlength: 500) %>
+    <%= error_tag f, :description %>
+  </label>
+
+  <label class="rev-InputStack rev-InputLabel">
+    <span>Pledges</span>
+    <div id="fund_row_container">
+      <%= for {pledge, index} <- pledges_with_indexes(f) do %>
+        <%= render "_fund_row.html", amount: Map.get(pledge.changes, :amount, 0), action: Map.get(pledge.changes, :action, ""), index: index %>
+      <% end %>
+    </div>
+    <%= error_tag f, :pledges %>
+  </label>
+
+
 
   <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
     <div class="rev-Col">

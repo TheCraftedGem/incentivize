@@ -1,7 +1,7 @@
 defmodule IncentivizeWeb.FundView do
   use IncentivizeWeb, :view
   alias Ecto.Changeset
-  alias Incentivize.{Actions, Funds, Pledge}
+  alias Incentivize.{Actions, Fund, Funds, Pledge}
 
   def can_add_assets_to_fund?(conn, fund) do
     logged_in?(conn) and Funds.can_edit_fund?(fund, conn.assigns.current_user)
@@ -29,5 +29,13 @@ defmodule IncentivizeWeb.FundView do
       end
 
     Enum.with_index(pledges)
+  end
+
+  def fund_name(%Fund{name: name} = fund) when name in ["", nil] do
+    "#{fund.created_by.github_login}'s fund"
+  end
+
+  def fund_name(%Fund{name: name}) do
+    name
   end
 end

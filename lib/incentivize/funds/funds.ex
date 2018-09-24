@@ -71,7 +71,7 @@ defmodule Incentivize.Funds do
 
   def get_fund(fund_id) do
     Fund
-    |> preload([:pledges])
+    |> preload([:pledges, :created_by])
     |> Repo.get(fund_id)
   end
 

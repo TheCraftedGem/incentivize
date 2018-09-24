@@ -1,7 +1,7 @@
 <div class="rev-Row u-border-bottom" data-row="<%= @index %>">
   <div class="rev-Col rev-Col--medium5">
     <label class="rev-InputStack InputStack-pledge rev-InputLabel">
-      <span>Pledge Amount</span>
+      <span>Amount</span>
       <input class="rev-Input" id="fund_pledges_<%= @index %>_amount" name="fund[pledges][<%= @index %>][amount]" step="0.0001" type="number" value="<%= @amount %>" required>
     </label>
   </div>

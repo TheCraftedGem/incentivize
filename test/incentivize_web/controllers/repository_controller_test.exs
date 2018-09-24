@@ -12,10 +12,22 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
     [user: user, conn: conn]
   end
 
-  test "GET /repos/settings", %{conn: conn} do
-    conn = get(conn, repository_path(conn, :new))
-    assert html_response(conn, 200) =~ "Connect Repositories"
-    assert html_response(conn, 200) =~ "Install"
+  test "GET /repos for anonymous user" do
+    insert!(:repository, owner: "octocat", name: "Hello-World5")
+
+    insert!(:repository,
+      owner: "octocat",
+      name: "PrivateRepo",
+      public: false,
+      webhook_secret: "54321"
+    )
+
+    conn = build_conn()
+
+    conn = get(conn, repository_path(conn, :index))
+    assert html_response(conn, 200) =~ "Discover"
+    assert html_response(conn, 200) =~ "Hello-World5"
+    refute html_response(conn, 200) =~ "PrivateRepo"
   end
 
   test "GET /repos", %{conn: conn} do
@@ -35,5 +47,23 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
   test "GET /repos/:owner/:name when not found", %{conn: conn} do
     conn = get(conn, repository_path(conn, :show, "octocat", "Hello-World5"))
     assert html_response(conn, 404)
+  end
+
+  test "GET /repos/settings with user who has installation" do
+    user = insert!(:user, github_login: "octocat")
+
+    conn =
+      build_conn()
+      |> assign(:current_user, user)
+
+    conn = get(conn, repository_path(conn, :new))
+    assert html_response(conn, 200) =~ "Connect Repositories"
+    assert html_response(conn, 200) =~ "Configure"
+  end
+
+  test "GET /repos/settings with user who does not have installation", %{conn: conn} do
+    conn = get(conn, repository_path(conn, :new))
+    assert html_response(conn, 200) =~ "Connect Repositories"
+    assert html_response(conn, 200) =~ "Install"
   end
 end

@@ -44,9 +44,7 @@ defmodule IncentivizeWeb.RepositoryController do
     organization_installation_info =
       organizations
       |> Enum.map(fn org ->
-        case App.github_app_module().get_organization_app_installation_by_github_login(
-               org["login"]
-             ) do
+        case App.github_app_module().get_organization_app_installation_by_github_login(org.login) do
           {:ok, installation} ->
             installation_id = installation["id"]
 
