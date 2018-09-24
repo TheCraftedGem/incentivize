@@ -4,7 +4,7 @@ defmodule Incentivize.Repositories do
   """
 
   import Ecto.{Query}, warn: false
-  alias Incentivize.{Repo, Repository, Users}
+  alias Incentivize.{Repo, Repository, Users, Funds}
 
   def list_public_repositories do
     Repository
@@ -152,9 +152,8 @@ defmodule Incentivize.Repositories do
         join: user in Incentivize.User,
         on: user.id == fund.created_by_id,
         where: contribution.repository_id == ^repository.id,
-        group_by: [user.github_login, fund.id],
+        group_by: [fund.id],
         select: %{
-          github_login: user.github_login,
           fund_id: fund.id,
           sum: sum(contribution.amount)
         },
@@ -163,6 +162,16 @@ defmodule Incentivize.Repositories do
       )
 
     most_active_funds = Repo.all(query)
+
+    most_active_funds =
+      Enum.map(most_active_funds, fn %{fund_id: fund_id, sum: sum} ->
+        fund = Funds.get_fund(fund_id)
+
+        %{
+          fund: fund,
+          sum: sum
+        }
+      end)
 
     %{
       number_of_assets_distributed: number_of_assets_distributed,

@@ -61,8 +61,8 @@
                   <ol>
                     <%= for fund <- @stats.most_active_funds do %>
                       <li>
-                        <a href="<%= fund_path(@conn, :show, @repository.owner, @repository.name, fund.fund_id) %>">
-                          <%= fund.github_login %>'s Fund (<%= fund.sum %> <%= Incentivize.Stellar.asset_display() %>)
+                        <a href="<%= fund_path(@conn, :show, @repository.owner, @repository.name, fund.fund.id) %>">
+                          <%= IncentivizeWeb.FundView.fund_name(fund.fund) %> (<%= fund.sum %> <%= Incentivize.Stellar.asset_display() %>)
                         </a>
                       </li>
                     <% end %>

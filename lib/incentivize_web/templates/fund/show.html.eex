@@ -3,13 +3,33 @@
 
     <div class="rev-Row">
       <div class="rev-Col rev-Col--medium9 rev-Col--smallCentered">
-        <h1>Fund for <a href="<%= repository_path(@conn, :show, @repository.owner, @repository.name) %>"><%= @repository.owner %>/<%= @repository.name %></a></h1>
+
+        <h1>
+          <%= if is_nil(@fund.name) do %>
+            Fund for <a href="<%= repository_path(@conn, :show, @repository.owner, @repository.name) %>"><%= @repository.owner %>/<%= @repository.name %></a>
+          <% else %>
+            <%= @fund.name %>
+          <% end %>
+        </h1>
 
         <div class="rev-Card">
           <div class="rev-Card-body">
-
             <div class="rev-Row">
               <div class="rev-Col">
+                <%= unless is_nil(@fund.name) do %>
+                  <label class="rev-InputStack rev-InputLabel">
+                    <h5>Repository</h5>
+                    <div><a href="<%= repository_path(@conn, :show, @repository.owner, @repository.name) %>"><%= @repository.owner %>/<%= @repository.name %></a></div>
+                  </label>
+                <% end %>
+
+                <%= unless is_nil(@fund.description) do %>
+                  <label class="rev-InputStack rev-InputLabel">
+                    <h5>Description</h5>
+                    <div><%= @fund.description %></div>
+                  </label>
+                <% end %>
+
                 <label class="rev-InputStack rev-InputLabel">
                   <h5>Fund Address</h5>
                   <div><%= @fund.stellar_public_key %></div>

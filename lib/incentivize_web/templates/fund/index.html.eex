@@ -22,10 +22,13 @@
                       <img alt="Repo Favicon" src="/images/favicon.ico" />
                       <div class="ButtonLink--header">
                         <a href="<%= fund_path(@conn, :show, @repository.owner, @repository.name, fund.id) %>">
-                          <%= fund.created_by.github_login %>'s Fund
+                          <%= fund_name(fund) %>
                         </a>
                       </div>
                     </h3>
+                    <%= unless is_nil(fund.description) do %>
+                      <p><%= fund.description %></p>
+                    <% end %>
                     <p data-stellar-balance="<%= fund.stellar_public_key %>">Loading</p>
                     <p>
                       <a href="<%= contribution_path(@conn, :for_fund, @repository.owner, @repository.name, fund.id) %>">

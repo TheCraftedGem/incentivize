@@ -11,6 +11,8 @@ defmodule Incentivize.Fund do
   @type t :: %__MODULE__{}
   schema "funds" do
     field(:stellar_public_key, :string)
+    field(:name, :string)
+    field(:description, :string)
     belongs_to(:repository, Repository)
     has_many(:pledges, Pledge)
     belongs_to(:created_by, User)
@@ -21,7 +23,9 @@ defmodule Incentivize.Fund do
     model
     |> cast(params, [
       :repository_id,
-      :created_by_id
+      :created_by_id,
+      :name,
+      :description
     ])
     |> validate_required([
       :repository_id,
@@ -30,6 +34,11 @@ defmodule Incentivize.Fund do
     |> cast_assoc(:pledges, required: true)
     |> validate_pledges_present()
     |> validate_duplicate_pledges()
+    |> unique_constraint(
+      :name,
+      index: :funds_lower_name_repository_id_index,
+      message: "A fund with that name for this repo already exists"
+    )
   end
 
   defp validate_pledges_present(changeset) do

@@ -14,7 +14,7 @@
                     <h3 class="ButtonLink">
                       <div class="ButtonLink--header">
                         <a href="<%= fund_path(@conn, :show, fund.repository.owner, fund.repository.name, fund.id) %>">
-                          Fund for <%= fund.repository.owner %>/<%= fund.repository.name %>
+                          <%= IncentivizeWeb.FundView.fund_name(fund) %>
                         </a>
                       </div>
                     </h3>
