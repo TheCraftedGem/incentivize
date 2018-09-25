@@ -6,29 +6,26 @@ defmodule Incentivize.Repositories do
   import Ecto.{Query, Changeset}, warn: false
   alias Incentivize.{Repo, Repository, Repositories.Search, Users, Funds}
 
-  def list_repositories_for_user(nil, search_params) do
-    query =
-      Repository
-      |> where([r], r.public == true)
-      |> where([r], is_nil(r.deleted_at))
-      |> order_by([r], asc: r.owner, asc: r.name)
-      |> preload([:funds, :contributions])
-
-    search_and_page(query, search_params)
-  end
-
   def list_repositories_for_user(user, search_params) do
-    private_repo_full_names = get_private_repo_full_names(user)
-
     query =
       Repository
-      |> where(
-        [r],
-        r.public == true or fragment("(owner || '/' || name)") in ^private_repo_full_names
-      )
       |> where([r], is_nil(r.deleted_at))
       |> order_by([r], asc: r.owner, asc: r.name)
       |> preload([:funds, :contributions])
+
+    query =
+      if is_nil(user) do
+        query
+        |> where([r], r.public == true)
+      else
+        private_repo_full_names = get_private_repo_full_names(user)
+
+        query
+        |> where(
+          [r],
+          r.public == true or fragment("(owner || '/' || name)") in ^private_repo_full_names
+        )
+      end
 
     search_and_page(query, search_params)
   end
