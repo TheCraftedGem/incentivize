@@ -17,7 +17,7 @@
               <div class="rev-Row">
                 <div class="rev-Col">
                   <h3 class="ButtonLink">
-                    <img alt="Repo Favicon" src="/images/favicon.ico" />
+                    <img alt="Repo Favicon" src="<%= static_path(@conn, "/images/favicon-32x32.png") %>" />
                     <div class="ButtonLink--header">
                       <a href="">
                         Repo Owner / Repo Name
@@ -64,7 +64,7 @@
               <div class="rev-Row">
                 <div class="rev-Col">
                   <h3 class="ButtonLink">
-                    <img alt="Repo Favicon" src="/images/favicon.ico" />
+                    <img alt="Repo Favicon" src="<%= static_path(@conn, "/images/favicon-32x32.png") %>" />
                     <div class="ButtonLink--header">
                       <a href="">
                         Repo Owner / Repo Name

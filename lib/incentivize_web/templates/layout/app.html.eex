@@ -7,12 +7,12 @@
     <meta name="description" content="Incentivize.io is an incentive platform for software development that enables organizations or individuals to distribute XLM to project contributors.">
     <meta name="author" content="Revelry Labs">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-    <link rel="shortcut icon" href="/images/favicon.ico" />
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#00a67f">
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= static_path(@conn, "/images/apple-touch-icon.png") %>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= static_path(@conn, "/images/favicon-32x32.png") %>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= static_path(@conn, "/images/favicon-16x16.png") %>">
+    <link rel="shortcut icon" href="<%= static_path(@conn, "/images/favicon.ico") %>" />
+    <link rel="manifest" href="<%= static_path(@conn, "/site.webmanifest") %>">
+    <link rel="mask-icon" href="<%= static_path(@conn, "/images/safari-pinned-tab.svg") %>" color="#00a67f">
     <meta name="msapplication-TileColor" content="#00a67f">
     <meta name="theme-color" content="#ffffff">
 
@@ -42,7 +42,7 @@
             <ul class="rev-Menu rev-Menu--horizontalLeft">
               <li>
                 <a href="/">
-                  <img src="/images/incentivize-logo-dark.png" alt="Incentivize" />
+                  <img src="<%= static_path(@conn, "/images/incentivize-logo-dark.png") %>" alt="Incentivize" />
                 </a>
               </li>
               <%= if Incentivize.Stellar.test_network?() do %>

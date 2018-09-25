@@ -53,18 +53,14 @@ defmodule Incentivize.Github.App do
   end
 
   defp headers do
-    [
-      {"User-Agent", "Incentivize"},
-      {"Accept", "application/vnd.github.machine-man-preview+json"},
-      {"Authorization", "Bearer #{get_app_auth_token()}"}
-    ]
+    headers(get_app_auth_token())
   end
 
-  defp headers(installation_access_token) do
+  defp headers(access_token) do
     [
       {"User-Agent", "Incentivize"},
       {"Accept", "application/vnd.github.machine-man-preview+json"},
-      {"Authorization", "Bearer #{installation_access_token}"}
+      {"Authorization", "Bearer #{access_token}"}
     ]
   end
 

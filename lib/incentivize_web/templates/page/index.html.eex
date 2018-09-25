@@ -1,9 +1,6 @@
 <div>
   <div class="HeaderWrapper">
     <div class="rev-Row">
-      <!-- <div class="HeaderImage">
-        <img src="/images/home-hero.png" />
-      </div> -->
       <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
         <h1>Incentivize</h1>
         <h3>
@@ -42,7 +39,7 @@
           </a>
         </div>
         <div class="rev-Col rev-Col--medium7">
-          <img class="Image" src="/images/highlight-img.png" alt="GitHub Repository" />
+          <img class="Image" src="<%= static_path(@conn, "/images/highlight-img.png") %>" alt="GitHub Repository" />
         </div>
       </div>
     </div>
@@ -50,7 +47,7 @@
     <div class="Section">
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium6">
-          <img class="Image" src="/images/highlight-img-2.png" alt="Support a Project" />
+          <img class="Image" src="<%= static_path(@conn, "/images/highlight-img-2.png") %>" alt="Support a Project" />
         </div>
         <div class="rev-Col rev-Col--medium6">
           <h2>Support a Project</h2>
@@ -67,7 +64,7 @@
         <div class="rev-Col">
           <p>Created by
             <a href="https://revelry.co/" target="_blank" rel="noreferrer">
-              <img class="Footer-logo" src="/images/revelry-logo.png" alt="Revelry" />
+              <img class="Footer-logo" src="<%= static_path(@conn, "/images/revelry-logo.png") %>" alt="Revelry" />
             </a>
           </p>
           <p>
