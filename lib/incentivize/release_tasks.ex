@@ -17,20 +17,10 @@ defmodule Incentivize.ReleaseTasks do
     stop_services()
   end
 
-  def seed() do
-    start_services()
-
-    run_migrations()
-
-    run_seeds()
-
-    stop_services()
-  end
-
   defp start_services do
     IO.puts("Loading #{@app}..")
 
-    # Load the code for myapp, but don't start it
+    # Load the code for incentivize, but don't start it
     Application.load(@app)
 
     IO.puts("Starting dependencies..")
@@ -56,20 +46,6 @@ defmodule Incentivize.ReleaseTasks do
     IO.puts("Running migrations for #{app}")
     migrations_path = priv_path_for(repo, "migrations")
     Ecto.Migrator.run(repo, migrations_path, :up, all: true)
-  end
-
-  defp run_seeds do
-    Enum.each(@repos, &run_seeds_for/1)
-  end
-
-  defp run_seeds_for(repo) do
-    # Run the seed script if it exists
-    seed_script = priv_path_for(repo, "seeds.exs")
-
-    if File.exists?(seed_script) do
-      IO.puts("Running seed script..")
-      Code.eval_file(seed_script)
-    end
   end
 
   defp priv_path_for(repo, filename) do
