@@ -11,7 +11,6 @@ defmodule Incentivize.Repository do
   schema "repositories" do
     field(:name, :string)
     field(:owner, :string)
-    field(:webhook_secret, :string)
     field(:public, :boolean, default: true)
     field(:deleted_at, :utc_datetime)
     field(:installation_id, :integer)
@@ -35,7 +34,6 @@ defmodule Incentivize.Repository do
       name: "repositories_owner_name_index",
       message: "Repository already connected."
     )
-    |> put_change(:webhook_secret, random_string(32))
   end
 
   def update_changeset(%Repository{} = model, params \\ %{}) do
@@ -43,16 +41,11 @@ defmodule Incentivize.Repository do
     |> cast(params, [
       :name,
       :owner,
-      :webhook_secret,
       :created_by_id,
       :deleted_at,
       :public,
       :installation_id
     ])
-    |> validate_required([:name, :owner, :webhook_secret, :public, :installation_id])
-  end
-
-  defp random_string(length) do
-    length |> :crypto.strong_rand_bytes() |> Base.encode64() |> binary_part(0, length)
+    |> validate_required([:name, :owner, :public, :installation_id])
   end
 end

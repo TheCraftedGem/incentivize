@@ -15,7 +15,6 @@ defmodule Incentivize.Repositories.Test do
       })
 
     assert repository.name == "Hello-World"
-    assert repository.webhook_secret != nil
   end
 
   test "update" do

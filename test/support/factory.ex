@@ -26,7 +26,6 @@ defmodule Incentivize.Factory do
     %Repository{
       name: "test#{System.unique_integer([:positive])}",
       owner: "test#{System.unique_integer([:positive])}",
-      webhook_secret: "12345",
       created_by: build(:user),
       public: true,
       installation_id: 12_345

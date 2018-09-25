@@ -18,8 +18,7 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
     insert!(:repository,
       owner: "octocat",
       name: "PrivateRepo",
-      public: false,
-      webhook_secret: "54321"
+      public: false
     )
 
     conn = build_conn()
@@ -39,7 +38,7 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
 
   test "GET /repos search", %{conn: conn} do
     insert!(:repository, owner: "octocat", name: "Hello-World5")
-    insert!(:repository, owner: "octocat", name: "Summer", webhook_secret: "54321")
+    insert!(:repository, owner: "octocat", name: "Summer")
 
     conn = get(conn, repository_path(conn, :index, search: [query: "sum"]))
     assert html_response(conn, 200) =~ "Summer"

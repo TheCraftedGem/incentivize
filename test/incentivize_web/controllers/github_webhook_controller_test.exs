@@ -10,8 +10,7 @@ defmodule IncentivizeWeb.GithubWebhookController.Test do
   end
 
   test "POST /github/webhook", %{conn: conn} do
-    _repo =
-      insert!(:repository, %{owner: "Codertocat", name: "Hello-World", webhook_secret: "12345"})
+    _repo = insert!(:repository, %{owner: "Codertocat", name: "Hello-World"})
 
     json = File.read!("./test/fixtures/issue_comment_created.json")
     signature = calculate_signature(json)
