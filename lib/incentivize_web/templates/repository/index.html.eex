@@ -9,6 +9,15 @@
             <h2>Discover</h2>
           </div>
         </div>
+        <%= row do %>
+          <%= col do %>
+            <%= form_tag("/repos", method: "get") do %>
+              <label class="rev-InputStack rev-InputLabel">
+                <input type="search" name="search[query]" class="rev-Input" placeholder="Search" />
+              </label>
+            <% end %>
+          <% end %>
+        <% end %>
 
         <div class="rev-Row">
         <%= for repo <- @repositories do %>
@@ -68,7 +77,13 @@
           </div>
         <% end %>
         </div>
-
+        <%= render "_pagination.html",
+          conn: @conn,
+          page_number: @repositories.page_number,
+          page_size: @repositories.page_size,
+          total_entries: @repositories.total_entries,
+          total_pages: @repositories.total_pages
+        %>
       </div>
     </div>
 

@@ -3,30 +3,52 @@ defmodule Incentivize.Repositories do
   Module for interacting with Repositories
   """
 
-  import Ecto.{Query}, warn: false
-  alias Incentivize.{Repo, Repository, Users, Funds}
+  import Ecto.{Query, Changeset}, warn: false
+  alias Incentivize.{Repo, Repository, Repositories.Search, Users, Funds}
 
-  def list_public_repositories do
-    Repository
-    |> where([r], r.public == true)
-    |> where([r], is_nil(r.deleted_at))
-    |> order_by([r], asc: r.owner, asc: r.name)
-    |> preload([:funds, :contributions])
-    |> Repo.all()
+  def list_repositories_for_user(nil, search_params) do
+    query =
+      Repository
+      |> where([r], r.public == true)
+      |> where([r], is_nil(r.deleted_at))
+      |> order_by([r], asc: r.owner, asc: r.name)
+      |> preload([:funds, :contributions])
+
+    search_and_page(query, search_params)
   end
 
-  def list_repositories_for_user(user) do
+  def list_repositories_for_user(user, search_params) do
     private_repo_full_names = get_private_repo_full_names(user)
 
-    Repository
-    |> where(
-      [r],
-      r.public == true or fragment("(owner || '/' || name)") in ^private_repo_full_names
-    )
-    |> where([r], is_nil(r.deleted_at))
-    |> order_by([r], asc: r.owner, asc: r.name)
-    |> preload([:funds, :contributions])
-    |> Repo.all()
+    query =
+      Repository
+      |> where(
+        [r],
+        r.public == true or fragment("(owner || '/' || name)") in ^private_repo_full_names
+      )
+      |> where([r], is_nil(r.deleted_at))
+      |> order_by([r], asc: r.owner, asc: r.name)
+      |> preload([:funds, :contributions])
+
+    search_and_page(query, search_params)
+  end
+
+  defp search_and_page(query, search_params) do
+    {:ok, search} =
+      %Search{}
+      |> Search.changeset(search_params)
+      |> apply_action(:insert)
+
+    query =
+      if is_nil(search.query) do
+        query
+      else
+        search_term = "%#{search.query}%"
+
+        where(query, [r], ilike(r.owner, ^search_term) or ilike(r.name, ^search_term))
+      end
+
+    Repo.paginate(query, page: search.page)
   end
 
   def list_repositories_for_installation(installation_id) do

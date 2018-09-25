@@ -4,11 +4,11 @@ defmodule IncentivizeWeb.RepositoryController do
 
   action_fallback(IncentivizeWeb.FallbackController)
 
-  def index(conn, _params) do
+  def index(conn, params) do
+    search_params = Map.get(params, "search", %{})
+
     repositories =
-      if conn.assigns.current_user,
-        do: Repositories.list_repositories_for_user(conn.assigns.current_user),
-        else: Repositories.list_public_repositories()
+      Repositories.list_repositories_for_user(conn.assigns.current_user, search_params)
 
     render(conn, "index.html", repositories: repositories)
   end

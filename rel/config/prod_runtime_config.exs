@@ -7,7 +7,7 @@ config :incentivize, Incentivize.Repo,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 config :incentivize, IncentivizeWeb.Endpoint,
-  http: [port: port],
+  http: [port: port, compress: true],
   url: [scheme: "https", host: System.get_env("APP_DOMAIN"), port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
