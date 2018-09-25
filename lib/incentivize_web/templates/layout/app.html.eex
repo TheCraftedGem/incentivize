@@ -140,7 +140,7 @@
                 <p><%= get_flash(@conn, :info) %></p>
               </div>
               <div class="rev-Col rev-Col--medium2 Text-center">
-                <p><i class="material-icons" data-alert-close>close</i></p>
+                <p><i class="material-icons rev-Callout--close" data-alert-close>close</i></p>
               </div>
             </div>
           </div>
@@ -152,7 +152,7 @@
                 <p><%= get_flash(@conn, :error) %></p>
               </div>
               <div class="rev-Col rev-Col--medium2 Text-center">
-                <p><i class="material-icons" data-alert-close>close</i></p>
+                <p><i class="material-icons rev-Callout--close" data-alert-close>close</i></p>
               </div>
             </div>
           </div>
