@@ -25,7 +25,7 @@ defmodule Incentivize.Github.ContributionWorker do
                pledge.fund.stellar_public_key,
                user.stellar_public_key,
                pledge.amount,
-               "incentivize"
+               "Incentivize contribution"
              ),
            {:ok, _contribution} <-
              Contributions.create_contribution(%{

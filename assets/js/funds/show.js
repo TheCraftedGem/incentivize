@@ -23,7 +23,10 @@ async function addFundsToAccount(
 
   const account = await server.loadAccount(userKeyPair.publicKey())
 
-  const transaction = new StellarSdk.TransactionBuilder(account)
+  const memo = StellarSdk.Memo.text('Assets to Incentivize Fund')
+  const transaction = new StellarSdk.TransactionBuilder(account, {
+    memo,
+  })
     .addOperation(
       StellarSdk.Operation.payment({
         destination: fundPublicKey,

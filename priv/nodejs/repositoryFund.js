@@ -107,7 +107,7 @@ async function rewardContributionXDR(
   const ownerKeyPair = StellarSdk.Keypair.fromSecret(incentivizeSecret)
   const asset = processAsset(assetInfo)
 
-  memo = StellarSdk.Memo.text(memoText)
+  const memo = StellarSdk.Memo.text(memoText)
   transaction = new StellarSdk.TransactionBuilder(escrowAccount, {memo})
     .addOperation(
       StellarSdk.Operation.payment({
@@ -136,7 +136,7 @@ async function addFundsXDR(
   const ownerAccount = await server.loadAccount(ownerKeyPair.publicKey())
   const asset = processAsset(assetInfo)
 
-  memo = StellarSdk.Memo.text(memoText)
+  const memo = StellarSdk.Memo.text(memoText)
   transaction = new StellarSdk.TransactionBuilder(ownerAccount, {
     memo,
   })
