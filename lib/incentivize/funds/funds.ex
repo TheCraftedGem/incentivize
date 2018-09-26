@@ -9,6 +9,8 @@ defmodule Incentivize.Funds do
   @stellar_module Application.get_env(:incentivize, :stellar_module)
 
   def create_fund(params) do
+    timeout = 120_000
+
     Multi.new()
     |> Multi.insert(:fund, Fund.create_changeset(%Fund{}, params))
     |> Multi.run(:create_stellar_fund, fn %{fund: fund} ->
@@ -20,7 +22,7 @@ defmodule Incentivize.Funds do
       |> Fund.add_stellar_public_key_changeset(%{stellar_public_key: escrow_public_key})
       |> Repo.update()
     end)
-    |> Repo.transaction()
+    |> Repo.transaction(timeout: timeout, pool_timeout: timeout)
   end
 
   def get_fund_for_repository(repository, id) do

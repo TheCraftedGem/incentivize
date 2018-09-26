@@ -38,6 +38,8 @@ config :incentivize, Incentivize.Stellar,
   public_key: System.get_env("STELLAR_PUBLIC_KEY"),
   secret: System.get_env("STELLAR_SECRET")
 
+config :stellar, network: System.get_env("STELLAR_NETWORK_URL")
+
 config :incentivize, :statix,
   prefix: "incentivize",
   host: System.get_env("DATADOG_HOST") || "localhost",
