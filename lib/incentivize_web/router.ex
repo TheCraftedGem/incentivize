@@ -122,13 +122,13 @@ defmodule IncentivizeWeb.Router do
 
     get("/", RepositoryController, :index)
     get("/:owner/:name", RepositoryController, :show)
+    get("/:owner/:name/contributions", ContributionController, :for_repository)
   end
 
   scope "/repos", IncentivizeWeb do
     pipe_through([:browser, :require_auth])
 
     get("/settings", RepositoryController, :new)
-    get("/:owner/:name/contributions", ContributionController, :for_repository)
   end
 
   scope "/repos/:owner/:name/funds", IncentivizeWeb do
