@@ -13,7 +13,7 @@
       <div class="rev-Row">
         <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
           <a href="<%= github_auth_path(@conn, :index) %>" class='rev-Button rev-Button--white rev-Button--icon'>
-            <img src="<%= static_path(@conn, "/images/logos/github/GitHub-Mark-Light-32px.png") %>"/>
+            <img alt="GitHub logo" src="<%= static_path(@conn, "/images/logos/github/GitHub-Mark-Light-32px.png") %>"/>
             <span>Sign Up with GitHub<span>
           </a>
         </div>
