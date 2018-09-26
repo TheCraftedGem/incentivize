@@ -29,7 +29,7 @@ async function getAccountBalance(server, balanceElement) {
 
     for (const balance of account.balances) {
       const newDiv = document.createElement('div')
-      const type = balance.asset_type === 'native' ? 'XLM' : balance.asset_type
+      const type = balance.asset_type === 'native' ? 'XLM' : balance.asset_code
 
       newDiv.textContent = `${balance.balance} ${type}`
       balanceElement.appendChild(newDiv)
