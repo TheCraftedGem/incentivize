@@ -93,7 +93,8 @@
                     </div>
                   <% else %>
                     <div class="rev-Form">
-                      <a class="rev-Button rev-Button--expanded" href="<%= github_auth_path(@conn, :index) %>">Log In</a>
+                      <a class="rev-Button rev-Button--secondary" href="<%= github_auth_path(@conn, :index) %>">Login</a>
+                      <a class="rev-Button" href="<%= github_auth_path(@conn, :index) %>">Sign Up with GitHub</a>
                     </div>
                   <% end %>
                 </ul>
@@ -123,7 +124,8 @@
                 </div>
               <% else %>
                 <div class="rev-Form">
-                  <a class="rev-Button" href="<%= github_auth_path(@conn, :index) %>">Log In</a>
+                  <a class="rev-Button rev-Button--secondary" href="<%= github_auth_path(@conn, :index) %>">Login</a>
+                  <a class="rev-Button" href="<%= github_auth_path(@conn, :index) %>">Sign Up with GitHub</a>
                 </div>
               <% end %>
             </ul>

@@ -4,8 +4,20 @@
       <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
         <h1>Incentivize</h1>
         <h3>
-          <strong>Incentivize.io</strong> is an <strong>incentive platform for software development</strong> that enables organizations or individuals to distribute XLM to project contributors.
+          <strong>Incentivize.io</strong> is an
+          <strong>incentive platform for software development</strong>
+          that enables organizations or individuals to distribute XLM to
+          GitHub project contributors.
         </h3>
+
+      <div class="rev-Row">
+        <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
+          <a href="<%= github_auth_path(@conn, :index) %>" class='rev-Button rev-Button--white rev-Button--icon'>
+            <img src="<%= static_path(@conn, "/images/logos/github/GitHub-Mark-Light-32px.png") %>"/>
+            <span>Sign Up with GitHub<span>
+          </a>
+        </div>
+      </div>
       </div>
     </div>
   </div>
@@ -34,7 +46,7 @@
         <div class="rev-Col rev-Col--medium5">
           <h2>Contribute to Projects</h2>
           <p>When a Contributor finds a project they want to work on, they can select contribute and see all of the project pieces that are funded and the rewards associated with them.</p>
-          <a href="#" target="_blank" rel="noreferrer" class='rev-Button rev-Button--white'>
+          <a href="<%= github_auth_path(@conn, :index) %>" class='rev-Button rev-Button--white'>
             Start Contributing
           </a>
         </div>
@@ -52,7 +64,7 @@
         <div class="rev-Col rev-Col--medium6">
           <h2>Support a Project</h2>
           <p>the people who choose projects to support by adding <%= Incentivize.Stellar.asset_display() %> to the project fund. Supporters are anyone who is motivated to support a project by backing it with <%= Incentivize.Stellar.asset_display() %>. It could be the owner of the repository, a business, or just a single person who uses this open source tool and wants to motivate others to improve it.</p>
-          <a href="#" target="_blank" rel="noreferrer" class='rev-Button rev-Button--white'>
+          <a href="<%= github_auth_path(@conn, :index) %>" class='rev-Button rev-Button--white'>
             Start Supporting
           </a>
         </div>

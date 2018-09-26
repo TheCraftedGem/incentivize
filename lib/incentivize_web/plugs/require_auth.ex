@@ -15,7 +15,7 @@ defmodule IncentivizeWeb.RequireAuth do
     case conn.assigns.current_user do
       nil ->
         conn
-        |> Controller.put_flash(:error, "Please log in before accessing requested page.")
+        |> Controller.put_flash(:error, "Please login before accessing requested page.")
         |> Controller.redirect(to: Helpers.page_path(conn, :index))
         |> halt
 
