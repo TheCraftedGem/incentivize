@@ -155,7 +155,7 @@ defmodule Incentivize.Repositories do
         where: contribution.repository_id == ^repository.id,
         group_by: user.github_login,
         select: %{github_login: user.github_login, count: count(contribution.id)},
-        order_by: count(contribution.id),
+        order_by: [desc: count(contribution.id)],
         limit: ^leaderboard_top_number
       )
 
@@ -176,7 +176,7 @@ defmodule Incentivize.Repositories do
           fund_id: fund.id,
           sum: sum(contribution.amount)
         },
-        order_by: sum(contribution.amount),
+        order_by: [desc: sum(contribution.amount)],
         limit: ^leaderboard_top_number
       )
 
