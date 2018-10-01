@@ -240,3 +240,7 @@ config :incentivize, Incentivize.Stellar,
   public_key: <stellar_public_key>,
   secret: <stellar_secret>
 ```
+
+### Production
+
+There is a Dockerfile for production deployments. The Dockerfile builds a release and runs the app using that. `rel/config/prod_runtime_config.exs` contains the production configuration that looks for environment variables at runtime.
