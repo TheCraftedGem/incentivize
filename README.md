@@ -168,7 +168,7 @@ config :incentivize, Incentivize.Github.OAuth,
 
 #### Creating a GitHub App
 
-Since you will be receiving webhooks, you will need to use a domain other than `localhost`. For development, you can use a service such as `ngrok` to create a domain to let you use the webhooks locally
+Since you will be receiving webhooks, you will need to use a domain other than `localhost`. You can use the script at `bin/tunnel` to create a domain to use. This will let you use the webhooks locally
 
 - Go to https://github.com/settings/developers
 - Click `New OAuth App`
@@ -201,10 +201,26 @@ config :incentivize, Incentivize.Github.App,
   app_slug: <github_app_slug> # https://github.com/settings/apps/:app_slug
 ```
 
+### Getting a Stellar Account on Testnet
+
+For development, you will need a Stellar Account on the Testnet
+
+- Go to https://www.stellar.org/laboratory/#account-creator?network=test
+- Click `Generate Keypair`
+- Take not of the Public Key and Secret Key
+- To let Friendbot fund your account with lumens, put your Public Key into the box on the bottom of the page and click `Get test network lumens`
+- Add your Public Key and Secret Key to your app configuration
+
+```elixir
+config :incentivize, Incentivize.Stellar,
+  network_url: "https://horizon-testnet.stellar.org",
+  public_key: <stellar_public_key>,
+  secret: <stellar_secret_key>
+```
+
 ### Required Secrets
 
 In development, values can go into `config/dev.secret.exs`.
-To generate a Stellar test network key/pair and fund the account with Lumens, go here: https://www.stellar.org/laboratory/#account-creator?network=test
 
 ```elixir
 # Configuration for GitHub OAuth
