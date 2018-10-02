@@ -18,12 +18,12 @@ defmodule Incentivize.Repositories do
         query
         |> where([r], r.public == true)
       else
-        private_repo_full_names = get_private_repo_full_names(user)
+        repo_full_names = get_repo_full_names(user)
 
         query
         |> where(
           [r],
-          r.public == true or fragment("(owner || '/' || name)") in ^private_repo_full_names
+          r.public == true or fragment("(owner || '/' || name)") in ^repo_full_names
         )
       end
 
@@ -202,17 +202,37 @@ defmodule Incentivize.Repositories do
     }
   end
 
+  def can_view_repository?(nil, _) do
+    false
+  end
+
   def can_view_repository?(repository, nil) do
     repository.public
   end
 
   def can_view_repository?(repository, user) do
-    private_repo_full_names = get_private_repo_full_names(user)
+    repo_full_names = get_repo_full_names(user)
 
     repository.public == true or
-      Enum.any?(private_repo_full_names, fn x ->
+      Enum.any?(repo_full_names, fn x ->
         x == "#{repository.owner}/#{repository.name}"
       end)
+  end
+
+  def can_edit_repository?(nil, _) do
+    false
+  end
+
+  def can_edit_repository?(_, nil) do
+    false
+  end
+
+  def can_edit_repository?(repository, user) do
+    repo_full_names = get_repo_full_names(user)
+
+    Enum.any?(repo_full_names, fn x ->
+      x == "#{repository.owner}/#{repository.name}"
+    end)
   end
 
   def delete_repositories_for_installation_id(installation_id) do
@@ -247,8 +267,12 @@ defmodule Incentivize.Repositories do
     )
   end
 
-  defp get_private_repo_full_names(user) do
-    %{private_repos: private_repos} = Users.get_user_github_data(user)
-    Enum.map(private_repos, fn repo -> repo.full_name end)
+  defp get_repo_full_names(user) do
+    %{repos: repos} = Users.get_user_github_data(user)
+    Enum.map(repos, fn repo -> repo.full_name end)
+  end
+
+  def get_title(repository) do
+    "#{repository.owner}/#{repository.name}"
   end
 end

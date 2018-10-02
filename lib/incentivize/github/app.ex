@@ -106,10 +106,9 @@ defmodule Incentivize.Github.App do
     |> Base.process_response()
   end
 
-  @spec list_user_private_repos(User.t()) :: {:ok, map} | {:error, binary}
-  def list_user_private_repos(user) do
-    url =
-      "#{Base.base_url()}/user/repos?visibility=private&access_token=#{user.github_access_token}"
+  @spec list_user_repos(User.t()) :: {:ok, map} | {:error, binary}
+  def list_user_repos(user) do
+    url = "#{Base.base_url()}/user/repos?access_token=#{user.github_access_token}"
 
     url
     |> HTTPoison.get(Base.headers())

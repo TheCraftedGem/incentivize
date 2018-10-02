@@ -25,7 +25,7 @@ defmodule Incentivize.Github.App.Test do
     assert {:ok, %{"login" => "octocat"}} = App.get_user(user)
   end
 
-  test "list_user_private_repos", %{bypass: bypass} do
+  test "list_user_repos", %{bypass: bypass} do
     user = insert!(:user)
     json = File.read!("./test/fixtures/list_user_repos.json")
 
@@ -33,7 +33,7 @@ defmodule Incentivize.Github.App.Test do
       Conn.resp(conn, 200, json)
     end)
 
-    assert {:ok, [_]} = App.list_user_private_repos(user)
+    assert {:ok, [_]} = App.list_user_repos(user)
   end
 
   test "list_organizations_for_user", %{bypass: bypass} do

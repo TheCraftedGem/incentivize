@@ -128,7 +128,9 @@ defmodule IncentivizeWeb.Router do
   scope "/repos", IncentivizeWeb do
     pipe_through([:browser, :require_auth])
 
-    get("/settings", RepositoryController, :new)
+    get("/settings", RepositoryController, :settings)
+    get("/:owner/:name/edit", RepositoryController, :edit)
+    put("/:owner/:name/edit", RepositoryController, :update)
   end
 
   scope "/repos/:owner/:name/funds", IncentivizeWeb do

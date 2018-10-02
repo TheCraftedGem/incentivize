@@ -33,6 +33,11 @@
               <i class="material-icons">lock</i>
             <% end %>
           </a>
+          <a
+            title="edit repository"
+            href="<%= repository_path(@conn, :edit, repo.owner, repo.name) %>">
+            <i class="material-icons">edit</i>
+          </a>
           </div>
         <% end %>
       <% end %>
