@@ -21,7 +21,7 @@ defmodule Incentivize.Repository do
     field(:title, :string)
     field(:logo_url, :string)
     field(:description, :string)
-    has_many(:links, RepositoryLink)
+    has_many(:links, RepositoryLink, on_replace: :delete)
   end
 
   def create_changeset(%Repository{} = model, params \\ %{}) do

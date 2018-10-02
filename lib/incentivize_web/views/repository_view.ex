@@ -1,6 +1,8 @@
 defmodule IncentivizeWeb.RepositoryView do
   use IncentivizeWeb, :view
   @page_links_to_show 2
+  @max_number_of_links 3
+  alias Incentivize.RepositoryLink
 
   def make_next_page_link(conn, current_page) do
     make_page_link(conn, current_page + 1)
@@ -54,5 +56,15 @@ defmodule IncentivizeWeb.RepositoryView do
 
   def show_page_link?(page, page_number) do
     page >= page_number - @page_links_to_show and page <= page_number + @page_links_to_show
+  end
+
+  def append_links(repository) do
+    links_needed = @max_number_of_links - length(repository.links)
+
+    if links_needed <= 0 do
+      []
+    else
+      Enum.map(1..links_needed, fn _ -> %RepositoryLink{} end)
+    end
   end
 end

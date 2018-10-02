@@ -22,6 +22,6 @@ defmodule Incentivize.RepositoryLink do
       :url,
       :repository_id
     ])
-    |> validate_required([:title, :url])
+    |> validate_required([:url])
   end
 end

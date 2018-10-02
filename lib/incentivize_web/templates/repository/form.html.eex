@@ -1,4 +1,42 @@
 <%= form_for @changeset, @action, fn f -> %>
+  <label class="rev-InputStack rev-InputLabel">
+    <span>Name</span>
+    <%= text_input(f, :title, class: "rev-Input", maxlength: 250) %>
+    <%= error_tag f, :title %>
+  </label>
+
+  <label class="rev-InputStack rev-InputLabel">
+    <span>Description</span>
+    <%= textarea(f, :description, class: "rev-Input") %>
+    <%= error_tag f, :description %>
+  </label>
+
+  <label class="rev-InputStack rev-InputLabel">
+    <span>Logo URL</span>
+    <%= url_input(f, :logo_url, class: "rev-Input") %>
+    <%= error_tag f, :logo_url %>
+  </label>
+
+  <h3>Links</h3>
+  <%= inputs_for f, :links, [append: append_links(f.data)], fn flinks -> %>
+    <%= row do %>
+      <%= col medium: 6 do %>
+         <label class="rev-InputStack rev-InputLabel">
+            <span>Title</span>
+            <%= text_input(flinks, :title, class: "rev-Input", maxlength: 250) %>
+            <%= error_tag flinks, :title %>
+          </label>
+      <% end %>
+      <%= col medium: 6 do %>
+        <label class="rev-InputStack rev-InputLabel">
+          <span>URL</span>
+          <%= url_input(flinks, :url, class: "rev-Input") %>
+          <%= error_tag flinks, :url %>
+        </label>
+      <% end %>
+    <% end %>
+  <% end %>
+
   <section class="u-noBorder-bottom">
     <button class="rev-Button" type="submit">Update</button>
   </section>

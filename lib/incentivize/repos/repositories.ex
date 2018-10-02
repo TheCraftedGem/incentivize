@@ -77,7 +77,7 @@ defmodule Incentivize.Repositories do
         where: ilike(repo.owner, ^owner),
         where: ilike(repo.name, ^name),
         where: is_nil(repo.deleted_at),
-        preload: [:funds, :contributions]
+        preload: [:funds, :contributions, :links]
       )
 
     Repo.one(query)
