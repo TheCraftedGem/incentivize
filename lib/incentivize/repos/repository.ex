@@ -5,7 +5,7 @@ defmodule Incentivize.Repository do
 
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
-  alias Incentivize.{Contribution, Fund, Repository, User}
+  alias Incentivize.{Contribution, Fund, Repository, RepositoryLink, User}
 
   @type t :: %__MODULE__{}
   schema "repositories" do
@@ -18,6 +18,10 @@ defmodule Incentivize.Repository do
     has_many(:contributions, Contribution)
     belongs_to(:created_by, User)
     timestamps()
+    field(:title, :string)
+    field(:logo_url, :string)
+    field(:description, :string)
+    has_many(:links, RepositoryLink)
   end
 
   def create_changeset(%Repository{} = model, params \\ %{}) do
@@ -44,8 +48,12 @@ defmodule Incentivize.Repository do
       :created_by_id,
       :deleted_at,
       :public,
-      :installation_id
+      :installation_id,
+      :title,
+      :description,
+      :logo_url
     ])
     |> validate_required([:name, :owner, :public, :installation_id])
+    |> cast_assoc(:links, required: false)
   end
 end
