@@ -89,12 +89,13 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
   test "PUT /repos/:owner/:name/edit", %{conn: conn} do
     insert!(:repository, owner: "octocat", name: "Hello-World")
 
-    conn = put(conn, repository_path(conn, :edit, "octocat", "Hello-World"))
+    conn = put(conn, repository_path(conn, :edit, "octocat", "Hello-World"), repository: %{})
+
     assert redirected_to(conn) =~ repository_path(conn, :edit, "octocat", "Hello-World")
   end
 
   test "PUT /repos/:owner/:name/edit when not found", %{conn: conn} do
-    conn = put(conn, repository_path(conn, :edit, "octocat", "Hello-World5"))
+    conn = put(conn, repository_path(conn, :edit, "octocat", "Hello-World5"), repository: %{})
     assert html_response(conn, 404)
   end
 end

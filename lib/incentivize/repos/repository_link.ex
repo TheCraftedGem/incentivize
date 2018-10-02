@@ -5,7 +5,7 @@ defmodule Incentivize.RepositoryLink do
 
   use Ecto.Schema
   import Ecto.{Query, Changeset}, warn: false
-  alias Incentivize.{Contribution, Repository, RepositoryLink}
+  alias Incentivize.{Repository, RepositoryLink}
 
   @type t :: %__MODULE__{}
   schema "repository_links" do
