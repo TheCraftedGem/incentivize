@@ -33,7 +33,7 @@ defmodule IncentivizeWeb.AccountControllerTest do
 
   test "GET /account/github/sync", %{conn: conn} do
     conn = get(conn, account_path(conn, :sync))
-    assert redirected_to(conn) =~ repository_path(conn, :new)
+    assert redirected_to(conn) =~ repository_path(conn, :settings)
   end
 
   test "PUT /account/edit", %{conn: conn, user: user} do

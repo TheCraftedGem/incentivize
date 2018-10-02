@@ -49,6 +49,6 @@ defmodule IncentivizeWeb.AccountController do
 
     conn
     |> put_flash(:info, "Organizations Synced")
-    |> redirect(to: repository_path(conn, :new))
+    |> redirect(to: repository_path(conn, :settings))
   end
 end

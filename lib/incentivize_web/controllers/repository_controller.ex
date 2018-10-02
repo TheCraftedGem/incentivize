@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.RepositoryController do
   use IncentivizeWeb, :controller
-  alias Incentivize.{Github.App, Repositories, Users}
+  alias Incentivize.{Github.App, Repository, Repositories, Users}
 
   action_fallback(IncentivizeWeb.FallbackController)
 
@@ -13,7 +13,7 @@ defmodule IncentivizeWeb.RepositoryController do
     render(conn, "index.html", repositories: repositories)
   end
 
-  def new(conn, _params) do
+  def settings(conn, _params) do
     %{user: %{github_id: user_github_id}, organizations: organizations} =
       Users.get_user_github_data(conn.assigns.current_user)
 
@@ -70,18 +70,37 @@ defmodule IncentivizeWeb.RepositoryController do
   end
 
   def show(conn, %{"owner" => owner, "name" => name}) do
-    case Repositories.get_repository_by_owner_and_name(owner, name) do
-      nil ->
-        :not_found
+    repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
-      repository ->
-        if Repositories.can_view_repository?(repository, conn.assigns.current_user) do
-          stats = Repositories.get_repository_stats(repository)
+    if Repositories.can_view_repository?(repository, conn.assigns.current_user) do
+      stats = Repositories.get_repository_stats(repository)
 
-          render(conn, "show.html", repository: repository, stats: stats)
-        else
-          :not_found
-        end
+      render(conn, "show.html", repository: repository, stats: stats)
+    else
+      :not_found
+    end
+  end
+
+  def edit(conn, %{"owner" => owner, "name" => name}) do
+    repository = Repositories.get_repository_by_owner_and_name(owner, name)
+
+    if Repositories.can_edit_repository?(repository, conn.assigns.current_user) do
+      changeset = Repository.update_changeset(repository)
+      render(conn, "edit.html", repository: repository, changeset: changeset)
+    else
+      :not_found
+    end
+  end
+
+  def update(conn, %{"owner" => owner, "name" => name}) do
+    repository = Repositories.get_repository_by_owner_and_name(owner, name)
+
+    if Repositories.can_edit_repository?(repository, conn.assigns.current_user) do
+      conn
+      |> put_flash(:info, "#{Repositories.get_title(repository)} updated.")
+      |> redirect(to: repository_path(conn, :edit, owner, name))
+    else
+      :not_found
     end
   end
 end

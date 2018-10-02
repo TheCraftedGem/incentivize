@@ -60,10 +60,10 @@ defmodule Incentivize.Users do
           String.downcase(org1.login) < String.downcase(org2.login)
         end)
 
-      {:ok, private_repos} = App.github_app_module().list_user_private_repos(user)
+      {:ok, repos} = App.github_app_module().list_user_repos(user)
 
-      private_repos =
-        private_repos
+      repos =
+        repos
         |> Enum.map(fn repo ->
           %{
             full_name: repo["full_name"],
@@ -78,7 +78,7 @@ defmodule Incentivize.Users do
           github_id: github_user["id"]
         },
         organizations: organizations,
-        private_repos: private_repos
+        repos: repos
       }
     end)
   end

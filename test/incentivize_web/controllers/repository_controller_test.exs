@@ -63,14 +63,38 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
       build_conn()
       |> assign(:current_user, user)
 
-    conn = get(conn, repository_path(conn, :new))
+    conn = get(conn, repository_path(conn, :settings))
     assert html_response(conn, 200) =~ "Connect Repositories"
     assert html_response(conn, 200) =~ "Configure"
   end
 
   test "GET /repos/settings with user who does not have installation", %{conn: conn} do
-    conn = get(conn, repository_path(conn, :new))
+    conn = get(conn, repository_path(conn, :settings))
     assert html_response(conn, 200) =~ "Connect Repositories"
     assert html_response(conn, 200) =~ "Install"
+  end
+
+  test "GET /repos/:owner/:name/edit", %{conn: conn} do
+    insert!(:repository, owner: "octocat", name: "Hello-World")
+
+    conn = get(conn, repository_path(conn, :edit, "octocat", "Hello-World"))
+    assert html_response(conn, 200) =~ "octocat/Hello-World"
+  end
+
+  test "GET /repos/:owner/:name/edit when not found", %{conn: conn} do
+    conn = get(conn, repository_path(conn, :show, "octocat", "Hello-World5"))
+    assert html_response(conn, 404)
+  end
+
+  test "PUT /repos/:owner/:name/edit", %{conn: conn} do
+    insert!(:repository, owner: "octocat", name: "Hello-World")
+
+    conn = put(conn, repository_path(conn, :edit, "octocat", "Hello-World"))
+    assert redirected_to(conn) =~ repository_path(conn, :edit, "octocat", "Hello-World")
+  end
+
+  test "PUT /repos/:owner/:name/edit when not found", %{conn: conn} do
+    conn = put(conn, repository_path(conn, :edit, "octocat", "Hello-World5"))
+    assert html_response(conn, 404)
   end
 end

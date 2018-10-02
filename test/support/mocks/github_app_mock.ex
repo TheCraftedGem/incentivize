@@ -174,7 +174,7 @@ defmodule Incentivize.Github.App.Mock do
      }}
   end
 
-  def list_user_private_repos(_user) do
+  def list_user_repos(_user) do
     {:ok,
      [
        %{
