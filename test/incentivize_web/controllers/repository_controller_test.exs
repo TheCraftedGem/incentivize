@@ -1,6 +1,7 @@
 defmodule IncentivizeWeb.RepositoryControllerTest do
   @moduledoc false
   use IncentivizeWeb.ConnCase, async: true
+  alias Incentivize.Repositories
 
   setup %{conn: conn} do
     user = insert!(:user)
@@ -87,14 +88,37 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
   end
 
   test "PUT /repos/:owner/:name/edit", %{conn: conn} do
-    insert!(:repository, owner: "octocat", name: "Hello-World")
+    repository = insert!(:repository, owner: "octocat", name: "Hello-World")
 
-    conn =
-      put(conn, repository_path(conn, :edit, "octocat", "Hello-World"),
-        repository: %{"links" => %{}}
-      )
+    params = %{
+      "description" => "This is a test",
+      "links" => %{
+        "0" => %{
+          "title" => "",
+          "url" => ""
+        },
+        "1" => %{
+          "title" => "",
+          "url" => ""
+        },
+        "2" => %{
+          "title" => "",
+          "url" => "https://google.com"
+        }
+      },
+      "logo_url" => "https://image.com/image.png",
+      "title" => "Test title"
+    }
+
+    conn = put(conn, repository_path(conn, :edit, "octocat", "Hello-World"), repository: params)
 
     assert redirected_to(conn) =~ repository_path(conn, :edit, "octocat", "Hello-World")
+
+    repo = Repositories.get_repository(repository.id)
+    assert hd(repo.links).url == "https://google.com"
+    assert repo.title == "Test title"
+    assert repo.logo_url == "https://image.com/image.png"
+    assert repo.description == "This is a test"
   end
 
   test "PUT /repos/:owner/:name/edit when not found", %{conn: conn} do

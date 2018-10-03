@@ -95,7 +95,8 @@ defmodule IncentivizeWeb.RepositoryController do
   def update(conn, %{"owner" => owner, "name" => name, "repository" => params}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
-    links = params
+    links =
+      params
       |> Map.get("links", %{})
       |> Enum.filter(fn {_index, data} ->
         String.trim(data["url"]) != ""

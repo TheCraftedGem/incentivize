@@ -88,7 +88,7 @@ defmodule Incentivize.Repositories do
       from(repo in Repository,
         where: ilike(repo.owner, ^owner),
         where: ilike(repo.name, ^name),
-        preload: [:funds, :contributions]
+        preload: [:funds, :contributions, :links]
       )
 
     Repo.one(query)
@@ -96,7 +96,7 @@ defmodule Incentivize.Repositories do
 
   def get_repository(id) do
     Repository
-    |> preload([:funds, :contributions])
+    |> preload([:funds, :contributions, :links])
     |> Repo.get(id)
   end
 
