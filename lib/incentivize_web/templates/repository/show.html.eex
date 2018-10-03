@@ -1,108 +1,74 @@
-<div class="rev-Row">
-  <div class="rev-Col">
 
-    <div class="rev-Row">
-      <div class="rev-Col rev-Col--medium9 rev-Col--smallCentered">
-        <h2>
-          <a href="https://github.com/<%= @repository.owner %>/<%= @repository.name %>" target="_blank" rel="noreferrer">
-            <%= @repository.owner %>/<%= @repository.name %>
-            <%= if @repository.public == false do %>
-              <i class="material-icons">lock</i>
-            <% end %>
-          </a>
-        </h2>
+<h2 class="Text-center"><%= get_title(@repository) %></h2>
+<%= row do %>
+  <%= col medium: 8 do %>
+    <%= if @repository.logo_url do %>
+      <img src="<%= @repository.logo_url %>" />
+    <% end %>
 
-        <div class="rev-Card rev-CardLayout">
-          <div class="rev-Card-header rev-CardLayout-bar">
-            <div class="rev-Row">
-              <div class="rev-Col">
-                <div class="rev-Row">
-                  <div class="rev-Col rev-Col--medium3 Text-center">
-                    <h3>Contributions</h3>
-                    <span><%= @stats.number_of_contributions %></span>
-                  </div>
-                  <div class="rev-Col rev-Col--medium3 Text-center">
-                    <h3>Contributors</h3>
-                    <span><%= @stats.number_of_contributors %></span>
-                  </div>
-                  <div class="rev-Col rev-Col--medium2 Text-center">
-                    <h3>Funds</h3>
-                    <span><%= @stats.number_of_funds_created %></span>
-                  </div>
-                  <div class="rev-Col rev-Col--medium4 Text-center">
-                    <h3>Assets Given</h3>
-                    <span><%= @stats.number_of_assets_distributed %> <%= Incentivize.Stellar.asset_display() %></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <%= row class: "Text-center" do %>
-              <%= col medium: 6 do %>
-                <h3>Most Contributions</h3>
-                <%= if Enum.empty?(@stats.most_contributions) do %>
-                  <div>No contributions</div>
-                <% else %>
-                <ol>
-                  <%= for contribution <- @stats.most_contributions do %>
-                      <li>
-                        <a href="https://github.com/<%= contribution.github_login %>">
-                          <%= contribution.github_login %> (<%= contribution.count %>)
-                        </a>
-                      </li>
-                  <% end %>
-                </ol>
-                <% end %>
-              <% end %>
-              <%= col medium: 6 do %>
-                <h3>Most Active Fund</h3>
-                <%= if Enum.empty?(@stats.most_active_funds) do %>
-                  <div>No active funds</div>
-                <% else %>
-                  <ol>
-                    <%= for fund <- @stats.most_active_funds do %>
-                      <li>
-                        <a href="<%= fund_path(@conn, :show, @repository.owner, @repository.name, fund.fund.id) %>">
-                          <%= IncentivizeWeb.FundView.fund_name(fund.fund) %> (<%= fund.sum %> <%= Incentivize.Stellar.asset_display() %>)
-                        </a>
-                      </li>
-                    <% end %>
-                  </ol>
-                <% end %>
-              <% end %>
-            <% end %>
+    <h3>Description</h3>
+    <%= if @repository.description do %>
+      <p><%= @repository.description %></p>
+    <% end %>
 
-          </div>
+  <% end %>
+  <%= col medium: 4 do %>
+    <p>
+      <a href="<%= contribution_path(@conn, :for_repository, @repository.owner, @repository.name) %>">
+        <%= @stats.number_of_contributions %> Contributions
+      </a>
+    </p>
+    <p><%= @stats.number_of_contributors %> Contributors</p>
+    <p>
+      <a href="<%= fund_path(@conn, :index, @repository.owner, @repository.name) %>">
+        <%= @stats.number_of_funds_created %> Funds
+      </a>
+    </p>
+    <p><%= @stats.number_of_assets_distributed %> <%= Incentivize.Stellar.asset_display() %> Given</p>
 
+    <a class="rev-Button rev-Button--expanded Text-center" href="https://github.com/<%= @repository.owner %>/<%= @repository.name %>" target="_blank" rel="noreferrer">
+      Contribute on GitHub
+    </a>
+    <a class="rev-Button rev-Button--expanded rev-Button--secondary Text-center" href="<%= fund_path(@conn, :new, @repository.owner, @repository.name) %>">
+      Fund this project
+    </a>
 
-          <div class="rev-Card-footer">
-            <div class="rev-Row rev-Row--flex">
-              <div class="rev-Col">
-                <a class="ButtonLink" href="<%= fund_path(@conn, :index, @repository.owner, @repository.name) %>">
-                  <div class="ButtonLink">
-                    <i class="material-icons">share</i>
-                    <p class="ButtonLink--text">View Project Funds</p>
-                  </div>
-                </a>
+    <%= for link <- @repository.links do %>
+      <p>
+        <a href="<%= link.url %>" target="_blank" rel="noreferrer">
+          <%= if link.title, do: link.title, else: link.url %>
+        </a>
+      </p>
+    <% end %>
 
-              </div>
-              <div class="rev-Col">
-                <a class="rev-Button rev-Button--secondary" href="<%= fund_path(@conn, :new, @repository.owner, @repository.name) %>">Support Project</a>
-              </div>
-              <div class="rev-Col rev-Col--shrink">
-                <a href="<%= contribution_path(@conn, :for_repository, @repository.owner, @repository.name) %>">
-                  <div class="ButtonLink">
-                    <i class="material-icons">screen_share</i>
-                    <p class="ButtonLink--text">View Contributions</p>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
+    <h3>Most Contributions</h3>
+    <%= if Enum.empty?(@stats.most_contributions) do %>
+      <div>No contributions</div>
+    <% else %>
+      <ol>
+        <%= for contribution <- @stats.most_contributions do %>
+            <li>
+              <a href="https://github.com/<%= contribution.github_login %>">
+                <%= contribution.github_login %> (<%= contribution.count %>)
+              </a>
+            </li>
+        <% end %>
+      </ol>
+    <% end %>
 
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-</div>
+    <h3>Most Active Fund</h3>
+    <%= if Enum.empty?(@stats.most_active_funds) do %>
+      <div>No active funds</div>
+    <% else %>
+      <ol>
+        <%= for fund <- @stats.most_active_funds do %>
+          <li>
+            <a href="<%= fund_path(@conn, :show, @repository.owner, @repository.name, fund.fund.id) %>">
+              <%= IncentivizeWeb.FundView.fund_name(fund.fund) %> (<%= fund.sum %> <%= Incentivize.Stellar.asset_display() %>)
+            </a>
+          </li>
+        <% end %>
+      </ol>
+    <% end %>
+  <% end %>
+<% end %>

@@ -2,7 +2,7 @@ defmodule IncentivizeWeb.ViewHelpers do
   @moduledoc """
   Site-wide view functions
   """
-  alias Incentivize.User
+  alias Incentivize.{Repositories, User}
 
   @spec logged_in?(Plug.Conn.t()) :: boolean()
   def logged_in?(conn) do
@@ -20,7 +20,7 @@ defmodule IncentivizeWeb.ViewHelpers do
   end
 
   def title(IncentivizeWeb.RepositoryView, "show.html", %{repository: repository}) do
-    with_brand_name("#{repository.owner}/#{repository.name}")
+    with_brand_name(Repositories.get_title(repository))
   end
 
   def title(IncentivizeWeb.RepositoryView, "settings.html", _assigns) do
@@ -40,7 +40,7 @@ defmodule IncentivizeWeb.ViewHelpers do
   end
 
   def title(IncentivizeWeb.FundView, "index.html", %{repository: repository}) do
-    with_brand_name("#{repository.owner}/#{repository.name}'s Funds")
+    with_brand_name("#{Repositories.get_title(repository)}'s Funds")
   end
 
   def title(IncentivizeWeb.FundView, "show.html", %{fund: fund}) do

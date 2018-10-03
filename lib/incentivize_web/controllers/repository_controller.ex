@@ -92,13 +92,29 @@ defmodule IncentivizeWeb.RepositoryController do
     end
   end
 
-  def update(conn, %{"owner" => owner, "name" => name}) do
+  def update(conn, %{"owner" => owner, "name" => name, "repository" => params}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
+    links =
+      params
+      |> Map.get("links", %{})
+      |> Enum.filter(fn {_index, data} ->
+        String.trim(data["url"]) != ""
+      end)
+      |> Enum.into(%{})
+
+    params = Map.put(params, "links", links)
+
     if Repositories.can_edit_repository?(repository, conn.assigns.current_user) do
-      conn
-      |> put_flash(:info, "#{Repositories.get_title(repository)} updated.")
-      |> redirect(to: repository_path(conn, :edit, owner, name))
+      case Repositories.update_repository(repository, params) do
+        {:ok, _} ->
+          conn
+          |> put_flash(:info, "#{Repositories.get_title(repository)} updated.")
+          |> redirect(to: repository_path(conn, :edit, owner, name))
+
+        {:error, changeset} ->
+          render(conn, "edit.html", repository: repository, changeset: changeset)
+      end
     else
       :not_found
     end
