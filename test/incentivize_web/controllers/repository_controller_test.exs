@@ -52,6 +52,20 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
     assert html_response(conn, 200) =~ "octocat/Hello-World"
   end
 
+  test "GET /repos/:owner/:name with title", %{conn: conn} do
+    insert!(:repository, owner: "octocat", name: "Hello-World5", title: "Hello World")
+
+    conn = get(conn, repository_path(conn, :show, "octocat", "Hello-World5"))
+    assert html_response(conn, 200) =~ "Hello World"
+  end
+
+  test "GET /repos/:owner/:name when repo private and user has access", %{conn: conn} do
+    insert!(:repository, owner: "octocat", name: "Hello-World", public: false)
+
+    conn = get(conn, repository_path(conn, :show, "octocat", "Hello-World"))
+    assert html_response(conn, 200) =~ "octocat/Hello-World"
+  end
+
   test "GET /repos/:owner/:name when not found", %{conn: conn} do
     conn = get(conn, repository_path(conn, :show, "octocat", "Hello-World5"))
     assert html_response(conn, 404)

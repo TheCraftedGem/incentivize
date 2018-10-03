@@ -99,7 +99,7 @@ defmodule IncentivizeWeb.FundControllerTest do
 
   test "GET /repos/:owner/:name/fund/:id when not fund owner and not logged in" do
     repository = insert!(:repository, owner: "me", name: "me")
-    fund = insert!(:fund, repository: repository)
+    fund = insert!(:fund, repository: repository, description: "A fund")
 
     conn = build_conn()
 

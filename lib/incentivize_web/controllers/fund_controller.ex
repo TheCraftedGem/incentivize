@@ -7,8 +7,7 @@ defmodule IncentivizeWeb.FundController do
   def index(conn, %{"owner" => owner, "name" => name}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
-    if repository != nil and
-         Repositories.can_view_repository?(repository, conn.assigns.current_user) do
+    if Repositories.can_view_repository?(repository, conn.assigns.current_user) do
       funds = Funds.list_funds_for_repository(repository)
 
       render(conn, "index.html", repository: repository, funds: funds)
@@ -20,8 +19,7 @@ defmodule IncentivizeWeb.FundController do
   def new(conn, %{"owner" => owner, "name" => name}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
-    if repository != nil and
-         Repositories.can_view_repository?(repository, conn.assigns.current_user) do
+    if Repositories.can_view_repository?(repository, conn.assigns.current_user) do
       changeset = Fund.create_changeset(%Fund{})
       render(conn, "new.html", repository: repository, changeset: changeset)
     else
@@ -32,8 +30,7 @@ defmodule IncentivizeWeb.FundController do
   def create(conn, %{"owner" => owner, "name" => name, "fund" => params}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 
-    if repository != nil and
-         Repositories.can_view_repository?(repository, conn.assigns.current_user) do
+    if Repositories.can_view_repository?(repository, conn.assigns.current_user) do
       pledges = Map.get(params, "pledges", %{})
 
       pledges =

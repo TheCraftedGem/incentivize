@@ -74,6 +74,8 @@ defmodule Incentivize.Stellar do
 
   defp generate_escrow_account_xdr do
     {escrow_public, escrow_secret} = Stellar.KeyPair.random()
+
+    # Starting balance needed for account
     starting_balance = "2.5000000"
 
     {:ok, xdr} =
