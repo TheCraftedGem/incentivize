@@ -1,10 +1,6 @@
 <%= row do %>
   <%= col class: "rev-Col--medium7 rev-Col--smallCentered" do %>
-    <%= row do %>
-      <%= col do %>
-        <h2 class="u-break-word">Edit <%= @repository.owner %>/<%= @repository.name %></h2>
-      <% end %>
-    <% end %>
+    <h2 class="u-break-word Text-center">Edit <%= @repository.owner %>/<%= @repository.name %></h2>
     <%= render "form.html", changeset: @changeset, action: repository_path(@conn, :update, @repository.owner, @repository.name), create: false %>
   <% end %>
 <% end %>
