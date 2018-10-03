@@ -1,23 +1,36 @@
 <%= form_for @changeset, @action, fn f -> %>
-  <label class="rev-InputStack rev-InputLabel">
-    <span>Name</span>
-    <%= text_input(f, :title, class: "rev-Input", maxlength: 250) %>
-    <%= error_tag f, :title %>
-  </label>
+  <%= row do %>
+    <%= col do %>
+      <label class="rev-InputStack rev-InputLabel">
+        <span>Name</span>
+        <%= text_input(f, :title, class: "rev-Input", maxlength: 250) %>
+        <%= error_tag f, :title %>
+      </label>
+    <% end %>
 
-  <label class="rev-InputStack rev-InputLabel">
-    <span>Description</span>
-    <%= textarea(f, :description, class: "rev-Input") %>
-    <%= error_tag f, :description %>
-  </label>
+    <%= col do %>
+      <label class="rev-InputStack rev-InputLabel">
+        <span>Description</span>
+        <%= textarea(f, :description, class: "rev-Input") %>
+        <%= error_tag f, :description %>
+      </label>
+    <% end %>
 
-  <label class="rev-InputStack rev-InputLabel">
-    <span>Logo URL</span>
-    <%= url_input(f, :logo_url, class: "rev-Input") %>
-    <%= error_tag f, :logo_url %>
-  </label>
+    <%= col do %>
+      <label class="rev-InputStack rev-InputLabel">
+        <span>Logo URL</span>
+        <%= url_input(f, :logo_url, class: "rev-Input") %>
+        <%= error_tag f, :logo_url %>
+      </label>
+    <% end %>
+  <% end %>
 
-  <h3>Links</h3>
+  <%= row do %>
+    <%= col do %>
+      <h3>Links</h3>
+    <% end %>
+  <% end %>
+
   <%= inputs_for f, :links, [append: append_links(f.data)], fn flinks -> %>
     <%= row do %>
       <%= col medium: 6 do %>
@@ -37,7 +50,12 @@
     <% end %>
   <% end %>
 
-  <section class="u-noBorder-bottom">
-    <button class="rev-Button" type="submit">Update</button>
-  </section>
+  <%= row do %>
+    <%= col do %>
+      <section class="u-noBorder-bottom u-flexAlignEnd">
+        <button class="rev-Button" type="submit">Update</button>
+      </section>
+    <% end %>
+  <% end %>
+
 <% end %>
