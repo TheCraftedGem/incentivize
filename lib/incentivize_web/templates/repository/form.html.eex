@@ -1,6 +1,6 @@
 <%= form_for @changeset, @action, fn f -> %>
   <label class="rev-InputStack rev-InputLabel">
-    <span>Name</span>
+    <span>Title</span>
     <%= text_input(f, :title, class: "rev-Input", maxlength: 250) %>
     <%= error_tag f, :title %>
   </label>

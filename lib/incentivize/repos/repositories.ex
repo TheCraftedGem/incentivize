@@ -273,6 +273,10 @@ defmodule Incentivize.Repositories do
   end
 
   def get_title(repository) do
-    "#{repository.owner}/#{repository.name}"
+    if is_nil(repository.title) do
+      "#{repository.owner}/#{repository.name}"
+    else
+      repository.title
+    end
   end
 end
