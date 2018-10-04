@@ -18,6 +18,10 @@ $icon-alignment-margin: 2.1em;
 }
 
 // Remove the first close button on the pledges for a fund
-.FundContainer > div:first-child .ButtonLink {
-  display: none;
+.FundContainer {
+  > div:first-child {
+    .ButtonLink {
+      display: none;
+    }
+  }
 }
