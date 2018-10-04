@@ -118,16 +118,25 @@ async function buildTransactionHistory(stellarNetwork) {
   const balanceElement = document.querySelector('[data-stellar-balance]')
 
   if (balanceElement) {
-    const server = Stellar.createServer(stellarNetwork)
-    const data = await getTransactionHistory(
-      balanceElement.dataset.stellarBalance,
-      server
+    const transactionHistoryTable = document.querySelector(
+      '[data-transaction-history]'
     )
 
-    ReactDOM.render(
-      <Transactions transactions={data} />,
-      document.querySelector('[data-transaction-history]')
-    )
+    try {
+      const server = Stellar.createServer(stellarNetwork)
+      const data = await getTransactionHistory(
+        balanceElement.dataset.stellarBalance,
+        server
+      )
+
+      ReactDOM.render(
+        <Transactions transactions={data} />,
+        transactionHistoryTable
+      )
+    } catch (_error) {
+      transactionHistoryTable.textContent =
+        'Unable to retrieve transaction history'
+    }
   }
 }
 

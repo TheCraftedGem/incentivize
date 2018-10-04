@@ -35,7 +35,8 @@ async function getAccountBalance(server, balanceElement) {
       balanceElement.appendChild(newDiv)
     }
   } catch (e) {
-    balanceElement.textContent = 'Unable to get balance'
+    console.error(e)
+    balanceElement.textContent = `Error: ${e.response.title}`
   }
 }
 
