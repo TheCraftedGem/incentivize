@@ -12,7 +12,7 @@ function setupRemoveRowHandler(index) {
   const removeRowButton = document.querySelector(`[data-delete='${index}']`)
 
   removeRowButton.addEventListener('click', () => {
-    if (document.querySelectorAll('#fund_row_container > div').length > 1) {
+    if (document.querySelectorAll('.FundContainer > div').length > 1) {
       removeRow(index)
     }
   })
@@ -33,11 +33,10 @@ function addRow(rowLength, template, fundRowContainer) {
 function init() {
   const addRowButton = document.querySelector('[data-add-fund-row]')
   const templateElement = document.querySelector('#fund_row_template')
-  const fundRowContainer = document.querySelector('#fund_row_container')
+  const fundRowContainer = document.querySelector('.FundContainer')
 
   if (addRowButton && templateElement && fundRowContainer) {
-    let rowLength = document.querySelectorAll('#fund_row_container > div')
-      .length
+    let rowLength = document.querySelectorAll('.FundContainer > div').length
 
     for (let i = 0; i < rowLength; i++) {
       setupRemoveRowHandler(i)

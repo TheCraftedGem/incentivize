@@ -13,7 +13,7 @@
 
   <label class="rev-InputStack rev-InputLabel">
     <span>Pledges</span>
-    <div id="fund_row_container">
+    <div class="FundContainer">
       <%= for {pledge, index} <- pledges_with_indexes(f) do %>
         <%= render "_fund_row.html", amount: Map.get(pledge.changes, :amount, 0), action: Map.get(pledge.changes, :action, ""), index: index %>
       <% end %>
