@@ -81,6 +81,16 @@ defmodule IncentivizeWeb.RepositoryController do
     end
   end
 
+  def contribute(conn, %{"owner" => owner, "name" => name}) do
+    repository = Repositories.get_repository_by_owner_and_name(owner, name)
+
+    if Repositories.can_view_repository?(repository, conn.assigns.current_user) do
+      redirect(conn, external: "https://github.com/#{repository.owner}/#{repository.name}")
+    else
+      :not_found
+    end
+  end
+
   def edit(conn, %{"owner" => owner, "name" => name}) do
     repository = Repositories.get_repository_by_owner_and_name(owner, name)
 

@@ -20,7 +20,10 @@ defmodule IncentivizeWeb.RequireStellarKey do
 
     if missing_stellar_key? && conn.request_path != Helpers.account_path(conn, :edit) do
       conn
-      |> Controller.put_flash(:error, "Please enter your Stellar public key")
+      |> Controller.put_flash(
+        :error,
+        "Please enter your Stellar public key before accessing this resource"
+      )
       |> Controller.redirect(to: Helpers.account_path(conn, :edit))
       |> halt
     else

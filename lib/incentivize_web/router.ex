@@ -70,6 +70,9 @@ defmodule IncentivizeWeb.Router do
 
   pipeline :require_auth do
     plug(RequireAuth)
+  end
+
+  pipeline :require_stellar do
     plug(RequireStellarKey)
   end
 
@@ -111,10 +114,15 @@ defmodule IncentivizeWeb.Router do
     pipe_through([:browser, :require_auth])
 
     get("/", AccountController, :show)
-    get("/wallet", AccountController, :wallet)
     get("/edit", AccountController, :edit)
     put("/edit", AccountController, :update)
     get("/github/sync", AccountController, :sync)
+  end
+
+  scope "/account", IncentivizeWeb do
+    pipe_through([:browser, :require_auth, :require_stellar])
+
+    get("/wallet", AccountController, :wallet)
   end
 
   scope "/repos", IncentivizeWeb do
@@ -133,8 +141,14 @@ defmodule IncentivizeWeb.Router do
     put("/:owner/:name/edit", RepositoryController, :update)
   end
 
+  scope "/repos/:owner/:name/contribute", IncentivizeWeb do
+    pipe_through([:browser, :require_auth, :require_stellar])
+
+    get("/", RepositoryController, :contribute)
+  end
+
   scope "/repos/:owner/:name/funds", IncentivizeWeb do
-    pipe_through([:browser, :require_auth])
+    pipe_through([:browser, :require_auth, :require_stellar])
 
     get("/new", FundController, :new)
     post("/create", FundController, :create)

@@ -26,8 +26,8 @@
     </p>
     <p><%= @stats.number_of_assets_distributed %> <%= Incentivize.Stellar.asset_display() %> Given</p>
 
-    <a class="rev-Button rev-Button--expanded Text-center" href="https://github.com/<%= @repository.owner %>/<%= @repository.name %>" target="_blank" rel="noreferrer">
-      Contribute on GitHub
+    <a class="rev-Button rev-Button--expanded Text-center" href="<%= repository_path(@conn, :contribute, @repository.owner, @repository.name) %>">
+      Contribute to this project
     </a>
     <a class="rev-Button rev-Button--expanded rev-Button--secondary Text-center" href="<%= fund_path(@conn, :new, @repository.owner, @repository.name) %>">
       Fund this project
