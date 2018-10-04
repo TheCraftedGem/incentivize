@@ -59,6 +59,13 @@ defmodule IncentivizeWeb.RepositoryControllerTest do
     assert html_response(conn, 200) =~ "Hello World"
   end
 
+  test "GET /repos/:owner/:name/contribute", %{conn: conn} do
+    insert!(:repository, owner: "octocat", name: "Hello-World5")
+
+    conn = get(conn, repository_path(conn, :contribute, "octocat", "Hello-World5"))
+    assert redirected_to(conn) =~ "https://github.com"
+  end
+
   test "GET /repos/:owner/:name when repo private and user has access", %{conn: conn} do
     insert!(:repository, owner: "octocat", name: "Hello-World", public: false)
 
