@@ -8,18 +8,17 @@ Product Owner: Gerard Ramos
 - **Project Start Date:** 7-30-18
 - **Product Launch Date:** 8-15-18
 
-
 ## Links to relevant docs, repos, etc.
 
-| Thing                  | Location                                                                                             |
-| ---------------------- | ---------------------------------------------------------------------------------------------------- |
-| Waffle Board           | [waffle.io](https://waffle.io/revelrylabs/incentivize)                                               |
-| Google Drive           | [Project Folder](https://drive.google.com/drive/u/0/folders/1lY2hz6KTeVWQ82HzeTiPBVui6xm3RISs)       |
-| Sprint Reports         | [Sprint Report Folder](https://drive.google.com/drive/u/0/folders/1vb3BtxN6XlaU38Z-bfh6xluqRG5LRoc2) |
-| Continuous Integration | [Travis-CI](https://travis-ci.com/revelrylabs/incentivize)                                           |
-| Style Guide            | [TBD]()                                                                                              |
-| Staging                | [incentivize.stage.revelry.net](https://incentivize.stage.revelry.net/)                              |
-| Production             | [incentivize.io](https://incentivize.io)                                                             |
+| Thing                  | Location                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------------------------- |
+| Waffle Board           | [waffle.io](https://waffle.io/revelrylabs/incentivize)                                                  |
+| Google Drive           | [Project Folder](https://drive.google.com/drive/u/0/folders/1lY2hz6KTeVWQ82HzeTiPBVui6xm3RISs)          |
+| Sprint Reports         | [Sprint Report Folder](https://drive.google.com/drive/u/0/folders/1vb3BtxN6XlaU38Z-bfh6xluqRG5LRoc2)    |
+| Continuous Integration | [Travis-CI](https://travis-ci.com/revelrylabs/incentivize)                                              |
+| Style Guide            | [TBD]()                                                                                                 |
+| Staging                | [https://incentivize-staging.prod.revelry.net/](https://https://incentivize-staging.prod.revelry.net//) |
+| Production             | [incentivize.io](https://incentivize.io)                                                                |
 
 ## Compatibility Targets
 
