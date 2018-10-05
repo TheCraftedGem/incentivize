@@ -47,8 +47,8 @@ jobs:
       script: skip
       deploy:
         - provider: deis
-          controller: deis.stage.revelry.net
-          app: incentivize
+          controller: deis.prod.revelry.net
+          app: incentivize-staging
           cli_version: v2.19.4
           username: '$DEIS_USERNAME'
           password: '$DEIS_PASSWORD'
