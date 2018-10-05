@@ -38,9 +38,14 @@ defmodule Incentivize.Github.WebhookHandler do
     [repo_owner, repo_name] = String.split(repository["full_name"], "/")
 
     repository = Repositories.get_repository_by_owner_and_name(repo_owner, repo_name)
-
     user = Users.get_user_by_github_login(user["login"])
-    pledges = Funds.list_pledges_for_repository_and_action(repository, event_and_action)
+
+    pledges =
+      if repository != nil do
+        Funds.list_pledges_for_repository_and_action(repository, event_and_action)
+      else
+        []
+      end
 
     if can_reward_contribution?(event_and_action, event_payload, repository, user, pledges) do
       Enum.each(
