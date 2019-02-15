@@ -1,6 +1,6 @@
 import StellarSdk from 'stellar-sdk'
 import Stellar from '../stellar/stellar'
-const TRANSACTION_TIMEOUT = 10000
+const TRANSACTION_TIMEOUT = 30
 
 /**
  * Adds funds to the given account

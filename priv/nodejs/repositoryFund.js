@@ -1,5 +1,5 @@
 const StellarSdk = require('stellar-sdk')
-const TRANSACTION_TIMEOUT = 10000
+const TRANSACTION_TIMEOUT = 30
 
 function createServer(network) {
   const server = new StellarSdk.Server(network)
