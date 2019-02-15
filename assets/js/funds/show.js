@@ -1,5 +1,6 @@
 import StellarSdk from 'stellar-sdk'
 import Stellar from '../stellar/stellar'
+const TRANSACTION_TIMEOUT = 10000
 
 /**
  * Adds funds to the given account
@@ -34,6 +35,7 @@ async function addFundsToAccount(
         amount,
       })
     )
+    .setTimeout(TRANSACTION_TIMEOUT)
     .build()
 
   transaction.sign(userKeyPair)

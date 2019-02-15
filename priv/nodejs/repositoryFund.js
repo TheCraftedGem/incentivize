@@ -1,4 +1,5 @@
 const StellarSdk = require('stellar-sdk')
+const TRANSACTION_TIMEOUT = 10000
 
 function createServer(network) {
   const server = new StellarSdk.Server(network)
@@ -37,6 +38,7 @@ async function generateEscrowAccountXDR(
         startingBalance: startingBalance,
       })
     )
+    .setTimeout(TRANSACTION_TIMEOUT)
     .build()
 
   transaction.sign(ownerKeyPair)
@@ -75,6 +77,7 @@ async function setWeightsXDR(
         },
       })
     )
+    .setTimeout(TRANSACTION_TIMEOUT)
     .build()
 
   transaction.sign(escrowKeyPair)
@@ -116,6 +119,7 @@ async function rewardContributionXDR(
         amount: amount,
       })
     )
+    .setTimeout(TRANSACTION_TIMEOUT)
     .build()
 
   transaction.sign(ownerKeyPair)
@@ -147,6 +151,7 @@ async function addFundsXDR(
         amount: amount,
       })
     )
+    .setTimeout(TRANSACTION_TIMEOUT)
     .build()
 
   transaction.sign(ownerKeyPair)
