@@ -4,7 +4,7 @@
   "bunt": {:hex, :bunt, "0.2.0", "951c6e801e8b1d2cbe58ebbd3e616a869061ddadcc4863d0a2182541acae9a38", [:mix], [], "hexpm"},
   "bypass": {:hex, :bypass, "1.0.0", "b78b3dcb832a71aca5259c1a704b2e14b55fd4e1327ff942598b4e7d1a7ad83d", [:mix], [{:plug, "~> 1.7", [hex: :plug, repo: "hexpm", optional: false]}, {:plug_cowboy, "~> 1.0 or ~> 2.0", [hex: :plug_cowboy, repo: "hexpm", optional: false]}], "hexpm"},
   "certifi": {:hex, :certifi, "2.4.2", "75424ff0f3baaccfd34b1214184b6ef616d89e420b258bb0a5ea7d7bc628f7f0", [:rebar3], [{:parse_trans, "~>3.3", [hex: :parse_trans, repo: "hexpm", optional: false]}], "hexpm"},
-  "con_cache": {:hex, :con_cache, "0.13.0", "fe30eeffc776465b596a60d5bc7f81083fd90aeeeb5d72b98a957fb4a78e4378", [:mix], [], "hexpm"},
+  "con_cache": {:hex, :con_cache, "0.13.1", "047e097ab2a8c6876e12d0c29e29a86d487b592df97b98e3e2abedad574e215d", [:mix], [], "hexpm"},
   "confex": {:hex, :confex, "3.4.0", "8b1c3cc7a93320291abb31223a178df19d7f722ee816c05a8070c8c9a054560d", [:mix], [], "hexpm"},
   "connection": {:hex, :connection, "1.0.4", "a1cae72211f0eef17705aaededacac3eb30e6625b04a6117c1b2db6ace7d5976", [:mix], [], "hexpm"},
   "cowboy": {:hex, :cowboy, "1.1.2", "61ac29ea970389a88eca5a65601460162d370a70018afe6f949a29dca91f3bb0", [:rebar3], [{:cowlib, "~> 1.0.2", [hex: :cowlib, repo: "hexpm", optional: false]}, {:ranch, "~> 1.3.2", [hex: :ranch, repo: "hexpm", optional: false]}], "hexpm"},
