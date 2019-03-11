@@ -37,12 +37,12 @@ describe('Stellar', () => {
     it('returns new asset when given non XLM', () => {
       const asset = Stellar.default.processAsset({
         code: 'TEST',
-        issuer: 'GAQHB7ZBZ3CUKD5GCO4XVY67GQ3LMFK4MCJUJZCZJYGIHJOMUFHXV7VT',
+        issuer: 'GCXSQHLCOHX7M7QYVCYRVNAQ7WYB2UWJDICNDX44NEDX5CH2SXGQTBUQ',
       })
 
       expect(asset.code).to.eql('TEST')
       expect(asset.issuer).to.eql(
-        'GAQHB7ZBZ3CUKD5GCO4XVY67GQ3LMFK4MCJUJZCZJYGIHJOMUFHXV7VT'
+        'GCXSQHLCOHX7M7QYVCYRVNAQ7WYB2UWJDICNDX44NEDX5CH2SXGQTBUQ'
       )
     })
   })
@@ -55,7 +55,7 @@ describe('Stellar', () => {
       <head>
       </head>
       <body>
-        <p data-stellar-balance="GAYHLHM4D2OHFKSN7C4YSCB5OFK5YENWSCMIG75RRWGJZPCTFUQ6GBCT">Loading</p>
+        <p data-stellar-balance="GCXSQHLCOHX7M7QYVCYRVNAQ7WYB2UWJDICNDX44NEDX5CH2SXGQTBUQ">Loading</p>
       </body>
       </html>
       `
