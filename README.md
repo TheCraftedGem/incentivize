@@ -17,8 +17,8 @@ Product Owner: Gerard Ramos
 | Sprint Reports         | [Sprint Report Folder](https://drive.google.com/drive/u/0/folders/1vb3BtxN6XlaU38Z-bfh6xluqRG5LRoc2)    |
 | Continuous Integration | [Travis-CI](https://travis-ci.com/revelrylabs/incentivize)                                              |
 | Style Guide            | [TBD]()                                                                                                 |
-| Staging                | [https://incentivize-staging.prod.revelry.net/](https://https://incentivize-staging.prod.revelry.net//) |
-| Production             | [incentivize.io](https://incentivize.io)                                                                |
+| Staging                | [https://incentivize-staging.prod.revelry.net/](https://incentivize-staging.prod.revelry.net/) |
+| Production             | [incentivize.io](https://incentivize.io)                                                           |
 
 ## Compatibility Targets
 
