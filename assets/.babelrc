@@ -16,7 +16,8 @@
                 "last 2 iOS versions"
               ]
             },
-            "useBuiltIns": "entry"
+            "useBuiltIns": "entry",
+            "corejs": 3
           }
         ],
         "@babel/preset-react"
@@ -44,7 +45,8 @@
                 "last 2 iOS versions"
               ]
             },
-            "useBuiltIns": "entry"
+            "useBuiltIns": "entry",
+            "corejs": 3
           }
         ],
         "@babel/preset-react",
@@ -65,7 +67,8 @@
             "targets": {
               "node": "current"
             },
-            "useBuiltIns": "entry"
+            "useBuiltIns": "entry",
+            "corejs": 3
           }
         ],
         "@babel/preset-react"
