@@ -40,7 +40,7 @@ defmodule Incentivize.Github.App.Test do
     user = insert!(:user)
     json = File.read!("./test/fixtures/list_organizations.json")
 
-    Bypass.expect_once(bypass, "GET", "/user/orgs", fn conn ->
+    Bypass.expect_once(bypass, "GET", "/user/memberships/orgs", fn conn ->
       Conn.resp(conn, 200, json)
     end)
 

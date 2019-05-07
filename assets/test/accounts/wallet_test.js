@@ -10,7 +10,7 @@ describe('Wallet', () => {
       <head>
       </head>
       <body>
-        <p data-stellar-balance="GCXSQHLCOHX7M7QYVCYRVNAQ7WYB2UWJDICNDX44NEDX5CH2SXGQTBUQ">Loading</p>
+        <p data-stellar-balance="${global.StellarPair.publicKey()}">Loading</p>
         <div class="rev-TableContainer" data-transaction-history>Loading transaction history</div>
       </body>
       </html>

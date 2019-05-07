@@ -1,48 +1,36 @@
-<div class="rev-Row">
-        <div class="rev-Col rev-Col--smallCentered">
-          <h2>Supported Projects</h2>
+<%= row class: "CardGrid" do %>
+  <%= for fund <- @funds do %>
+ 
+    <%= col medium: "6" do %>
+      <a class="rev-Card rev-Card--small" href="<%= fund_path(@conn, :show, fund.repository.owner, fund.repository.name, fund.id) %>">
+        <div class="rev-Card-body">
+          <%= row class: "AvatarHeader AvatarHeader--small" do %>
+            <%= col class: "rev-Col--shrink" do %>
+              <img class="AvatarHeader-avatar" alt="Repo Favicon" src="<%= static_path(@conn, "/images/favicon-32x32.png") %>"/>
+            <% end %>
+            <%= col do %>
+              <h4 class="AvatarHeader-title"><%= IncentivizeWeb.FundView.fund_name(fund) %></h4>
+              <small class="AvatarHeader-subtitle" data-timestamp="<%= Timex.format!(fund.inserted_at, "%FT%T%:z", :strftime) %>"><%= fund.inserted_at %></small>
+            <% end %>
+          <% end %>
+          <%= unless is_nil(fund.description) do %>
+            <%= row do %>
+              <%= col class: "CardGrid-description" do %>
+                <p><%= fund.description %></p>
+              <% end %>
+            <% end %>
+          <% end %>
         </div>
-      </div>
-<div class="rev-Row">
-        <%= for fund <- @funds do %>
-          <div class="rev-Col rev-Col--medium6">
-            <div class="rev-Card rev-CardLayout">
-
-              <div class="rev-Card-header rev-CardLayout-bar">
-                <div class="rev-Row">
-                  <div class="rev-Col">
-                    <h3 class="ButtonLink">
-                      <div class="ButtonLink--header">
-                        <a href="<%= fund_path(@conn, :show, fund.repository.owner, fund.repository.name, fund.id) %>">
-                          <%= IncentivizeWeb.FundView.fund_name(fund) %>
-                        </a>
-                      </div>
-                    </h3>
-                    <p data-stellar-balance="<%= fund.stellar_public_key %>">Loading</p>
-                    <p>
-                      <a href="<%= contribution_path(@conn, :for_fund, fund.repository.owner, fund.repository.name, fund.id) %>">
-                        View Contributions
-                      </a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="rev-Card-footer rev-CardLayout-bar">
-                <%= for pledge <- fund.pledges, pledge.amount > Decimal.new(0) do %>
-                  <div class="rev-Row rev-Row--flex">
-                    <div class="rev-Col">
-                      <div class="ButtonLink">
-                        <i class="material-icons">share</i>
-                        <p class="ButtonLink--text"><%= pledge.amount %> <%= Incentivize.Stellar.asset_display() %> per <%= IncentivizeWeb.FundView.action_display(pledge.action) %></p>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
-
-            </div>
-          </div>
-        <% end %>
+        <div class="rev-Card-footer">
+          <%= row do %>
+            <%= col do %>
+              <span class="StatDisplay-label">Amount Pledged:</span>
+              <span class="StatDisplay-number" data-stellar-balance="<%= fund.stellar_public_key %>"><div class="Loader">Loading...</div></span>
+            <% end %>
+          <% end %>
         </div>
-      </div>
+      </a>
+    <% end %>
+  <% end %>
+<% end %>
+

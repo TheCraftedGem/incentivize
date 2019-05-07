@@ -89,6 +89,7 @@ defmodule IncentivizeWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :index)
+    get("/pricing", PageController, :pricing)
   end
 
   scope "/styleguide", IncentivizeWeb do
@@ -102,12 +103,14 @@ defmodule IncentivizeWeb.Router do
 
     get("/github", GithubAuthController, :index)
     get("/github/callback", GithubAuthController, :callback)
+    get("/emails/verify", AccountController, :verify_email)
   end
 
   scope "/auth", IncentivizeWeb do
     pipe_through([:browser, :require_auth])
 
     get("/delete", GithubAuthController, :delete)
+    get("/emails/resend_email_verification", AccountController, :resend_email_verification)
   end
 
   scope "/account", IncentivizeWeb do
@@ -166,6 +169,12 @@ defmodule IncentivizeWeb.Router do
     pipe_through([:api, :github])
 
     post("/", GithubWebhookController, :handle_webhook)
+  end
+
+  scope "/images", IncentivizeWeb do
+    pipe_through([:browser, :require_auth])
+
+    get("/sign", S3SignatureController, :sign)
   end
 
   # Other scopes may use custom stacks.

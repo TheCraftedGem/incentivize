@@ -1,0 +1,45 @@
+// top contributors on repo show page
+.LargeNumberList {
+  list-style: none;
+  counter-reset: my-awesome-counter;
+  li {
+    counter-increment: my-awesome-counter;
+    padding: 0;
+    position: relative;
+    &:before {
+      content: counter(my-awesome-counter) "";
+      color: $body-font-color;
+      font-size: $global-font-size-large;
+      font-weight: $font-weight-bold;
+      left: $global-padding-small;
+      position: absolute;
+      top: calc(50% - 18px);
+    }
+  }
+  .LargeNumberList-link {
+    border-bottom: 1px solid $divider-color;
+    color: $body-font-color;
+    display: block;
+    padding-left: $global-padding;
+  }
+}
+
+.StackedLinkList {
+  li {
+    border-bottom: 1px solid $divider-color;
+    margin: 0;
+    padding: 0;
+  }
+  .StackedLinkList-link {
+    color: $body-font-color;
+    display: block;
+    padding: $global-padding-small 0;
+    &:hover,
+    &:active,
+    &:focus {
+      background: $lightest-gray;
+    }
+  }
+}
+
+

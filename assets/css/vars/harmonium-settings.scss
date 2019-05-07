@@ -5,8 +5,8 @@ $large: 1024px;
 $xlarge: 1200px;
 $xxlarge: 1440px;
 
-$global-width: 100%;
-$grid-row-width: $large;
+$global-width: $xlarge;
+$grid-row-width: $xlarge;
 
 // Breakpoints
 $breakpoints: (
@@ -26,7 +26,12 @@ $breakpoints: (
 );
 
 // IMPORT FONTS HERE
-@import url('https://use.typekit.net/qqm8vsn.css');
+@import url('https://use.typekit.net/btq7zzc.css');
+
+$font-weight-bold: 700;
+$font-weight-semibold: 600;
+$font-weight-normal: 400;
+$font-weight-light: 300;
 
 // Global Fonts
 $global-monospace-font: 'Montserrat', sans-serif;
@@ -40,7 +45,7 @@ $global-font-size: 1.6rem;
 $global-font-size-tiny: $global-font-size * 0.5;
 $global-font-size-smaller: $global-font-size * 0.75;
 $global-font-size-small: $global-font-size * 0.875;
-$global-font-size-medium: $global-font-size * 1;
+$global-font-size-medium: $global-font-size * 1.25;
 $global-font-size-large: $global-font-size * 1.5;
 $global-font-size-larger: $global-font-size * 2;
 $global-font-size-largest: $global-font-size * 3;
@@ -66,8 +71,9 @@ $base-lineheight: $global-lineheight * $global-font-size;
 $size-tiny: 6px;
 $size-small: 12px;
 $size-default: 24px;
+$size-medium: 36px;
 $size-large: 48px;
-$size-larger: 64px;
+$size-larger: 72px;
 $size-largest: 128px;
 
 // GRID COLS - determines the number of columns in a grid
@@ -84,6 +90,7 @@ $global-padding-small: $global-vertical-space / 2; // 12px
 $global-padding: $global-vertical-space; // 24px
 $global-padding-large: $global-vertical-space * 2; // 48px
 $global-padding-larger: $global-vertical-space * 3; // 72px
+$global-padding-largest: $global-vertical-space * 4;
 
 // Global Margin - made up of vertical spacing multiples
 $global-margin-tiny: $global-padding-tiny;
@@ -91,18 +98,19 @@ $global-margin-small: $global-padding-small;
 $global-margin: $global-padding;
 $global-margin-large: $global-padding-large;
 $global-margin-larger: $global-padding-larger;
+$global-margin-largest: $global-padding-largest;
 
 // Grid
 $grid-column-padding: $global-padding-small;
 $grid-gutter: $grid-column-padding * 2;
 
 // Border Radiuses
-$global-radius: 3px;
+$global-radius: 4px;
 $global-rounded: 100000px;
 
 // Box Shadows
 $global-box-shadow: 0 1px 4px 0 $black-30;
-$global-box-shadow-hover: 0 2px 6px 0 $black-50;
+$global-box-shadow-hover: 0 2px 5px 0 $black-30;
 $global-box-shadow-active: 0 1px 2px 0 $black-30;
 
 // Body Vars
@@ -122,13 +130,13 @@ $subheader-font-weight: $global-weight-normal;
 
 // Paragraph Vars
 $paragraph-lineheight: $global-lineheight;
-$paragraph-margin-bottom: $global-vertical-space;
+$paragraph-margin-bottom: $global-margin-small;
 $paragraph-text-rendering: optimizeLegibility;
 
 // ANCHORS
 $anchor-color: $primary;
-$anchor-color-hover: darken($primary, 10%);
-$anchor-color-active: darken($primary, 15%);
+$anchor-color-hover: $brand-secondary;
+$anchor-color-active: darken($brand-secondary, 10%);
 $anchor-color-inverse: $body-bkgd;
 $anchor-text-decoration: none;
 $anchor-text-decoration-hover: none;
@@ -137,11 +145,11 @@ $anchor-text-decoration-hover: none;
 $button-bkgd: $brand;
 $button-border: 0;
 $button-color: $white;
-$button-bkgd-hover: darken($brand, 5%);
+$button-bkgd-hover: $brand-secondary;
 $button-color-hover: $white;
-$button-bkgd-active: darken($brand, 10%);
+$button-bkgd-active: $brand;
 $button-color-active: $white;
-$button-radius: $global-radius;
+$button-radius: 0;
 
 // CLOSE BUTTON
 $closebutton-bkgd: $darker-gray;
@@ -167,17 +175,17 @@ $disabled-opacity: 0.35;
 
 //## Color Mgmt for Navigational Components -----------------------------
 // ex: menus, pagination
-$navigation-bkgd: $white-0;
+$navigation-bkgd: $white;
 // ^transparent by default so that the bkgd of the component shows through
 $navigation-color: $anchor-color;
 // # hover navigation colors
-$navigation-bkgd-hover: darken($navigation-bkgd, 3%);
+$navigation-bkgd-hover: $white;
 $navigation-color-hover: $anchor-color-hover;
 // # onClick navigation colors
-$navigation-bkgd-active: darken($navigation-bkgd, 6%);
+$navigation-bkgd-active: $white;
 $navigation-color-active: $anchor-color-active;
 // # selected state colors are reversed
-$navigation-bkgd-selected: $navigation-color;
+$navigation-bkgd-selected: $white;
 $navigation-color-selected: $navigation-bkgd;
 // # disabled navigation
 $navigation-color-disabled: $disabled;

@@ -15,7 +15,8 @@ config :incentivize, Incentivize.Repo,
   url: System.get_env("DATABASE_URL"),
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   ssl: true,
-  loggers: [{Ecto.LogEntry, :log, []}, {Incentivize.Metrics, :record_ecto_metric, []}]
+  loggers: [{Ecto.LogEntry, :log, []}, {Incentivize.Metrics, :record_ecto_metric, []}],
+  pool_timeout: 15_000
 
 # Do not print debug messages in production
 config :logger, level: :info

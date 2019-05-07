@@ -1,13 +1,109 @@
-.rev-Card,
-.rev-CardLayout {
-  .rev-Col {
-    img {
-      margin: 0;
+.rev-Card {
+  display: block;
+  overflow: hidden;
+  .rev-Card-header,
+  .rev-Card-body,
+  .rev-Card-footer,
+  .Banner {
+    padding-bottom: $global-padding;
+    padding-top: $global-padding;
+  }
+  p {
+    padding: $global-padding-small 0;
+  }
+  .Banner {
+    h1 {
+      font-size: $h2;
     }
   }
+  &.rev-Card--small {
+    .rev-Card-header,
+    .rev-Card-body,
+    .Banner {
+      padding-bottom: 0;
+      padding-top: 0;
+    }
+  }
+  &.rev-Card--accent {
+    @include brand-gradient;
+    color: $white;
+  }
 }
-.rev-Card-footer {
-  .rev-Button {
-    margin: $global-vertical-space / 2 0;
+.EqualHeightCards {
+  @include flex(stretch, row, flex-start, wrap);
+  > .rev-Col {
+    margin-bottom: $global-margin;
+  }
+  .rev-Row {
+    height: 100%;
+  }
+  .rev-Card {
+    height: 100%;
+  }
+}
+
+.rev-Card-body--scroll {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+.rev-Card-header {
+  background: $body-font-color;
+  border: 0;
+  color: $white;
+  font-weight: $font-weight-normal;
+}
+.Card-subheader {
+  background: $divider-color;
+  color: $gray;
+}
+.Card-banner {
+  height: 150px;
+  width: 100%;
+  img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+
+// for cards that are links, we want the content to be body-font-color, not anchor-link-color
+a.rev-Card {
+  .rev-Card-header,
+  .rev-Card-body,
+  .rev-Card-footer {
+    color: $body-font-color;
+  }
+  &:hover{
+    border: 1px solid $divider-color-dark;
+    box-shadow: $global-box-shadow-hover;
+  }
+  &:active,
+  &:focus {
+    box-shadow: $global-box-shadow-active;
+  }
+}
+.CardGrid {
+  @include flex(stretch, row, flex-start, wrap);
+  color: $body-font-color;
+  .CardGrid-banner {
+    height: 200px;
+    img {
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+  .rev-Card-body {
+    .CardGrid-description {
+      font-size: $global-font-size-small;
+      p {
+        margin: 0;
+        padding: 0 0 $global-padding-small;
+      }
+    }
+  }
+  .rev-Card-footer {
+    padding: $global-padding-tiny 0;
   }
 }

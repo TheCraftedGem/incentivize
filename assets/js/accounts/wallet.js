@@ -83,34 +83,30 @@ async function getTransactionHistory(publicKey, server) {
 
 function Transactions({transactions}) {
   return (
-    <Table striped>
-      <Table.Head>
-        <Table.Row>
-          <Table.Header>Account ID</Table.Header>
-          <Table.Header>Amount</Table.Header>
-          <Table.Header>Memo</Table.Header>
-          <Table.Header>Operation</Table.Header>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>
-        {transactions.map((transaction) => (
-          <Table.Row key={transaction.id}>
-            <Table.Data>{transaction.accountId}</Table.Data>
-            <Table.Data>{transaction.amount}</Table.Data>
-            <Table.Data>{transaction.memo}</Table.Data>
-            <Table.Data>
-              <a
-                href={transaction.url}
-                target="_blank"
-                rel="nooppener noreferrer"
-              >
-                {transaction.id}
-              </a>
-            </Table.Data>
-          </Table.Row>
-        ))}
-      </Table.Body>
-    </Table>
+    <ul class="StackedLinkList">
+      {transactions.map((transaction) => (
+        <li>
+          <a
+            href={transaction.url}
+            target="_blank"
+            rel="nooppener noreferrer"
+            class="StackedLinkList-link"
+          >
+            <div class="rev-Row rev-Row--flex rev-Row--justifySpaceBetween" key={transaction.id}>
+              <div class="rev-Col rev-Col--small4 u-truncate" title={transaction.accountId}>
+                {transaction.accountId}
+              </div>
+              <div class="rev-Col rev-Col--small8 Text-right">
+                {transaction.amount}
+              </div>
+              <div class="rev-Col">
+                <small>{transaction.memo}</small>
+              </div>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
   )
 }
 
@@ -134,8 +130,8 @@ async function buildTransactionHistory(stellarNetwork) {
         transactionHistoryTable
       )
     } catch (_error) {
-      transactionHistoryTable.textContent =
-        'Unable to retrieve transaction history'
+      transactionHistoryTable.innerHTML =
+        '<span class="ErrorText">Unable to retrieve transaction history</span>'
     }
   }
 }

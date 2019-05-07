@@ -37,13 +37,11 @@ describe('Stellar', () => {
     it('returns new asset when given non XLM', () => {
       const asset = Stellar.default.processAsset({
         code: 'TEST',
-        issuer: 'GCXSQHLCOHX7M7QYVCYRVNAQ7WYB2UWJDICNDX44NEDX5CH2SXGQTBUQ',
+        issuer: global.StellarPair.publicKey(),
       })
 
       expect(asset.code).to.eql('TEST')
-      expect(asset.issuer).to.eql(
-        'GCXSQHLCOHX7M7QYVCYRVNAQ7WYB2UWJDICNDX44NEDX5CH2SXGQTBUQ'
-      )
+      expect(asset.issuer).to.eql(global.StellarPair.publicKey())
     })
   })
 
@@ -55,7 +53,7 @@ describe('Stellar', () => {
       <head>
       </head>
       <body>
-        <p data-stellar-balance="GCXSQHLCOHX7M7QYVCYRVNAQ7WYB2UWJDICNDX44NEDX5CH2SXGQTBUQ">Loading</p>
+        <p data-stellar-balance="${global.StellarPair.publicKey()}">Loading</p>
       </body>
       </html>
       `
@@ -76,6 +74,39 @@ describe('Stellar', () => {
       )
 
       balance = document.querySelector('[data-stellar-balance]')
+
+      expect(balance.textContent).to.have.string('XLM')
+    })
+  })
+
+  describe('getFundTotals', async() => {
+    it('sums all balances for a fund', async() => {
+      const testHTML = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+      </head>
+      <body>
+        <p data-total-stellar-balances="["GCCGLJVIUEC5TVA4SVIIWRYBPXF47MAC2LY6IVLFWDRDER4ZXBFTEGHQ", "GAUKAFQOVKHXUN4TPFK73H7FNDCUJIZN3XCVNQMOFRAGLRF5BN6T6BO3"]">Loading</p>
+      </body>
+      </html>
+      `
+      const jsdom = new JSDOM(testHTML)
+
+      const {window} = jsdom
+      const {document} = window
+
+      global.window = window
+      global.document = document
+      self.incentivize = {asset: {code: 'XLM'}}
+
+      let balance = document.querySelector('[data-total-stellar-balances]')
+
+      expect(balance.textContent).to.have.string('Loading')
+
+      await Stellar.default.getFundTotals('https://horizon-testnet.stellar.org')
+
+      balance = document.querySelector('[data-total-stellar-balances]')
 
       expect(balance.textContent).to.have.string('XLM')
     })

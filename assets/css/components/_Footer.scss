@@ -1,39 +1,21 @@
-.FooterWrapper {
-  background: $black-40;
-  &.img {
-    background-blend-mode: overlay;
-    background-color: $brand-dark;
-    background-image: url('/images/footer-bkgd.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    clear: both;
-  }
-  a {
-    color: $white-60;
-  }
-  p {
-    color: $white;
-    font-family: $global-sans-serif-font;
-    margin-bottom: 0;
-    max-width: 100%;
-    text-align: center;
-  }
-  &.small {
-    height: auto;
-    padding: $global-padding-large + $global-padding;
-  }
-}
 .Footer {
-  padding: $global-padding;
-  padding-bottom: 0;
-  @include breakpoint(medium) {
-    @include flex(center, row, center);
-  }
-  &-logo,
-  img {
-    display: inline-block;
-    margin-left: $global-padding-small;
-    max-width: 10rem;
-    vertical-align: middle;
+  background: $darker-gray;
+  color: $white;
+  padding: $global-padding 0;
+}
+.Footer-logo {
+  height: $size-default;
+  opacity: 0.65;
+  &:hover,
+  &:active,
+  &:focus {
+    opacity: 1;
   }
 }
+.Footer-copy {
+  color: $light-gray;
+  font-size: $global-font-size-small;
+  margin: 0;
+  padding: 0;
+}
+

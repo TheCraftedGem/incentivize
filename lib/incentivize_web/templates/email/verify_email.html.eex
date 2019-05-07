@@ -1,0 +1,12 @@
+<h1>Verify Email Address</h1>
+
+Hello <%= @user.github_login %>,
+
+<p>
+  You're getting this email because someone entered <%= @user.email %> as their email on Incentivize.io.
+  If that was you, click the link below to verify this email address.
+</p>
+
+<a href="<%= account_url(IncentivizeWeb.Endpoint, :verify_email, token: @token) %>">
+  Verify Email
+</a>

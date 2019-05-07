@@ -91,7 +91,8 @@ async function setWeightsXDR(
  * @param incentivizeSecret - Incentivize's account secret
  * @param escrowPublicKey - The public key of the escrow account
  * @param contributerPublicKey - The public key of the contributer to incentivize
- * @param amount - The amount to give
+ * @param contributorShare - The amount to give contributor
+ * @param appShare - The amount to give system
  * @param assetInfo - The asset to send
  * @param memoText - A memo about the contribution
  *
@@ -101,7 +102,8 @@ async function rewardContributionXDR(
   incentivizeSecret,
   escrowPublicKey,
   contributerPublicKey,
-  amount,
+  contributorShare,
+  appShare,
   assetInfo,
   memoText
 ) {
@@ -111,16 +113,27 @@ async function rewardContributionXDR(
   const asset = processAsset(assetInfo)
 
   const memo = StellarSdk.Memo.text(memoText)
-  transaction = new StellarSdk.TransactionBuilder(escrowAccount, {memo})
-    .addOperation(
+  let transactionBuilder = new StellarSdk.TransactionBuilder(escrowAccount, {
+    memo,
+  }).addOperation(
+    StellarSdk.Operation.payment({
+      destination: contributerPublicKey,
+      asset: asset,
+      amount: contributorShare,
+    })
+  )
+
+  if (appShare) {
+    transactionBuilder = transactionBuilder.addOperation(
       StellarSdk.Operation.payment({
-        destination: contributerPublicKey,
+        destination: ownerKeyPair.publicKey(),
         asset: asset,
-        amount: amount,
+        amount: appShare,
       })
     )
-    .setTimeout(TRANSACTION_TIMEOUT)
-    .build()
+  }
+
+  const transaction = transactionBuilder.setTimeout(TRANSACTION_TIMEOUT).build()
 
   transaction.sign(ownerKeyPair)
 
@@ -141,7 +154,7 @@ async function addFundsXDR(
   const asset = processAsset(assetInfo)
 
   const memo = StellarSdk.Memo.text(memoText)
-  transaction = new StellarSdk.TransactionBuilder(ownerAccount, {
+  const transaction = new StellarSdk.TransactionBuilder(ownerAccount, {
     memo,
   })
     .addOperation(
@@ -159,9 +172,39 @@ async function addFundsXDR(
   return transaction.toEnvelope().toXDR('base64')
 }
 
+async function createAccountXDR(
+  network,
+  secret,
+  accountPublicKey,
+  amount,
+  memoText
+) {
+  const server = createServer(network)
+  const ownerKeyPair = StellarSdk.Keypair.fromSecret(secret)
+  const ownerAccount = await server.loadAccount(ownerKeyPair.publicKey())
+  const memo = StellarSdk.Memo.text(memoText)
+
+  const transaction = new StellarSdk.TransactionBuilder(ownerAccount, {
+    memo,
+  })
+    .addOperation(
+      StellarSdk.Operation.createAccount({
+        destination: accountPublicKey,
+        startingBalance: amount, // in XLM
+      })
+    )
+    .setTimeout(TRANSACTION_TIMEOUT)
+    .build()
+
+  transaction.sign(ownerKeyPair)
+
+  return transaction.toEnvelope().toXDR('base64')
+}
+
 module.exports = {
   rewardContributionXDR,
   addFundsXDR,
   generateEscrowAccountXDR,
   setWeightsXDR,
+  createAccountXDR,
 }

@@ -1,91 +1,59 @@
-<div>
-  <div>
-
-    <div class="rev-Row">
-      <div class="rev-Col">
-
-        <div class="rev-Row">
-          <div class="rev-Col">
-            <h2>Discover</h2>
+<section class="Section Section--light">
+  <%= row class: "CardGrid" do %>
+    <%= for repo <- @repositories do %>
+      <div class="rev-Col rev-Col--medium6 rev-Col--large4">
+        <a class="rev-Card rev-Card--small" href="<%= repository_path(@conn, :show, repo.owner, repo.name) %>">
+          <div class="CardGrid-banner">
+            <img src="https://picsum.photos/200/300/?random"/>
           </div>
-        </div>
-        <%= row do %>
-          <%= col do %>
-            <%= form_tag("/repos", method: "get") do %>
-              <label class="rev-InputStack rev-InputLabel">
-                <input type="search" name="search[query]" class="rev-Input" placeholder="Search" />
-              </label>
-            <% end %>
-          <% end %>
-        <% end %>
-
-        <div class="rev-Row">
-        <%= for repo <- @repositories do %>
-          <div class="rev-Col rev-Col--medium6">
-            <div class="rev-Card rev-CardLayout">
-
-              <div class="rev-Card-header rev-CardLayout-bar">
-                <div class="rev-Row">
-                  <div class="rev-Col">
-                    <h3 class="ButtonLink">
-                      <img alt="Repo Favicon" src="<%= static_path(@conn, "/images/favicon-32x32.png") %>" />
-                      <div class="ButtonLink--header u-truncate">
-                        <a href="<%= repository_path(@conn, :show, repo.owner, repo.name) %>">
-                          <%= repo.owner %>/<%= repo.name %>
-                          <%= if repo.public == false do %>
-                            <i class="material-icons">lock</i>
-                          <% end %>
-                        </a>
-                      </div>
-                    </h3>
-                  </div>
-                </div>
+          <div class="rev-Card-body">
+            <div class="rev-Row AvatarHeader">
+              <div class="rev-Col rev-Col--shrink">
+                <img class="AvatarHeader-avatar" alt="Repo Favicon" src="<%= static_path(@conn, "/images/favicon-32x32.png") %>" />
               </div>
-
-              <div class="rev-Card-footer rev-CardLayout-bar">
-                <div class="rev-Row rev-Row--flex">
-                  <div class="rev-Col">
-                    <a class="ButtonLink" href="<%= fund_path(@conn, :index, repo.owner, repo.name) %>">
-                      <div class="ButtonLink">
-                        <i class="material-icons">share</i>
-                        <p class="ButtonLink--text"><%= length(repo.funds) %> Project Funds</p>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="rev-Col rev-Col--shrink">
-                    <a href="<%= contribution_path(@conn, :for_repository, repo.owner, repo.name) %>">
-                      <div class="ButtonLink">
-                        <i class="material-icons">screen_share</i>
-                        <p class="ButtonLink--text"><%= length(repo.contributions) %> Contributions</p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
-                  <div class="rev-Col rev-Col--medium10">
-                    <div class="rev-ButtonGroup u-flexAlignEnd">
-                      <a class="rev-Button rev-Button--secondary" href="<%= fund_path(@conn, :new, repo.owner, repo.name) %>">Support Project</a>
-                      <a class="rev-Button" href="<%= repository_path(@conn, :contribute, repo.owner, repo.name) %>">
-                        Contribute
-                      </a>
-                    </div>
-                  </div>
-                </div>
+              <div class="rev-Col">
+                <h3 class="AvatarHeader-title"><%= get_title(repo) %></h3>
+                <small class="AvatarHeader-subtitle"><%= repo.owner %></small>
+                <%= if repo.public == false do %>
+                  <i class="material-icons">lock</i>
+                <% end %>
               </div>
-
+            </div>
+            <div class="rev-Row">
+              <div class="rev-Col CardGrid-description">
+                <p>short description...</p>
+              </div>
             </div>
           </div>
-        <% end %>
-        </div>
-        <%= render "_pagination.html",
-          conn: @conn,
-          page_number: @repositories.page_number,
-          page_size: @repositories.page_size,
-          total_entries: @repositories.total_entries,
-          total_pages: @repositories.total_pages
-        %>
+          <div class="rev-Card-footer">
+            <div class="rev-Row rev-Row--flex rev-Row--justifySpaceBetween">
+              <div class="rev-Col rev-Col--shrink">
+                <span class="StatDisplay-label">Available:</span>
+                <span class="StatDisplay-number">
+                  <%= repo.number_of_contributions  || 0 %>
+                  <small>XLM</small>
+                <span>
+              </div>
+              <div class="rev-Col rev-Col--shrink">
+                <span class="StatDisplay-label">Awarded:</span>
+                <span class="StatDisplay-number">
+                  <%= repo.total_sum_of_contribution_assets || 0 %>
+                  <small><%= Incentivize.Stellar.asset_display() %></small>
+                </span>
+              </div>
+            </div>
+          </div>
+        </a>
       </div>
-    </div>
+    <% end %>
+  <% end %> 
 
-  </div>
-</div>
+  <%= render "_pagination.html",
+    conn: @conn,
+    page_number: @repositories.page_number,
+    page_size: @repositories.page_size,
+    total_entries: @repositories.total_entries,
+    total_pages: @repositories.total_pages
+  %>
+</section>
+

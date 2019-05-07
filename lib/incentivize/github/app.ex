@@ -90,7 +90,8 @@ defmodule Incentivize.Github.App do
 
   @spec list_organizations_for_user(User.t()) :: {:ok, map} | {:error, binary}
   def list_organizations_for_user(user) do
-    url = "#{Base.base_url()}/user/orgs?access_token=#{user.github_access_token}"
+    url =
+      "#{Base.base_url()}/user/memberships/orgs?access_token=#{user.github_access_token}&state=active"
 
     url
     |> HTTPoison.get(Base.headers())

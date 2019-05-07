@@ -1,27 +1,33 @@
-$topbar-title-width: 22rem;
-
-.rev-TopBar-title {
-  img {
-    margin-right: $global-margin-tiny;
-    max-width: $topbar-title-width;
-  }
-  .rev-Menu {
-    overflow-x: visible;
-  }
-}
 .rev-TopBar {
-  .rev-Form {
-    .rev-Button {
-      @include breakpoint(small-only) {
-        margin-top: $global-margin;
-        text-align: center;
-      }
+  .rev-TopBar-title {
+    height: 100%;
+  }
+  .rev-Brand {
+    display: block;
+    height: 100%;
+    padding: 1.8rem 0; //makes the logo height the same as h1s
+    position: relative;
+    img {
+      height: 100%;
+      width: auto;
+    }
+  }
+  .TopBar-test {
+    color: $gray;
+    font-size: $global-font-size-smaller;
+    font-style: italic;
+    position: absolute;
+    right: -40px;
+    top: 20px;
+  }
+  nav {
+    padding: 0 $global-padding-small;
+  }
+  .rev-Menu-item {
+    a {
+      padding: $global-padding-small;
     }
   }
 }
 
-.TopBar-test {
-  color: $gray;
-  font-size: $global-font-size-smaller;
-  font-style: italic;
-}
+

@@ -4,12 +4,14 @@
   "scripts": {
     "build": "webpack --mode development",
     "deploy": "BABEL_ENV=production NODE_ENV=production webpack --mode production",
-    "test": "NODE_ENV=test nyc --all --reporter=text --reporter=lcov mocha --require @babel/register --require jsdom-global/register --recursive test"
+    "test": "NODE_ENV=test nyc --all --reporter=text --reporter=lcov mocha --require @babel/polyfill --require @babel/register --require jsdom-global/register --file setup_stellar.js --recursive test"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "core-js": "^3.0.1",
+    "feather-icons": "^4.21.0",
     "harmonium": "^4.4.0",
+    "luxon": "^1.12.1",
     "mustache": "^3.0.1",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
@@ -24,10 +26,11 @@
     "@babel/plugin-proposal-json-strings": "^7.2.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-syntax-import-meta": "^7.2.0",
-    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
-    "@babel/register": "^7.4.0",
+    "@babel/register": "^7.4.4",
     "autoprefixer": "^9.5.1",
+    "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "babel-preset-minify": "^0.5.0",
@@ -45,7 +48,7 @@
     "jsdom-global": "3.0.2",
     "mini-css-extract-plugin": "^0.6.0",
     "mocha": "^6.1.4",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.12.0",
     "nyc": "^14.0.0",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-loader": "^3.0.0",

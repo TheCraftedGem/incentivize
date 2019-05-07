@@ -55,3 +55,17 @@ config :incentivize, :nodejs,
 config :incentivize,
        :cache_ttl,
        String.to_integer(System.get_env("CACHE_TTL") || "3600000")
+
+config :incentivize, Incentivize.Mailer,
+  adapter: Bamboo.SendGridAdapter,
+  api_key: System.get_env("SENDGRID_API_KEY")
+
+config :ex_aws,
+  access_key_id: [System.get_env("AWS_ACCESS_KEY_ID"), :instance_role],
+  secret_access_key: [System.get_env("AWS_SECRET_ACCESS_KEY"), :instance_role]
+
+config :incentivize, :s3_bucket, System.get_env("AWS_S3_BUCKET")
+
+enable_pricing? = String.to_existing_atom(System.get_env("ENABLE_PRICING") || "false")
+
+config :incentivize, :flags, pricing: enable_pricing?

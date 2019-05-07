@@ -6,14 +6,17 @@ defmodule IncentivizeWeb.ErrorViewTest do
   import Phoenix.View
 
   test "renders 404.html" do
-    assert render_to_string(IncentivizeWeb.ErrorView, "404.html", []) == "Page not found"
+    assert render_to_string(IncentivizeWeb.ErrorView, "404.html", []) =~
+             "The page requested does not exist."
   end
 
   test "render 500.html" do
-    assert render_to_string(IncentivizeWeb.ErrorView, "500.html", []) == "Internal server error"
+    assert render_to_string(IncentivizeWeb.ErrorView, "500.html", []) =~
+             "An unexpected error has occurred."
   end
 
   test "render any other" do
-    assert render_to_string(IncentivizeWeb.ErrorView, "505.html", []) == "Internal server error"
+    assert render_to_string(IncentivizeWeb.ErrorView, "505.html", []) =~
+             "An unexpected error has occurred."
   end
 end

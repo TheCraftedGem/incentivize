@@ -1,0 +1,37 @@
+.AvatarHeader {
+  @include flex(center, row, flex-start, nowrap);
+  padding: $global-padding-small 0;
+  img.AvatarHeader-avatar {
+    height: $size-large;
+    margin: 0;
+    width: auto;
+  }
+  .AvatarHeader-title {
+    font-size: $h4;
+    margin: 0;
+    padding: 0;
+  }
+  .AvatarHeader-subtitle {
+    color: $light-gray;
+    strong {
+      color: $body-font-color;
+      font-weight: $font-weight-bold;
+    }
+  }
+  &--large {
+    img.AvatarHeader-avatar {
+      height: $size-larger;
+    }
+    .AvatarHeader-title {
+      font-size: $h2;
+    }
+  }
+  &--small {
+    img.AvatarHeader-avatar {
+      height: $size-medium;
+    }
+    .AvatarHeader-title {
+      font-size: $h6;
+    }
+  }
+}

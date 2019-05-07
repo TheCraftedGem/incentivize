@@ -1,0 +1,63 @@
+.Banner {
+  @include flex(center, column, center, nowrap);
+  @include brand-gradient;
+  color: $white;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  .rev-Button {
+    margin-bottom: 0;
+  }
+  a {
+    color: $white-80;
+    &:hover,
+    &:active,
+    &:focus {
+      color: $white;
+    }
+  }
+  // HOMEPAGE BANNER
+  &.Banner--homepage {
+    min-height: calc(100vh - #{$topbar-height});
+    padding: $global-padding-large $global-padding-small;
+    text-align: center;
+    h1 {
+      font-size: $global-font-size-large;
+    }
+    @include breakpoint(medium) {
+      h1 {
+        font-size: $global-font-size-largest;
+      }
+    }
+  }
+  // SUBNAV BANNER
+  &.Banner--subNav {
+    background: $body-font-color;
+    height: $topbar-height;
+    left: 0;
+    position: fixed;
+    top: $topbar-height;
+    text-align: left;
+    width: 100%;
+    z-index: $above;
+    h1 {
+      padding: 0;
+    }
+    .rev-InputLabel {
+      margin: 0;
+    }
+    + * {
+      margin-top: $topbar-height;
+    }
+  }
+}
+.Banner-productSymbol {
+  display: block;
+  height: 143px;
+  margin:  0 auto;
+  width: auto;
+}
+.Banner-buttons {
+  @include flex(center, row, center, nowrap);
+  margin-top: $global-margin;
+}

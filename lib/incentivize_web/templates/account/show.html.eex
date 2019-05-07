@@ -1,38 +1,47 @@
-<div>
-  <div>
+<section class="Section">
+  <div class="rev-Row">
+    <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered rev-Col--large6">
+      <div class="rev-Card">
+        <div class="Banner">
+          <div class="rev-Row">
+            <div class="rev-Col">
+              <h1>Account Info</h1>
+            </div>
+          </div>
+        </div>
+        <div class="rev-Card-body">
+          <div class="rev-Row">
+            <div class="rev-Col">
+              <label class="rev-InputStack rev-InputLabel">
+                <span class="LabelText">Email:</span>
+                <%= if @user.email != nil do %>
+                  <span class="InputContent"><%= @user.email %> (<%= if @user.email_verified, do: "verified", else: "unverified" %>)</span>
+                  <%= if not @user.email_verified do %>
+                    <small><a href="<%= account_path(@conn, :resend_email_verification) %>">Resend verification email</a></small>
+                  <% end %>
+                <% end %>
+              </label>
 
-    <div class="rev-Row">
-      <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
-        <h2>Account Information</h2>
-        <div class="rev-Row">
-          <div class="rev-Col">
-            <label class="rev-InputStack rev-InputLabel">
-              <h5>Email</h5>
-              <span><%= @user.email %></span>
-            </label>
-
-            <label class="rev-InputStack rev-InputLabel">
-              <h5>Stellar Public Key</h5>
-              <span><%= @user.stellar_public_key %></span>
-              <a href="<%= account_path(@conn, :wallet) %>">View Wallet</a>
-            </label>
-
-            <label class="rev-InputStack rev-InputLabel">
-              <a href="<%= account_path(@conn, :edit) %>">Edit Account</a>
-            </label>
+              <label class="rev-InputStack rev-InputLabel">
+                <span class="LabelText">Stellar Public Key:</span>
+                <span class="InputContent u-truncate"><%= @user.stellar_public_key %></span>
+                <small><a href="<%= account_path(@conn, :wallet) %>">View Wallet</a></small>
+              </label>              
+            </div>
+          </div>
+        </div>
+        <div class="rev-Card-footer">
+          <div class="rev-Row">
+            <div class="rev-Col">
+              <a class="rev-Button rev-Button--expanded rev-Button--secondary" href="<%= account_path(@conn, :edit) %>">
+                Edit Account Info
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <%= if not Enum.empty?(@funds) do %>
-      <hr/>
-      <%= render "_supported_projects.html", assigns %>
-    <% end %>
-
-    <%= if not Enum.empty?(@contributions) do %>
-      <hr/>
-      <%= render "_contributions.html", assigns %>
-    <% end %>
-
   </div>
-</div>
+</section>
+
+

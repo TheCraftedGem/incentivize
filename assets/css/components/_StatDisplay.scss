@@ -1,0 +1,29 @@
+.StatDisplay {
+  .PublicKey {
+    font-size: $global-font-size;
+  }
+}
+.StatDisplay-label {
+  font-size: $global-font-size-smaller;
+  font-weight: $font-weight-bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+ .StatDisplay-number {
+  display: block;
+  font-size: $global-font-size-large;
+  line-height: 1;
+  small {
+    font-size: $global-font-size-smaller;
+    padding-left: $global-padding-tiny;
+  }
+  &.StatDisplay-number--large {
+    font-size: $global-font-size-larger;
+    padding: $global-padding-small 0;
+    text-align: right;
+    small {
+      font-size: $global-font-size-small;
+    }
+  }
+}
+

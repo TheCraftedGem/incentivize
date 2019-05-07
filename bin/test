@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/bash -xe
 
-mix test "$@"
+mix coveralls.html
 cd assets
 npm test
 cd ..

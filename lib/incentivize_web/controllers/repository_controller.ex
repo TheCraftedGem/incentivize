@@ -1,6 +1,6 @@
 defmodule IncentivizeWeb.RepositoryController do
   use IncentivizeWeb, :controller
-  alias Incentivize.{Github.App, Repository, Repositories, Users}
+  alias Incentivize.{Funds, Github.App, Repository, Repositories, Users}
 
   action_fallback(IncentivizeWeb.FallbackController)
 
@@ -14,59 +14,66 @@ defmodule IncentivizeWeb.RepositoryController do
   end
 
   def settings(conn, _params) do
-    %{user: %{github_id: user_github_id}, organizations: organizations} =
-      Users.get_user_github_data(conn.assigns.current_user)
+    case Users.get_user_github_data(conn.assigns.current_user) do
+      {:error, _} ->
+        conn
+        |> put_flash(:error, "Unable to retrieve GitHub data")
+        |> redirect(to: page_path(conn, :index))
 
-    user_installation_info =
-      case App.github_app_module().get_user_app_installation_by_github_login(
-             conn.assigns.current_user.github_login
-           ) do
-        {:ok, installation} ->
-          installation_id = installation["id"]
-          repositories = Repositories.list_repositories_for_installation(installation_id)
+      {:ok, %{user: %{github_id: user_github_id}, organizations: organizations}} ->
+        user_installation_info =
+          case App.github_app_module().get_user_app_installation_by_github_login(
+                 conn.assigns.current_user.github_login
+               ) do
+            {:ok, installation} ->
+              installation_id = installation["id"]
+              repositories = Repositories.list_repositories_for_installation(installation_id)
 
-          %{
-            id: user_github_id,
-            login: conn.assigns.current_user.github_login,
-            installation_id: installation_id,
-            repositories: repositories
-          }
+              %{
+                id: user_github_id,
+                login: conn.assigns.current_user.github_login,
+                installation_id: installation_id,
+                repositories: repositories
+              }
 
-        _ ->
-          %{
-            id: user_github_id,
-            login: conn.assigns.current_user.github_login,
-            installation_id: nil,
-            repositories: []
-          }
-      end
+            _ ->
+              %{
+                id: user_github_id,
+                login: conn.assigns.current_user.github_login,
+                installation_id: nil,
+                repositories: []
+              }
+          end
 
-    organization_installation_info =
-      organizations
-      |> Enum.map(fn org ->
-        case App.github_app_module().get_organization_app_installation_by_github_login(org.login) do
-          {:ok, installation} ->
-            installation_id = installation["id"]
+        organization_installation_info =
+          organizations
+          |> Enum.map(fn org ->
+            case App.github_app_module().get_organization_app_installation_by_github_login(
+                   org.login
+                 ) do
+              {:ok, installation} ->
+                installation_id = installation["id"]
 
-            repositories = Repositories.list_repositories_for_installation(installation_id)
+                repositories = Repositories.list_repositories_for_installation(installation_id)
 
-            %{
-              id: org.id,
-              login: org.login,
-              installation_id: installation_id,
-              repositories: repositories
-            }
+                %{
+                  id: org.id,
+                  login: org.login,
+                  installation_id: installation_id,
+                  repositories: repositories
+                }
 
-          _ ->
-            %{id: org.id, login: org.login, installation_id: nil, repositories: []}
-        end
-      end)
+              _ ->
+                %{id: org.id, login: org.login, installation_id: nil, repositories: []}
+            end
+          end)
 
-    render(conn, "settings.html",
-      user_installation_info: user_installation_info,
-      organization_installation_info: organization_installation_info,
-      github_app_url: App.github_app_module().public_url()
-    )
+        render(conn, "settings.html",
+          user_installation_info: user_installation_info,
+          organization_installation_info: organization_installation_info,
+          github_app_url: App.github_app_module().public_url()
+        )
+    end
   end
 
   def show(conn, %{"owner" => owner, "name" => name}) do
@@ -74,8 +81,15 @@ defmodule IncentivizeWeb.RepositoryController do
 
     if Repositories.can_view_repository?(repository, conn.assigns.current_user) do
       stats = Repositories.get_repository_stats(repository)
+      action_rewards = Repositories.total_rewards_for_each_action(repository)
+      funds = Funds.list_funds_for_repository(repository)
 
-      render(conn, "show.html", repository: repository, stats: stats)
+      render(conn, "show.html",
+        repository: repository,
+        stats: stats,
+        action_rewards: action_rewards,
+        funds: funds
+      )
     else
       :not_found
     end

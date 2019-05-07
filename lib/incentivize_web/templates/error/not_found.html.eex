@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Revelry Labs">
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#00a67f">
+    <meta name="msapplication-TileColor" content="#00a67f">
+    <meta name="theme-color" content="#ffffff">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>Page not found</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <%= if Confex.get_env(:incentivize, :google_analytics_id) do %>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=<%= Confex.get_env(:incentivize, :google_analytics_id) %>"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '<%= Confex.get_env(:incentivize, :google_analytics_id) %>');
+      </script>
+    <% end %>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="rev-TopBar rev-TopBar--fixed">
+        <nav role="navigation">
+
+          <div class="rev-TopBar-title">
+            <ul class="rev-Menu rev-Menu--horizontalLeft">
+              <li>
+                <a href="/">
+                  <img src="/images/incentivize-logo-dark.png" alt="Incentivize" />
+                </a>
+              </li>
+              <%= if Incentivize.Stellar.test_network?() do %>
+                <li>
+                  <span title="Stellar Test Network" class="TopBar-test">(Test)</span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+
+          <div className="rev-Drawer rev-Drawer--right">
+              <ul class="rev-Menu rev-Menu--horizontalRight">
+                <li class="Hide--mediumUp">
+                  <a class="rev-Drawer-expander"><i class="material-icons">menu</i></a>
+                </li>
+              </ul>
+          </div>
+
+          <div class="rev-Drawer rev-Drawer--right rev-Drawer--fixed Hide--mediumUp">
+            <!-- .rev-Drawer--open class needs to be added to .rev-Drawer when the menu is triggered -->
+            <a class="rev-Drawer-closer"><i class="material-icons">close</i></a>
+            <div class="rev-Drawer-contents">
+              <div class="rev-TopBar-item">
+                <ul class="rev-Menu">
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-TopBar-item Hide--mediumDown">
+            <ul class="rev-Menu rev-Menu--horizontalRight">
+            </ul>
+          </div>
+
+        </nav>
+      </div>
+      <main role="main" class="rev-ContentWrapper">
+        <div class="rev-Row">
+          <div class="rev-Col Text-center">
+            <h1>404</h1>
+            <h3>The page requested does not exist.</h3>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

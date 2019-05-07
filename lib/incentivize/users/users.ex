@@ -46,25 +46,32 @@ defmodule Incentivize.Users do
   up until the cache expires.
   """
   def get_user_github_data(user) do
-    ConCache.get_or_store(:incentivize_cache, user.github_login, fn ->
-      {:ok, organizations} = App.github_app_module().list_organizations_for_user(user)
+    case ConCache.get(:incentivize_cache, user.github_login) do
+      nil ->
+        case get_github_data_for_user(user) do
+          {:ok, cache_data} = ok ->
+            ConCache.put(:incentivize_cache, user.github_login, cache_data)
+            ok
 
-      {:ok, github_user} = App.github_app_module().get_user(user)
+          error ->
+            error
+        end
 
-      organizations =
-        organizations
-        |> Enum.map(fn org ->
-          %{id: org["id"], login: org["login"]}
-        end)
-        |> Enum.sort(fn org1, org2 ->
-          String.downcase(org1.login) < String.downcase(org2.login)
-        end)
+      data ->
+        {:ok, data}
+    end
+  end
 
-      {:ok, repos} = App.github_app_module().list_user_repos(user)
+  defp get_github_data_for_user(user) do
+    with(
+      {:ok, organizations} <- App.github_app_module().list_organizations_for_user(user),
+      {:ok, github_user} <- App.github_app_module().get_user(user),
+      {:ok, repos} <- App.github_app_module().list_user_repos(user)
+    ) do
+      organizations = transform_org_data(organizations)
 
       repos =
-        repos
-        |> Enum.map(fn repo ->
+        Enum.map(repos, fn repo ->
           %{
             full_name: repo["full_name"],
             name: repo["name"],
@@ -73,13 +80,27 @@ defmodule Incentivize.Users do
           }
         end)
 
-      %{
-        user: %{
-          github_id: github_user["id"]
-        },
-        organizations: organizations,
-        repos: repos
-      }
+      {:ok,
+       %{
+         user: %{
+           github_id: github_user["id"]
+         },
+         organizations: organizations,
+         repos: repos
+       }}
+    else
+      error ->
+        error
+    end
+  end
+
+  defp transform_org_data(organizations) do
+    organizations
+    |> Enum.map(fn %{"role" => role, "organization" => org} ->
+      %{id: org["id"], login: org["login"], role: role}
+    end)
+    |> Enum.sort(fn org1, org2 ->
+      String.downcase(org1.login) < String.downcase(org2.login)
     end)
   end
 

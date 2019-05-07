@@ -2,6 +2,7 @@ defmodule Incentivize.Stellar do
   @moduledoc """
   Module for Stellar interactions.
   """
+  alias Incentivize.Flags
 
   def public_key, do: config()[:public_key]
 
@@ -13,6 +14,10 @@ defmodule Incentivize.Stellar do
   def network_url, do: config()[:network_url]
 
   def test_network?, do: String.contains?(network_url(), "test")
+
+  def app_fee_percentage do
+    Confex.get_env(:incentivize, :app_fee_percentage)
+  end
 
   def asset do
     {code, issuer} =
@@ -114,11 +119,21 @@ defmodule Incentivize.Stellar do
   end
 
   @doc """
-  Gives contributor the amount specified from the given fund
+  Gives contributor the amount specified from the given fund.
+  Takes the percentage identified by app_fee_percentage as well
   """
   @spec reward_contribution(binary(), binary(), Decimal.t(), binary()) ::
           {:ok, binary()} | {:error, binary()}
   def reward_contribution(fund_public_key, contributor_public_key, amount, memo_text) do
+    app_fee =
+      if Flags.enable_pricing?() do
+        amount
+        |> Decimal.mult(Decimal.from_float(app_fee_percentage()))
+        |> Decimal.to_string()
+      else
+        nil
+      end
+
     {:ok, transaction_xdr} =
       make_node_call(
         {:repositoryFund, :rewardContributionXDR},
@@ -128,6 +143,7 @@ defmodule Incentivize.Stellar do
           fund_public_key,
           contributor_public_key,
           Decimal.to_string(amount),
+          app_fee,
           asset(),
           memo_text
         ]
@@ -142,6 +158,7 @@ defmodule Incentivize.Stellar do
     end
   end
 
+  @spec add_funds_to_account(binary(), Decimal.t(), binary()) :: {:error, map()} | {:ok, map()}
   def add_funds_to_account(fund_public_key, amount, memo_text) do
     {:ok, xdr} =
       make_node_call(
@@ -152,6 +169,23 @@ defmodule Incentivize.Stellar do
           fund_public_key,
           Decimal.to_string(amount),
           asset(),
+          memo_text
+        ]
+      )
+
+    Stellar.Transactions.post(xdr)
+  end
+
+  @spec create_account(binary(), Decimal.t(), binary()) :: {:error, map()} | {:ok, map()}
+  def create_account(account_public_key, amount, memo_text) do
+    {:ok, xdr} =
+      make_node_call(
+        {:repositoryFund, :createAccountXDR},
+        [
+          network_url(),
+          secret(),
+          account_public_key,
+          Decimal.to_string(amount),
           memo_text
         ]
       )

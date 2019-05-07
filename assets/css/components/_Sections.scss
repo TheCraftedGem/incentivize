@@ -1,0 +1,28 @@
+.Section {
+  padding: $global-padding 0;
+  @include breakpoint(medium) {
+    padding: $global-padding-large 0;
+  }
+  &.Section--large {
+    padding: $global-padding-large 0;
+    @include breakpoint(medium) {
+      padding: $global-padding-largest 0;
+    }
+  }
+}
+.Section--light {
+  background: $white;
+}
+.Section--iconFeatures {
+  .Section--iconFeatures-circle {
+    @include flex(center, row, center, nowrap);
+    background: $black;
+    border-radius: $global-rounded;
+    height: $size-larger;
+    margin: 0 auto;
+    width: $size-larger;
+  }
+  .feather {
+    color: $white;
+  }
+}

@@ -71,7 +71,7 @@ function init({stellarNetwork, asset}) {
       button.disabled = amount.value === '' || secret.value === ''
     })
 
-    button.addEventListener('click', async() => {
+    button.addEventListener('click', async () => {
       button.disabled = true
       button.textContent = 'Funding'
       try {

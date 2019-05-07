@@ -4,14 +4,88 @@ defmodule Incentivize.Repositories do
   """
 
   import Ecto.{Query, Changeset}, warn: false
-  alias Incentivize.{Repo, Repository, Repositories.Search, Users, Funds}
+  alias Incentivize.{Contribution, Fund, Funds, Repo, Repository, Repositories.Search, Users}
 
   def list_repositories_for_user(user, search_params) do
+    number_of_contributions =
+      from(
+        contribution in Contribution,
+        group_by: contribution.repository_id,
+        select: %{
+          repository_id: contribution.repository_id,
+          count: count(contribution.id)
+        }
+      )
+
+    number_of_funds =
+      from(
+        fund in Fund,
+        group_by: fund.repository_id,
+        select: %{
+          repository_id: fund.repository_id,
+          count: count(fund.id)
+        }
+      )
+
+    total_sum_of_contribution_assets =
+      from(
+        contribution in Contribution,
+        group_by: contribution.repository_id,
+        select: %{
+          repository_id: contribution.repository_id,
+          sum: sum(contribution.amount)
+        }
+      )
+
+    fund_public_keys =
+      from(
+        fund in Fund,
+        select: %{
+          stellar_public_key: fund.stellar_public_key
+        }
+      )
+
     query =
       Repository
-      |> where([r], is_nil(r.deleted_at))
+      |> join(
+        :left,
+        [r],
+        number_of_contribution in subquery(number_of_contributions),
+        number_of_contribution.repository_id == r.id
+      )
+      |> join(
+        :left,
+        [r, number_of_contribution],
+        number_of_fund in subquery(number_of_funds),
+        number_of_fund.repository_id == r.id
+      )
+      |> join(
+        :left,
+        [r, number_of_contribution, number_of_fund],
+        total_sum_of_contribution_asset in subquery(total_sum_of_contribution_assets),
+        total_sum_of_contribution_asset.repository_id == r.id
+      )
+      |> preload(funds: ^fund_public_keys)
+      |> where(
+        [r, _number_of_contribution, _number_of_fund, _total_sum_of_contribution_asset],
+        is_nil(r.deleted_at)
+      )
       |> order_by([r], asc: r.owner, asc: r.name)
-      |> preload([:funds, :contributions])
+      |> select([r, number_of_contribution, number_of_fund, total_sum_of_contribution_asset], %{
+        funds: r,
+        id: r.id,
+        name: r.name,
+        owner: r.owner,
+        public: r.public,
+        deleted_at: r.deleted_at,
+        installation_id: r.installation_id,
+        title: r.title,
+        logo_url: r.logo_url,
+        description: r.description,
+        number_of_contributions: number_of_contribution.count,
+        number_of_funds: number_of_fund.count,
+        total_sum_of_contribution_assets: total_sum_of_contribution_asset.sum
+      })
 
     query =
       if is_nil(user) do
@@ -27,7 +101,15 @@ defmodule Incentivize.Repositories do
         )
       end
 
-    search_and_page(query, search_params)
+    repo_collection = search_and_page(query, search_params)
+    # transform fund public keys into a useable list instead of a bunch of maps
+    Map.update(repo_collection, :entries, [], fn entries ->
+      Enum.map(entries, fn repo ->
+        Map.update(repo, :funds, [], fn r ->
+          Enum.map(r.funds, fn fund -> fund.stellar_public_key end)
+        end)
+      end)
+    end)
   end
 
   defp search_and_page(query, search_params) do
@@ -111,7 +193,7 @@ defmodule Incentivize.Repositories do
   def get_repository_stats(repository) do
     query =
       from(
-        contribution in Incentivize.Contribution,
+        contribution in Contribution,
         where: contribution.repository_id == ^repository.id,
         select: sum(contribution.amount)
       )
@@ -129,7 +211,7 @@ defmodule Incentivize.Repositories do
 
     query =
       from(
-        contribution in Incentivize.Contribution,
+        contribution in Contribution,
         where: contribution.repository_id == ^repository.id,
         select: count(contribution.id)
       )
@@ -138,7 +220,7 @@ defmodule Incentivize.Repositories do
 
     query =
       from(
-        contribution in Incentivize.Contribution,
+        contribution in Contribution,
         where: contribution.repository_id == ^repository.id,
         select: count(contribution.user_id, :distinct)
       )
@@ -149,12 +231,16 @@ defmodule Incentivize.Repositories do
 
     query =
       from(
-        contribution in Incentivize.Contribution,
+        contribution in Contribution,
         join: user in Incentivize.User,
         on: user.id == contribution.user_id,
         where: contribution.repository_id == ^repository.id,
-        group_by: user.github_login,
-        select: %{github_login: user.github_login, count: count(contribution.id)},
+        group_by: [user.github_login, user.github_avatar_url],
+        select: %{
+          github_login: user.github_login,
+          github_avatar_url: user.github_avatar_url,
+          count: count(contribution.id)
+        },
         order_by: [desc: count(contribution.id)],
         limit: ^leaderboard_top_number
       )
@@ -163,7 +249,7 @@ defmodule Incentivize.Repositories do
 
     query =
       from(
-        contribution in Incentivize.Contribution,
+        contribution in Contribution,
         join: pledge in Incentivize.Pledge,
         on: pledge.id == contribution.pledge_id,
         join: fund in Incentivize.Fund,
@@ -192,16 +278,31 @@ defmodule Incentivize.Repositories do
         }
       end)
 
+    query =
+      from(
+        fund in Fund,
+        where: fund.repository_id == ^repository.id,
+        select: %{
+          public_key: fund.stellar_public_key
+        }
+      )
+
+    total_fund_balance = Repo.all(query)
+
+    total_fund_balance = Enum.map(total_fund_balance, fn fund -> fund.public_key end)
+
     %{
       number_of_assets_distributed: number_of_assets_distributed,
       number_of_funds_created: number_of_funds_created,
       number_of_contributions: number_of_contributions,
       number_of_contributors: number_of_contributors,
       most_contributions: most_contributions,
-      most_active_funds: most_active_funds
+      most_active_funds: most_active_funds,
+      total_fund_balance: total_fund_balance
     }
   end
 
+  @spec can_view_repository?(Repository.t(), User.t()) :: boolean()
   def can_view_repository?(nil, _) do
     false
   end
@@ -219,6 +320,7 @@ defmodule Incentivize.Repositories do
       end)
   end
 
+  @spec can_edit_repository?(Repository.t(), User.t()) :: boolean()
   def can_edit_repository?(nil, _) do
     false
   end
@@ -257,6 +359,9 @@ defmodule Incentivize.Repositories do
     )
   end
 
+  @doc """
+  Undeletes a previously deleted repository
+  """
   def undelete_repository(repository, installation_id) do
     Repo.update_all(
       from(r in Repository,
@@ -268,15 +373,41 @@ defmodule Incentivize.Repositories do
   end
 
   defp get_repo_full_names(user) do
-    %{repos: repos} = Users.get_user_github_data(user)
-    Enum.map(repos, fn repo -> repo.full_name end)
+    case Users.get_user_github_data(user) do
+      {:ok, %{repos: repos}} ->
+        Enum.map(repos, fn repo -> repo.full_name end)
+
+      _ ->
+        []
+    end
   end
 
+  @doc """
+  Returns either the owner/name of the repo
+  or the title given to it
+  """
   def get_title(repository) do
     if is_nil(repository.title) do
-      "#{repository.owner}/#{repository.name}"
+      "#{repository.name}"
     else
       repository.title
     end
+  end
+
+  def total_rewards_for_each_action(repository) do
+    total_rewards_for_each_action =
+      from(
+        pledge in Incentivize.Pledge,
+        join: fund in Incentivize.Fund,
+        on: fund.id == pledge.fund_id,
+        where: ^repository.id == fund.repository_id,
+        group_by: pledge.action,
+        select: %{
+          action: pledge.action,
+          sum: sum(pledge.amount)
+        }
+      )
+
+    Repo.all(total_rewards_for_each_action)
   end
 end

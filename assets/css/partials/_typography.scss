@@ -1,12 +1,53 @@
-p,
-button {
-  font-family: $global-sans-serif-font;
+h1 {
+  line-height: 1.25;
+  @include breakpoint(medium-down) {
+    font-size: $global-font-size-large;
+    padding-bottom: $global-padding-small;
+  }
 }
 h2 {
-  font-weight: $global-weight-bold;
-  line-height: $global-lineheight;
+  padding: $global-padding 0 $global-padding-small;
+  @include breakpoint(medium-down) {
+    font-size: $global-font-size-large;
+  }
 }
-h3 {
-  color: $brand;
-  font-weight: $global-weight-medium;
+h3,
+h4 {
+  font-weight: 600;
+  line-height: 1;
+  padding: $global-padding 0;
+}
+h5,
+h6 {
+  color: inherit;
+  font-weight: $font-weight-semibold;
+}
+p {
+  max-width: 100%;
+}
+small {
+  font-weight: $font-weight-light;
+  strong {
+    text-transform: uppercase;
+  }
+}
+.PageTitle {
+  margin-top: 0;
+  padding-top: 0;
+}
+.Lead {
+  font-size: $global-font-size-medium;
+  @include breakpoint(medium) {
+    font-size: $global-font-size-large;
+  }
+}
+.IconLink {
+  @include flex(center, row, flex-start, nowrap);
+  .feather {
+    height: 2rem;
+    margin-right: $global-margin-tiny;
+  }
+}
+hr {
+  border-top: 0;
 }

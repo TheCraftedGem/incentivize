@@ -1,37 +1,48 @@
-<div>
-  <div>
+<section class="Section">
+  <div class="rev-Row">
+    <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered rev-Col--large6">
+      <div class="rev-Card">
+        <div class="Banner">
+          <div class="rev-Row">
+            <div class="rev-Col">
+              <h1>Edit Account Info</h1>
+            </div>
+          </div>
+        </div>
+        <div class="rev-Card-body">
+          <div class="rev-Row">
+            <div class="rev-Col">
+              <%= form_for @changeset, account_path(@conn, :update), fn f -> %>
+                <label class="rev-InputStack rev-InputLabel">
+                  <span>Email</span>
+                  <%= email_input(f, :email, required: true, class: "rev-Input") %>
+                  <%= error_tag f, :email %>
+                </label>
 
-    <div class="rev-Row">
-      <div class="rev-Col rev-Col--medium7 rev-Col--smallCentered">
-        <h2>Account Information</h2>
-        <%= form_for @changeset, account_path(@conn, :update), fn f -> %>
-          <label class="rev-InputStack rev-InputLabel">
-            <span>Email</span>
-            <%= email_input(f, :email, required: true, class: "rev-Input") %>
-            <%= error_tag f, :email %>
-          </label>
-
-          <label class="rev-InputStack rev-InputLabel">
-            <span>Stellar Public Key</span>
-            <%= text_input(f,
-              :stellar_public_key,
-              required: true,
-              class: "rev-Input",
-              maxlength: 56,
-              minlength: 56,
-              pattern: "G[A-Z0-9]{55}",
-              placeholder: "example: GCEXAMPLE5HWNK4AYSTEQ4UWDKHTCKADVS2AHF3UI2ZMO3DPUSM6Q4UG"
-            ) %>
-            <%= error_tag f, :stellar_public_key %>
-            <span>Don't have a stellar account? You can create one <a href="<%= stellar_account_creation_link(Incentivize.Stellar.test_network?()) %>" target="_blank" rel="noreferrer">here</a></span>
-          </label>
-
-          <section class="u-noBorder-bottom">
-            <button class="rev-Button" type="submit">Submit</button>
-          </section>
-
-        <% end %>
+                <label class="rev-InputStack rev-InputLabel">
+                  <span>Stellar Public Key</span>
+                  <%= text_input(f,
+                    :stellar_public_key,
+                    required: true,
+                    class: "rev-Input",
+                    maxlength: 56,
+                    minlength: 56,
+                    pattern: "G[A-Z0-9]{55}",
+                    placeholder: "example: GCEXAMPLE5HWNK4AYSTEQ4UWDKHTCKADVS2AHF3UI2ZMO3DPUSM6Q4UG"
+                  ) %>
+                  <%= error_tag f, :stellar_public_key %>
+                  <span>Don't have a stellar account? You can create one <a href="<%= stellar_account_creation_link(Incentivize.Stellar.test_network?()) %>" target="_blank" rel="noreferrer">here</a></span>
+                </label>
+                <button class="rev-Button rev-Button--expanded" type="submit">Submit</button>
+                <hr />
+                <a class="IconLink" href="/account">
+                  <i data-feather="arrow-left"></i>
+                  Cancel</a>
+              <% end %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>

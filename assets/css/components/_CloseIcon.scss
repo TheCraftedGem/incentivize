@@ -1,0 +1,11 @@
+.CloseIcon {
+  position: absolute;
+  right: 0;
+  z-index: $above;
+  &:hover,
+  &:active,
+  &:focus {
+    cursor: pointer;
+    opacity: 0.65;
+  }
+}

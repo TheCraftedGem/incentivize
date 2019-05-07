@@ -43,6 +43,8 @@ config :incentivize, Incentivize.Github.App,
   app_slug: System.get_env("GITHUB_APP_SLUG"),
   webhook_secret: System.get_env("GITHUB_APP_WEBHOOK_SECRET")
 
+config :incentivize, Incentivize.Mailer, adapter: Bamboo.TestAdapter
+
 if File.exists?(Path.join([__DIR__, "dev.secret.exs"])) do
   import_config "dev.secret.exs"
 end

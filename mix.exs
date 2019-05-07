@@ -69,7 +69,11 @@ defmodule Incentivize.Mixfile do
       {:dialyxir, "~> 1.0.0-rc", only: :dev, runtime: false},
       {:bypass, "~> 1.0", only: :test},
       {:con_cache, "~> 0.13"},
-      {:scrivener_ecto, "~> 1.3"}
+      {:scrivener_ecto, "~> 1.3"},
+      {:bamboo, "~> 1.1"},
+      {:timex, "~> 3.5"},
+      {:ex_aws, "~> 2.1"},
+      {:ex_aws_s3, "~> 2.0"}
     ]
   end
 
@@ -81,6 +85,7 @@ defmodule Incentivize.Mixfile do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
+      compile: ["compile --warnings-as-errors"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]

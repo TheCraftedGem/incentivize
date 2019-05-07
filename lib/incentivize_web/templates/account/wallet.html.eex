@@ -1,21 +1,96 @@
-<div class="rev-Row">
-  <div class="rev-Col rev-Col--smallCentered">
-    <h2>Wallet</h2>
-    <div class="rev-Row">
-      <div class="rev-Col">
-        <label class="rev-InputStack rev-InputLabel">
-          <h5>Stellar Public Key</h5>
-          <span><%= @user.stellar_public_key %></span>
-        </label>
-
-        <label class="rev-InputStack rev-InputLabel">
-          <h5>Balances</h5>
-          <div data-stellar-balance="<%= @user.stellar_public_key %>">Loading</div>
-        </label>
-
-        <h5>Transaction History</h5>
-        <div class="rev-TableContainer" data-transaction-history>Loading transaction history</div>
+<section class="Section Section--light">
+  <%= row class: "EqualHeightCards" do %>
+    <%= col medium: "6" do %>
+      <div class="rev-Card rev-Card--small">
+        <%= row class: "rev-Row--flex rev-Row--alignCenter" do %>
+          <%= col large: "4" do %>
+            <h5>Stellar Public Key:</h5>
+          <% end %>
+          <%= col class: "u-truncate", large: "8" do %>
+            <span class="PublicKey"><%= @user.stellar_public_key %></span>
+          <% end %>
+        <% end %>
       </div>
-    </div>
-  </div>
-</div>
+    <% end %>
+    <%= col medium: "6" do %>
+      <div class="rev-Card rev-Card--small rev-Card--accent">
+        <%= row class: "rev-Row--flex rev-Row--alignCenter" do %>
+          <%= col large: "4" do %>
+            <h5>Lumen Balance:</h5>
+          <% end %>
+          <%= col large: "8" do %>
+            <span class="StatDisplay-number StatDisplay-number--large" data-stellar-balance="<%= @user.stellar_public_key %>"><div class="Loader"></div></span>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+    
+  <% end %>
+
+  <%= row do %>
+    <%= col do %>
+      <div class="rev-Card rev-Card--small">
+        <div class="rev-Card-header">
+          <div class="rev-Row">
+            <div class="rev-Col">
+              <h5>Transactions</h5>
+            </div>
+          </div>
+        </div>
+        <div class="rev-Card-body rev-Card-body--scroll">
+          <div data-transaction-history>
+            <div class="Loader"></div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+</section>
+<section class="Section">
+  <%= row do %>
+    <%= col do %>
+      <h2>Funded Projects</h2>
+    <% end %>
+  <% end %>
+  <%= if not Enum.empty?(@funds) do %>
+    <%= render "_supported_projects.html", assigns %>
+  <% else %>
+    <%= row do %>
+      <%= col do %>
+        <div class="EmptyState">
+          <%= row do %>
+            <%= col do %>
+              <p>No funded projects. Search projects that need funding.</p>
+              <a href="/repos" class="rev-Button rev-Button--secondary rev-Button--small rev-Button--centered u-noMargin">Search Projects</a>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= row do %>
+    <%= col do %>
+      <h2>Contributions</h2>
+    <% end %>
+  <% end %>
+  <%= if not Enum.empty?(@contributions) do %>
+    <%= render "_contributions.html", assigns %>
+  <% else %>
+    <%= row do %>
+      <%= col do %>
+        <div class="EmptyState">
+          <%= row do %>
+            <%= col do %>
+              <p>No contributions. Discover repos that need your help.</p>
+              <a href="/repos" class="rev-Button rev-Button--secondary rev-Button--small rev-Button--centered u-noMargin">Discover Repos</a>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>     
+</section>
+
+

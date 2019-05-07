@@ -29,11 +29,14 @@
                     <%= unless is_nil(fund.description) do %>
                       <p><%= fund.description %></p>
                     <% end %>
-                    <p data-stellar-balance="<%= fund.stellar_public_key %>">Loading</p>
+                    <p data-stellar-balance="<%= fund.stellar_public_key %>"><div class="Loader">Loading...</div></p>
                     <p>
                       <a href="<%= contribution_path(@conn, :for_fund, @repository.owner, @repository.name, fund.id) %>">
                         View Contributions
                       </a>
+                    </p>
+                    <p>
+                      Created <span data-timestamp="<%= Timex.format!(fund.inserted_at, "%FT%T%:z", :strftime) %>"><%= fund.inserted_at %></span>
                     </p>
                   </div>
                 </div>

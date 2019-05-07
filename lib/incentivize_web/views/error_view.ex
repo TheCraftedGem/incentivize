@@ -1,12 +1,12 @@
 defmodule IncentivizeWeb.ErrorView do
   use IncentivizeWeb, :view
 
-  def render("404.html", _assigns) do
-    "Page not found"
+  def render("404.html", assigns) do
+    render("not_found.html", assigns)
   end
 
-  def render("500.html", _assigns) do
-    "Internal server error"
+  def render("500.html", assigns) do
+    render("server_error.html", assigns)
   end
 
   # In case no render clause matches or no

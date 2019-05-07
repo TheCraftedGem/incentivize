@@ -1,6 +1,7 @@
 defmodule IncentivizeWeb.AccountControllerTest do
   @moduledoc false
   use IncentivizeWeb.ConnCase, async: true
+  use Bamboo.Test
   alias Incentivize.Users
 
   setup %{conn: conn} do
@@ -40,6 +41,8 @@ defmodule IncentivizeWeb.AccountControllerTest do
     conn = put(conn, account_path(conn, :edit), user: [stellar_public_key: "12345"])
     assert redirected_to(conn) =~ account_path(conn, :show)
 
+    assert_email_delivered_with(subject: "Verify your email address")
+
     assert Users.get_user(user.id).stellar_public_key == "12345"
   end
 
@@ -61,5 +64,12 @@ defmodule IncentivizeWeb.AccountControllerTest do
 
     conn = get(conn, account_path(conn, :wallet))
     assert redirected_to(conn) =~ account_path(conn, :edit)
+  end
+
+  test "GET /auth/emails/resend_email_verification", %{conn: conn} do
+    conn = get(conn, account_path(conn, :resend_email_verification))
+    assert_email_delivered_with(subject: "Verify your email address")
+
+    assert redirected_to(conn) =~ account_path(conn, :show)
   end
 end

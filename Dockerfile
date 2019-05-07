@@ -1,5 +1,5 @@
 # Set the Docker image you want to base your image off.
-FROM elixir:1.7
+FROM elixir:1.8
 
 # Add nodejs
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -

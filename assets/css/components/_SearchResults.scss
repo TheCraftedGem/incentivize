@@ -1,0 +1,38 @@
+.SearchResults {
+  &.rev-Row {
+    width: 100%;
+  }
+}
+.SearchResults-rowLink {
+  color: $body-font-color;
+  border: 1px solid $divider-color;
+  display: block;
+  margin-bottom: $global-padding-tiny;
+  &:hover {
+    box-shadow: $global-box-shadow-hover;
+  }
+  &:active,
+  &:focus {
+    box-shadow: $global-box-shadow-active;
+  }
+
+  .SearchResults-rowLink-title {
+    @include flex(center, row, flex-start, nowrap);
+    padding: $global-padding-small 0;
+  }
+  .SearchResults-rowLink-avatar {
+    margin-right: $global-margin-small;
+  }
+  .SearchResults-rowLink-totals {
+    border-left: 1px solid $divider-color;
+    color: $body-font-color;
+    display: block;
+    padding: 0 $global-padding-small;
+    text-align: center;
+    width: 100%;
+    small {
+      display: block;
+      color: $gray;
+    }
+  }
+}

@@ -1,74 +1,215 @@
+<section class="Section">
 
-<h2 class="Text-center"><%= get_title(@repository) %></h2>
-<%= row do %>
-  <%= col medium: 8 do %>
-    <%= if @repository.logo_url do %>
-      <img src="<%= @repository.logo_url %>" />
-    <% end %>
-
-    <h3>Description</h3>
-    <%= if @repository.description do %>
-      <p><%= @repository.description %></p>
-    <% end %>
-
-  <% end %>
-  <%= col medium: 4 do %>
-    <p>
-      <a href="<%= contribution_path(@conn, :for_repository, @repository.owner, @repository.name) %>">
-        <%= @stats.number_of_contributions %> Contributions
-      </a>
-    </p>
-    <p><%= @stats.number_of_contributors %> Contributors</p>
-    <p>
-      <a href="<%= fund_path(@conn, :index, @repository.owner, @repository.name) %>">
-        <%= @stats.number_of_funds_created %> Funds
-      </a>
-    </p>
-    <p><%= @stats.number_of_assets_distributed %> <%= Incentivize.Stellar.asset_display() %> Given</p>
-
-    <a class="rev-Button rev-Button--expanded Text-center" href="<%= repository_path(@conn, :contribute, @repository.owner, @repository.name) %>">
-      Contribute to this project
-    </a>
-    <a class="rev-Button rev-Button--expanded rev-Button--secondary Text-center" href="<%= fund_path(@conn, :new, @repository.owner, @repository.name) %>">
-      Fund this project
-    </a>
-
-    <%= for link <- @repository.links do %>
-      <p>
-        <a href="<%= link.url %>" target="_blank" rel="noreferrer">
-          <%= if link.title, do: link.title, else: link.url %>
-        </a>
-      </p>
-    <% end %>
-
-    <h3>Most Contributions</h3>
-    <%= if Enum.empty?(@stats.most_contributions) do %>
-      <div>No contributions</div>
-    <% else %>
-      <ol>
-        <%= for contribution <- @stats.most_contributions do %>
-            <li>
-              <a href="https://github.com/<%= contribution.github_login %>">
-                <%= contribution.github_login %> (<%= contribution.count %>)
-              </a>
-            </li>
+  <%= row class: "rev-Row--collapse" do %>
+    <%= col medium: 8 do %>
+      
+      <%= row do %>
+        <%= col do %>
+          <div class="Banner">
+            <img src="https://picsum.photos/1200/350/?random"/>
+          </div>
         <% end %>
-      </ol>
-    <% end %>
+      <% end %>
 
-    <h3>Most Active Fund</h3>
-    <%= if Enum.empty?(@stats.most_active_funds) do %>
-      <div>No active funds</div>
-    <% else %>
-      <ol>
-        <%= for fund <- @stats.most_active_funds do %>
-          <li>
-            <a href="<%= fund_path(@conn, :show, @repository.owner, @repository.name, fund.fund.id) %>">
-              <%= IncentivizeWeb.FundView.fund_name(fund.fund) %> (<%= fund.sum %> <%= Incentivize.Stellar.asset_display() %>)
+      <%= row class: "AvatarHeader AvatarHeader--large" do %>
+        <%= col class: "rev-Col--shrink" do %>
+          <img class="AvatarHeader-avatar" alt="Repo Favicon" src="<%= static_path(@conn, "/images/favicon-32x32.png") %>" />
+        <% end %>
+        <%= col do %>
+          <h1 class="AvatarHeader-title"><%= get_title(@repository) %></h1>
+          <small class="AvatarHeader-subtitle"><%= @repository.owner %></small>
+        <% end %>
+      <% end %>
+
+      <%= if @repository.description do %>
+        <%= row do %>
+          <%= col do %>
+            <p><%= @repository.description %></p>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= row class: "rev-Row--flex" do %>
+        <%= for link <- @repository.links do %>
+          <%= col class: "rev-Col--shrink" do %>
+            <a class="rev-Button rev-Button--secondary rev-Button--small" href="<%= link.url %>" target="_blank" rel="noreferrer">
+              <%= if link.title, do: link.title, else: link.url %>
             </a>
-          </li>
+          <% end %>
         <% end %>
-      </ol>
+      <% end %>
+
+      <%= if not Enum.empty?(@action_rewards) do %>
+        <%= row do %>
+          <%= col do %>
+            <h2>Contribution Values</h2>
+            <p>This project is funded! That means that some generous folks have backed specific github actions with lumens. Check out the table below to see the payout for your contributions.</p>
+          <% end %>
+        <% end %>
+        
+        <%= row do %>
+          <%= col do %>
+            <table class="rev-Table rev-Table--striped">
+              <thead class="rev-Table-head">
+                <tr class="rev-Table-row">
+                  <th class="rev-Table-header">Github Action</th>
+                  <th class="rev-Table-header Text-right">Amount</th>
+                </tr>
+              </thead>
+              <tbody class="rev-Table-body">
+                <%= for row <- @action_rewards do %>
+                  <tr class="rev-Table-row">
+                    <td class="rev-Table-Data">
+                      <span><%= IncentivizeWeb.FundView.action_display(row.action) %></span>
+                    </td>
+                    <td class="rev-Table-Data Text-right">
+                      <span><%= row.sum %> <%= Incentivize.Stellar.asset_display() %></span>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= row do %>
+        <%= col do %>
+          <h2>Funds</h2>
+        <% end %>
+      <% end %>
+
+      <%= if not Enum.empty?(@funds) do %>
+      
+        <%= row class: "CardGrid" do %>
+          <%= for fund <- @funds do %>
+            <%= col medium: "6" do %>
+              <a class="rev-Card rev-Card--small" href="<%= fund_path(@conn, :show, @repository.owner, @repository.name, fund.id) %>">
+                <div class="rev-Card-body">
+                  <%= row class: "AvatarHeader AvatarHeader--small" do %>
+                    <%= col class: "rev-Col--shrink" do %>
+                      <img class="AvatarHeader-avatar" alt="Repo Favicon" src="<%= static_path(@conn, "/images/favicon-32x32.png") %>"/>
+                    <% end %>
+                    <%= col do %>
+                      <h4 class="AvatarHeader-title"><%= IncentivizeWeb.FundView.fund_name(fund) %></h4>
+                      <small class="AvatarHeader-subtitle" data-timestamp="<%= Timex.format!(fund.inserted_at, "%FT%T%:z", :strftime) %>"><%= fund.inserted_at %></small>
+                    <% end %>
+                  <% end %>
+                  <%= unless is_nil(fund.description) do %>
+                    <%= row do %>
+                      <%= col class: "CardGrid-description" do %>
+                        <p><%= fund.description %></p>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+                <div class="rev-Card-footer">
+                  <%= row do %>
+                    <%= col do %>
+                      <span class="StatDisplay-label">Amount Pledged:</span>
+                      <span class="StatDisplay-number" data-stellar-balance="<%= fund.stellar_public_key %>"><div class="Loader">Loading...</div></span>
+                    <% end %>
+                  <% end %>
+                </div>
+              </a>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= row do %>
+          <%= col do %>
+            <div class="EmptyState">
+              <%= row do %>
+                <%= col do %>
+                  <p>No funding yet.</p>
+                  <a class="rev-Button rev-Button--centered rev-Button--small rev-Button--secondary" href="<%= fund_path(@conn, :new, @repository.owner, @repository.name) %>">
+            Fund this project
+          </a>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+
+    <% end %>
+
+    <%= col medium: 4 do %>
+      <%= row do %>
+        <%= col do %>
+          <a class="rev-Button rev-Button--expanded u-marginBottom--small" target="_blank" rel="noreferrer" href="<%= repository_path(@conn, :contribute, @repository.owner, @repository.name) %>">
+            Contribute to this project
+          </a>
+          <a class="rev-Button rev-Button--expanded" href="<%= fund_path(@conn, :new, @repository.owner, @repository.name) %>">
+            Fund this project
+          </a>
+          <div class="rev-Card rev-Card--small">
+            <div class="rev-Card-header">
+              <%= row do %>
+                <%= col do %>
+                  <h5>Funds: <%= @stats.number_of_funds_created %></h5>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="rev-Card-body">
+              <%= row do %>
+                <%= col do %>
+                  <div class="Text-right">
+                    <span class="StatDisplay-label">XLM Awarded:</span>
+                    <span class="StatDisplay-number"><%= @stats.number_of_assets_distributed %><small><%= Incentivize.Stellar.asset_display() %></small></span>
+                  </div>
+                  <div>
+                    <span class="StatDisplay-label">XLM Available:</span>
+                    <span class="StatDisplay-number">
+                      <span data-total-stellar-balances="<%= inspect @stats.total_fund_balance %>">
+                        <div class="Loader">Loading...</div>
+                      </span>
+                    </span>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <div class="rev-Card rev-Card--small">
+            <div class="rev-Card-header">
+              <%= row do %>
+                <%= col do %>
+                  <h5>Top Contributors</h5>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="rev-Card-body">
+              <%= if Enum.empty?(@stats.most_contributions) do %>
+                <%= row do %>
+                  <%= col do %>
+                    <p class="rev-HelpText">No contributions yet, be the first to contribute to this repo!</p>
+                    <a class="rev-Button rev-Button--secondary rev-Button--small rev-Button--expanded" href="#">Contribute</a>
+                  <% end %>
+                <% end %>
+
+              <% else %>
+                <ol class="LargeNumberList">
+                  <%= for contribution <- @stats.most_contributions do %>
+                    <li>
+                      <a class="LargeNumberList-link" target="_blank" rel="noreferrer" href="https://github.com/<%= contribution.github_login %>">
+                        <%= row class: "AvatarHeader AvatarHeader--small" do %>
+                          <%= col class: "rev-Col--shrink" do %>
+                            <img class="AvatarHeader-avatar" src="<%= contribution.github_avatar_url %>&s=200"/>
+                          <% end %>
+                          <%= col do %>
+                            <h3 class="AvatarHeader-title"><%= contribution.github_login %></h3>
+                            <small class="AvatarHeader-subtitle"><strong><%= contribution.count %></strong> contributions</small>
+                          <% end %>
+                        <% end %>
+                      </a>
+                    </li>
+                  <% end %>
+                </ol>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
+</section>

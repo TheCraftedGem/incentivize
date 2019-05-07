@@ -1,0 +1,81 @@
+<%= row do %>
+  <%= col do %>
+    <%= row class: "Text-center" do %>
+      <%= col do %>
+        <h1 class="Text-center">Pricing Options</h1>
+      <% end %>
+    <% end %>
+    <%= row class: "PricingGrid" do %>
+      <%= col medium: 4 do %>
+        <%= card do %>
+          <%= card_header do %>
+            <%= row do %>
+              <%= col do %>
+                <h3>Self-hosted</h3>
+              <% end %>
+            <% end %>
+          <% end %>
+          <%= card_body do %>
+            <%= row do %>
+              <%= col do %>
+                <div class="PricingGrid-price">
+                  <h1>Free</h1>
+                </div>
+                <p>Host the open source version of Incentivize on your own server.</p>
+                <a class="rev-Button rev-Button--expanded" href="https://github.com/revelrylabs/incentivize"  target="_blank" rel="noreferrer">Get Started</a>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <%= col medium: 4 do %>
+        <%= card class: "PricingGrid-primary" do %>
+          <%= card_header do %>
+            <%= row do %>
+              <%= col do %>
+                <h3>Community</h3>
+              <% end %>
+            <% end %>
+          <% end %>
+          <%= card_body do %>
+            <%= row do %>
+              <%= col do %>
+                <div class="PricingGrid-price">
+                  <h1><%= @app_fee_precentage_display %></h1>
+                  <small class="PricingGrid-price-subtext">Per Contribution</small>
+                </div>
+                <p>Gain access to the Incentivize community for a small fee.</p>
+                <a class="rev-Button rev-Button--primary rev-Button--inverted rev-Button--expanded" href="<%= github_auth_path(@conn, :index) %>">Sign Up</a>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <%= col medium: 4 do %>
+        <%= card do %>
+          <%= card_header do %>
+            <%= row do %>
+              <%= col do %>
+                <h3>Enterprise</h3>
+              <% end %>
+            <% end %>
+          <% end %>
+          <%= card_body do %>
+            <%= row do %>
+              <%= col do %>
+                <div class="PricingGrid-price">
+                  <i data-feather="star"></i>
+                </div>
+                <p>Want to run Incentivize for your Enterprise? Get in touch for details.</p>
+                <a class="rev-Button rev-Button--expanded" href="mailto:incentivize@revelry.co">Contact Us</a>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+

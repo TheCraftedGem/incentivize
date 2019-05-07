@@ -64,14 +64,28 @@ config :incentivize, :github_app_module, Incentivize.Github.App
 config :incentivize, :nodejs, timeout: 60_000
 config :incentivize, :cache_ttl, 3_600_000
 
+# The percentage of pledge amount that the app will receive per contribution
+config :incentivize, :app_fee_percentage, 0.05
+
 config :incentivize, :stellar_asset,
   code: "XLM",
   # Should be nil for XLM or be the public key of the asset issuer
   issuer: nil
 
-config :rihanna, dispatcher_max_concurrency: 1
+config :rihanna, dispatcher_max_concurrency: 25
+config :rihanna, dispatcher_poll_interval: :timer.seconds(1)
 
 config :stellar, network: :test
+
+config :incentivize, Incentivize.Mailer, adapter: Bamboo.LocalAdapter
+
+config :incentivize, :s3_bucket, "incentivize-images"
+
+config :incentivize, :flags, pricing: true
+
+config :ex_aws,
+  access_key_id: [nil, :instance_role],
+  secret_access_key: [nil, :instance_role]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

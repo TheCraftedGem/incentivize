@@ -1,5 +1,22 @@
 $icon-alignment-margin: 2.1em;
 
+form {
+  width: 100%;
+}
+.LabelText {
+  display: block;
+  font-weight: $font-weight-semibold;
+  padding-bottom: $global-padding-tiny;
+}
+.InputContent {
+  background: $lightest-gray;
+  border-radius: $global-radius;
+  color: $body-font-color;
+  display: block;
+  opacity: 1;
+  padding: $global-padding-small;
+}
+
 .InputStack-pledge {
   padding-top: $global-padding;
 }
@@ -24,4 +41,11 @@ $icon-alignment-margin: 2.1em;
       display: none;
     }
   }
+}
+
+.ErrorText {
+  color: $error;
+}
+.FormButtons {
+  @include flex(center, row, space-between, nowrap);
 }

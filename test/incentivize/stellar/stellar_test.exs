@@ -36,6 +36,10 @@ defmodule Incentivize.Stellar.Test do
 
     assert {:ok, _transaction_url} = Stellar.add_funds_to_account(result, Decimal.new(20), "XLM")
 
-    Stellar.reward_contribution(result, contributer_public, Decimal.new(1), "A memo")
+    assert {:ok, _transaction_url} =
+             Stellar.create_account(contributer_public, Decimal.new(1), "XLM")
+
+    assert {:ok, _transaction_url} =
+             Stellar.reward_contribution(result, contributer_public, Decimal.new(1), "A memo")
   end
 end

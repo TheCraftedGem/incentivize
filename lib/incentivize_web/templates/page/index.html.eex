@@ -1,56 +1,56 @@
-<div>
-  <div class="HeaderWrapper">
-    <div class="rev-Row">
-      <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
-        <h1>Incentivize</h1>
-        <h3>
-          <strong>Incentivize.io</strong> is an
-          <strong>incentive platform for software development</strong>
-          that enables organizations or individuals to distribute Stellar Lumens to
-          GitHub project contributors.
-        </h3>
-
-      <div class="rev-Row">
-        <div class="rev-Col rev-Col--medium8 rev-Col--smallCentered Text-center">
-          <a href="<%= github_auth_path(@conn, :index) %>" class='rev-Button rev-Button--white rev-Button--icon'>
-            <img alt="GitHub logo" src="<%= static_path(@conn, "/images/logos/github/GitHub-Mark-Light-32px.png") %>"/>
-            <span>Sign Up with GitHub<span>
-          </a>
-        </div>
-      </div>
+<div class="Banner Banner--homepage">
+  <div class="rev-Row">
+    <div class="rev-Col rev-Col--small11 rev-Col--smallCentered rev-Col--medium8 Text-center">
+      <img class="Banner-productSymbol" alt="Incentivize" src="<%= static_path(@conn, "/images/incentivize-symbol.png") %>"/>
+      <h1>An Incentive Platform for Software Development</h1>
+      <p class="Lead">Incentivize enables individuals and organizations to distribute Stellar Lumens to GitHub project contributors.</p>
+      <div class="Banner-buttons">
+        <a href="<%= github_auth_path(@conn, :index) %>" class='rev-Button rev-Button--large IconButton rev-Button--primary rev-Button--inverted'>
+          <i data-feather="github"></i>
+          Sign Up with GitHub
+        </a>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="LandingPageWrapper">
-
-    <div class="Section light">
-      <div class="rev-Row">
-        <div class="rev-Col rev-Col--medium4">
-          <h3>Who Are We Building For?</h3>
-          <p>Supporters - Deposit XLM into project accounts for distribution to contributors. Contributors - Receive XLM when they contribute to projects.</p>
+  <!--
+  <section class="Section Section--light Section--iconFeatures Text-center">
+    <div class="rev-Row">
+      <div class="rev-Col rev-Col--medium4">
+        <div class="Section--iconFeatures-circle">
+          <i data-feather="users" class="Icon--medium"></i>
         </div>
-        <div class="rev-Col rev-Col--medium4">
-          <h3>Why Are We Building This?</h3>
-          <p>It can be difficult to maintain and grow Open Source projects. Contributors often don't get rewarded for open source work so there is a lack of incentives to make meaningful contributions.</p>
+        <h3>Who Are We Building For?</h3>
+        <p>Supporters - Deposit XLM into project accounts for distribution to contributors. Contributors - Receive XLM when they contribute to projects.</p>
+      </div>
+      <div class="rev-Col rev-Col--medium4">
+        <div class="Section--iconFeatures-circle">
+          <i data-feather="git-pull-request" class="Icon--medium"></i>
         </div>
-        <div class="rev-Col rev-Col--medium4">
-          <h3>What's The Tech?</h3>
-          <p>Our stack includes Elixir, Phoenix, Node, React, Harmonium, Stellar SDK for JavaScript, Stellar Horizon Server, and AWS.</p>
+        <h3>Why Are We Building This?</h3>
+        <p>It can be difficult to maintain and grow Open Source projects. Contributors often don't get rewarded for open source work so there is a lack of incentives to make meaningful contributions.</p>
+      </div>
+      <div class="rev-Col rev-Col--medium4">
+        <div class="Section--iconFeatures-circle">
+          <i data-feather="code" class="Icon--medium"></i>
         </div>
+        <h3>What's The Tech?</h3>
+        <p>Our stack includes Elixir, Phoenix, Node, React, Harmonium, Stellar SDK for JavaScript, Stellar Horizon Server, and AWS.</p>
       </div>
     </div>
+  </section>
 
     <div class="Section u-border-bottom">
       <div class="rev-Row">
-        <div class="rev-Col rev-Col--medium5">
+        <div class="rev-Col rev-Col--medium6">
           <h2>Contribute to Projects</h2>
           <p>When a Contributor finds a project they want to work on, they can select contribute and see all of the project pieces that are funded and the rewards associated with them.</p>
           <a href="<%= github_auth_path(@conn, :index) %>" class='rev-Button rev-Button--white'>
             Start Contributing
           </a>
         </div>
-        <div class="rev-Col rev-Col--medium7">
+        <div class="rev-Col rev-Col--medium6">
           <img class="Image" src="<%= static_path(@conn, "/images/highlight-img.png") %>" alt="GitHub Repository" />
         </div>
       </div>
@@ -63,30 +63,12 @@
         </div>
         <div class="rev-Col rev-Col--medium6">
           <h2>Support a Project</h2>
-          <p>the people who choose projects to support by adding <%= Incentivize.Stellar.asset_display() %> to the project fund. Supporters are anyone who is motivated to support a project by backing it with <%= Incentivize.Stellar.asset_display() %>. It could be the owner of the repository, a business, or just a single person who uses this open source tool and wants to motivate others to improve it.</p>
+          <p>The people who choose projects to support by adding <%= Incentivize.Stellar.asset_display() %> to the project fund. Supporters are anyone who is motivated to support a project by backing it with <%= Incentivize.Stellar.asset_display() %>. It could be the owner of the repository, a business, or just a single person who uses this open source tool and wants to motivate others to improve it.</p>
           <a href="<%= github_auth_path(@conn, :index) %>" class='rev-Button rev-Button--white'>
             Start Supporting
           </a>
         </div>
       </div>
     </div>
-
-    <div class="FooterWrapper img">
-      <div class="rev-Row Footer">
-        <div class="rev-Col">
-          <p>Created by
-            <a href="https://revelry.co/" target="_blank" rel="noreferrer">
-              <img class="Footer-logo" src="<%= static_path(@conn, "/images/revelry-logo.png") %>" alt="Revelry" />
-            </a>
-          </p>
-          <p>
-            Send inquiries to
-            <a href="mailto:incentivize@revelry.co">incentivize@revelry.co</a>
-            or find us on
-            <a href="https://github.com/revelrylabs/incentivize">GitHub</a>.
-          </p>
-        </div>
-      </div>
-    </div>
   </div>
-</div>
+  -->

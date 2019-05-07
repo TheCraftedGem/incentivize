@@ -43,6 +43,7 @@
     <meta name="theme-color" content="#ffffff">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
 
     <title><%= title(@view_module, @view_template, assigns) %></title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
@@ -63,20 +64,13 @@
     <div class="container">
       <div class="rev-TopBar rev-TopBar--fixed">
         <nav role="navigation">
-
           <div class="rev-TopBar-title">
-            <ul class="rev-Menu rev-Menu--horizontalLeft">
-              <li>
-                <a href="/">
-                  <img src="<%= static_path(@conn, "/images/incentivize-logo-dark.png") %>" alt="Incentivize" />
-                </a>
-              </li>
+            <a href="/" class="rev-Brand">
+              <img src="<%= static_path(@conn, "/images/incentivize-logo-dark.png") %>" alt="Incentivize" />
               <%= if Incentivize.Stellar.test_network?() do %>
-                <li>
-                  <span title="Stellar Test Network" class="TopBar-test">(Test)</span>
-                </li>
+                <span title="Stellar Test Network" class="TopBar-test">(Test)</span>
               <% end %>
-            </ul>
+            </a>
           </div>
 
           <div className="rev-Drawer rev-Drawer--right">
@@ -94,13 +88,7 @@
               <div class="rev-TopBar-item">
                 <ul class="rev-Menu">
                   <li class="rev-Menu-item">
-                    <a href="#About">About</a>
-                  </li>
-                  <li class="rev-Menu-item">
                     <a href="<%= repository_path(@conn, :index) %>">Discover</a>
-                  </li>
-                  <li class="rev-Menu-item">
-                    <a href="#Contact">Contact</a>
                   </li>
                   <%= if logged_in?(@conn) do %>
                     <li class="rev-Menu-item">
@@ -112,16 +100,24 @@
                     <li class="rev-Menu-item">
                       <a href="<%= repository_path(@conn, :settings) %>">Connect Repositories</a>
                     </li>
+                  <% else %>
+                    <%= if Incentivize.Flags.enable_pricing?() do %>
+                      <li class="rev-Menu-item">
+                        <a href="<%= page_path(@conn, :pricing) %>">Pricing</a>
+                      </li>
+                    <% end %>
                   <% end %>
                   <%= if logged_in?(@conn) do %>
-                    <div class="rev-Form">
+                    <li class="rev-Menu-item">
                       <a class="rev-Button rev-Button--expanded" href="<%= github_auth_path(@conn, :delete) %>">Log Out</a>
-                    </div>
+                    </li>
                   <% else %>
-                    <div class="rev-Form">
-                      <a class="rev-Button rev-Button--secondary" href="<%= github_auth_path(@conn, :index) %>">Login</a>
-                      <a class="rev-Button" href="<%= github_auth_path(@conn, :index) %>">Sign Up with GitHub</a>
-                    </div>
+                    <li class="rev-Menu-item">
+                      <a href="<%= github_auth_path(@conn, :index) %>">Login</a>
+                    </li>
+                    <li class="rev-Menu-item">
+                      <a href="<%= github_auth_path(@conn, :index) %>">Sign Up with GitHub</a>
+                    </li>
                   <% end %>
                 </ul>
               </div>
@@ -143,16 +139,26 @@
                 <li class="rev-Menu-item">
                   <a href="<%= repository_path(@conn, :settings) %>">Connect Repositories</a>
                 </li>
+              <% else %>
+                <%= if Incentivize.Flags.enable_pricing?() do %>
+                  <li class="rev-Menu-item">
+                    <a href="<%= page_path(@conn, :pricing) %>">Pricing</a>
+                  </li>
+                <% end %>
               <% end %>
               <%= if logged_in?(@conn) do %>
-                <div class="rev-Form">
-                  <a class="rev-Button" href="<%= github_auth_path(@conn, :delete) %>">Log Out</a>
-                </div>
+                <li class="rev-Menu-item">
+                  <a href="<%= github_auth_path(@conn, :delete) %>">Log Out</a>
+                </li>
               <% else %>
-                <div class="rev-Form">
-                  <a class="rev-Button rev-Button--secondary" href="<%= github_auth_path(@conn, :index) %>">Login</a>
-                  <a class="rev-Button" href="<%= github_auth_path(@conn, :index) %>">Sign Up with GitHub</a>
-                </div>
+                <li class="rev-Menu-item">
+                  <a href="<%= github_auth_path(@conn, :index) %>">Login</a>
+                </li>
+                <li class="rev-Menu-item">
+                  <a href="<%= github_auth_path(@conn, :index) %>">
+                    Sign Up with GitHub
+                  </a>
+                </li>
               <% end %>
             </ul>
           </div>
@@ -163,31 +169,44 @@
       <main role="main" class="rev-ContentWrapper">
         <%= if get_flash(@conn, :info) do %>
           <div class="rev-Callout success rev-Callout--success" data-alert role="alert">
-            <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
-              <div class="rev-Col rev-Col--medium8 Text-center">
-                <p><%= get_flash(@conn, :info) %></p>
-              </div>
-              <div class="rev-Col rev-Col--medium2 Text-center">
-                <p><i class="material-icons rev-Callout--close" data-alert-close>close</i></p>
+            <div class="rev-Row">
+              <div class="rev-Col Text-center">
+                <p class="FlashMessage">
+                  <%= get_flash(@conn, :info) %>
+                  <i class="CloseIcon" data-alert-close data-feather="x"></i>
+                </p>
               </div>
             </div>
           </div>
         <% end %>
         <%= if get_flash(@conn, :error) do %>
           <div class="rev-Callout alert rev-Callout--alert" data-alert role="alert">
-            <div class="rev-Row rev-Row--flex rev-Row--justifyEnd">
-              <div class="rev-Col rev-Col--medium8 Text-center">
-                <p><%= get_flash(@conn, :error) %></p>
-              </div>
-              <div class="rev-Col rev-Col--medium2 Text-center">
-                <p><i class="material-icons rev-Callout--close" data-alert-close>close</i></p>
+            <div class="rev-Row">
+              <div class="rev-Col Text-center">
+                <p class="FlashMessage">
+                  <%= get_flash(@conn, :error) %>
+                  <i class="CloseIcon" data-alert-close data-feather="x"></i>
+                </p>
               </div>
             </div>
           </div>
         <% end %>
         <%= render @view_module, @view_template, assigns %>
       </main>
-
+      <footer class="Footer">
+        <div class="rev-Row rev-Row--flex rev-Row--alignCenter">
+          <div class="rev-Col">
+            <p class="Footer-copy">
+              Copyright 2018, incentivize.io. <a href="mailto:incentivize@revelry.co">Contact Us</a>
+            </p>
+          </div>
+          <div class="rev-Col rev-Col--shrink">
+            <a href="https://revelry.co/" target="_blank" rel="noreferrer">
+              <img class="Footer-logo" src="<%= static_path(@conn, "/images/revelry-logo.png") %>" alt="Revelry" />
+            </a>
+          </div>
+        </div>
+      </footer>
     </div> <!-- /container -->
     <%= if Application.get_env(:rollbax, :client_token) do %>
       <script>
@@ -215,5 +234,8 @@
       self.incentivize = self.incentivize || incentivize;
     </script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script>
+      feather.replace()
+    </script>
   </body>
 </html>

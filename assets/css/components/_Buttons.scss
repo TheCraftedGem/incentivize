@@ -1,3 +1,58 @@
+.rev-Button {
+  @include brand-gradient;
+  position: relative;
+  z-index: $default;
+  &:before {
+    @include global-transition;
+    @include brand-gradient-hover;
+    content: '';
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: $below;
+  }
+  &:hover {
+    @include brand-gradient;
+    &:before {
+      opacity: 1;
+    }
+  }
+  &:active,
+  &:focus {
+    @include brand-gradient-active;
+    &:before {
+      opacity: 0;
+    }
+  }
+  &.rev-Button--inverted,
+  &.rev-Button--seondary {
+    &:before {
+      display: none;
+    }
+  }
+  &.rev-Button--inverted.rev-Button--secondary {
+    box-shadow: 0 0 0 1px $white-60 inset;
+    color: $white-80;
+    &:hover {
+      background: transparent;
+      box-shadow: 0 0 0 1px $white-80 inset;
+      color: $white;
+    }
+    &:active,
+    &:focus {
+      background: transparent;
+      background: $white-80;
+      color: $white;
+    }
+  }
+}
+.rev-Button--expanded {
+  text-align: center;
+}
+
 .ButtonLink {
   @include flex(center, row, flex-start);
   color: $primary;
@@ -12,28 +67,26 @@
     font-size: $global-font-size-small;
     font-weight: $global-weight-normal;
     margin-left: $global-margin-tiny;
+    &.list {
+      padding-bottom: 0;
+      &:last-of-type {
+        padding-bottom: 12px;
+      }
+    }
   }
   .ButtonLink--textRight {
     font-weight: $global-weight-normal;
     margin-right: $global-margin-tiny;
   }
-}
-.rev-ButtonGroup {
-  .rev-Button {
-    &:first-child {
-      margin-right: $global-margin-small;
-    }
+  .repoIcon {
+    padding: $global-padding-tiny $global-padding-tiny 0 0;
+    font-size: $global-font-size-large;
   }
 }
-
-.rev-Button--icon {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  align-self: center;
-  img {
-    display: inline-block;
-    margin-right: 1rem;
+.IconButton {
+  @include flex(center, row, center, nowrap);
+  .feather {
+    height: 2rem;
+    margin-right: $global-margin-tiny;
   }
 }

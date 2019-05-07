@@ -1,0 +1,8 @@
+// flex grid fix for Harmonium
+// TODO: add to harmonium
+.rev-Row {
+  .rev-Col--shrink {
+    flex: 0 0 auto;
+    width: auto;
+  }
+}

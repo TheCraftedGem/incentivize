@@ -26,8 +26,8 @@
 
     <%= col do %>
       <label class="rev-InputStack rev-InputLabel">
-        <span>Logo URL</span>
-        <%= url_input(f, :logo_url, class: "rev-Input") %>
+        <span>Upload Logo</span>
+        <div data-media-uploader data-logo-url="<%= @changeset.data.logo_url %>" data-input-name="repository[logo_url]"></div>
         <%= error_tag f, :logo_url %>
       </label>
     <% end %>
