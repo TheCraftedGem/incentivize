@@ -1,6 +1,6 @@
 # Incentivize
 
-[![Coverage Status](https://coveralls.io/repos/github/revelrylabs/incentivize/badge.svg?branch=master)](https://coveralls.io/github/revelrylabs/incentivize?branch=master)
+[![Coverage Status](https://opencov.prod.revelry.net/projects/22/badge.svg)](https://opencov.prod.revelry.net/projects/22)
 [![Build Status](https://travis-ci.com/revelrylabs/incentivize.svg?token=eDnMwv6sT4GHB9E2RzXt&branch=master)](https://travis-ci.com/revelrylabs/incentivize)
 
 Product Owner: Gerard Ramos
