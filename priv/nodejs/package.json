@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "stellar-sdk": "^0.13.0"
+    "stellar-sdk": "^2.1.1"
   }
 }
