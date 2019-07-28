@@ -13,6 +13,7 @@ defmodule Incentivize.Github.OAuth do
       authorize_url: "https://github.com/login/oauth/authorize",
       token_url: "https://github.com/login/oauth/access_token"
     )
+    |> OAuth2.Client.put_serializer("application/json", Jason)
   end
 
   def authorize_url! do

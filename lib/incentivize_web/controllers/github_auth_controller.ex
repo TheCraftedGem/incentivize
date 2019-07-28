@@ -18,15 +18,11 @@ defmodule IncentivizeWeb.GithubAuthController do
   end
 
   def callback(conn, %{"code" => code}) do
-    IO.inspect(conn)
-    IO.inspect("____________________")
-    IO.inspect(code)
     # Exchange an auth code for an access token
     client = GitHub.get_token!(code: code)
-    IO.inspect(client)
+
     # Request the user's data with the access token
     %{body: user} = OAuth2.Client.get!(client, "/user")
-
     params = %{
       github_login: user["login"],
       github_avatar_url: user["avatar_url"],
