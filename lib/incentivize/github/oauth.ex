@@ -5,7 +5,6 @@ defmodule Incentivize.Github.OAuth do
 
   def client do
     config = Confex.get_env(:incentivize, Incentivize.Github.OAuth, [])
-
     Client.new(
       strategy: __MODULE__,
       client_id: Keyword.get(config, :client_id),

@@ -170,8 +170,8 @@ config :incentivize, Incentivize.Github.OAuth,
 
 Since you will be receiving webhooks, you will need to use a domain other than `localhost`. You can use the script at `bin/tunnel` to create a domain to use. This will let you use the webhooks locally
 
-- Go to https://github.com/settings/developers
-- Click `New OAuth App`
+- Go to https://github.com/settings/apps
+- Click `New Github App`
 - Put in the following:
   - GitHub App name: <Your App Name>
   - Homepage URL: https://<my_domain>
@@ -207,7 +207,7 @@ For development, you will need a Stellar Account on the Testnet
 
 - Go to https://www.stellar.org/laboratory/#account-creator?network=test
 - Click `Generate Keypair`
-- Take not of the Public Key and Secret Key
+- Take note of the Public Key and Secret Key
 - To let Friendbot fund your account with lumens, put your Public Key into the box on the bottom of the page and click `Get test network lumens`
 - Add your Public Key and Secret Key to your app configuration
 

@@ -69,6 +69,7 @@ defmodule Incentivize.Github.App.Test do
 
   test "get_installation_access_token", %{bypass: bypass} do
     json = File.read!("./test/fixtures/create_installation_access_token.json")
+    IO.inspect(json)
     installation_id = 12_345
 
     Bypass.expect_once(
