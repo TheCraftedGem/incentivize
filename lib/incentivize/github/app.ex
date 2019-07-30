@@ -73,7 +73,7 @@ defmodule Incentivize.Github.App do
       import Joken
       alias JOSE.JWK
 
-      key = JWK.from_pem(private_key)
+      private_key = JWK.from(private_key)
 
       %{
         "iss" => config[:app_id],
@@ -81,7 +81,7 @@ defmodule Incentivize.Github.App do
         "exp" => DateTime.to_unix(DateTime.utc_now()) + 10 * 60
       }
       |> token
-      |> sign(rs256(key))
+      |> sign(rs256(private_key))
       |> get_compact
     else
       ""

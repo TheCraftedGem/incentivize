@@ -12,7 +12,7 @@ config :incentivize,
 # Configures the endpoint
 config :incentivize, IncentivizeWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "2ICx98yJO4b08TwDLYwn4iFDWkxDwOqzCR6wyk0O1giiPBr3MvI9ySwg6o7dKeeu",
+  secret_key_base: "TMuc0jVS7+Cbji5GJ5jXtpW/xmbadoVLXbrVx/Kn/8Wv4nm4a9zM5frqJeI/nLwB",
   render_errors: [view: IncentivizeWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Incentivize.PubSub, adapter: Phoenix.PubSub.PG2],
   instrumenters: [IncentivizeWeb.Instrumenter]
