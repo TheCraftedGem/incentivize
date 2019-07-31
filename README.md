@@ -190,6 +190,8 @@ Since you will be receiving webhooks, you will need to use a domain other than `
 
 Now go into your newly created Github App. Generate a private key by clicking `Generate a private key`.
 
+Be sure to include the downloaded .pem file in your config folder. 
+
 - From this page, add the following to the `Incentivize.Github.App` portion of your app configuration
 
 ```elixir
