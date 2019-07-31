@@ -66,14 +66,13 @@ defmodule Incentivize.Github.App do
 
   # Generates token for github app-level API calls
   defp get_app_auth_token do
-    config = Confex.get_env(:incentivize, Incentivize.Github.App, [])
-    private_key = config[:private_key]
-
+    config      = Confex.get_env(:incentivize, Incentivize.Github.App, [])
+    {:ok, private_key} =  config[:private_key]
     if private_key do
       import Joken
       alias JOSE.JWK
 
-      private_key = JWK.from(private_key)
+      private_key = JWK.from_pem(private_key)
 
       %{
         "iss" => config[:app_id],
